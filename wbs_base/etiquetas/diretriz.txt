@@ -1,0 +1,6 @@
+open 200.251.60.119
+etq
+951786
+LCD c:\etiqueta
+get 42C22B2.txt
+bye

@@ -1,0 +1,125 @@
+<html>
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="<? echo DIR_CSS; ?>/saci.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/sistema.css" rel="stylesheet" type="text/css">
+<link href="../../../css/saci.css" rel="stylesheet" type="text/css">
+<link href="../../../css/sistema.css" rel="stylesheet" type="text/css">
+<title></title>
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+.style3 {color: #000000; font-weight: bold; }
+-->
+</style>
+
+<script language="JavaScript" type="text/JavaScript">
+
+
+function doSix_load(form3, codcliente_pesq, codcar_pesq)
+{
+
+var tipolist= '<? echo $tipolist; ?>';
+
+document.form33.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=5&menu_not=1&Action=&"; ?>codcliente_bl='+codcliente_pesq+'&tipolist='+tipolist+'&codcar_bl='+codcar_pesq+'';
+document.form33.target = 'idescr';
+document.form33.submit();
+
+}
+
+
+</script>
+ 
+</head>
+
+<body>
+<div align="right"><span class="titulonomeprod"><? echo "$codpedbarra_pesq"; ?></span><br>
+  <!-- INICIO -->
+</div>
+<form method="post" name="form33" >
+<table width="100%"  border="0" cellpadding="1" cellspacing="1">
+  <tr>
+    <td width="5%" align="left" class="titulonomeprod">&nbsp;</td>
+    <td width="50%" align="Left" class="titulonomeprod">Boleta Banc&aacute;ria e Carteira</td>
+    <td width="15%" align="left" class="titulonomeprod">&nbsp;</td>
+    <td width="15%" align="left" class="titulonomeprod">&nbsp;</td>
+    <td width="15%" align="left" class="titulonomeprod">&nbsp;</td>
+    <td width="15%" align="left" class="titulonomeprod">&nbsp;</td>
+    <td width="15%" align="left" class="titulonomeprod">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="center" class="titulo">&nbsp;</td>
+       <td align="center" class="titulo"><span class="style3">CLIENTE</span></td>
+    <td align="center" class="titulo"><span class="style3">DATA VENC.</span></td>
+    <td align="center" class="titulo"><span class="style3">VALOR </span></td>
+    <td align="center" class="titulo"><span class="style3">ACUMULADO</span></td>
+    <td align="center" class="titulo"><span class="style3">ATRASO<br>
+    (DIAS)</span></td>
+    <td align="center" class="titulo"><span class="style3">AGENDA<br>
+    </span></td>
+  </tr>
+  
+  <? 
+  $chave = 0;
+  if ($rs_parc) {
+  	
+		while (!$rs_parc->EOF) { 
+	
+		$valor_acumulado = $valor_acumulado + $rs_parc->fields['valordevido'];
+        
+      if ($rs_parc->fields['pos'] == 1 and $chave == 0){
+      	?> 
+  <tr  bgcolor="#FFCC66">
+  
+    <td align="center" class="sacitd2"><img src="<? echo DIR_IMAGES; ?>/flecharojaup.gif"></td>
+      <td align="center" class="sacitd2">&nbsp;</td>
+    <td align="center" class="sacitd2"><strong>ATRASO</strong></td>
+    <td align="right" class="sacitd2">&nbsp;</td>
+    <td align="right" class="sacitd2">&nbsp;</td>
+    <td align="right" class="sacitd2">&nbsp;</td>
+    <td align="right" class="sacitd2">&nbsp;</td>
+  </tr>
+   <tr  bgcolor="#66FF66">
+  
+    <td align="center" class="sacitd2"><img src="<? echo DIR_IMAGES; ?>/flechaverdedown.gif"></td>
+    <td align="center" class="sacitd2">&nbsp;</td>
+    <td align="center" class="sacitd2"><strong>A VENCER</strong></td>
+    <td align="right" class="sacitd2">&nbsp;</td>
+    <td align="right" class="sacitd2">&nbsp;</td>
+    <td align="right" class="sacitd2">&nbsp;</td>
+    <td align="right" class="sacitd2">&nbsp;</td>
+   </tr>
+  <?
+      $chave = 1;
+      }
+				 		  
+		?> 
+  <tr  bgcolor="<? echo $bgtr_color; ?>">
+    <td align="center" class="sacitd2"><? echo $rs_parc->fields['opcaixa']; ?><br><a href="javascript:void(0);" class="lkverde2" onClick= "doSix_load(form33, <? echo $codcliente_pesq ?>, <? echo $rs_parc->fields['codcar']; ?> )"><img src="<? echo DIR_IMAGES; ?>/b_props.png" width="16" height="16" border="0"></a></td>
+    <td align="left" class="sacitd2"><b><? echo $rs_parc->fields['cliente']; ?></b><br><? echo $rs_parc->fields['codbarra']; ?> - <? echo $rs_parc->UserTimeStamp($rs_parc->fields['dataped'],'d-m-Y'); ?><br><b><? echo $rs_parc->fields['numdoc']; ?></b></td>
+    <td align="center" class="sacitd2"><? echo $rs_parc->UserTimeStamp($rs_parc->fields['datavenc'],'d-m-Y'); ?></td>
+    <td align="right" class="sacitd2">R$ <? echo $db->fvalor($rs_parc->fields['valordevido']); ?></td>
+    <td align="right" class="sacitd2">R$ <? echo $db->fvalor($valor_acumulado); ?></td>
+    <td align="right" class="sacitd2"><? echo $rs_parc->fields['atraso']; ?></td>
+    <td align="right" class="sacitd2"><div align="center">QTDE:<? echo $rs_parc->fields['num_contato']; ?><br>
+        <strong>ULT:</strong><br>
+        <? echo $rs_parc->fields['data_visita']; ?><br>
+    </div></td>
+  </tr>
+  <?
+
+		$rs_parc->MoveNext();
+		}//WHILE
+	}
+?>
+</table>
+</form>
+<p>&nbsp;</p>
+<p>&nbsp; </p>
+</body>
+</html>

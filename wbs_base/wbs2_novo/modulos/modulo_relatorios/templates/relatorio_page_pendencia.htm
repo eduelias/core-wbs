@@ -1,0 +1,179 @@
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Untitled Document</title>
+<link href="<? echo DIR_CSS; ?>/sistema.css" rel="stylesheet" type="text/css">
+
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+//-->
+</script>
+</head>
+
+<body>
+ <form method="post" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&Action=pesquisa#pesq"; ?>" name="pesq" >
+<table width="740" border="0" align="center">
+  <tr>
+    <td valign="top"><table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td><img src="<? echo DIR_IMAGES; ?>/relatorio_pend_status.gif"></td>
+      </tr>
+      <tr>
+        <td background="<? echo DIR_IMAGES; ?>/spacer.gif" bgcolor="#EA0000"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+      </tr>
+    </table>    
+      <br>
+ 
+
+      <table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td height="22" bgcolor="#FFF0F0" class="titulos_itens">PESQUISA</td>
+        </tr>
+        <tr>
+          <td background="<? echo DIR_IMAGES; ?>/spacer.gif" bgcolor="#EA0000"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+        </tr>
+      </table>      
+      <table width="100%"  border="0" align="center" cellpadding="3" cellspacing="0">
+        <tr>
+          <td class="vermelhobold11">POR:</td>
+          <td>Projeto</td>
+          <td>Periodo</td>
+          <td rowspan="2"><input name="imageField" type="image" src="<? echo DIR_IMAGES; ?>/btpesquisarred.gif" width="87" height="25" border="0"></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td><select name="codproj_select" class="campoquant4" id="codproj_select" >
+                   
+           
+            <?
+	for($i = 0; $i < count($array_pesq1); $i++ ){
+
+?>
+   <option value="<? echo"$codproj_pesq[$i]"; ?>"><? echo"$nomeproj_pesq[$i]"; ?></option>
+            <?
+	}//FOR
+?>
+            <option selected value = "">Escolha do Projeto</option></select></td>
+          <td>DE 
+            <input name="dini" type="text" class="campoquant4" id="dini" size="2" maxlength="2">
+            /
+            <input name="mini" type="text" class="campoquant4" id="mini" size="2" maxlength="2">
+            /
+            <input name="aini" type="text" class="campoquant4" id="aini" size="4" maxlength="4">
+            AT&Eacute;
+            <input name="dfim" type="text" class="campoquant4" id="dfim" size="2" maxlength="2">
+/
+<input name="mfim" type="text" class="campoquant4" id="mfim" size="2" maxlength="2">
+/
+<input name="afim" type="text" class="campoquant4" id="afim" size="4" maxlength="4"></td>
+          </tr>
+        <tr>
+          <td><span class="vermelhobold11">POR:</span></td>
+          <td>Status</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td><select name="status_select" class="campoquant4" id="status_select" >
+            <option value="APROV">APROV</option>
+            <option value="PECA">PECA</option>
+            <option value="PROD">PROD</option>
+            <option value="LIB">LIB</option>
+            <option value="DESP">DESP</option>
+            <option value="ENTR">ENTR</option>
+            <option value = "" selected >Escolha Status</option>
+            <?
+	for($i = 0; $i < count($array_pesq1); $i++ ){
+
+?>
+            <?
+	}//FOR
+?>
+          </select></td>
+          <td>            <input name="ordvend" type="checkbox" id="ordvend" value="1"> 
+            ORDENAR POR VENDEDOR<br> 
+              <input name="cadnpg" type="checkbox" id="cadnpg" value="1"> 
+              PEDIDO PAGO <br>
+              <input name="cadnpg2" type="checkbox" id="cadnpg2" value="1">
+PEDIDO N&Atilde;O PAGO </td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+       <br>
+	  
+	   
+       <table width="100%"  border="0" align="center" cellpadding="5" cellspacing="0">
+         <tr>
+           <td width="25%" bgcolor="#FFF0F0" class="titulos_itens">PROJETO: <span style="font-weight: normal;
+"><? echo"$nomeproj_select"; ?></span></td>
+           <td width="25%" bgcolor="#FFF0F0" class="titulos_itens">PER&Iacute;ODO: <span style="font-weight: normal;
+"><? echo"DE: $dini/$mini/$aini ATÉ: $dfim/$mfim/$afim"; ?></span></td>
+ 			<td width="25%" bgcolor="#FFF0F0" class="titulos_itens">&nbsp;</td>
+         </tr>
+       </table>       
+       <br>
+       <table width="100%"  border="0" align="center" cellpadding="3" cellspacing="0">
+         <tr class="titulos_itens">
+           <td align="center">COD.</td>
+           <td>CLIENTE</td>
+           <td align="center">NOME VEND </td>
+           <td align="center">VALOR<br>
+             (R$)</td>
+           <td align="center">DATA PED</td>
+           <td align="center">STATUS</td>
+           <td align="center">CONT</td>
+           <td align="center">CTR</td>
+           <td align="center">LIB</td>
+           <td align="center">FAT</td>
+           <td align="center">CX</td>
+         </tr>
+         <?
+	for($i = 0; $i < count($array2); $i++ ){
+?>
+         
+         <tr onMouseOver="this.bgColor='#FFDBB7'" onMouseOut="this.bgColor ='#FFFFFF'" bgcolor="#FFFFFF">
+           <td align="center"><b><? echo"$codbarra_rel[$i]"; ?></b><br>
+            <span class="peq"><? echo"$nomeemp_rel[$i]"; ?></span></td>
+           <td><span class="nomeprod1"><? echo"$nomecli_rel[$i]"; ?></span><br>               </td>
+           <td align="center"><span class="nomeprod1"><? echo"$nomevend_rel[$i]"; ?></span></td>
+           <td align="center"><? echo"$vpp_rel[$i]"; ?></td>
+           <td align="center"><? echo"$dataped_rel[$i]"; ?></td>
+           <td align="center" class="nomeprod1"><? echo"$status_rel[$i]"; ?></td>
+           <td align="center" class="nomeprod1"><? echo $cont_rel[$i]; ?></td>
+           <td align="center" class="nomeprod1"><? echo"$contrato_rel[$i]"; ?></td>
+           <td align="center" class="nomeprod1"><? echo"$libentr_rel[$i]"; ?></td>
+           <td align="center" class="nomeprod1"><? echo"$fat_rel[$i]"; ?></td>
+           <td align="center" class="nomeprod1"><? echo"$caixa_rel[$i]"; ?></td>
+         </tr>
+		        <?
+	}//FOR
+?>
+         <tr onMouseOver="this.bgColor='#FFDBB7'" onMouseOut="this.bgColor ='#FFFFFF'" bgcolor="#FFFFFF">
+           <td align="center"><strong>QTDE:</strong> <span class="nomeprod1"><? echo"$i"; ?></span></td>
+           <td>&nbsp;</td>
+           <td align="center"><strong>TOTAL:</strong></td>
+           <td align="center"><? echo"$vtotal"; ?></td>
+           <td align="center">&nbsp;</td>
+           <td align="center" class="nomeprod1">&nbsp;</td>
+           <td align="center" class="nomeprod1">&nbsp;</td>
+           <td align="center" class="nomeprod1">&nbsp;</td>
+           <td align="center" class="nomeprod1">&nbsp;</td>
+           <td align="center" class="nomeprod1">&nbsp;</td>
+           <td align="center" class="nomeprod1">&nbsp;</td>
+         </tr>
+  
+       </table></td>
+  </tr>
+  <tr>
+    <td valign="top">&nbsp;</td>
+  </tr>
+
+</table>
+</form>
+</body>
+</html>

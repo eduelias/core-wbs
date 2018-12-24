@@ -1,0 +1,153 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<script language="javascript" src="<? echo DIR_JS; ?>/funcoes01.js"></script>
+</head>
+
+<body>
+<?
+$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light);
+?>
+<br>
+<table  border="0" cellspacing="2" cellpadding="2">
+  <tr>
+	<td><? $db->botao(MOD_COR, "Criar OS", "", "pg=$pg&pg_ped=100", "", ""); ?></td>
+  </tr>
+</table>
+<br>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Pesquisa</legend>
+<table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+<form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&Action=Pesquisar"; ?>" name="pesquisa" method="post">
+  <tr>
+    <td align="center" class="generalGreyBorderBottomTableHeaderCell">Cod OS </td>
+    <td align="center" class="generalGreyBorderBottomTableHeaderCell">Nome Cliente </td>
+    <td align="center" class="generalGreyBorderBottomTableHeaderCell">Status</td>
+    <td align="center" class="generalGreyBorderBottomTableHeaderCell">T&eacute;cnico</td>
+    <td align="center" class="generalGreyBorderBottomTableHeaderCell">+ de<br>
+      (Dias)</td>
+    <td align="center" class="generalGreyBorderBottomTableHeaderCell">Hist</td>
+    <td class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+    <td width="70%" align="center" class="generalGreyBorderBottomTableHeaderCell"><input name="pg" type="hidden" id="pg" value="<? echo $pg; ?>">
+      <input name="pg_ped" type="hidden" id="pg_ped" value="<? echo $pg_ped; ?>"></td>
+  </tr>
+  <tr>
+    <td class="noramlTableCell"><input name="codospesq" type="text" class="campo_linha" id="codospesq" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"' size="15" maxlength="13"></td>
+    <td class="noramlTableCell"><input name="nomeclientepesq" type="text" class="campo_linha" id="nomeclientepesq" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"' size="30"></td>
+    <td class="noramlTableCell"><select name="status" class="campo_select" id="status" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"'>
+                <option value="" selected="selected">Selecione...</option>
+                <option value="ABERTA">ABERTA</option>
+                <option value="DIAG">DIAG</option>
+                <option value="AGUARDA ANALISE">AGUARDA ANALISE</option>
+                <option value="LIB ENTR">LIB ENTR</option>
+                <option value="ENTREGUE">ENTREGUE</option>
+                <option value="FECHADA">FECHADA</option>
+                            </select></td>
+    <td class="noramlTableCell"><select name="codtecnico" class="campo_select" id="codtecnico" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"'>
+	<option value="" selected="selected">Selecione...</option>
+	<?
+	if ($rs_tecnico)
+{
+	while (!$rs_tecnico->EOF)
+	{
+	?>
+      
+      <option value="<? echo $rs_tecnico->fields['codtecnico']; ?>"><? echo $db->format_str("UP", $rs_tecnico->fields['tecnico']); ?></option>
+	  <?
+	  	$rs_tecnico->MoveNext();
+	}//WHILE
+}
+?>
+	  
+    </select></td>
+    <td class="noramlTableCell"><input name="numdias" type="text" class="campo_linha" id="numdias" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"' size="4" maxlength="3"></td>
+    <td class="noramlTableCell"><table border="0" cellspacing="1" cellpadding="1">
+      <tr>
+        <td><input name="hist" type="radio" value="S"></td>
+        <td><strong>SIM</strong></td>
+        <td><input name="hist" type="radio" value="N" checked></td>
+        <td><strong>N&Atilde;O</strong></td>
+      </tr>
+    </table></td>
+    <td class="noramlTableCell"><input type="submit" name="Action" value="Pesquisar" class="botao_cor"></td>
+    <td align="center" class="noramlTableCell">&nbsp;</td>
+  </tr>
+</form>
+</table>
+</fieldset>
+<br>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Lista</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<form name="lista" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=100"; ?>" method="post">
+  <tr>
+    <td><table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+      <tr>
+        <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+        <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell">Cod OS</td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">Nome Cliente </td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">T&eacute;cnico</td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">Data</td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">Status</td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">LIB</td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">Cont</td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">Pgto.</td>
+        <td width="1" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+      </tr>
+      <?
+if ($rs_lista)
+{
+	$ix = 0;
+	while (!$rs_lista->EOF)
+	{
+	if ($rs_lista->fields['codtecnico'] <> 0){
+		$rs_tecnico_at = $db->query_db("SELECT  tecnico FROM os_at_tecnicos WHERE codtecnico = '".$rs_lista->fields['codtecnico']."'","SQL_NONE","N");
+	}
+?>
+      <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+        <td align="center" class="noramlTableCell"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=600&codos_at_select="; ?><? echo $rs_lista->fields['codos_at']; ?>"><img src="<? echo DIR_BOTOES; ?>/computer_edit.png" border="0"></a></td>
+        <td align="center" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;"><small><? echo $rs_lista->fields['codbarra_os_at']; ?></small></td>
+        <td class="noramlTableCell"><small><? echo $db->format_str("UP", $rs_lista->fields['nome']); ?></small></td>
+        <td align="center" class="noramlTableCell"><small><? if ($rs_tecnico_at->fields['tecnico']) { echo $db->format_str("UP", $rs_tecnico_at->fields['tecnico']); } else { echo "-";} ?></small></td>
+        <td align="center" class="noramlTableCell"><small><? echo $rs_lista->UserTimeStamp($rs_lista->fields['dataos_at_ini'],'d/m/Y H:i'); ?></small></td>
+        <td align="center" class="noramlTableCell"><small><b><? echo $db->format_str("UP", $rs_lista->fields['status']); ?></b></small></td>
+        <td align="center" class="noramlTableCell"><?
+if ($rs_lista->fields['os_lib'] == "N") { echo "<b><font color=#EA0000>NO</font></b>"; }
+if ($rs_lista->fields['os_lib'] == "S") { echo "<b><font color=#99CC00>OK</font></b>"; }
+?></td>
+        <td align="center" class="noramlTableCell"><? echo $prod->numdias($rs_lista->fields['dataos_at_ini'], $db->datahoraatual());?></td>
+        <td align="center" class="noramlTableCell"><?
+if ($rs_lista->fields['caixa'] == "NO") { echo "<b><font color=#EA0000>NO</font></b>"; }
+if ($rs_lista->fields['caixa'] == "OK") { echo "<b><font color=#99CC00>OK</font></b>"; }
+?></td>
+        <td align="center" class="noramlTableCell"><a href="javascript:void(0);" onClick="NewWindow('<? echo "$PHP_SELF?pg=$pg&pg_ped=107&menu_not=1&codos_at_select="; ?><? echo $rs_lista->fields['codos_at']; ?>', 'imp', '659', '400', 'yes'); return false;"><img src="<? echo DIR_BOTOES; ?>/printer.png" border="0"></a></td>
+      </tr>
+      <?
+		// "NewWindow('','name','650','400','yes'); return false;"
+		$ix++;
+		$rs_lista->MoveNext();
+	}//WHILE
+}
+?>
+    </table>
+      <?
+if ($total_reg <> 0)
+{
+	echo "<hr size='1' noshade>";
+	$html_pg = $paginator->Construir_Links("todos", "sim");
+	$qtd_paginas = $paginator->qtd_paginas;
+	for ($i = 0; $i < $qtd_paginas; $i++)
+	{
+		echo $html_pg[$i];
+	}
+}
+?></td>
+  </tr>
+</form>
+</table>
+</fieldset>
+</body>
+</html>

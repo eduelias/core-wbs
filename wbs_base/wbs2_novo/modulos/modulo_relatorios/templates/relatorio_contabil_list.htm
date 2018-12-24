@@ -1,0 +1,209 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="<? echo DIR_JS; ?>/calendar.js"></script>
+<script language="javascript" src="<? echo DIR_JS; ?>/funcoes01.js"></script>
+</head>
+
+<body>
+<?
+$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light);
+?>
+<br>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Pesquisa</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+      <form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&Action=Pesquisar"; ?>" method="post" name="pesquisa" id="pesquisa">
+        <tr>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">De</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">At&eacute;</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Produto</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="60%" align="center" class="generalGreyBorderBottomTableHeaderCell"><input type="hidden" name="Action" value="Pesquisar" /></td>
+        </tr>
+        <tr>
+          <td class="noramlTableCell" style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor=&quot;<? echo $bg_cor_light; ?>&quot;' onmouseout='this.style.backgroundColor=&quot;#FFFFFF&quot;'><table  border="0" cellpadding="1" cellspacing="1">
+              <tr>
+                <td><input name="datainicio" type="text" class="campo_linha" id="datainicio" onfocus='this.style.backgroundColor=&quot;<? echo $bg_cor_light; ?>&quot;; blur()' onblur='this.style.backgroundColor=&quot;#FFFFFF&quot;' /></td>
+                <td><a href="javascript:void(0);" onClick="openCalendar('pg=9', 'pesquisa', 'datainicio', 'datetime')"><img src="<? echo DIR_BOTOES; ?>/calendar_view_month.png" border="0" /></a></td>
+              </tr>
+          </table></td>
+          <td class="noramlTableCell" style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor=&quot;<? echo $bg_cor_light; ?>&quot;' onmouseout='this.style.backgroundColor=&quot;#FFFFFF&quot;'><table  border="0" cellpadding="1" cellspacing="1">
+              <tr>
+                <td><input name="datafim" type="text" class="campo_linha" id="datafim" onfocus='this.style.backgroundColor=&quot;<? echo $bg_cor_light; ?>&quot;; blur()' onblur='this.style.backgroundColor=&quot;#FFFFFF&quot;' /></td>
+                <td><a href="javascript:void(0);" onClick="openCalendar('pg=9', 'pesquisa', 'datafim', 'datetime')"><img src="<? echo DIR_BOTOES; ?>/calendar_view_month.png" border="0" /></a></td>
+              </tr>
+          </table></td>
+          <td class="noramlTableCell" onfocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onblur='this.style.backgroundColor="#FFFFFF"'><select name="codprod_pesq" class="campo_select" onfocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onblur='this.style.backgroundColor="#FFFFFF"'>
+		  
+      <?
+if ($rs_drop)
+{
+	while (!$rs_drop->EOF)
+	{
+?>
+            <option value="<? echo $rs_drop->fields[0]; ?>"><? echo $rs_drop->fields[0]; ?></option>
+            
+<?	
+	
+					$rs_drop->MoveNext();
+	}//WHILE
+}
+?>
+			
+          </select>          </td>
+          <td class="noramlTableCell"><input type="submit" name="Submit" value="Pesquisar" class="botao_cor" /></td>
+          <td align="center" class="noramlTableCell"><a href="#"></a></td>
+        </tr>
+      </form>
+    </table></td>
+  </tr>
+</table>
+</fieldset>
+<br>
+<? if ($Action == "Pesquisar") { ?>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">PRODUTO </legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<form name="lista" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=1"; ?>" method="post">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="50%">&nbsp;</td>
+        <td width="50%" align="left">&nbsp;</td>
+      </tr>
+    </table>
+      <br>
+    <table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+      <tr>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+        <td width="10%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+        <td width="63%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+        <td width="5%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+        <td width="2%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+        <td width="4%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+        <td width="10%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+      </tr>
+      <tr>
+        <td width="6%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+        <td width="6%" align="center" class="generalGreyBorderBottomTableHeaderCell">Data</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Nota Fiscal </td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">PRODUTO </td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">ENTR</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">SAIDA</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">SALDO</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">PCU<br>
+            (R$)</td>
+          </tr>
+      <?
+if ($rs_pesq_pa)
+{
+	$ix = 0;
+	while (!$rs_pesq_pa->EOF)
+	{
+     $db->connect_wbs();
+     $rs_pesq1 = $db->query_db("SELECT nomeprod FROM produtos WHERE codprod = '".$rs_pesq_pa->fields[3]."' ","SQL_NONE","N");
+     $rs_pesq2 = $db->query_db("SELECT codbarra, dataped FROM pedido WHERE codped = '".$rs_pesq_pa->fields[8]."' ","SQL_NONE","N");
+?>
+      <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+        <td align="center" class="noramlTableCell" ><? echo $rs_pesq_pa->fields[7]; ?></span></td>
+        <td align="center" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;"><? echo $rs_pesq_pa->fields[0]; ?><br><? echo $rs_pesq2->fields[0];  ?><br><? echo $rs_pesq_pa->fields[9];  ?></td>
+          <td align="center" class="noramlTableCell"><? echo $rs_pesq_pa->fields[1];  ?></td>
+          <td align="left" class="noramlTableCell"><? echo $rs_pesq1->fields[0];  ?></td>
+          <td align="center" class="noramlTableCell"><? echo $rs_pesq_pa->fields[4];  ?></td>
+          <td align="center" class="noramlTableCell"><? echo $rs_pesq_pa->fields[5];  ?></td>
+          <td align="center" valign="top" class="noramlTableCell"><? echo $saldo_pa[$ix] = $saldo_pa[$ix-1] + ($rs_pesq_pa->fields[4]- $rs_pesq_pa->fields[5]);  ?></td>
+          <td align="center" class="noramlTableCell"><? echo $rs_pesq_pa->fields[6];  ?></td>
+        </tr>
+      <?
+	 	$ix++;
+		
+		$rs_pesq_pa->MoveNext();
+	}//WHILE
+}
+?>
+      </table>
+        <hr size="1" noshade>
+        <hr size="1" noshade></td>
+  </tr>
+</form>
+</table>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">PRODUTO EM PROCESSO</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <form name="lista" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=1"; ?>" method="post">
+    <tr>
+      <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="50%">&nbsp;</td>
+          <td width="50%" align="left">&nbsp;</td>
+        </tr>
+      </table>
+          <br>
+          <table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+            <tr>
+              <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+              <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+              <td width="10%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+              <td width="63%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+              <td width="5%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+              <td width="2%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+              <td width="4%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+              <td width="10%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+            </tr>
+            <tr>
+              <td width="6%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+              <td width="6%" align="center" class="generalGreyBorderBottomTableHeaderCell">Data</td>
+              <td align="center" class="generalGreyBorderBottomTableHeaderCell">Nota Fiscal </td>
+              <td align="center" class="generalGreyBorderBottomTableHeaderCell">PRODUTO </td>
+              <td align="center" class="generalGreyBorderBottomTableHeaderCell">ENTR</td>
+              <td align="center" class="generalGreyBorderBottomTableHeaderCell">SAIDA</td>
+              <td align="center" class="generalGreyBorderBottomTableHeaderCell">SALDO</td>
+              <td align="center" class="generalGreyBorderBottomTableHeaderCell">PCU<br>
+                (R$)</td>
+            </tr>
+            <?
+if ($rs_pesq_pp)
+{
+	$ix = 0;
+	while (!$rs_pesq_pp->EOF)
+	{
+     $db->connect_wbs();
+     $rs_pesq1 = $db->query_db("SELECT nomeprod FROM produtos WHERE codprod = '".$rs_pesq_pp->fields[3]."' ","SQL_NONE","N");
+     $rs_pesq2 = $db->query_db("SELECT codbarra, dataped FROM pedido WHERE codped = '".$rs_pesq_pp->fields[8]."' ","SQL_NONE","N");
+?>
+            <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+              <td align="center" class="noramlTableCell" ><? echo $rs_pesq_pp->fields[7]; ?></span></td>
+              <td align="center" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;"><? echo $rs_pesq2->fields[0]; ?><br><? echo $rs_pesq_pp->fields[8];  ?><br><? echo $rs_pesq_pp->fields[9];  ?></td>
+              <td align="center" class="noramlTableCell"><? echo $rs_pesq_pp->fields[1];  ?></td>
+              <td align="left" class="noramlTableCell"><? echo $rs_pesq1->fields[0];  ?></td>
+              <td align="center" class="noramlTableCell"><? echo $rs_pesq_pp->fields[4];  ?></td>
+              <td align="center" class="noramlTableCell"><? echo $rs_pesq_pp->fields[5];  ?></td>
+              <td align="center" valign="top" class="noramlTableCell"><? echo $saldo_pp[$ix] = $saldo_pp[$ix-1] + ($rs_pesq_pp->fields[4]- $rs_pesq_pp->fields[5]);  ?></td>
+              <td align="center" class="noramlTableCell"><? echo $rs_pesq_pp->fields[6];  ?></td>
+            </tr>
+            <?
+	 	$ix++;
+		
+		$rs_pesq_pp->MoveNext();
+	}//WHILE
+}
+?>
+          </table>
+    <hr size="1" noshade>
+          <hr size="1" noshade></td>
+    </tr>
+  </form>
+</table>
+</fieldset>
+<p>&nbsp;</p>
+</fieldset>
+<? } ?>
+</body>
+</html>

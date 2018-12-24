@@ -1,0 +1,81 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+.style1 {
+	color: #FF0000;
+	font-size: 12px;
+}
+-->
+</style></head>
+
+<body>
+ 
+
+<?if ($end <> 1){?>
+<BR>
+<table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+<form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=100&menu_not=1"; ?>" method="post" name="pesquisa" target="iped">
+  <tr>
+    <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+    <td colspan="2" align="center" class="noramlTableCell"><strong><big><big>MODELO: <? echo $db->format_str("UP", $rs_produtos_op->fields['nomeprod']); ?></big></big></strong><br><? echo $_POST['sn_pesq'] ?></td>
+    </tr>
+  <tr>
+    <td width="10%" align="center" class="generalGreyBorderBottomTableHeaderCell">CodProd</td>
+    <td align="center" class="generalGreyBorderBottomTableHeaderCell">Nome Produto </td>
+    <td align="center" class="generalGreyBorderBottomTableHeaderCell">Codbarra</td>
+    </tr>
+ 
+
+  <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+    <td align="center" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;"><? echo $rs_prod_ant->fields['codprod']; ?></td>
+    <td class="noramlTableCell"><strong><? echo $db->format_str("UP", $rs_prod_ant->fields['nomeprod']); ?><br>
+       <? if ($num_row_ant == 0){ ?><span class="style1">CODBARRA INCORRETO !</span><?}?></strong></td>
+    <td align="center" class="noramlTableCell">Antigo: 
+	
+	  <input type="text" name="codbarra_ant" value = "<? echo $codbarra_ant; ?>" <? if ($lib_mod ==1){ echo"onfocus='this.style.backgroundColor=&quot;#FFF4F4&quot;; blur()' onblur='this.style.backgroundColor=&quot;#FFFFFF&quot;'"; }?>><input type="hidden" name="codcb_ant" value = "<? echo $rs_prod_ant->fields['codcb']; ?>">
+	
+	 </td>
+    </tr>
+	<tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+    <td align="center" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;"><? echo $rs_prod_novo->fields['codprod']; ?></td>
+    <td class="noramlTableCell"><strong><? echo $db->format_str("UP", $rs_prod_novo->fields['nomeprod']); ?><br>
+      <? if ($num_row_novo == 0){ ?><span class="style1">CODBARRA INCORRETO !</span><?}?></strong></td>
+    <td align="center" class="noramlTableCell">
+	Novo: 
+	 <input type="text" name="codbarra_novo" value = "<? echo $codbarra_novo; ?>" <? if ($lib_mod ==1){ echo"onfocus='this.style.backgroundColor=&quot;#FFF4F4&quot;; blur()' onblur='this.style.backgroundColor=&quot;#FFFFFF&quot;'"; }?>><input type="hidden" name="codcb_novo" value = "<? echo $rs_prod_novo->fields['codcb']; ?>">
+ 	  </td>
+    </tr>
+ 
+
+  
+ <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+    <td align="center" class="noramlTableCell" >&nbsp;</td>
+    <td class="noramlTableCell"><input type="hidden" name="hiddenField">
+     
+   	   <input type="hidden" name="cont" value = "<? echo $ix ?>">
+	   <input type="hidden" name="idop_sn" value = "<? echo $rs_lista->fields['idop_sn']; ?>">
+        <input type="hidden" name="idop_prod" value = "<? echo $rs_prod_ant->fields['idop_prod']; ?>">
+	   <input type="hidden" name="sn_pesq" value = "<? echo $_POST['sn_pesq'] ?>"></td>
+    <td align="center" class="noramlTableCell"><input type="submit" name="Action" value="<? echo $Action ?>"></td>
+  </tr>  </form>
+</table>
+
+<p>
+<? }?>
+</p>
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+</body>
+</html>

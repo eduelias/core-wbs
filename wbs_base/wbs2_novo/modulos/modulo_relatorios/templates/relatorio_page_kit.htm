@@ -1,0 +1,165 @@
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Untitled Document</title>
+<link href="<? echo DIR_CSS; ?>/sistema.css" rel="stylesheet" type="text/css">
+
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+//-->
+</script>
+</head>
+
+<body>
+ <form method="post" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&Action=pesquisa#pesq"; ?>" name="pesq" >
+<table width="740" border="0" align="center">
+  <tr>
+    <td valign="top"><table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td><img src="<? echo DIR_IMAGES; ?>/relatorio_pend_status.gif"></td>
+      </tr>
+      <tr>
+        <td background="<? echo DIR_IMAGES; ?>/spacer.gif" bgcolor="#EA0000"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+      </tr>
+    </table>    
+      <br>
+ 
+
+      <table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td height="22" bgcolor="#FFF0F0" class="titulos_itens">PESQUISA</td>
+        </tr>
+        <tr>
+          <td background="<? echo DIR_IMAGES; ?>/spacer.gif" bgcolor="#EA0000"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+        </tr>
+      </table>      
+      <table width="100%"  border="0" align="center" cellpadding="3" cellspacing="0">
+        <tr>
+          <td class="vermelhobold11">POR:</td>
+          <td>Periodo</td>
+          <td>Vendedor</td>
+          <td rowspan="2"><input name="imageField" type="image" src="<? echo DIR_IMAGES; ?>/btpesquisarred.gif" width="87" height="25" border="0"></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>DE
+            <input name="dini" type="text" class="campoquant4" id="dini" size="2" maxlength="2">
+/
+<input name="mini" type="text" class="campoquant4" id="mini" size="2" maxlength="2">
+/
+<input name="aini" type="text" class="campoquant4" id="aini" size="4" maxlength="4">
+AT&Eacute;
+<input name="dfim" type="text" class="campoquant4" id="dfim" size="2" maxlength="2">
+/
+<input name="mfim" type="text" class="campoquant4" id="mfim" size="2" maxlength="2">
+/
+<input name="afim" type="text" class="campoquant4" id="afim" size="4" maxlength="4"></td>
+          <td><select name="codvend_select" class="campoquant4" id="codvend_select" >
+            <?
+	if ($rs_vend) {
+		while (!$rs_vend->EOF) {
+
+?>
+            <option value="<? echo $rs_vend->fields['codvend']; ?>"><? echo $rs_vend->fields['nome']; ?></option>
+            <?
+		$rs_vend->MoveNext();
+		}//WHILE
+	}
+?>
+            <option selected value = "">Escolha o Vendedor</option>
+          </select></td>
+          </tr>
+        <tr>
+          <td><span class="vermelhobold11">POR:</span></td>
+          <td colspan="2">Tipo</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td colspan="2"><select name="tipo_select" class="campoquant4" id="tipo_select" >
+            <option value="PD" selected>PADRÃO</option>
+            <option value="CD">PADRÃO + UNID OTICA</option>
+            <option value="GB">PADRÃO + GABINETE</option>
+            <option value="GC">PADRÃO + GABINETE + UNID OTICA</option>
+                           </select>
+            <br>
+            PADR&Atilde;O: PROC + MEM + PL + HD <br>            </td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+       <br>
+	  
+	   
+       <table width="100%"  border="0" align="center" cellpadding="5" cellspacing="0">
+         <tr>
+           <td width="10%" bgcolor="#FFF0F0" class="titulos_itens">TIPO: <span style="font-weight: normal;
+"><? echo"$tipo_select"; ?></span></td>
+           <td width="50%" bgcolor="#FFF0F0" class="titulos_itens">PER&Iacute;ODO: <span style="font-weight: normal;
+"><? echo"DE: $dini/$mini/$aini ATÉ: $dfim/$mfim/$afim"; ?>
+           </span></td>
+ 			<td width="40%" bgcolor="#FFF0F0" class="titulos_itens">Vendedor: <span style="font-weight: normal;
+"><? echo"$codvend_select"; ?></span></td>
+         </tr>
+       </table>       
+       <br>
+       <table width="100%"  border="0" align="center" cellpadding="3" cellspacing="0">
+         <tr class="titulos_itens">
+           <td width="80%" align="center">CONJUNTO</td>
+           <td width="10%" align="center">QTDE</td>
+           <td width="10%" align="center">PORC</td>
+          </tr>
+         <?
+	if ($rs) {
+		$j=0;$i=0;
+		while (!$rs->EOF) {
+?>
+         	
+         <tr onmouseover="this.bgColor='#FFDBB7'" onmouseout="this.bgColor ='#FFFFFF'" bgcolor="#FFFFFF">
+           <td width="80%" align="left"><? echo $rs->fields['cj_nomeprod'] ; ?><br>            </td>
+           <td width="10%" align="center"><span class="nomeprod1"><? echo $rs->fields['qtde'] ; ?></span><br>               </td>
+           <td width="10%" align="center"><span class="nomeprod1"><? echo $rs->fields['porc'] ; ?> %</span></td>
+          </tr>
+		        <?
+				$j = $j + $rs->fields['qtde'];
+				$i++;
+	 	$rs->MoveNext();
+		}//WHILE
+	}
+?>
+         <tr onmouseover="this.bgColor='#FFDBB7'" onmouseout="this.bgColor ='#FFFFFF'" bgcolor="#FFFFFF">
+           <td width="80%" align="right"><strong>QTDE:</strong><? echo" $i DE <b>$j</b>"; ?></td>
+           <td width="10%" align="center"> <span class="nomeprod1"></span></td>
+           <td width="10%" align="center">&nbsp;</td>
+          </tr>
+  
+       </table></td>
+  </tr>
+  <tr>
+    <td valign="top">
+	    <?
+if ($total_reg <> 0)
+{
+	$html_pg = $_pg->Construir_Links("todos", "sim");
+	$qtd_paginas = $_pg->qtd_paginas;
+	for ($i = 0; $i < $qtd_paginas; $i++)
+	{
+		echo $html_pg[$i];
+	}
+}
+?>
+        <span class="titulos_itens"><span style="font-weight: normal;
+">
+        <input name="pg" type="hidden" id="pg" value="<? echo $pg;?>">
+        <input name="pg_ped" type="hidden" id="pg_ped" value="<? echo $pg_ped;?>">
+        <input type="hidden" name="hiddenField">
+</span></span>	</td>
+  </tr>
+
+</table>
+</form>
+</body>
+</html>

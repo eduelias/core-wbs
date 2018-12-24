@@ -1,0 +1,117 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+-->
+</style></head>
+
+<body>
+<?
+$xi = 1;
+while(!$rs_analises->EOF) {
+$liberagravar = 0;
+$trava_cancel = 0;
+?>
+<table width="100%" border="0" cellspacing="2" cellpadding="2" class="generalTable defaultBlackText" <? if ($rs_analises->fields['cancel'] == 'S') { echo "bgcolor='#FFD7D7'"; $trava_cancel = 1; } ?>>
+<form action="<? echo "$PHP_SELF?pg=$pg&pg_ped=105&menu_not=1"; ?>" name="ana<? echo $xi; ?>" method="post"><input name="codos_at_select" type="hidden" value="<? echo $codos_at_select; ?>"><input name="codos_at_analise_select" type="hidden" value="<? echo $rs_analises->fields['codanalise']; ?>">
+  <tr style="cursor: pointer;">
+    <td width="3%" rowspan="2" align="center" valign="middle" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;"><? echo $xi; ?></td>
+    <td width="10%" class="noramlTableCell"><strong>Sintoma</strong></td>
+    <td class="noramlTableCell">
+<? if ($rs_analises->fields['codsintoma'] == 0) { ?>
+<select name="codsintoma_save" class="campo_select" id="codsintoma_save" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"'>
+<option selected value="-1">Escolha...</option>
+<?
+if ($rs_sintomas)
+{
+	while (!$rs_sintomas->EOF)
+	{
+?>
+  <option value="<? echo $rs_sintomas->fields['codsintoma']; ?>"><? echo $rs_sintomas->fields['codsintoma']; ?> - <? echo $db->format_str("UP", $rs_sintomas->fields['descricao']); ?></option>
+  <?
+	 	$rs_sintomas->MoveNext();
+	}//WHILE
+	$rs_sintomas->Move(0);
+}
+?>
+</select>
+<?
+}
+else
+{
+$liberagravar = $liberagravar + 1;
+$db->connect_wbs();
+//$db->$conn->debug = true;
+$rs_0 = $db->query_db("SELECT codsintoma, descricao FROM os_at_sintomas WHERE codsintoma = '".$rs_analises->fields['codsintoma']."'","SQL_NONE","N");
+$db->disconnect();
+echo $rs_0->fields['codsintoma'];
+echo " - ";
+echo $db->format_str("UP", $rs_0->fields['descricao']);
+}
+?></td>
+  </tr>
+  <tr style="cursor: pointer;">
+    <td class="noramlTableCell">&nbsp;</td>
+    <td class="noramlTableCell">
+<?
+if ($rs_analises->fields['cancel'] == 'N')
+{
+    if ($liberagravar == 3)
+    {
+        $botao = 2;
+    }
+    elseif ($liberagravar == 0)
+    {
+        $botao = 4;
+    }
+    else
+    {
+        $botao = 3;
+    }
+}
+else
+{
+    $botao = 1;
+}
+
+switch ($botao)
+{
+    // Cancelado
+    case "1" :
+        echo "<strong>CANCELADO EM ".$rs_analises->UserTimeStamp($rs_analises->fields['datacancel'],'d/m/Y H:i')."</strong>";
+    break;
+    // Cancelar
+    case "2" :
+        echo '<input type="submit" name="Action" value="Cancelar" class="botao_cor" />';
+    break;
+    // Cancelar, Gravar
+    case "3" :
+        echo '<input name="Action" type="submit" class="botao_cor" id="Action" value="Gravar" />';
+        echo '<input type="submit" name="Action" value="Cancelar" class="botao_cor" />';
+    break;
+    // Gravar, Excluir
+    case "4" :
+        echo '<input name="Action" type="submit" class="botao_cor" id="Action" value="Gravar" />';
+        echo '<input type="submit" name="Action" value="Excluir" class="botao_cinza" />';
+    break;
+}
+?>	</td>
+  </tr>
+</form>
+</table>
+<br>
+<?
+$xi++;
+$rs_analises->MoveNext(); }//WHILE ?>
+</body>
+</html>

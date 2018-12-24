@@ -1,0 +1,220 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/sistema.css" rel="stylesheet" type="text/css">
+<script language="javascript" type="text/javascript">
+
+function doTwo(form1)
+{
+var pg_ped
+var tipo = document.getElementById("tipoclipesq").value
+if (tipo == "F") { pg_ped = 2 } else { pg_ped = 3 }
+
+document.form1.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped="; ?>'+pg_ped+'';
+document.form1.target = '';
+document.form1.submit();
+
+}
+
+
+function mascara_cpf(form, campo, cpf)
+{
+	var mycpf = '';
+    mycpf = mycpf + cpf;
+    if (mycpf.length == 3) {
+        mycpf = mycpf + '.';
+        document.getElementById(campo).value = mycpf;
+    }
+    if (mycpf.length == 7) {
+        mycpf = mycpf + '.';
+        document.getElementById(campo).value = mycpf;
+    }
+    if (mycpf.length == 11) {
+        mycpf = mycpf + '-';
+        document.getElementById(campo).value = mycpf;
+    }
+    if (mycpf.length == 14) {
+    }
+}
+
+
+function mascara_cnpj(form, campo, cnpj)
+{
+	var mycpf = '';
+    mycpf = mycpf + cnpj;
+    if (mycpf.length == 2) {
+        mycpf = mycpf + '.';
+        document.getElementById(campo).value = mycpf;
+    }
+    if (mycpf.length == 6) {
+        mycpf = mycpf + '.';
+        document.getElementById(campo).value = mycpf;
+    }
+    if (mycpf.length == 10) {
+        mycpf = mycpf + '/';
+        document.getElementById(campo).value = mycpf;
+    }
+	  if (mycpf.length == 15) {
+        mycpf = mycpf + '-';
+        document.getElementById(campo).value = mycpf;
+    }
+    if (mycpf.length == 18) {
+    }
+}
+</script>
+<style type="text/css">
+<!--
+.style1 {	color: #FF0000;
+	font-weight: bold;
+}
+-->
+</style>
+</head>
+
+<body>
+<table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><img src="<? echo DIR_IMAGES; ?>/cadastrodecliente.gif" width="245" height="40"></td>
+  </tr>
+  <tr>
+    <td background="<? echo DIR_IMAGES; ?>/spacer.gif" bgcolor="#0F9B80"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+  </tr>
+  <tr>
+    <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="5" height="5"></td>
+  </tr>
+</table>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><fieldset class="pesq_cad_field">
+      <legend class="pesq_cad_legend">Inserir Novo:</legend>
+      <table  border="0" cellpadding="2" cellspacing="4">
+        <form action="" method="POST" name="form1">
+          <tr>
+            <td><select name="tipoclipesq" class="campo3" id="tipoclipesq">
+                <option value="F" selected>Pessoa Física</option>
+				<option value="J" >Pessoa Jurídica</option>
+            </select></td>
+            <td><input name="Button" type="button" class="botao3" value="ok" onClick="doTwo('form1');"></td>
+          </tr>
+        </form>
+      </table>
+    </fieldset></td>
+  </tr>
+  <tr>
+    <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="5" height="5"></td>
+  </tr>
+</table>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="33%"><table  border="0" cellpadding="2" cellspacing="2">
+      <tr>
+        <td><img src="<? echo DIR_IMAGES; ?>/reload.gif" width="22" height="22"></td>
+        <td><a href="<? echo "$PHP_SELF?pg=$pg&pg_ped=0&hist=$hist&codemppesq=$codemppesq";?>">ATUALIZAR TABELA</a></td>
+      </tr>
+    </table></td>
+    <td width="33%">&nbsp;</td>
+    <td width="34%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="3"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="5" height="5"></td>
+  </tr>
+</table>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><fieldset class="pesq_cad_field">
+      <legend class="pesq_cad_legend">Pesquisar por: </legend>
+      <table  border="0" cellspacing="2" cellpadding="2">
+        <form action="<? echo"$PHP_SELF?Action=pesquisa&pg=$pg&pg_ped=0"; ?>" method="POST" name="form">
+          <tr>
+            <td valign="top">COD<br>
+                <input name="codbarrapesq" type="text" class="campo3" id="codbarrapesq" size="14" maxlength="13"></td>
+            <td valign="top">CLIENTE<br>
+                <input name="nomeclientepesq" type="text" class="campo3" id="nomeclientepesq" size="15"></td>
+            <td rowspan="2" valign="top"><table  border="0" cellspacing="2" cellpadding="2">
+                <tr>
+                  <td align="center" valign="middle"><input name="tipocliente" type="radio" value="F" checked></td>
+                  <td>CPF<br>
+                      <input id="cpf" name="cpf" type="text" class="campo3" size="16" maxlength="14" onKeyUp="mascara_cpf(this.form, 'cpf', this.value)"></td>
+                </tr>
+                <tr>
+                  <td align="center" valign="middle"><input name="tipocliente" type="radio" value="J"></td>
+                  <td>CNPJ<br>
+                      <input id="cnpj" name="cnpj" type="text" class="campo3" size="21" maxlength="18" onKeyUp="mascara_cnpj(this.form, 'cnpj', this.value)"></td>
+                </tr>
+            </table></td>
+            <td rowspan="2" valign="middle"><input name="Action" type="hidden" id="Action" value="pesquisa">
+            <input name="Submit" type="submit" class="botao3" value="Pesquisar"></td>
+          </tr>
+          <tr>
+            <td colspan="2" valign="top"><input name="meusclientes" type="checkbox" id="meusclientes" value="OK">
+              MEUS CLIENTES </td>
+          </tr>
+          <input name="codemppesq" type="hidden" class="botao3" value="<? echo"$codemppesq" ?>">
+          <input name="hist" type="hidden" class="botao3" value="<? echo"$hist" ?>">
+        </form>
+      </table>
+    </fieldset></td>
+  </tr>
+  <tr>
+    <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="5" height="5"></td>
+  </tr>
+</table>
+<table width="100%"  border="0" cellspacing="1" cellpadding="2">
+    <tr>
+      <td class="orc_titulos">COD</td>
+      <td class="orc_titulos">NOME</td>
+      <td class="orc_titulos">N&ordm; DOC </td>
+      <td class="orc_titulos">RESP</td>
+      <td class="orc_titulos">TEMPO<br>(dias)</td>
+      <td class="orc_titulos">&nbsp;</td>
+    </tr>
+    <?
+	for($k = 0; $k < count($array2); $k++ ){
+	
+    		if ($tipoclientepesq[$k] == 'F')
+    		{
+                $ndoc = $cpf_cli[$k];
+				$pg_tipocli = 2;
+            }
+            if ($tipoclientepesq[$k] == 'J')
+            {
+                $ndoc = $cnpj_cli[$k];
+				$pg_tipocli = 3;
+            }
+		?>
+    <tr bgcolor="#D2F0D0">
+      <td align="center" ><? echo $codcliente[$k]; ?></td>
+      <td ><strong><? echo $nomecliente[$k]; ?></strong></td>
+      <td align="center" ><? echo $ndoc; ?></td>
+      <td align="center" ><? echo $resp[$k]; ?></td>
+      <td align="center" ><? if (strtolower($resp[$k]) == strtolower($login) or $list_cli_padrao == 'Y') { ?><table width="100%" border="0" cellspacing="1" cellpadding="1">
+        <tr>
+          <td><strong><? echo $nome_fantasia[$k]; ?></strong></td>
+        </tr>
+        <tr>
+          <td><? echo $cidade[$k]." - ".$estado[$k]; ?></td>
+        </tr>
+        <tr>
+          <td><span class="style1">Contato:</span> <? echo $contatocomprador[$k]; ?><br>
+            (<? echo $dddtel1[$k]; ?>) <? echo $tel1[$k]; ?> <BR> (<? echo $dddtel2[$k]; ?>) <? echo $tel2[$k]; ?></td>
+        </tr>
+      </table> <?
+	}
+?></td>
+      <td align="center" bgcolor="#D2F0D0" ><strong><? if (strtolower($resp[$k]) == strtolower($login) or $list_cli_padrao == 'Y') { echo "<a href='$PHP_SELF?Action=Procurar&pg=$pg&pg_ped=$pg_tipocli&codcliente=$codcliente[$k]&pula=1'>Atualizar</a>"; } ?></strong></td>
+  </tr>
+    <?
+	}
+?>
+</table>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="5" height="5"></td>
+  </tr>
+  <tr>
+    <td bgcolor="#0F9B80"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+  </tr>
+</table>
+</body>
+</html>

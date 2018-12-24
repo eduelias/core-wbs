@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<link href="wbs2_novo/css/padrao.css" rel="stylesheet" type="text/css">
+<link href="wbs2_novo/css/vermelho.css" rel="stylesheet" type="text/css">
+<title></title>
+<style type="text/css">
+<!--
+.pontoss {
+	font-size: 18px;
+	font-weight: bold;
+}
+-->
+</style>
+</head>
+
+<body>
+<? $db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light); ?>
+<br />
+<table width="100%" border="0" cellspacing="2" cellpadding="2">
+  <tr>
+    <td width="50%" valign="top">
+		<fieldset class="campo_fieldset">
+			<legend class="campo_fieldset_legend">Premia&ccedil;&atilde;o do M&ecirc;s</legend>
+			<table  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+              <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor=&quot;<? echo $bg_cor_light; ?>&quot;' onmouseout='this.style.backgroundColor=&quot;#FFFFFF&quot;'>
+                <td colspan="2" align="center"><img src="<? echo $rs_produto->fields['img']; ?>" width="200" height="200" /></td>
+              </tr>
+              <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor=&quot;<? echo $bg_cor_light; ?>&quot;' onmouseout='this.style.backgroundColor=&quot;#FFFFFF&quot;'>
+                <td align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">M&ecirc;s</td>
+                <td class="noramlTableCell"><table width="100%" border="0" cellspacing="1" cellpadding="1">
+                  <tr>
+                      <td><strong><? echo $echo_mes; ?></strong></td>
+                  </tr>
+                    <form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=100"; ?>" name="mess" method="post"><tr>
+                      <td><select name="selectmes" class="campo_select" id="selectmes" onfocus='this.style.backgroundColor=&quot;<? echo $bg_cor_light; ?>&quot;' onblur='this.style.backgroundColor=&quot;#FFFFFF&quot;'>
+                        <option value="">Troque de m&ecirc;s...</option>
+                        <option value="01">Janeiro</option>
+                        <option value="02">Fevereiro</option>
+                        <option value="03">Mar&ccedil;o</option>
+                        <option value="04">Abril</option>
+                        <option value="05">Maio</option>
+                        <option value="06">Junho</option>
+                        <option value="07">Julho</option>
+                        <option value="08">Agosto</option>
+                        <option value="09">Setembro</option>
+                        <option value="10">Outubro</option>
+                        <option value="11">Novembro</option>
+                        <option value="12">Dezembro</option>
+                      </select>
+                      <input type="submit" name="Submit" value="ok" class="botao_cor" /></td>
+                    </tr></form>
+                  </table></td>
+              </tr>
+              <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor=&quot;<? echo $bg_cor_light; ?>&quot;' onmouseout='this.style.backgroundColor=&quot;#FFFFFF&quot;'>
+                <td align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Pr&eacute;mio</td>
+                <td class="noramlTableCell"><? echo $rs_produto->fields['titulo']; ?></td>
+              </tr>
+              <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor=&quot;<? echo $bg_cor_light; ?>&quot;' onmouseout='this.style.backgroundColor=&quot;#FFFFFF&quot;'>
+                <td align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Meus Pontos (m&ecirc;s)  </td>
+                <td class="noramlTableCell pontoss"><? echo $rs_acumulado_mes->fields['total_mes']; ?> pts </td>
+              </tr>
+            </table>
+		    <br />
+			<? if($rs_controle->fields['controle'] <> 0) { ?>
+		    <table  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+              <tr>
+                <td colspan="2" align="center" class="campo_fieldset_legend">Ranking do M&ecirc;s </td>
+              </tr>
+              <tr>
+                <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+                <td align="center" class="generalGreyBorderBottomTableHeaderCell">Vendedor</td>
+              </tr>
+              <?
+if ($rs_lista)
+{
+	$ix = 1;
+	while (!$rs_lista->EOF)
+	{
+?>
+              <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor=&quot;<? echo $bg_cor_light; ?>&quot;' onmouseout='this.style.backgroundColor=&quot;#FFFFFF&quot;'>
+                <td align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;"><? echo $ix; ?>&deg;</td>
+                <td class="noramlTableCell"><strong><? echo $rs_lista->fields['nome']; ?></strong></td>
+              </tr>
+              <?
+	 	$ix++;
+		$rs_lista->MoveNext();
+	}//WHILE
+}
+?>
+            </table><? } ?>
+		</fieldset>
+	</td>
+    <td width="50%" valign="top"><fieldset class="campo_fieldset">
+    <legend class="campo_fieldset_legend">Premia&ccedil;&atilde;o do Acumulada </legend>
+    <table  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+      <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor=&quot;<? echo $bg_cor_light; ?>&quot;' onmouseout='this.style.backgroundColor=&quot;#FFFFFF&quot;'>
+        <td colspan="2" align="center"><img src="<? echo $rs_produtof->fields['img']; ?>" width="200" height="200" /><br />
+          <br />
+          <br />
+          <br />
+          <br /></td>
+      </tr>
+
+      <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor=&quot;<? echo $bg_cor_light; ?>&quot;' onmouseout='this.style.backgroundColor=&quot;#FFFFFF&quot;'>
+        <td align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Pr&eacute;mio</td>
+        <td class="noramlTableCell"><? echo $rs_produtof->fields['titulo']; ?> </td>
+      </tr>
+      <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor=&quot;<? echo $bg_cor_light; ?>&quot;' onmouseout='this.style.backgroundColor=&quot;#FFFFFF&quot;'>
+        <td align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Meus Pontos (acumulado)</td>
+        <td class="noramlTableCell pontoss"><? echo $rs_acumulado_ano->fields['total_acum']; ?> pts</td>
+      </tr>
+    </table>
+    <br />
+    <table  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+      <tr>
+        <td colspan="2" align="center" class="campo_fieldset_legend">Ranking Acumulado </td>
+      </tr>
+      <tr>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">Vendedor</td>
+      </tr>
+      <?
+if ($rs_lista2)
+{
+	$ix = 1;
+	while (!$rs_lista2->EOF)
+	{
+?>
+      <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor=&quot;<? echo $bg_cor_light; ?>&quot;' onmouseout='this.style.backgroundColor=&quot;#FFFFFF&quot;'>
+        <td align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;"><? echo $ix; ?>&deg;</td>
+        <td class="noramlTableCell"><strong><? echo $rs_lista2->fields['nome']; ?></strong></td>
+      </tr>
+      <?
+	 	$ix++;
+		$rs_lista2->MoveNext();
+	}//WHILE
+}
+?>
+    </table>
+    </fieldset></td>
+  </tr>
+</table>
+</body>
+</html>

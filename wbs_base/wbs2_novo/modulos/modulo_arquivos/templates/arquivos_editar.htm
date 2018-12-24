@@ -1,0 +1,114 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<script language='JavaScript' src = "<? echo DIR_JS; ?>/scripts.js"></script>
+<script language='JavaScript' src = "<? echo DIR_JS; ?>/util.js"></script>
+</head>
+
+<body>
+<?
+$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light);
+$db->voltar(MOD_COR, $pg, "");
+?>
+<br>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" class="titulo_superior2">
+  <tr>
+    <td>Editar Arquivo </td>
+  </tr>
+</table>
+<table width="100%"  border="0" cellpadding="2" cellspacing="0" class="generalTable defaultBlackText">
+  <form method="post" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=100&Action=Editar"; ?>" name="editar">
+    <tr style="background-color: #FFFFFF; cursor: pointer;">
+      <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">CodPG</td>
+      <td class="noramlTableCell"><strong><? echo $rs_show->fields['codpg']; ?></strong></td>
+    </tr>
+    <tr style="background-color: #FFFFFF; cursor: pointer;">
+      <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Nome </td>
+      <td class="noramlTableCell"><input name="nome" type="text" class="campo_linha" id="nome" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF";' value="<? echo $rs_show->fields['nomem']; ?>" size="50"></td>
+    </tr>
+    <tr style="background-color: #FFFFFF; cursor: pointer;">
+      <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Arquivo</td>
+      <td class="noramlTableCell"><input name="arquivo" type="text" class="campo_linha" id="arquivo" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF";' value="<? echo $rs_show->fields['arquivo']; ?>" size="50"></td>
+    </tr>
+    <tr style="background-color: #FFFFFF; cursor: pointer;">
+      <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Descri&ccedil;&atilde;o</td>
+      <td class="noramlTableCell"><input name="descricao" type="text" class="campo_linha" id="descricao" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF";' value="<? echo $rs_show->fields['descr']; ?>" size="50"></td>
+    </tr>
+    <tr style="background-color: #FFFFFF; cursor: pointer;">
+      <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Vis&iacute;vel</td>
+      <td class="noramlTableCell"><select name="visivel" class="campo_select" id="visivel">
+        <option value="<? echo $rs_show->fields['actionpg']; ?>" select><? if($rs_show->fields['actionpg'] == "S") { echo "SIM"; } else { echo "NÃO"; } ?>  [+]</option>
+		<option value="S">Sim</option>
+        <option value="N">N&atilde;o</option>
+        </select>      </td>
+    </tr>
+    <tr style="background-color: #FFFFFF; cursor: pointer;">
+      <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">M&oacute;dulo</td>
+      <td class="noramlTableCell"><select name="modulo" class="campo_select" id="modulo">
+        <option value="<? echo $rs_show->fields['modulo']; ?>" select><? if($rs_show->fields['modulo'] == "S") { echo "SIM"; } else { echo "NÃO"; } ?>  [+]</option>
+		<option value="S">Sim</option>
+        <option value="N">N&atilde;o</option>
+                  </select></td>
+    </tr>
+    <tr style="background-color: #FFFFFF; cursor: pointer;">
+      <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Habilitado</td>
+      <td class="noramlTableCell"><select name="habilitado" class="campo_select" id="habilitado">
+        <option value="<? echo $rs_show->fields['habilitado']; ?>" select><? if($rs_show->fields['habilitado'] == "S") { echo "SIM"; } else { echo "NÃO"; } ?>  [+]</option>
+        <option value="S">Sim</option>
+        <option value="N">N&atilde;o</option>
+      </select></td>
+    </tr>
+    <tr style="background-color: #FFFFFF; cursor: pointer;">
+      <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Manuten&ccedil;&atilde;o</td>
+      <td class="noramlTableCell"><select name="manutencao" class="campo_select" id="manutencao">
+        <option value="<? echo $rs_show->fields['habilitado']; ?>" select>
+          <? if($rs_show->fields['manutencao'] == "S") { echo "SIM"; } else { echo "N&Atilde;O"; } ?>
+          [+]</option>
+        <option value="S">Sim</option>
+        <option value="N">N&atilde;o</option>
+      </select></td>
+    </tr>
+    <tr style="background-color: #FFFFFF; cursor: pointer;">
+      <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Senha</td>
+      <td class="noramlTableCell"><select name="senha" class="campo_select" id="senha">
+        <option value="<? echo $rs_show->fields['habilitado']; ?>" select>
+          <? if($rs_show->fields['senha'] == "S") { echo "SIM"; } elseif($rs_show->fields['senha'] == "N") { echo "N&Atilde;O"; } else { echo "PERSISTENTE"; } ?>
+          [+]</option>
+        <option value="S">Sim</option>
+        <option value="N">N&atilde;o</option>
+		<option value="P">Persistente</option>
+      </select></td>
+    </tr>
+    <tr style="background-color: #FFFFFF; cursor: pointer;">
+      <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Menu</td>
+      <td class="noramlTableCell"><select name="menu" class="campo_select" id="menu" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"'>
+            <option value="<? echo $rs_show->fields['codmenu']; ?>" select><? $rs_menu_show = $db->query_db("SELECT menu FROM seguranca_menu WHERE codmenu = '".$rs_show->fields['codmenu']."'","SQL_NONE","N");
+echo $rs_menu_show->fields['menu']; ?> [+]</option>
+			<option value="-1">Escolha um Menu</option>
+            <?
+if ($rs_menu)
+{
+	while (!$rs_menu->EOF)
+	{
+?>
+            <option value="<? echo $rs_menu->fields['codmenu']; ?>"><? echo $db->format_str("UP", $rs_menu->fields['menu']); ?></option>
+            <?
+	 	$rs_menu->MoveNext();
+	}//WHILE
+	$rs_menu->Move(0);
+}
+?>
+      </select></td>
+    </tr>
+    <tr>
+      <td width="80">&nbsp;</td>
+      <td><input name="Submit" type="submit" class="botao_cor" value="Salvar">
+      <input name="codpg_select" type="hidden" id="codpg_select" value="<? echo $rs_show->fields['codpg']; ?>"></td>
+    </tr>
+  </form>
+</table>
+</body>
+</html>

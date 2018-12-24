@@ -1,0 +1,161 @@
+<script language="JavaScript" type="text/JavaScript">
+
+
+var NameArray1 = new Array();
+var ValueArray1 = new Array();
+
+<?
+	for($i = 0; $i < count($array_menu); $i++ ){
+	$u = $i+1;
+?>
+NameArray1[<? echo"$u"; ?>] = new Array(<? echo"$nomesubcat_alpha[$i]"; ?>);
+ValueArray1[<? echo"$u"; ?>] = new Array(<? echo"$codsubcat_alpha[$i]"; ?>);
+<?
+	}//FOR
+?>
+
+function changeMenu(){
+ // Obtain the first dimension position of the currently selected theaterRegion
+ //
+
+  var cjIX = document.forms["menu"].cjMenu.selectedIndex;
+
+  if (cjIX > 0){
+   // set the length of the new multi-option
+   //
+
+   	 // CALCULA O NUMERO DE LINHAS DO FOR
+    document.forms["menu"].elements["menuSelect"].options.length = NameArray1[cjIX].length +1;
+
+    // LINHA INICIAL DO MENU SELECT
+    document.forms["menu"].elements["menuSelect"].options[0].text = "=> Selecione a Subcategoria";
+    document.forms["menu"].elements["menuSelect"].options[0].value = "";
+
+    for (var j=0; j < NameArray1[cjIX].length; j++)
+    {
+      document.forms["menu"].elements["menuSelect"].options[j+1].text = NameArray1[cjIX][j];
+      document.forms["menu"].elements["menuSelect"].options[j+1].value = ValueArray1[cjIX][j];
+    }
+  }
+  else
+  {
+   // User has reselected the blank 'region' option
+   //
+    document.forms["menu"].elements["menuSelect"].options.length = 2;
+    document.forms["menu"].elements["menuSelect"].options[0].text = "Selecione a Subcategoria";
+    document.forms["menu"].elements["menuSelect"].options[0].value = "";
+    document.forms["menu"].elements["menuSelect"].options[1].text = "Selecione a Categoria primeiro";
+    document.forms["menu"].elements["menuSelect"].options[1].value = "";
+  }
+}
+
+</script>
+
+<? 
+#echo "$tipo_celular_vend - $tipo_info_vend";
+
+if ($tipo_celular_vend == 'Y' and ($tipo_info_vend == 'N' or $tipo_info_vend == '')){$img_off ="_off";$dis = " disabled='disabled'  ";$nolink =1; }
+if (($tipo_celular_vend == 'N' or $tipo_celular_vend == '') and $tipo_info_vend == 'S'){$img_cel_off ="_off";$nolink_cel =1; }
+if (($tipo_celular_vend == 'N' or $tipo_celular_vend == '') and ($tipo_info_vend == 'N' or $tipo_info_vend == '')){$img_off ="_off";$dis = " disabled='disabled'  ";$nolink =1;$img_cel_off ="_off";$nolink_cel =1; }
+//if ($codgrp_vend == 46 and $tipo_info_vend == 'N'){$img_off ="_off";$dis = " disabled='disabled'  ";$nolink =1; }
+
+?>
+
+<link href="<? echo DIR_CSS; ?>/sistema.css" rel="stylesheet" type="text/css">
+<table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><table width="100%" border="0" cellpadding="0" cellspacing="0" background="<? echo DIR_IMAGES; ?>/tpmeio.gif">
+        <tr>
+          
+		  <?
+		  if ($codempselect == 15 ){
+		  
+		  ?>
+           <td> <img src="<? echo DIR_IMAGES; ?>/tpmicro<? echo "$img_off";?>.gif" alt="" name="tpmicro" width="97" height="110" border="0" <? if ($nolink <>1){?> usemap="#tpmicroMapMap"><?}?></td>
+		 <!-- <td><img src="<? echo DIR_IMAGES; ?>/tpmicro<? echo "_off";?>.gif" alt="" name="tpmicro" width="97" height="110" border="0"  />  </td>-->
+		   <td><img src="<? echo DIR_IMAGES; ?>/tpcelular<? echo "$img_cel_off";?>.gif" alt="" name="tpcelular" width="90" height="110" border="0"  <? if ($nolink_cel <>1){?>usemap="#tpcelularMapMap"><?}?></td>
+          <td><img src="<? echo DIR_IMAGES; ?>/tpkit<? echo "_off";?>.gif" alt="" name="tpkit" width="90" height="110" border="0" /></td>
+		
+		  <? }else{?>
+		  
+		   <td> <img src="<? echo DIR_IMAGES; ?>/tpmicro<? echo "$img_off";?>.gif" alt="" name="tpmicro" width="97" height="110" border="0" <? if ($nolink <>1){?> usemap="#tpmicroMapMap"><?}?></td>
+		  <td><img src="<? echo DIR_IMAGES; ?>/tpcelular<? echo "$img_cel_off";?>.gif" alt="" name="tpcelular" width="90" height="110" border="0" <? if ($nolink_cel <>1){?>usemap="#tpcelularMapMap"><?}?></td>
+          <td><img src="<? echo DIR_IMAGES; ?>/tpkit<? echo "_off";?>.gif" alt="" name="tpkit" width="90" height="110" border="0" /></td>
+         <!-- <td><img src="<? echo DIR_IMAGES; ?>/tpkit<? echo "$img_off";?>.gif" alt="" name="tpkit" width="90" height="110" border="0" <? if ($nolink <>1){?> usemap="#tpkitMapMap"><?}?></td>-->
+		  <?} ?>
+		
+         
+		           <td><img src="<? echo DIR_IMAGES; ?>/tpmaxxpc<? echo "$img_off";?>.gif" alt="" name="tpkit" width="90" height="110" border="0" <? if ($nolink <>1){?>usemap="#MaxxPCMap" ><?}?></td>
+          <td><img src="<? echo DIR_IMAGES; ?>/tpequip<? echo "$img_off";?>.gif" alt="" name="tpequip" width="90" height="110" border="0" <? if ($nolink <>1){?> usemap="#tpequipMapMap"><?}?></td>
+          <td width="129" background="<? echo DIR_IMAGES; ?>/tpmeio.gif"><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+              <form action="<? echo "$PHP_SELF?pg=$pg&pg_ped=5&Action=pesquisa&tipoPesq=menu&codpedselect=$codpedselect#pesq"; ?>" method="post" name="menu">
+			  <tr>
+                <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="5" height="5"></td>
+              </tr>
+              <tr>
+                <td><select name="cjMenu" class="camporange" id="cjMenu" onChange=changeMenu() <?echo"$dis";?>>
+                    <option value="...">Escolha a categoria</option>
+<?
+	for($i = 0; $i < count($array_menu); $i++ ){
+$u = $i+1;
+?>
+                <option value="<? echo"$u"; ?>"><? echo"$nomecatm[$i]"; ?></option>
+ <?
+	}//FOR
+?>
+            </select></td>
+              </tr>
+              <tr>
+                <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="5" height="5"></td>
+              </tr>
+              <tr>
+                <td><select name="menuSelect" class="camporange" <?echo"$dis";?>>
+                    <option value="">Escolha a subcategoria</option>
+					<option value="">Selecione a categoria</option>
+                </select></td>
+              </tr>
+              <tr>
+                <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="5" height="5"></td>
+              </tr>
+              <tr>
+                <td><input name="imageField" type="image" src="<? echo DIR_IMAGES; ?>/btpesquisarorange.gif" width="87" height="25" border="0" <?echo"$dis";?>></td>
+              </tr>
+              <input type="hidden" name="tipoPesq" value="menu">
+			  </form>
+          </table></td>
+          <td width="54" height="110"><img name="tpmenu" src="<? echo DIR_IMAGES; ?>/tpmenu.gif" width="54" height="110" border="0" alt=""></td>
+        </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td><iframe src="<? echo "$PHP_SELF?pg=$pg&pg_ped=6&codpedselect=$codpedselect&codcjselect=$codcjselect&codtipocjselect=$codtipocjselect"; ?>" name="icarrinho" width="100%" marginwidth="0" height="70" marginheight="0" scrolling="no" frameborder="0"></iframe></td>
+  </tr>
+</table>
+<map name="tpmicroMapMap">
+  <area shape="circle" coords="53,55,40" href="<? echo "$PHP_SELF?pg=$pg&pg_ped=3&Action=start&codpedselect=$codpedselect"; ?>" alt="Monte seu Micro">
+</map>
+<map name="tpcelularMapMap">
+  <area shape="circle" coords="46,56,39" href="<? echo "$PHP_SELF?pg=$pg&pg_ped=20&Action=start&codpedselect=$codpedselect"; ?>" alt="Celulares">
+</map>
+<map name="tpkitMapMap">
+  <area shape="circle" coords="45,56,40" href="<? echo "$PHP_SELF?pg=$pg&pg_ped=21&Action=start&codpedselect=$codpedselect"; ?>" alt="kits Prontos">
+</map>
+<map name="tpequipMapMap">
+  <area shape="circle" coords="45,55,40" href="<? echo "$PHP_SELF?pg=$pg&pg_ped=5&Action=start&codpedselect=$codpedselect"; ?>" alt="Equipamentos e Acess&oacute;rios">
+</map>
+<map name="tpmicroMap">
+  <area shape="circle" coords="53,56,40" href="" alt="Monte seu Micro">
+</map>
+<map name="tpcelularMap">
+  <area shape="circle" coords="46,56,39" href="" alt="Celulares">
+</map>
+<map name="tpkitMap">
+  <area shape="circle" coords="45,56,40" href="" alt="kits Prontos">
+</map>
+<map name="tpequipMap">
+  <area shape="circle" coords="45,55,40" href="" alt="Equipamentos e Acess&oacute;rios">
+</map>
+
+<map name="MaxxPCMap" id="MaxxPCMap">
+<area shape="circle" coords="44,56,41" href="<? echo "$PHP_SELF?pg=$pg&pg_ped=22&Action=start&codpedselect=$codpedselect"; ?>" />
+</map>

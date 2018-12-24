@@ -1,0 +1,157 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<script language="javascript" src="<? echo DIR_JS; ?>/funcoes01.js"></script>
+<script language="javascript">
+function PostaCEP(form)
+{
+	document.form.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=5&"; ?>Action=cep_revendas&menu_not=1';
+	document.form.target = 'irevenda';
+	document.form.submit();
+
+	//document.form.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=99&menu_not=1"; ?>';
+	//document.form.target = 'irevenda';
+	//document.form.submit();
+
+	document.form.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=2&menu_not=1"; ?>';
+	document.form.target = 'ireceb';
+	document.form.submit();
+}
+</script>
+</head>
+
+<body>
+<?
+$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light);
+?>
+<br>
+<table  border="0" cellspacing="2" cellpadding="2">
+  <tr>
+	<td><? $db->botao(MOD_COR, "Listar Sedex", "", "pg=$pg&pg_ped=100", "", ""); ?></td>
+    <td><? $db->botao(MOD_COR, "Receber Sedex", "", "pg=$pg&pg_ped=1", "", ""); ?></td>
+    <td><? $db->botao(MOD_COR, "Enviar Sedex", "", "pg=$pg&pg_ped=3", "", ""); ?></td>
+  </tr>
+</table>
+<br>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Pesquisa</legend>
+<table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+<form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=100&Action=Pesquisar"; ?>" name="pesquisa" method="post">
+  <tr>
+    <td align="center" class="generalGreyBorderBottomTableHeaderCell">N&ordm; Sedex </td>
+    <td align="center" class="generalGreyBorderBottomTableHeaderCell">Revenda</td>
+    <td align="center" class="generalGreyBorderBottomTableHeaderCell">Pgto.</td>
+    <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+    <td width="70%" align="center" class="generalGreyBorderBottomTableHeaderCell"><input type="hidden" name="pg" value="<? echo $pg; ?>"><input type="hidden" name="pg_ped" value="<? echo $pg_ped; ?>">
+      <input name="Action" type="hidden" id="Action" value="Pesquisar"></td>
+  </tr>
+  <tr>
+    <td class="noramlTableCell"><input name="nsedex" type="text" class="campo_linha" id="nsedex" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"' size="15" maxlength="13"></td>
+    <td class="noramlTableCell"><input name="revenda" type="text" class="campo_linha" id="revenda" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"' size="30"></td>
+    <td class="noramlTableCell"><table border="0" cellspacing="1" cellpadding="1">
+        <tr>
+          <td><input name="pgto" type="radio" value="PG"></td>
+          <td><strong>PG</strong></td>
+          <td><input name="pgto" type="radio" value="NO" checked></td>
+          <td><strong>NO</strong></td>
+        </tr>
+        </table></td>
+    <td class="noramlTableCell"><input type="submit" name="Submit" value="Pesquisar" class="botao_cor"></td>
+    <td align="center" class="noramlTableCell"><a href="#"></a></td>
+  </tr>
+</form>
+</table>
+</fieldset>
+<br>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Sedex Lista</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<form name="lista" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=100"; ?>" method="post">
+  <tr>
+    <td><table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+      <tr>
+        <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+        <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell">Cod</td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">N&ordm; Sedex </td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">Tipo</td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">Respons&aacute;vel</td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">Data Envio </td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">Data Receb. </td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">Valor
+          Sedex </td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">Pgto.</td>
+        </tr>
+      <?
+if ($rs_lista)
+{
+	$ix = 0;
+	while (!$rs_lista->EOF)
+	{
+?>
+      <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+        <td align="center" class="noramlTableCell"><input name="rows_codsedex[<? echo $ix; ?>]" type="checkbox" id="id_rows_codsedex<? echo $ix; ?>" value="<? echo $rs_lista->fields['codsedex']; ?>"></td>
+        <td align="center" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;"><? echo $rs_lista->fields['codsedex']; ?></td>
+        <td class="noramlTableCell"><strong><? echo $rs_lista->fields['numsedex']; ?></strong></td>
+        <td align="center" class="noramlTableCell"><strong><? echo $rs_lista->fields['tipo_sedex']; ?></strong></td>
+        <td class="noramlTableCell"><? echo $db->format_str("UP", $rs_lista->fields['nome']); ?></td>
+        <td align="center" class="noramlTableCell"><? echo $rs_lista->UserTimeStamp($rs_lista->fields['data_envio'],'d/m/Y H:i'); ?></td>
+        <td align="center" class="noramlTableCell"><? if ($rs_lista->fields['data_rec'] <> "0000-00-00 00:00:00") { echo $rs_lista->UserTimeStamp($rs_lista->fields['data_rec'],'d/m/Y H:i'); } else { echo "-"; } ?></td>
+        <td align="center" class="noramlTableCell">R$ <? echo $db->fvalor($rs_lista->fields['valor_sedex']); ?></td>
+        <td align="center" class="noramlTableCell"><?
+if ($rs_lista->fields['status'] == "NO") { echo "<b><font color=#EA0000>NO</font></b>"; }
+if ($rs_lista->fields['status'] == "PG") { echo "<b><font color=#99CC00>PG</font></b>"; }
+?></td>
+        </tr>
+      <?
+	 	$ix++;
+		$rs_lista->MoveNext();
+	}//WHILE
+}
+?>
+    </table>
+      <hr size="1" noshade>
+      <table border="0" cellspacing="2" cellpadding="2" class="generalTable defaultBlackText">
+        <tr>
+          <td><img src="<? echo DIR_IMAGES; ?>/arrow_ltr.png" border="0"></td>
+		  <td>&nbsp;</td>
+          <td class="noramlTableCell" style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'><a href="javascript:void(0);" class="link5" onClick="setCheckboxesRange('lista', true, 'id_rows_codsedex', 0, '10'); return false;">Marcar Todos</a></td>
+          <td class="noramlTableCell" style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'><a href="javascript:void(0);" class="link5" onClick="setCheckboxesRange('lista', false, 'id_rows_codsedex', 0, '10'); return false;">Desmarcar Todos</a></td>
+          <td>&nbsp;</td>
+          <td><table width="100%" border="0" cellspacing="0" cellpadding="1">
+            <tr>
+              <td><strong>Com Marcados:</strong> </td>
+            </tr>
+            <tr>
+              <td><select name="Action" class="campo_select" id="Action" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"'>
+                <option value="">Selecione...</option>
+                <option value="PagarSelect">Pagar Sedex</option>
+                            </select></td>
+            </tr>
+          </table></td>
+          <td><input name="Submit" type="submit" class="botao_cor" id="Submit" value="OK" onClick="return confirm('Confirma esta ação?')"></td>
+          <td><input name="numRows" type="hidden" id="numRows" value="<? echo $numRows; ?>">
+            <input type="hidden" name="pg" value="<? echo $pg; ?>">
+            <input type="hidden" name="pg_ped" value="<? echo $pg_ped; ?>"></td>
+        </tr>
+      </table>
+      <?
+if ($total_reg <> 0)
+{
+	echo "<hr size='1' noshade>";
+	$html_pg = $paginator->Construir_Links("todos", "sim");
+	$qtd_paginas = $paginator->qtd_paginas;
+	for ($i = 0; $i < $qtd_paginas; $i++)
+	{
+		echo $html_pg[$i];
+	}
+}
+?></td>
+  </tr>
+</form>
+</table>
+</fieldset>
+</body>
+</html>

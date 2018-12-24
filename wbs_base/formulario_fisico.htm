@@ -1,0 +1,1898 @@
+
+<HTML>
+<HEAD>
+      <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+      <TITLE>Cr&eacute;dito ao Consumidor</TITLE>
+      <link rel='stylesheet' type='text/css' href='style.css'>
+</HEAD>
+
+<BODY TOPMARGIN=0 LEFTMARGIN=0>
+
+<script language="JavaScript" SRC="Consiste.js">
+</script>
+
+<script language="JavaScript">
+
+cond = false;
+
+//***************************************************************************************
+//  Função para verificação de campos obrigatórios e consistência
+//  Retorno:  false = erro de consistência
+//            true  = ok
+//***************************************************************************************
+
+function verificaObrig (form)
+{
+    // seta o flag de java script ativo
+    JavaScriptEstaAtivo (form);
+
+	//***********************************************************************************
+    //  Verifica dupla submissao  *******************************************************
+    //***********************************************************************************
+    if (cond == true)
+    {
+        return false;
+    }
+
+    // verifica se é um cancelamento
+    if (form.ACAOPAG.value == 2)
+    {
+        cond = true;
+
+        return true;
+    }
+
+    //***********************************************************************************
+    //  Verifica campos obrigatorios  ***************************************************
+    //***********************************************************************************
+    //********** Dados do cliente
+
+
+/*    // verifica o tipo de pessoa
+    if (form.TPT.options[form.TPT.selectedIndex].value == "9")
+    {
+        alert ("Tipo de Pessoa: Preenchimento obrigatório");
+
+        form.TPT.focus ();
+
+        return false;
+    }
+    else
+    {
+        // consiste a data de nascimento
+        if (!(verificaData (form, form.NST.name, true)))
+        {
+            form.NST.focus ();
+
+            return false;
+        }
+        else
+        {
+            // consiste a idade mínima
+            if (!(VerificaIdade (form, form.NST.name, 18)))
+            {
+                return false;
+            }
+        }
+
+        // consiste o RG
+        if (!(consisteVazioTamanho (form, form.IDT.name, 10)))
+        {
+            return false;
+        }
+    }
+*/
+    // Campos obrigatorios
+    if (!(consisteVazioTamanho (form, form.NMT.name, 60)))
+    {
+        return false;
+    }
+
+    if (!(consisteCPF (form, form.CPFT.name, true)))
+    {
+        return false;
+    }
+
+    if (!(consisteVazioTamanho (form, form.IDT.name, 10)))
+    {
+        return false;
+    }
+
+    if (!(consisteVazioTamanho (form, form.EMT.name, 5)))
+    {
+        return false;
+    }
+
+    if (!(verificaData (form, form.NST.name, true)))
+    {
+        return false;
+    }
+    else
+    {
+        if (!(VerificaIdade (form, form.NST.name, 18)))
+        {
+            return false;
+        }
+    }
+
+    if (form.SXT.options [form.SXT.selectedIndex].value == "9")
+    {
+        form.SXT.focus ();
+
+        alert ("Sexo: Preenchimento obrigatório.");
+
+
+        return false;
+    }
+
+    if (form.ECT.options [form.ECT.selectedIndex].value == "9")
+    {
+        form.ECT.focus ();
+
+        alert ("Estado Civil: Preenchimento obrigatório.");
+
+        return false;
+    }
+
+    if (form.NCT.options [form.NCT.selectedIndex].value == "9")
+    {
+        form.NCT.focus ();
+
+        alert ("Nacionalidade: Preenchimento obrigatório.");
+
+        return false;
+    }
+
+
+    if (!(consisteVazioTamanho (form, form.ERT.name, 50)))
+    {
+        return false;
+    }
+
+    if (!(consisteVazioTamanho (form, form.BRT.name, 20)))
+    {
+        return false;
+    }
+
+    if (!(consisteVazioTamanho (form, form.CDT.name, 40)))
+    {
+        return false;
+    }
+
+    if (!(consisteCEP (form, form.CEPT.name)))
+    {
+        return false;
+    }
+
+    if (!(consisteUF (form, form.UFT.name, true)))
+    {
+        return false;
+    }
+
+    if (form.TRT.options [form.TRT.selectedIndex].value == "9")
+    {
+        form.TRT.focus ();
+
+        alert ("Tempo de Residência: Preenchimento obrigatório.");
+
+        return false;
+    }
+    
+    if (form.TPRT.options [form.TPRT.selectedIndex].value == "9")
+    {
+        form.TPRT.focus ();
+
+        alert ("Tipo de Residência: Preenchimento obrigatório.");
+
+        return false;
+    }
+
+    if (form.TTT.options [form.TTT.selectedIndex].value == "9")
+    {
+        form.TTT.focus ();
+
+        alert ("Tipo de Telefone: Preenchimento obrigatório.");
+
+        return false;
+    }
+
+    if (form.TTT.options [form.TTT.selectedIndex].value != "3")
+    {
+        if (Trim(form.DDDT.value) == "")
+        {
+            form.DDDT.focus ();
+
+
+            alert ("DDD: Preenchimento obrigatório.");
+
+            return false;
+        }
+        else
+        {
+            if(!(consisteTamanhoNumerico (form, form.DDDT.name, 4)))
+            {
+                return false;
+            }
+        }
+
+        if (!(consisteTelefone (form, form.TELT.name, true)))
+        {
+            return false;
+        }
+    }
+    else
+    {
+        if (form.DDDT.value != "")
+        {
+            form.DDDT.focus ();
+
+            alert ("O DDD não deve ser informado para \n o tipo de telefone selecionado");
+
+            return false;
+        }
+
+        if (form.TELT.value != "")
+        {
+            form.TELT.focus ();
+
+            alert ("O telefone não deve ser informado para \n o tipo de telefone selecionado");
+
+            return false;
+        }
+    }
+
+    if (form.CFT.options [form.CFT.selectedIndex].value == "9")
+    {
+        form.CFT.focus ();
+
+        alert ("Ocupação: Preenchimento obrigatório.");
+
+        return false;
+    }
+
+    if (!(consisteVazioTamanho (form, form.DCT.name, 40)))
+    {
+        return false;
+    }
+
+    if (!(consisteValor (form, form.RMT.name, true)))
+    {
+        if (Trim(form.RMT.value) == "")
+        {
+            alert ("Renda Mensal: Preenchimento obrigatório");
+
+            form.RMT.focus ();
+        }
+
+        return false;
+    }
+    else
+    {
+        if (parseInt(form.RMT.value) <= 0)
+        {
+            alert ("Renda Mensal: Preenchimento obrigatório maior que 0");
+
+            form.RMT.focus ();
+
+            return false;
+        }
+		else
+		{
+			//Solicitação do George para limitar a renda ao max de 999.999,00
+			if (!(consisteRendaMax (form, form.RMT.name)))
+			{
+				return false;
+			}
+		}
+    }
+
+    if (form.ECRT.options [form.ECRT.selectedIndex].value == "9")
+    {
+        form.ECRT.focus ();
+
+        alert ("Endereço de Corresp.: Preenchimento obrigatório.");
+
+        return false;
+    }
+
+    if (Trim (form.NMPAT.value) != "")
+    {
+        if (!(consisteTamanho (form, form.NMPAT.name, 60)))
+        {
+            return false;
+        }
+    }
+
+    if (Trim (form.NMMAT.value) != "")
+    {
+        if (!(consisteTamanho (form, form.NMMAT.name, 60)))
+        {
+            return false;
+        }
+    }
+
+    if (!(consisteValor (form, form.ORT.name, false)))
+    {
+        return false;
+    }
+	else
+	{
+		//Solicitação do George para limitar a renda ao max de 999.999,00
+		if (!(consisteRendaMax (form, form.ORT.name)))
+		{
+			return false;
+		}
+	}
+
+    if (Trim (form.OBSLJT.value) != "")
+    {
+        if (!(consisteTamanho (form, form.OBSLJT.name, 150)))
+        {
+            return false;
+        }
+    }
+
+    //***********************************************************************************
+    //  Verifica campos dependentes  ****************************************************
+    //***********************************************************************************
+    //********** Dados Pessoais do Titular
+    if ((form.ECRT.options [form.ECRT.selectedIndex].value == "C")  ||
+        (Trim (form.NMET.value )                           != "" )  ||
+        (Trim (form.CNPJET.value)                           != "" )  ||
+        (form.TET.options [form.TET.selectedIndex].value   != "9")  ||
+        (Trim (form.EET.value  )                           != "" )  ||
+        (Trim (form.BRET.value )                           != "" )  ||
+        (Trim (form.CDET.value )                           != "" )  ||
+        (Trim (form.CEPET.value)                           != "" )  ||
+        (Trim (form.UFET.value )                           != "" )  ||
+        (Trim (form.DDDET.value)                           != "" )  ||
+        (Trim (form.TELET.value)                           != "" )  ||
+        (Trim (form.RET.value  )                           != "" ))
+    {
+        if (!(consisteVazioTamanho (form, form.NMET.name, 60)))
+        {
+            return false;
+        }
+
+        if (Trim (form.CNPJET.value) != "")
+        {
+            if (!(consisteTamanho (form, form.CNPJET.name, 18)))
+            {
+                return false;
+            }
+        }
+
+        if (form.TET.options [form.TET.selectedIndex].value == "9")
+        {
+            form.TET.focus ();
+
+            alert ("Tempo de Empresa: Preenchimento obrigatório.");
+
+            return false;
+        }
+
+        if (!(consisteVazioTamanho (form, form.EET.name, 50)))
+        {
+            return false;
+        }
+
+        if (!(consisteVazioTamanho (form, form.BRET.name, 20)))
+        {
+            return false;
+        }
+
+        if (!(consisteVazioTamanho (form, form.CDET.name, 40)))
+        {
+            return false;
+        }
+
+        if (!(consisteCEP (form, form.CEPET.name)))
+        {
+            return false;
+        }
+
+        if (!(consisteUF (form, form.UFET.name, true)))
+        {
+            return false;
+        }
+
+        if (Trim(form.DDDET.value) == "")
+        {
+            form.DDDET.focus ();
+
+            alert ("DDD do telefone da Empresa: Preenchimento obrigatório.");
+
+            return false;
+        }
+        else
+        {
+            if(!(consisteTamanhoNumerico (form, form.DDDET.name, 4)))
+            {
+                return false;
+            }
+        }
+
+        if (!(consisteTelefone (form, form.TELET.name, true)))
+        {
+            return false;
+        }
+
+        if(!(consisteTamanhoNumerico (form, form.RET.name, 5)))
+        {
+            return false;
+        }
+    }
+
+    //********** Dados do cônjuge - somente possui dados se o Estado Civil for CASADO OU OUTROS
+    if ((form.ECT.options [form.ECT.selectedIndex].value != "2")  &&
+        (form.ECT.options [form.ECT.selectedIndex].value != "6"))
+    {
+        if ((Trim (form.NMCT.value  )                         != "" )  ||
+            (Trim (form.CPFCT.value )                         != "" )  ||
+            (Trim (form.IDCT.value  )                         != "" )  ||
+            (Trim (form.EMCT.value  )                         != "" )  ||
+            (Trim (form.NSCT.value  )                         != "" )  ||
+            (Trim (form.NMECT.value )                         != "" )  ||
+            (form.CFCT.options [form.CFCT.selectedIndex].value != "9")  ||
+            (Trim (form.DCCT.value  )                         != "" )  ||
+            (Trim (form.RMCT.value  )                         != "" )  ||
+            (Trim (form.DDDECT.value)                         != "" )  ||
+            (Trim (form.TELECT.value)                         != "" )  ||
+            (Trim (form.RECT.value  )                         != "" ))
+        {
+            form.ECT.focus ();
+
+            alert ("São aceitos dados para cônjuge apenas para o caso \n de estado civil igual a CASADO ou OUTROS");
+
+            return false;
+        }
+    }
+    else //Estado Civil do proponente: 2 = Casado ou 6 = Outros. Faz consistência das informações...
+		// verifica se os campos foram preenchidos. Em caso positivo, verifica sua corretude.
+		// Não há interdependência entre campos - confirmado por George em 10/05/2001 para Patricia Couto ao telefone, às 17h!
+    {
+        if ((Trim (form.NMCT.value ) != "" ) && 
+			!(consisteTamanho (form, form.NMCT.name, 60)))
+        {
+            return false;
+        }
+
+        if ((Trim (form.CPFCT.value) != "" ) &&
+			!(consisteCPF (form, form.CPFCT.name, false)))
+        {
+            return false;
+        }
+
+        if ((Trim (form.IDCT.value ) != "" ) &&
+			!(consisteTamanho (form, form.IDCT.name, 10)))
+        {
+            return false;
+        }
+
+        if ((Trim (form.EMCT.value ) != "" ) &&
+			!(consisteTamanho (form, form.EMCT.name, 5)))
+        {
+            return false;
+        }
+
+        if (Trim (form.NSCT.value ) != "" )
+		{
+			if (!(verificaData (form, form.NSCT.name, false)))
+			{
+				return false;
+			}
+			else 
+			{
+				if (!(VerificaIdade (form, form.NSCT.name, 10)))
+				{
+					return false;
+				}
+			}
+		}
+
+        if ((Trim (form.DCCT.value ) != "" ) &&
+			!(consisteTamanho (form, form.DCCT.name, 40)))
+        {
+            return false;
+        }
+
+		/*
+        if ((Trim (form.RMCT.value ) != "" ) &&
+			!(consisteValor (form, form.RMCT.name, false)))
+        {
+            return false;
+        }
+		*/
+
+		if (Trim (form.RMCT.value ) != "" )
+		{
+			if (!(consisteValor (form, form.RMCT.name, false)))
+			{
+				return false;
+			}
+			//Solicitação do George para limitar a renda ao max de 999.999,00
+			if (!(consisteRendaMax (form, form.RMCT.name)))
+			{
+				return false;
+			}
+        }
+
+        if ((Trim (form.NMECT.value)  != "") &&
+			!(consisteTamanho (form, form.NMECT.name, 60)))
+        {
+            return false;
+        }
+
+        if (Trim (form.DDDECT.value) != "")
+		{
+            if(!(consisteTamanhoNumerico (form, form.DDDECT.name, 4)))
+            {
+                return false;
+            }
+        }
+
+        if ((Trim (form.TELECT.value) != "") &&
+			!(consisteTelefone (form, form.TELECT.name, false)))
+        {
+            return false;
+        }
+
+        if((Trim (form.RECT.value)   != "") &&
+			!(consisteTamanhoNumerico (form, form.RECT.name, 5)))
+        {
+            return false;
+        }
+    }
+
+    //********** Referencia bancaria
+    if ((form.BCORT.options [form.BCORT.selectedIndex].value   != "999")  ||
+        (Trim (form.AGRT.value)                               != ""   )  ||
+        (Trim (form.CCRT.value)                               != ""   )  ||
+        (Trim (form.VCCRT.value)                              != ""   )  ||
+        (form.TPCCRT.options [form.TPCCRT.selectedIndex].value != "9"  )  ||
+        (Trim (form.DDDRT.value)                              != ""   )  ||
+        (Trim (form.TELRT.value)                              != ""   ))
+    {
+        if (form.BCORT.options [form.BCORT.selectedIndex].value == "999")
+        {
+            form.BCORT.focus ();
+
+            alert ("Banco: Preenchimento obrigatório.");
+
+            return false;
+        }
+
+        if (Trim(form.AGRT.value) == "")
+        {
+            form.AGRT.focus ();
+
+            alert ("Agência: Preenchimento obrigatório.");
+
+            return false;
+        }
+        else
+        {
+            if(!(consisteTamanhoNumerico (form, form.AGRT.name, 6)))
+            {
+                return false;
+            }
+        }
+
+        if (Trim(form.CCRT.value) == "")
+        {
+            form.CCRT.focus ();
+
+            alert ("Conta Corrente: Preenchimento obrigatório.");
+
+            return false;
+        }
+        else
+        {
+            if(!(consisteTamanhoNumerico (form, form.CCRT.name, 13)))
+            {
+                return false;
+            }
+        }
+
+        if (!(consisteVazioTamanho (form, form.VCCRT.name, 2)))
+        {
+            return false;
+        }
+
+        if (form.TPCCRT.options [form.TPCCRT.selectedIndex].value == "9")
+        {
+            form.TPCCRT.focus ();
+
+            alert ("Tipo de Conta: Preenchimento obrigatório.");
+
+            return false;
+        }
+
+        if ((Trim (form.DDDRT.value) != "")  ||
+            (Trim (form.TELRT.value) != ""))
+        {
+            if (Trim(form.DDDRT.value) == "")
+            {
+                form.DDDRT.focus ();
+
+                alert ("DDD: Preenchimento obrigatório.");
+
+                return false;
+            }
+            else
+            {
+                if(!(consisteTamanhoNumerico (form, form.DDDRT.name, 4)))
+                {
+                    return false;
+                }
+            }
+
+            if (!(consisteTelefone (form, form.TELRT.name, true)))
+            {
+                return false;
+            }
+        }
+
+        /* Habilitar para implantação do campo Cliente Desde
+		// consiste Cliente Desde
+        if (!(verificaMesAno (form, form.CLDDRT.name, true)))
+        {
+            form.CLDDRT.focus ();
+
+            return false;
+        }
+		*/
+    }
+
+    //********** Referencia pessoal
+    if ((Trim (form.NMR1T.value)   != "")  ||
+        (Trim (form.DDDR1T.value)  != "")  ||
+        (Trim (form.TELR1T.value)  != ""))
+    {
+        if (!(consisteVazioTamanho (form, form.NMR1T.name, 50)))
+        {
+            return false;
+        }
+
+        if (Trim(form.DDDR1T.value) == "")
+        {
+            form.DDDR1T.focus ();
+
+            alert ("DDD da 1ª Ref.Pessoal: Preenchimento obrigatório.");
+
+            return false;
+        }
+        else
+        {
+            if(!(consisteTamanhoNumerico (form, form.DDDR1T.name, 4)))
+            {
+                return false;
+            }
+        }
+
+        if (!(consisteTelefone (form, form.TELR1T.name, true)))
+        {
+            return false;
+        }
+    }
+
+    if ((Trim (form.NMR2T.value)   != "")  ||
+        (Trim (form.DDDR2T.value)  != "")  ||
+        (Trim (form.TELR2T.value)  != ""))
+    {
+        if (!(consisteVazioTamanho (form, form.NMR2T.name, 50)))
+        {
+            return false;
+        }
+
+        if (Trim(form.DDDR2T.value) == "")
+        {
+            form.DDDR2T.focus ();
+
+            alert ("DDD da 2ª Ref.Pessoal: Preenchimento obrigatório.");
+
+            return false;
+        }
+        else
+        {
+            if(!(consisteTamanhoNumerico (form, form.DDDR2T.name, 4)))
+            {
+                return false;
+            }
+        }
+
+        if (!(consisteTelefone (form, form.TELR2T.name, true)))
+        {
+            return false;
+        }
+    }
+
+    cond = true;
+
+    return true;
+}
+
+//***************************************************************************************
+//  Função para obtenção de descrição do campo
+//  Retorno: Uma descrição para o campo que corresponde
+//           ao que é mostrado no browser
+//***************************************************************************************
+
+function retornaNmCampo (campo)
+{
+	if (campo == "NMT")
+        return "Nome do Titular";
+    if (campo == "CPFT")
+        return "CPF do Titular";
+    if (campo == "NST")
+        return "Data de Nascimento do Titular";
+    if (campo == "IDT")
+        return "RG do Titular";
+    if (campo == "EMT")
+        return "Emissor do RG do Titular";
+    if (campo == "SXT")
+        return "Sexo do Titular";
+    if (campo == "ECT")
+        return "Estado Civil do Titular";
+    if (campo == "NCT")
+        return "Nacionalidade do Titular";
+    if (campo == "NMPAT")
+        return "Nome do Pai do Titular";
+    if (campo == "NMMAT")
+        return "Nome da mãe do Titular";
+    if (campo == "ERT")
+        return "Endereço Residencial do Titular";
+    if (campo == "BRT")
+        return "Bairro da Residência do Titular";
+    if (campo == "CDT")
+        return "Cidade da Residência do Titular";
+    if (campo == "CEPT")
+        return "CEP da Residência do Titular";
+    if (campo == "UFT")
+        return "Estado da Residência do Titular";
+    if (campo == "TRT")
+        return "Tempo de Residência do Titular";
+    if (campo == "TPRT")
+        return "Tipo de Residência do Titular";
+    if (campo == "DDDT")
+        return "DDD do Telefone Residencial do Titular";
+    if (campo == "TELT")
+        return "Telefone Residencial do Titular";
+    if (campo == "TTT")
+        return "Tipo de Telefone do Titular";
+    if (campo == "NMET")
+        return "Nome da Empresa do Titular";
+    if (campo == "CNPJET")
+        return "CNPJ da Empresa do Titular";
+    if (campo == "TET")
+        return "Tempo de Empresa do Titular";
+    if (campo == "EET")
+        return "Endereço Comercial do Titular";
+    if (campo == "BRET")
+        return "Bairro da Empresa do Titular";
+    if (campo == "CDET")
+        return "Cidade da Empresa do Titular";
+    if (campo == "CEPET")
+        return "CEP da Empresa do Titular";
+    if (campo == "UFET")
+        return "Estado da Empresa do Titular";
+    if (campo == "ECRT")
+        return "Endereço para Correspondência do Titular";
+    if (campo == "DDDET")
+        return "DDD do Telefone Comercial do Titular";
+    if (campo == "TELET")
+        return "Telefone Comercial do Titular";
+    if (campo == "RET")
+        return "Ramal da Empresa do Titular";
+    if (campo == "CFT")
+        return "Ocupação do Titular";
+    if (campo == "DCT")
+        return "Descrição do Cargo do Titular";
+    if (campo == "RMT")
+        return "Renda Mensal do Titular";
+    if (campo == "ORT")
+        return "Outras Rendas do Titular";
+    if (campo == "NMCT")
+        return "Nome do Cônjuge";
+    if (campo == "IDCT")
+        return "RG do Cônjuge";
+    if (campo == "EMCT")
+        return "Emissor do RG do Cônjuge";
+    if (campo == "NSCT")
+        return "Data de Nascimento do Cônjuge";
+    if (campo == "CPFCT")
+        return "CPF do Cônjuge";
+    if (campo == "NMECT")
+        return "Nome da Empresa do Cônjuge";
+    if (campo == "CFCT")
+        return "Cargo do Cônjuge";
+    if (campo == "DCCT")
+        return "Descrição do Cargo do Cônjuge";
+    if (campo == "RMCT")
+        return "Renda Mensal do Cônjuge";
+    if (campo == "DDDECT")
+        return "DDD do Telefone Comercial do Cônjuge";
+    if (campo == "TELECT")
+        return "Telefone Comercial do Cônjuge";
+    if (campo == "RECT")
+        return "Ramal Comercial do Cônjuge";
+    if (campo == "CDBT")
+        return "Código do Banco";
+    if (campo == "BCORT")
+        return "Banco";
+    if (campo == "AGRT")
+        return "Agência Bancária)";
+    if (campo == "CCRT")
+        return "Nº da Conta Corrente";
+    if (campo == "VCCRT")
+        return "Verificador da Conta Corrente";
+    if (campo == "TPCCRT")
+        return "Tipo da Conta";
+	/* Cliente Desde
+    if (campo =="CLDDRT")	
+		return "Cliente Desde do Titular";	
+	*/
+	if (campo == "DDDRT")
+        return "DDD do Telefone da Agência Bancária";
+    if (campo == "TELRT")
+        return "Telefone da Agência Bancária";
+    if (campo == "NMR1T")
+        return "1ª Referência Pessoal";
+    if (campo == "DDDR1T")
+        return "DDD do Telefone da 1ª Referência Pessoal";
+    if (campo == "TELR1T")
+        return "Telefone da 1ª Referência Pessoal";
+    if (campo == "NMR2T")
+        return "2ª Referência Pessoal";
+    if (campo == "DDDR2T")
+        return "DDD do Telefone da 2ª Referência Pessoal";
+    if (campo == "TELR2T")
+        return "Telefone da 2ª Referência Pessoal";
+    if (campo == "OBSLJT")
+        return "Observação do Lojista";
+    else
+        return "Campo não cadastrado";
+}
+
+//***************************************************************************************
+//  Função para atualizar os campos codigo e nome do banco
+//  Retorno: Nenhum
+//
+//***************************************************************************************
+
+function atualizaBanco (form, tipo)
+{
+    var achou;
+    var i;
+
+    if (tipo == 0) // atualiza banco
+    {
+        if (form.CDBT.value != "")
+        {
+            if (verificaNumerico (form.CDBT.value, 1) == 1)
+            {
+                achou = false;
+
+                if (form.CDBT.value == 999)
+                {
+                    form.CDBT.value = "";
+                    form.BCORT.selectedIndex = 0;
+                    achou = true;
+                }
+                else
+                {
+                    i = 0;
+
+                    while ((!(achou            ))  &&
+                           (i < form.BCORT.length))
+                    {
+                        if (parseInt (form.CDBT.value, 10) == form.BCORT.options [i].value)
+                        {
+                            achou = true;
+                        }
+                        else
+                        {
+                            i++;
+                        }
+                    }
+
+                    if (achou)
+                    {
+                        form.BCORT.selectedIndex = i;
+                    }
+                }
+            }
+        }
+
+        if (!(achou))
+        {
+            form.BCORT.selectedIndex = 0;
+
+            if (form.CDBT.value != "")
+            {
+                form.CDBT.value = "";
+
+                form.CDBT.focus ();
+
+                alert ("Código do banco inválido");
+            }
+        }
+    }
+    else // atualiza codigo
+    {
+        if (form.BCORT.options [form.BCORT.selectedIndex].value == "999")
+        {
+            form.CDBT.value = "";
+        }
+        else
+        {
+            form.CDBT.value = form.BCORT.options [form.BCORT.selectedIndex].value;
+        }
+    }
+}
+
+function DefineAcao (acao)
+{
+    // atribui "acao" ao campo hidden "ACAOPAG", para ser lido pela DLL da proposta
+    // acao = 0 -> analisa a proposta
+    // acao = 1 -> inclui devedor solidário
+    // acao = 2 -> cancela a inclusão da proposta
+    // acao = 3 -> edita o primeiro devedor solidário
+    // acao = 4 -> edita o segundo devedor solidário
+    document.PagPropPF.ACAOPAG.value = acao;
+}
+
+</script>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div align="center">
+  <center>
+                                                      <TABLE width="600">
+                                                      <TR>
+                                                          <TD bgcolor="#D6E7EF">
+
+<!-- INÍCIO DO FORM DE INCLUSÃO DE PROPOSTAS PESSOA FÍSICA -->
+<form action="/scripts_AFC/comunicafc.dll?OPERA=TrataPostPagPropPF" method="POST" name="PagPropPF" onSubmit = "if (verificaObrig(document.PagPropPF)==false) return false">
+<TABLE BORDER="1" CELLPADDING="15" CELLSPACING="0" BGCOLOR="#FFFFFF" BORDERCOLOR="#93BEE2">
+<TR>
+    <TD bgcolor="#93BEE2">&nbsp;
+    </td>
+</tr>
+<TR>
+    <TD><br>
+        <!-- INÍCIO DOS DADOS DO CLIENTE -->
+        <table>
+        <font face="Arial">
+        <tr>
+            <td bgcolor="#93BEE2" colspan="4">
+                <b>
+           <font size="4" face="Arial">Dados do Cliente</font>
+ </b>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Nome</font></b>
+            </td>
+            <td colspan=3 bgcolor="#D6E7EF">
+                          <font size="1">
+                          <input type="text" size="60" name="NMT" value="GIOVANNI MONTESANO SCHETTINO" onchange="consisteVazioTamanho(this.form, this.form.NMT.name, 60)">
+                          </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">CPF</font></b>
+            </td>
+            <td colspan=3 bgcolor="#D6E7EF">
+                          <font size="1">
+                          <input type="text" size="17" name="CPFT" value="503.977.026-04" onchange="consisteCPF(this.form, this.form.CPFT.name, true)">
+                          </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">RG</font></b>
+            </td>
+            <td colspan=1 bgcolor="#D6E7EF">
+                      <font size="1">
+                  	  <input type="text" size="10" name="IDT" value="MG2-207544" onchange="consisteVazioTamanho(this.form, this.form.IDT.name, 10)">
+                      </font>
+            </td>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Emissor</font></b>
+            </td>
+            <td bgcolor="#D6E7EF">
+                          <font size="1">
+                          <input type="text" size="10" name="EMT" value="SSP" onchange="consisteVazioTamanho(this.form, this.form.EMT.name, 5)">
+                          </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Data de Nascimento</font></b>
+            </td>
+            <td colspan=3 bgcolor="#D6E7EF">
+                          <font size="1">
+                          <input type="text" size="10" name="NST" value="08/10/1964" onchange="verificaData(this.form, this.form.NST.name, true)">
+                          </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Sexo</font></b>
+            </td>
+            <td colspan=3 bgcolor="#D6E7EF">
+                          <font size="1">
+                          <select name="SXT" size="1"width="1">
+                                                               <option value="9" > </option>
+                                                               <option value="1" SELECTED>M</option>
+                                                               <option value="2" >F</option>
+                          </select>
+                          </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Estado Civil</font></b>
+            </td>
+            <td colspan=1 bgcolor="#D6E7EF">
+                          <font size="1">
+                          <select name="ECT" size="1" width="10">
+                                                                 <option value="9" > </option>
+                                                                 <option value="1" >Solteiro</option>
+                                                                 <option value="2" SELECTED>Casado</option>
+                                                                 <option value="3" >Separado Jud.</option>
+                                                                 <option value="4" >Viúvo</option>
+                                                                 <option value="5" >Divorciado</option>
+                                                                 <option value="6" >Outros</option>
+                          </select>
+                          </font>
+            </td>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Nacionalidade</font></b>
+            </td>
+            <td bgcolor="#D6E7EF">
+                          <font size="1">
+                          <select name="NCT" size="1" width="10">
+                                                                 <option value="9" > </option>
+                                                                 <option value="B" >Brasileiro</option>
+                                                                 <option value="E" >Estrangeiro</option>
+                          </select>
+                          </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Endereço Residencial</font></b>
+            </td>
+            <td colspan=3 bgcolor="#D6E7EF">
+                          <font size="1">
+                          <input type="text" size="60" name="ERT" value="R ANTONIO PASSARELA 191 / 804" onchange="consisteVazioTamanho(this.form, this.form.ERT.name, 50)">
+                          </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Bairro</font></b>
+            </td>
+            <td colspan=1 bgcolor="#D6E7EF">
+                          <font size="1">
+                          <input type="text" size="20" name="BRT" value="CENTRO" onchange="consisteTamanho(this.form, this.form.BRT.name, 20)">
+                          </font>
+            </td>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Cidade</font></b>
+            </td>
+            <td bgcolor="#D6E7EF">
+                          <font size="1">
+                          <input type="text" size="30" maxlength="40" name="CDT" value="JUIZ DE FORA"onchange="consisteVazioTamanho(this.form, this.form.CDT.name, 40)">
+                          </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">CEP</font></b>
+            </td>
+            <td colspan=1 bgcolor="#D6E7EF">
+                          <font size="1">
+                          <input type="text" size="9" name="CEPT" value="36025-230" onchange="consisteCEP(this.form, this.form.CEPT.name)">
+                          </font>
+            </td>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Estado</font></b>
+            </td>
+            <td bgcolor="#D6E7EF">
+                          <font size="1">
+                          <input type="text" name="UFT" size="2" value="MG" onblur="consisteUF(this.form, this.form.UFT.name, true)">
+                          </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Tempo de Residência</font></b>
+            </td>
+            <td colspan=1 bgcolor="#D6E7EF">
+                          <font size="1">
+                          <select name="TRT" size="1" width="20">
+                                                                 <option value="9" > </option>
+                                                                 <option value="1" >até 1 ano</option>
+                                                                 <option value="2" >de 1 a 2 anos</option>
+                                                                 <option value="3" >de 2 a 5 anos</option>
+                                                                 <option value="4" >mais de 5 anos</option>
+                          </select>
+                          </font>
+            </td>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Tipo Residência</font></b>
+            </td>
+            <td bgcolor="#D6E7EF">
+                          <font size="1">
+                          <select name="TPRT" size="1" width="20">
+                                                                  <option value="9" > </option>
+                                                                  <option value="1" >própria quitada</option>
+                                                                  <option value="2" >própria financiada</option>
+                                                                  <option value="3" >com parentes/pais</option>
+                                                                  <option value="4" >alugada</option>
+                                                                  <option value="5" >funcional</option>
+                          </select>
+                          </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Telefone</font></b>
+            </td>
+            <td colspan=1 bgcolor="#D6E7EF">
+                          <font size="1"><b>(</b><input type="text" size="3" name="DDDT" value="032" onchange="consisteTamanhoNumerico(this.form, this.form.DDDT.name, 3)"><b>) </b><input type="text" size="10" name="TELT" value="32295981" onchange="consisteTelefone(this.form, this.form.TELT.name, false)">
+                          </font>
+            </td>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Telefone 2</font></b>
+            </td>
+            <td bgcolor="#D6E7EF">
+        <font face="Arial" size="1">
+                          <b>(</b><input type="text" size="3" name="DDDT1" value="032" onchange="consisteTamanhoNumerico(this.form, this.form.DDDT1.name, 3)"><b>) </b><input type="text" size="10" name="TELT1" value="32295981" onchange="consisteTelefone(this.form, this.form.TELT1.name, false)">
+        </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Empresa</font></b>
+            </td>
+            <td colspan=3 bgcolor="#D6E7EF">
+                          <font size="1">
+                          <input type="text" size="60" name="NMET" value="IPASOFT TECNOLOGIA E INFORMATICA LTDA." onchange="consisteTamanho(this.form, this.form.NMET.name, 60)">
+                          </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">CNPJ</font></b>
+            </td>
+            <td colspan=3 bgcolor="#D6E7EF">
+                          <font size="1">
+                          <input type="text" size="17" name="CNPJET" value="" onchange="consisteCGC(this.form, this.form.CNPJET.name, false)">
+                          </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Tempo de Empresa</font></b>
+            </td>
+            <td colspan=3 bgcolor="#D6E7EF">
+                          <font size="1">
+                          <select name="TET" size="1" width="20">
+                                                                 <option value="9" > </option>
+                                                                 <option value="1" >até 3 meses</option>
+                                                                 <option value="2" >de 3 a 6 meses</option>
+                                                                 <option value="3" >de 6 a 12 meses</option>
+                                                                 <option value="4" >de 1 a 2 anos</option>
+                                                                 <option value="5" >de 2 a 3 anos</option>
+                                                                 <option value="6" >mais de 3 anos</option>
+                          </select>
+                          </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Ocupação</font></b>
+            </td>
+            <td colspan=1 bgcolor="#D6E7EF">
+                          <font size="1">
+                          <select name="CFT" size="1" width="20">
+                                                                 <option value="9" > </option>
+                                                                 <option value="1" >Funcionário Público</option>
+                                                                 <option value="2" >Militar</option>
+                                                                 <option value="3" >Assalariado</option>
+                                                                 <option value="4" >Profissional Liberal</option>
+                                                                 <option value="5" >Autônomo</option>
+                                                                 <option value="6" >Aposentado/Pensionista</option>
+                                                                 <option value="7" >Empresário/Sócio</option>
+                                                                 <option value="8" >Outros</option>
+                          </select>
+                          </font>
+            </td>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Descrição</font></b>
+            </td>
+            <td bgcolor="#D6E7EF">
+                          <font size="1">
+                          <input type="text" size="30" maxlength="40" name="DCT" value="" onchange="consisteVazioTamanho(this.form, this.form.DCT.name, 40)">
+                          </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Renda Mensal</font></b>
+            </td>
+            <td colspan=1 bgcolor="#D6E7EF">
+                          <font size="1">
+                          <input type="text" size="10" name="RMT" value="" onchange="consisteValor(this.form, this.form.RMT.name, true)">
+                          </font>
+            </td>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Outras Rendas</font></b>
+            </td>
+            <td bgcolor="#D6E7EF">
+                          <font size="1">
+                          <input type="text" size="10" name="ORT" value="" onchange="consisteValor(this.form, this.form.ORT.name, false)">
+                          </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Endereço Comercial</font></b>
+            </td>
+            <td colspan=3 bgcolor="#D6E7EF">
+                          <font size="1">
+                          <input type="text" size="60" name="EET" value="R GABRIEL RODRIGUES 578" onchange="consisteTamanho(this.form, this.form.EET.name, 50)">
+                          </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Bairro</font></b>
+            </td>
+            <td colspan=1 bgcolor="#D6E7EF">
+                          <font size="1">
+                          <input type="text" size="20" name="BRET" value="SANTA CECILIA" onchange="consisteTamanho(this.form, this.form.BRET.name, 20)">
+                          </font>
+            </td>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Cidade</font></b>
+            </td>
+            <td bgcolor="#D6E7EF">
+                          <font size="1">
+                          <input type="text" size="30" maxlength="40" name="CDET" value="JUIZ DE FORA" onchange="consisteTamanho(this.form, this.form.CDET.name, 40)">
+                          </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">CEP</font></b>
+            </td>
+            <td colspan=1 bgcolor="#D6E7EF">
+                          <font size="1">
+                          <input type="text" size="8" name="CEPET" value="36026-090" onchange="consisteCEP(this.form, this.form.CEPET.name)">
+                          </font>
+            </td>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Estado</font></b>
+            </td>
+            <td bgcolor="#D6E7EF">
+                          <font size="1">
+                          <input type="text" name="UFET" size="2" value="MG" onblur="consisteUF(this.form, this.form.UFET.name, false)">
+                          </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Telefone</font></b>
+            </td>
+            <td colspan=1 bgcolor="#D6E7EF">
+                          <font size="1"><b>(</b><input type="text" size="3" name="DDDET" value="032" onchange="consisteTamanhoNumerico(this.form, this.form.DDDET.name, 3)"><b>) </b><input type="text" size="10" name="TELET" value="32295911" onchange="consisteTelefone(this.form, this.form.TELET.name, false)">
+                          </font>
+            </td>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Ramal</font></b>
+            </td>
+            <td bgcolor="#D6E7EF">
+                          <font size="1">
+                          <input type="text" size="5" name="RET" value=" " onchange="consisteTamanhoNumerico(this.form, this.form.RET.name, 5)">
+                          </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Endereço Corresp.</font></b>
+            </td>
+            <td colspan=3 bgcolor="#D6E7EF">
+                          <font size="1">
+                          <select name="ECRT" size="1" width="20">
+                                                                  <option value="9" > </option>
+                                                                  <option value="R" >Residencial</option>
+                                                                  <option value="C" >Comercial</option>
+                          </select>
+                          </font>
+            </td>
+        </tr>
+        </font>
+        </table>
+
+        <!-- INÍCIO DOS DADOS DO CÔNJUGE -->
+        <p>
+           &nbsp;
+        </p>
+        <table>
+        <font face="Arial">
+        <tr>
+            <td colspan="4" bgcolor="#93BEE2">
+                <b>
+           <font size="4" face="Arial">Dados do Cônjuge</font>
+                </b>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Nome</font></b>
+            </td>
+            <td colspan=3 bgcolor="#D6E7EF">
+                          <font size="1">
+                          <input type="text" size="60" name="NMCT" value="" onchange="consisteTamanho(this.form, this.form.NMCT.name, 60)">
+                          </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">CPF</font></b>
+            </td>
+            <td colspan=3 bgcolor="#D6E7EF">
+                          <font size="1">
+                          <input type="text" size="15" name="CPFCT" value="" onchange="consisteCPF(this.form, this.form.CPFCT.name, false)">
+                          </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">RG</font></b>
+            </td>
+            <td colspan=1 bgcolor="#D6E7EF">
+                          <font size="1">
+                          <input type="text" size="10" name="IDCT" value="" onchange="consisteTamanho(this.form, this.form.IDCT.name, 10)">
+                          </font>
+            </td>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Emissor</font></b>
+            </td>
+            <td bgcolor="#D6E7EF">
+                          <font size="1">
+                          <input type="text" size="10" name="EMCT" value="" onchange="consisteTamanho(this.form, this.form.EMCT.name, 5)">
+                          </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Data de Nascimento</font></b>
+            </td>
+            <td colspan=3 bgcolor="#D6E7EF">
+                          <font size="1">
+                          <input type="text" size="10" name="NSCT" value="" onchange="verificaData(this.form, this.form.NSCT.name, false)">
+                          </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Empresa</font></b>
+            </td>
+            <td colspan=3 bgcolor="#D6E7EF">
+                          <font size="1">
+                          <input type="text" size="40" name="NMECT" value="" onchange="consisteTamanho(this.form, this.form.NMECT.name, 60)">
+                          </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Ocupação</font></b>
+            </td>
+            <td colspan=1 bgcolor="#D6E7EF">
+                          <font size="1">
+                          <select name="CFCT" size="1" width="20">
+                                                                 <option value="9" > </option>
+                                                                 <option value="1" >Funcionário Público</option>
+                                                                 <option value="2" >Militar</option>
+                                                                 <option value="3" >Assalariado</option>
+                                                                 <option value="4" >Profissional Liberal</option>
+                                                                 <option value="5" >Autônomo</option>
+                                                                 <option value="6" >Aposentado/Pensionista</option>
+                                                                 <option value="7" >Empresário/Sócio</option>
+                                                                 <option value="8" >Outros</option>
+                          </select>
+                          </font>
+            </td>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Descrição</font></b>
+            </td>
+            <td bgcolor="#D6E7EF">
+                          <font size="1">
+                          <input type="text" size="40" name="DCCT" value="" onchange="consisteVazioTamanho(this.form, this.form.DCCT.name, 40)">
+                          </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Renda Mensal</font></b>
+            </td>
+            <td colspan=3 bgcolor="#D6E7EF">
+                          <font size="1">
+                          <input type="text" size="20" name="RMCT" value="" onchange="consisteValor(this.form, this.form.RMCT.name, false)">
+                          </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Telefone</font></b>
+            </td>
+            <td colspan=1 bgcolor="#D6E7EF">
+                          <font size="1"><b>(</b><input type="text" size="3" name="DDDECT" value="" onchange="consisteTamanhoNumerico(this.form, this.form.DDDECT.name, 3)"><b>) </b><input type="text" size="10" name="TELECT" value="" onchange="consisteTelefone(this.form, this.form.TELECT.name, false)">
+                          </font>
+            </td>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Ramal</font></b>
+            </td>
+            <td bgcolor="#D6E7EF">
+                          <font size="1">
+                          <input type="text" size="8" name="RECT" value="" onchange="consisteTamanhoNumerico(this.form, this.form.RECT.name, 5)">
+                          </font>
+            </td>
+        </tr>
+        </font>
+        </table>
+
+        <!-- INÍCIO DOS DADOS DE REFERÊNCIA BANCÁRIA -->
+        <p>
+           &nbsp;
+        </p>
+        <table width="100%">
+        <font face="Arial">
+        <tr>
+            <td colspan="4" bgcolor="#93BEE2">
+        <font face="Arial">
+                <b>
+           <font size="4" face="Arial" color="#000000">Referência Bancária</font>
+                </b>
+        </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <font size=2><b>Banco</b></font>
+            </td>
+            <td bgcolor="#D6E7EF">
+                <input type="text" name="CDBT1" size=5 value="" onblur="atualizaBanco(this.form, 0)">
+                <select name="D1" size="1" width="20" onchange="atualizaBanco(this.form, 1)">
+                                                                                               <option value="999"> </option><option value = 341> ITAU</option>
+<option value = 237> BRADESCO</option>
+<option value = 356> ABN AMRO</option>
+<option value = 275> REAL</option>
+<option value = 1> BB</option>
+<option value = 3> BANCO DA AMAZONIA</option>
+<option value = 4> BANCO DO NORDESTE</option>
+<option value = 8> BANCO MERIDIONAL</option>
+<option value = 22> CREDIREAL</option>
+<option value = 24> BANCO DE PERNAMBUCO</option>
+<option value = 27> BANCO DE S CATARINA</option>
+<option value = 29> BANERJ</option>
+<option value = 31> BANCO DE GOIAS</option>
+<option value = 33> BANESPA</option>
+<option value = 35> BANCO DO CEARA</option>
+<option value = 36> BANCO DO MARANHAO</option>
+<option value = 37> BANCO DO PARA</option>
+<option value = 38> BANCO DO PARANA</option>
+<option value = 41> BANCO DO R.G. DO SUL</option>
+<option value = 47> BANCO DO SERGIPE</option>
+<option value = 48> BANCO DE M. GERAIS</option>
+<option value = 70> BRB</option>
+<option value = 104> CEF</option>
+<option value = 206> BANCO MARTINELLI</option>
+<option value = 244> BANCO CIDADE</option>
+<option value = 263> BANCO CACIQUE</option>
+<option value = 291> BCN</option>
+<option value = 347> SUDAMERIS</option>
+<option value = 375> BANCO FENICIA</option>
+<option value = 389> MERCANTIL DO BRASIL</option>
+<option value = 394> BMC</option>
+<option value = 415> NACIONAL</option>
+<option value = 453> BANCO RURAL</option>
+<option value = 477> CITIBANK</option>
+<option value = 610> BANCO VR</option>
+<option value = 613> BANCO PECUNIA</option>
+<option value = 2> BC</option>
+<option value = 7> BNDES</option>
+<option value = 21> BANESTES</option>
+<option value = 26> BANCO DO ACRE</option>
+<option value = 28> BANCO DA BAHIA</option>
+<option value = 30> PARAIBAN</option>
+<option value = 34> BANCO DO AMAZONAS</option>
+<option value = 39> BANCO DO PIAUI</option>
+<option value = 106> ITABANCO</option>
+<option value = 109> CREDIBANCO</option>
+<option value = 116> BNL</option>
+<option value = 148> MULTI BANCO</option>
+<option value = 151> NOSSA CAIXA</option>
+<option value = 168> BANCO CCF BRASIL</option>
+<option value = 175> CONTINENTAL</option>
+<option value = 184> BBA-CREDITANSTALT</option>
+<option value = 200> FICRISA AXELRUD</option>
+<option value = 201> AXIAL</option>
+<option value = 204> BANCO SRL</option>
+<option value = 205> BANCO SUL AMERICA</option>
+<option value = 208> BANCO PACTUAL</option>
+<option value = 210> DRESDNER</option>
+<option value = 211> BANCO SISTEMA</option>
+<option value = 212> BANCO MATONE</option>
+<option value = 213> BANCO ARBI</option>
+<option value = 214> BANCO DIBENS</option>
+<option value = 215> BANCO AMERICA DO SUL</option>
+<option value = 216> REGIONAL MALCON</option>
+<option value = 217> BANCO AGROINVEST</option>
+<option value = 219> BANCO CRED. S. PAULO</option>
+<option value = 221> BANCO GRAPHUS</option>
+<option value = 222> AGF</option>
+<option value = 224> BANCO FIBRA</option>
+<option value = 225> BRASCAN</option>
+<option value = 228> BANCO ICATU</option>
+<option value = 229> CRUZEIRO DO SUL</option>
+<option value = 230> BANDEIRANTES</option>
+<option value = 231> BOAVISTA</option>
+<option value = 232> BANCO INTERPART</option>
+<option value = 233> BANCO MAPPIN</option>
+<option value = 234> BANCO LAVRA</option>
+<option value = 235> BANCO LIBERAL</option>
+<option value = 236> BANCO CAMBIAL</option>
+<option value = 241> BANCO CLASSICO</option>
+<option value = 242> EUROINVEST</option>
+<option value = 243> BANCO STOCK</option>
+<option value = 246> BANCO ABC- BRASIL</option>
+<option value = 247> BANCO OMEGA</option>
+<option value = 249> BANCO INVESTCRED</option>
+<option value = 250> BANCO SCHAHIN CURY</option>
+<option value = 252> FININVEST</option>
+<option value = 254> PARANA BANCO</option>
+<option value = 258> BANCO INDUSCRED</option>
+<option value = 262> BOREAL</option>
+<option value = 264> BANCO PERFORMANCE</option>
+<option value = 265> BANCO FATOR</option>
+<option value = 266> BANCO CEDULA</option>
+<option value = 277> BANCO PLANIBANC</option>
+<option value = 294> CREDITO REAL R.G.SUL</option>
+<option value = 300> LA NACION ARGENTINA</option>
+<option value = 304> BANCO PONTUAL</option>
+<option value = 318> BMG</option>
+<option value = 320> BIC</option>
+<option value = 346> BANCO BFB</option>
+<option value = 351> BOZANO SIMONSEN</option>
+<option value = 353> BANCO SANTANDER</option>
+<option value = 366> SOGERAL</option>
+<option value = 370> BEAL</option>
+<option value = 376> CHASE</option>
+<option value = 392> MERCANTIL DE S.PAULO</option>
+<option value = 399> HSBC</option>
+<option value = 409> UNIBANCO</option>
+<option value = 412> NACIONAL DA BAHIA</option>
+<option value = 422> SAFRA</option>
+<option value = 424> NOROESTE</option>
+<option value = 456> MITSUBISHI-BRASIL.</option>
+<option value = 464> BANCO SUMITOMO</option>
+<option value = 472> LLOYDS BANK</option>
+<option value = 473> FINANCIAL PORTUGUES</option>
+<option value = 479> BANCO DE BOSTON</option>
+<option value = 480> ROYAL DO CANADA</option>
+<option value = 487> DEUTSCHE BANK</option>
+<option value = 488> MORGAN</option>
+<option value = 489> FRANCES URUGUAY</option>
+<option value = 492> ING BANK</option>
+<option value = 493> BANCO UNION</option>
+<option value = 495> BANCO BUENOS AIRES</option>
+<option value = 494> BANCO DEL URUGUAY</option>
+<option value = 496> BANCO DE ESPANA</option>
+<option value = 498> HISPANO BANCO</option>
+<option value = 499> BANCO IOCHPE</option>
+<option value = 502> BANCO SANTANDER</option>
+<option value = 505> BANCO GARANTIA</option>
+<option value = 600> BANCO LUSO BRASILEIR</option>
+<option value = 602> BANCO PATENTE</option>
+<option value = 604> BANCO SANTISTA</option>
+<option value = 607> BANCO SANTOS NEVES</option>
+<option value = 611> BANCO PAULISTA</option>
+<option value = 612> BANCO GUANABARA</option>
+<option value = 618> BANCO TENDENCIA</option>
+<option value = 623> BANCO PANAMERICANO</option>
+<option value = 624> BANCO GENERAL MOTORS</option>
+<option value = 625> BANCO ARAUCARIA</option>
+<option value = 626> BANCO FICSA</option>
+<option value = 627> BANCO DESTAK</option>
+<option value = 630> BANCO INTERCAP</option>
+<option value = 634> BANCO TRIANGULO</option>
+<option value = 637> BANCO SOFISA</option>
+<option value = 638> BANCO PROSPER</option>
+<option value = 640> STOTLER DIME</option>
+<option value = 641> BILLBAO VISCAYA</option>
+<option value = 643> BANCO SEGMENTO</option>
+<option value = 645> BANCO DE RORAIMA</option>
+<option value = 650> BANCO PEBB</option>
+<option value = 653> BANCO INDUSVAL</option>
+<option value = 654> BANCO A.J. RENNER</option>
+<option value = 655> BANCO VOTORANTIM</option>
+<option value = 656> BANCO MATRIX S/A</option>
+<option value = 657> BANCO TECNICORP</option>
+<option value = 658> BANCO PORTO REAL</option>
+<option value = 719> BANCO PRIMUS</option>
+<option value = 733> NACOESBANCO</option>
+<option value = 707> DAYCOVAL</option>
+<option value = 742> EQUATORIAL</option>
+<option value = 740> BCN BARCLAYS</option>
+<option value = 739> BGN</option>
+<option value = 721> CREDIBEL</option>
+<option value = 628> CRITERIUM</option>
+<option value = 735> POTTENCIAL</option>
+<option value = 732> MINAS</option>
+<option value = 633> RENDIMENTO</option>
+<option value = 741> BRP</option>
+<option value = 702> SANTOS</option>
+<option value = 737> THECA</option>
+<option value = 725> FINABANCO</option>
+<option value = 729> FONTE</option>
+<option value = 734> GERDAU</option>
+<option value = 722> BANINTER</option>
+<option value = 720> MAXINVEST</option>
+<option value = 738> MORADA</option>
+<option value = 743> EMBLEMA S/A</option>
+<option value = 746> MODAL S/A</option>
+<option value = 747> RAIBOBANK DO BRASIL</option>
+<option value = 745> CITIBANK</option>
+<option value = 748> BANSICREDI</option>
+<option value = 749> BR MERCANTIL</option>
+<option value = 751> DRESDNER BANK</option>
+<option value = 744> BOSTON</option>
+<option value = 750> REPUBLIC NATION</option>
+<option value = 752> BNP</option>
+<option value = 753> COMERCIAL URUGUAI</option>
+<option value = 995> ABBC</option>
+<option value = 996> FEBRABAN</option>
+<option value = 997> ASBACE</option>
+<option value = 998> TECBAN</option>
+<option value = 756> BANCOOB</option>
+<option value = 757> BANCO KEB DO BRASIL</option>
+<option value = 107> BBM S/A</option>
+<option value = 218> BANCO BONSUCESSO S/A</option>
+<option value = 755> BANCO MERRILL LYNCH</option>
+<option value = 25> BANCO ALFA S/A</option>
+<option value = 458> BANCO GARGIL</option>
+<option value = 63> IBI</option>
+
+                </select>
+            </td>
+            <td bgcolor="#D6E7EF">
+                <font size=2><b>Agência</b></font>
+            </td>
+            <td bgcolor="#D6E7EF">
+                <input type="text" size="6" name="AGRT1" value="" onchange="consisteTamanhoNumerico(this.form, this.form.AGRT.name, 6)">
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <font size=2><b>Conta</b></font>
+            </td>
+            <td bgcolor="#D6E7EF">
+                <input type="text" size="13" name="CCRT1" value="" onchange="consisteTamanhoNumerico(this.form, this.form.CCRT.name, 13)"><input type="text" size="2" name="VCCRT1" value="" onchange="consisteTamanho(this.form, this.form.VCCRT.name, 2)">
+            </td>
+            <td bgcolor="#D6E7EF">
+                <font size=2><b>Tipo</b></font>
+            </td>
+            <td bgcolor="#D6E7EF">
+                <select name="D2" size="1" width="10">
+                                                         <option value="9" > </option>
+                                                         <option value="C" >Corrente</option>
+                                                         <option value="P" >Poupança</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <font size=2><b>Telefone</b></font>
+            </td>
+            <td colspan=3 bgcolor="#D6E7EF">
+                          <font size=2><b>(<input type="text" size="3" name="DDDRT1" value=", onchange="consisteTamanhoNumerico(this.form, this.form.DDDRT.name, 3)">) <input type="text" size="20" name="TELRT1" value="" onchange="consisteTelefone(this.form, this.form.TELRT.name, false)"></b></font>
+            </td>
+			<!-- inicio alteração para Cliente Desde
+			<td>
+				<font size=2><B>Cliente Desde</b></font>
+			</td>
+			<td>
+				<input type="text" size="7" name="CLDDRT" value="" onchange="verificaMesAno(this.form, this.form.CLDDRT.name, true)">
+			</td>
+			Fim Alteração para Cliente Desde-->
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Cliente desde</font></b>
+            </td>
+            <td colspan=3 bgcolor="#D6E7EF">
+                <font face="Arial" size="1"><select name="CDESDE" size="1" width="20">
+                                                                 <option value="9" > </option>
+                                                                 <option value="1" >até 3 meses</option>
+                                                                 <option value="2" >de 3 a 6 meses</option>
+                                                                 <option value="3" >de 6 a 12 meses</option>
+                                                                 <option value="4" >de 1 a 2 anos</option>
+                                                                 <option value="5" >de 2 a 3 anos</option>
+                                                                 <option value="6" >mais de 3 anos</option>
+                          </select>
+        </font>
+            </td>
+        </tr>
+        </table>
+
+        </font>
+        <p>
+           &nbsp;
+        </p>
+        <table width="100%">
+        <font face="Arial">
+        <tr>
+            <td bgcolor="#93BEE2" colspan="2">
+                <b>
+           <font size="4" face="Arial">Referência Pessoal</font>
+                </b>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Nome</font></b>
+            </td>
+            <td bgcolor="#D6E7EF">
+                          <font size="1">
+                          <input type="text" size="50" name="NMR1T" value="" onchange="consisteTamanho(this.form, this.form.NMR1T.name, 40)">
+                          </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Telefone</font></b>
+            </td>
+            <td bgcolor="#D6E7EF">
+                          <font size="1"><b>(</b><input type="text" size="3" name="DDDR1T" value="" onchange="consisteTamanhoNumerico(this.form, this.form.DDDR1T.name, 3)"><b>) </b><input type="text" size="20" name="TELR1T" value="" onchange="consisteTelefone(this.form, this.form.TELR1T.name, false)">
+                          </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Nome</font></b>
+            </td>
+            <td bgcolor="#D6E7EF">
+                          <font size="1">
+                          <input type="text" size="50" name="NMR2T" value="" onchange="consisteTamanho(this.form, this.form.NMR2T.name, 40)">
+                          </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Telefone</font></b>
+            </td>
+            <td bgcolor="#D6E7EF">
+                          <font size="1"><b>(</b><input type="text" size="3" name="DDDR2T" value="" onchange="consisteTamanhoNumerico(this.form, this.form.DDDR2T.name, 3)"><b>) </b><input type="text" size="20" name="TELR2T" value="" onchange="consisteTelefone(this.form, this.form.TELR2T.name, false)">
+                          </font>
+            </td>
+        </tr>
+        </font>
+        </table>
+
+        <!-- INÍCIO DOS DADOS LIVRES DO LOJISTA -->
+        <p>
+           &nbsp;
+        </p>
+        <table width="100%">
+        <font face="Arial">
+        <tr>
+            <td bgcolor="#93BEE2" colspan="2">
+                <b>
+           <font size="4" face="Arial">Referência </font>
+           <font size="4">Comercial</font>
+                </b>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Nome</font></b>
+            </td>
+            <td bgcolor="#D6E7EF">
+                          <font size="1">
+                          <input type="text" size="50" name="NMR1T1" value="" onchange="consisteTamanho(this.form, this.form.NMR1T.name, 40)">
+                          </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Telefone</font></b>
+            </td>
+            <td bgcolor="#D6E7EF">
+                          <font size="1"><b>(</b><input type="text" size="3" name="DDDR1T1" value="" onchange="consisteTamanhoNumerico(this.form, this.form.DDDR1T.name, 3)"><b>) </b><input type="text" size="20" name="TELR1T1" value="" onchange="consisteTelefone(this.form, this.form.TELR1T.name, false)">
+                          </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Nome</font></b>
+            </td>
+            <td bgcolor="#D6E7EF">
+                          <font size="1">
+                          <input type="text" size="50" name="NMR2T1" value="" onchange="consisteTamanho(this.form, this.form.NMR2T.name, 40)">
+                          </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Telefone</font></b>
+            </td>
+            <td bgcolor="#D6E7EF">
+                          <font size="1"><b>(</b><input type="text" size="3" name="DDDR2T1" value="" onchange="consisteTamanhoNumerico(this.form, this.form.DDDR2T.name, 3)"><b>) </b><input type="text" size="20" name="TELR2T1" value="" onchange="consisteTelefone(this.form, this.form.TELR2T.name, false)">
+                          </font>
+            </td>
+        </tr>
+        </font>
+        </table>
+
+        <!-- INÍCIO DOS DADOS LIVRES DO LOJISTA -->
+        <p>
+        </p>
+        <table>
+        <font face="Arial">
+        <tr>
+            <td bgcolor="#D6E7EF">
+                <b><font size="1">Obs. Vendedor</font></b>
+            </td>
+            <td bgcolor="#D6E7EF">
+                <font size="1">
+                <input type="text" size="75" maxlength="150" name="OBSLJT" value="" onchange="consisteTamanho(this.form, this.form.OBSLJT.name, 150)">
+                </font>
+            </td>
+        </tr>
+        </font>
+        </table>
+
+        <p>
+           &nbsp;
+        </p>
+
+        <div align = center>
+                            <center>
+                            <table>
+                            <tr>
+                                <td>
+                                    <input type="image" name="REANA" src="/imagens_afc/afcAnalisa.gif" alt="Realiza Análise da Proposta" onClick="DefineAcao(0)">
+                                </td>
+                                <td>
+                                    <input type="image" name="ADV" src="/imagens_afc/afcDevSol.gif" alt="Adiciona Devedor Solidário" onClick="DefineAcao(1)">
+                                </td>
+                                <td>
+                                    <input type="image" name="CANC" src="/imagens_afc/afcCancela.gif" alt="Cancela Inclusão" onClick="DefineAcao(2)">
+                                </td>
+                            </tr>
+                            </table>
+                            </center>
+        </div>
+    </td>
+</tr>
+</table>
+<input type="hidden" name="ACAOPAG"  value="2"><input type="hidden" name="JSA" value="NAO">
+</form>
+<!-- FIM DO FORM DE INCLUSÃO DE PROPOSTAS PESSOA FÍSICA -->
+
+                                                          </TD>
+                                                      </TR>
+                                                      </TABLE>
+  </center>
+</div>
+</BODY>
+</HTML>

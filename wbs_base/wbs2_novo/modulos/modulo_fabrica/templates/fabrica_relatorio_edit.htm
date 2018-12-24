@@ -1,0 +1,187 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta HTTP-EQUIV = "Refresh" CONTENT = "300; URL = <? echo"$PHP_SELF?pg=$pg&Action=pesquisa&empresa=$empresa"; ?>">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<script language="javascript" src="<? echo DIR_AJAX; ?>/tw-sack.js"></script>
+
+
+<style type="text/css">
+<!--
+.style12 {font-size: 8px; font-weight: bold; font-family: Verdana, Arial, Helvetica, sans-serif; }
+.style22 {font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif; }
+.style24 {font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif; font-weight: bold; }
+.style25 {font-size: 20px; font-family: Verdana, Arial, Helvetica, sans-serif; font-weight: bold; }
+.style26 {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 8px;}
+-->
+</style>
+<script language="javascript">
+
+
+// FUNCAO DELETE 
+function DelProduto(base, param)
+{
+	var message = 'Você deseja deletar este registro?';
+	if ( confirm(message) ) {
+
+		var theURL = base + "";
+		//alert("" + theURL + "");
+		
+		doit(theURL, 'lista', param+'&Action=DelProduto&lista=OK&menu_not=1', 'GET', '');
+		ajax.onCompletion = function() {onFinish('msg_return', '');}
+		window.location.reload();
+	} else {
+		return false;
+	}
+}
+
+
+function Cria(base, param)
+{
+		
+		
+		var theURL = base +  "";
+		var modelo_mod = "";
+		var qtde_mod = "";
+		
+		modelo_mod = document.getElementById('modelo_select').value;
+		qtde_mod = document.getElementById('qtde_lote_select').value;
+		
+				
+		//alert("" + modelo_mod + "");
+		
+		doit(theURL, 'lista', param + '&Action=CriaLote&lista=OK&menu_not=1&idop_mod='+modelo_mod+'&qtde_mod='+qtde_mod+'&emp=14', 'GET', '');
+		ajax.onCompletion = function() {onFinish('msg_return', '');}
+		window.location.reload();
+		parent.eti.location.reload();
+}
+
+function Salva(form1)
+	{
+	//modelo_mod = document.getElementById('modelo_select').value;
+	document.form1.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=150&"; ?>Action=Salva';
+	document.form1.target = '';
+	document.form1.submit();
+	}
+
+
+</script>
+</head>
+
+<body>
+
+<p>
+  <?
+$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light);
+$var_parametro = "&pg_ped=1";
+$db->voltar(MOD_COR, $pg, $var_parametro);
+
+
+?>
+</p>
+
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td align="center" bgcolor="#509BE7" class="style24">ID</td>
+      <td align="center" bgcolor="#509BE7" class="style24">COD</td>
+      <td align="center" bgcolor="#509BE7" class="style24">MODELO</td>
+    </tr>
+    <tr>
+      <td align="center" bgcolor="#C4DFFD" class="style25"><? echo $rs_modelo->fields[0]; ?></td>
+      <td align="center" bgcolor="#C4DFFD" class="style25"><? echo $rs_modelo->fields[1]; ?></td>
+      <td align="center" bgcolor="#C4DFFD" class="style25"><? echo $rs_modelo->fields[2]; ?> </td>
+    </tr>
+  </table>
+  <label></label>
+
+<p>&nbsp;</p>
+<form name="form1" method="post" action="">
+<fieldset class="campo_fieldset">
+
+<legend class="campo_fieldset_legend">Edi&ccedil;&atilde;o Modelo</legend>
+<table width="100%" border="0">
+  <tr>
+    <td align="center"><table width="100%" border="0" cellpadding="5">
+      <tr>
+        <td width="6%" align="center" bgcolor="#FFFFFF" class="style12">CODPROD<br></td>
+        <td width="44%" align="center" bgcolor="#FFCC00"><span class="style12">PRODUTO</span></td>
+        <td width="10%" align="center" bgcolor="#FFFFFF"><p><span class="style12">IMPRIME ETIQUETA<br>
+        </span><span class="style26">( 1 = Imprime)</span></p>
+          </td>
+        </tr>
+      <?
+if ($rs_lista)
+{
+	$ix = 0;
+	while (!$rs_lista->EOF)
+	{
+    
+     #$rs_lista_cb = $db->query_db("SELECT COUNT(*) FROM  op_sn, op  WHERE op.idop ='".$rs_lista->fields['idop']."' and op_sn.idop = op.idop and cb = 'OK' ","SQL_NONE","N");
+     
+     #$rs_lista_cb_prod = $db->query_db("SELECT COUNT(*) FROM  op_prod, op  WHERE op.idop ='".$rs_lista->fields['idop']."' and op_prod.idop = op.idop and cb_prod = 'OK' ","SQL_NONE","N");
+     
+     #$lote_dec = 70000000 + $rs_lista->fields['idop'];
+	 #$lote_hex = strtoupper(dechex($lote_dec));
+         
+                
+      ?>
+      <tr class="style22">
+        <td align="center" bgcolor="#FFFFFF" class="style22"  style="color: #FFFFFF; background-color: #999999;"><b><? echo  $rs_lista->fields[1]; ?></b><BR>
+          <input name="cod_new[<? echo $ix; ?>]" type="text" id="cod_new[<? echo $ix; ?>]" value = "<? echo  $rs_lista->fields[1]; ?>" size="10" maxlength="10"> <input name="idop_mod_prod[<? echo $ix; ?>]" type="hidden" value="<? echo $rs_lista->fields[3]; ?>"></td>
+        <td  bgcolor="#FFFFCC" class="style22"><strong><? echo $rs_lista->fields[0]; ?></strong></td>
+        <td align="center" bgcolor="#FFFFCC" class="style22" style="color: #FFFFFF; background-color: #999999;">
+          <select name="li_new[<? echo $ix; ?>]" id="li_new[<? echo $ix; ?>]">
+            <option value="1">1</option>
+            <option value="0">0</option>
+            <option value="<? echo $rs_lista->fields[2]; ?>" selected><? echo $rs_lista->fields[2]; ?></option>
+          </select>          </td>
+        </tr>
+      <?
+	 	$ix++;
+		$rs_lista->MoveNext();
+	}//WHILE
+}
+	for($i = $ix; $i < $ix+5; $i++ ){
+     ?>
+      <tr class="style22">
+        <td align="center" bgcolor="#FFFFFF" class="style22"  style="color: #FFFFFF; background-color: #999999;"><b><? echo  $rs_lista->fields[1]; ?></b><BR>
+          <input name="cod_new[<? echo $i; ?>]" type="text" id="cod_new[<? echo $i; ?>]" value = "<? echo  $rs_lista->fields[1]; ?>" size="10" maxlength="10">
+          <input name="idop_mod_prod[<? echo $i; ?>]" type="hidden" value="<? echo $rs_lista->fields[3]; ?>"></td>
+        <td  bgcolor="#FFFFCC" class="style22"><strong><? echo $rs_lista->fields[0]; ?></strong></td>
+        <td align="center" bgcolor="#FFFFCC" class="style22" style="color: #FFFFFF; background-color: #999999;">
+          <select name="li_new[<? echo $i; ?>]" id="li_new[<? echo $i; ?>]">
+            <option value="1">1</option>
+            <option value="0">0</option>
+            <option value="<? echo $rs_lista->fields[2]; ?>" selected><? echo $rs_lista->fields[2]; ?></option>
+          </select>          </td>
+        </tr>
+      
+      <?
+    }//FOR
+
+?>
+<tr class="style22">
+        <td colspan="3" align="center" bgcolor="#FFFFFF" class="style22"  style="color: #FFFFFF; background-color: #999999;"><strong>Instru&ccedil;&otilde;es:</strong> Codprod <strong>VAZIO</strong> deleta produto</td>
+        </tr>
+    </table></td>
+  </tr>
+</table>
+<input name="count_prod" type="hidden" value="<? echo $i; ?>">
+<input name="modelo_select" type="hidden" value="<? echo $modelo_select; ?>">
+<center><input name="" type="button" value="Salvar" onCLick = "Salva('form1')"></center>
+</fieldset>
+</form>
+
+<p>&nbsp;</p>
+<!--
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Produtos</legend>
+	<iframe src="<? echo "$PHP_SELF?pg=$pg&pg_ped=100&menu_not=1"; ?>" name="iped" width="100%" marginwidth="0" height="450" marginheight="0" scrolling="auto" frameborder="0"></iframe>
+</fieldset>
+<fieldset class="campo_fieldset">
+</fieldset>
+-->
+</body>
+</html>

@@ -12,7 +12,7 @@ $condicao2 = "codemp=$codempselect";			// condicao sem WHERE e separadas por AND
 $parm = " order by dataped DESC limit $desloc,$acrescimo ";								// order by nome
 $campopesq = "codped";				// Campo a ser pesquisado -> LISTAR 
 $nomeform = "PEDIDO";
-$titulo = "EXPEDIÇÃO LOJA";
+$titulo = "EXPEDIï¿½ï¿½O LOJA";
 $subtitulo = "PEDIDO";
 
 $tipopesq="for";
@@ -20,7 +20,7 @@ $tipopesq="for";
 $Actionter = "unlock";
 
 
-// CONFIGURAÇÃO DE COR
+// CONFIGURAï¿½ï¿½O DE COR
 
 $bgcortopo = "#86ACB5";
 $bgcortopo1 = "#93BEE2";
@@ -147,7 +147,7 @@ switch ($Action) {
 					if ($pnumdoc == "S" and $numdoc[$codparcped] == ""){
 						
 						$erro[$i] = 0;
-						$msg[$i] = "O NUM. DOCUMENTO da Parcela $i não foi preenchido";
+						$msg[$i] = "O NUM. DOCUMENTO da Parcela $i nï¿½o foi preenchido";
 
 					}else{
 						//INSERE NO CAR
@@ -279,7 +279,7 @@ switch ($Action) {
 					// PESQUISA POR ALGUMA OCORRENCIA DO STATUS
 					$prod->listProdgeral("pedidostatus", "codped=$codped and statusped='CAIXA'", $array614, $array_campo614 , "");
 
-					// MODIFICAÇÂO DO PEDIDO
+					// MODIFICAï¿½ï¿½O DO PEDIDO
 					$prod->listProdU("modped","pedido", "codped=$codped");
 					$modped = $prod->showcampo0();
 
@@ -366,7 +366,7 @@ switch ($Action) {
 					$prod->setcampo0("");
 					$prod->setcampo1($codconta);  //
 					$prod->setcampo2("00.01");
-					$prod->setcampo3("Comissão Pedido");
+					$prod->setcampo3("Comissï¿½o Pedido");
 					if ($valorp >= 0){
 							$valorpf = abs($valorp);
 							$prod->setcampo4($valorpf);
@@ -424,7 +424,7 @@ switch ($Action) {
 		$prod->listProdU("IF( nf = 'NO', 'S', 'N' ) ", "pedido", "codped=$codped");
 		$falta_nf = $prod->showcampo0();
 
-		// MODIFICAÇÂO DO PEDIDO
+		// MODIFICAï¿½ï¿½O DO PEDIDO
 		$prod->listProdU("modped","pedido", "codped=$codped");
 		$modped = $prod->showcampo0();
 
@@ -625,13 +625,13 @@ switch ($Action) {
 		$prod->mostraProd( $array613, $array_campo613, 0 );
 		$numcbok = $prod->showcampo0();
 
-		// MODIFICAÇÂO DO PEDIDO
+		// MODIFICAï¿½ï¿½O DO PEDIDO
 		$prod->listProdU("modped","pedido", "codped=$codped");
 		$modped = $prod->showcampo0();
 
 		#echo("ncb=$numcbok");
 		
-		// FINALIZAÇÃO - TODOS OS PRODUTOS FORAM CONFERIDOS PELO SISTEMA
+		// FINALIZAï¿½ï¿½O - TODOS OS PRODUTOS FORAM CONFERIDOS PELO SISTEMA
 		if ($numcbok == $qtde_prodped){
 		
 				$prod->listProd("pedido", "codped='$codped'");
@@ -687,7 +687,7 @@ switch ($Action) {
 				$prod->setcampo5("");  // CONTATO
 				$prod->setcampo6(""); // NUMNF
 				$prod->setcampo7($dataatual);  //DATA COMPRA
-				$prod->setcampo10("OC DE TRANFERÊNCIA");
+				$prod->setcampo10("OC DE TRANFERï¿½NCIA");
 			
 				$prod->setcampo11($anopar.$mespar.$diapar);
 				$prod->setcampo12($vpp_t); // VALOR TOTAL OC
@@ -770,7 +770,7 @@ switch ($Action) {
 			// PESQUISA POR ALGUMA OCORRENCIA DO STATUS
 			$prod->listProdgeral("pedidostatus", "codped=$codped and statusped='$statuspeds'", $array614, $array_campo614 , "");
 
-			// MODIFICAÇÂO DO PEDIDO
+			// MODIFICAï¿½ï¿½O DO PEDIDO
 			$prod->listProdU("modped","pedido", "codped=$codped");
 			$modped = $prod->showcampo0();
 
@@ -801,7 +801,7 @@ switch ($Action) {
 					if ($status_ped == "ENTR"){
 						$prod->setcampo15(1);  // HISTORICO
 					}
-					$prod->setcampo44("NO"); // MODIFICAÇÃO - PEDIDO
+					$prod->setcampo44("NO"); // MODIFICAï¿½ï¿½O - PEDIDO
 					$prod->upProd("pedido", "codped=$codped");
 
 				}
@@ -839,7 +839,7 @@ switch ($Action) {
 					if ($status_ped == "ENTR"){
 						$prod->setcampo15(1);  // HISTORICO
 					}
-					$prod->setcampo44("NO"); // MODIFICAÇÃO - PEDIDO
+					$prod->setcampo44("NO"); // MODIFICAï¿½ï¿½O - PEDIDO
 					$prod->upProd("pedido", "codped=$codped");
 				}
 
@@ -931,7 +931,7 @@ if ($Actionsec == "list"){
 
 }
 
-/// INCLUSÃO DO TOPO ////
+/// INCLUSï¿½O DO TOPO ////
 
 if ($Actionter == "unlock"){
 
@@ -945,8 +945,8 @@ echo("
 
 
 //***************************************************************************************
-//  Função para verificação de campos obrigatórios e consistência
-//  Retorno:  false = erro de consistência
+//  Funï¿½ï¿½o para verificaï¿½ï¿½o de campos obrigatï¿½rios e consistï¿½ncia
+//  Retorno:  false = erro de consistï¿½ncia
 //            true  = ok
 //***************************************************************************************
 
@@ -973,9 +973,9 @@ function verificaObrig (form)
 
 
 //***************************************************************************************
-//  Função para obtenção de descrição do campo
-//  Retorno: Uma descrição para o campo que corresponde
-//           ao que é mostrado no browser
+//  Funï¿½ï¿½o para obtenï¿½ï¿½o de descriï¿½ï¿½o do campo
+//  Retorno: Uma descriï¿½ï¿½o para o campo que corresponde
+//           ao que ï¿½ mostrado no browser
 //***************************************************************************************
 
 function retornaNmCampo (campo)
@@ -986,7 +986,7 @@ function retornaNmCampo (campo)
 	if (campo == 'nomeprod')
         return 'Nome Produto';
 	else
-        return 'Campo não cadastrado';
+        return 'Campo nï¿½o cadastrado';
 }
 
 function adjust(element) {
@@ -1035,7 +1035,7 @@ function verificaObrigFPG (form, qtde, cadErro)
  		
 		if ((form.elements[strTipo].value == '02.01') && (cadErro == 1))
 		{
-			alert ('O cadastro do cliente está incompleto, atualize as informações para que possa continuar o pedido.');
+			alert ('O cadastro do cliente estï¿½ incompleto, atualize as informaï¿½ï¿½es para que possa continuar o pedido.');
 			eval ('form.elements[strTipo].focus ()');
 			return false;
 		} 
@@ -1043,7 +1043,7 @@ function verificaObrigFPG (form, qtde, cadErro)
 		
 		if ((verificaNumerico (form.elements[strBanco].value, 1) != 1) || (verificaNumerico (form.elements[strAgencia].value, 1) != 1) || (verificaNumerico (form.elements[strNum].value, 1) != 1) || (verificaNumerico (form.elements[strConta].value, 1) != 1))
 		{
-			alert ('Banco, Agencia, Conta e Num Cheque da Parcela ' + cont + ' formato inválido');
+			alert ('Banco, Agencia, Conta e Num Cheque da Parcela ' + cont + ' formato invï¿½lido');
 			eval ('form.elements[strBanco].focus ()');
 
 		return false;
@@ -1051,7 +1051,7 @@ function verificaObrigFPG (form, qtde, cadErro)
 
 		if (form.elements[strBanco].value != form.elements[strXBanco].value) 
 		{
-			alert ('O BANCO da Parcela ' + cont + ' não confere ');
+			alert ('O BANCO da Parcela ' + cont + ' nï¿½o confere ');
 			eval ('form.elements[strBanco].focus ()');
 
 		return false;
@@ -1059,7 +1059,7 @@ function verificaObrigFPG (form, qtde, cadErro)
 
 		if (form.elements[strAgencia].value != form.elements[strXAgencia].value) 
 		{
-			alert ('A AGENCIA da Parcela ' + cont + ' não confere ');
+			alert ('A AGENCIA da Parcela ' + cont + ' nï¿½o confere ');
 			eval ('form.elements[strAgencia].focus ()');
 
 		return false;
@@ -1067,7 +1067,7 @@ function verificaObrigFPG (form, qtde, cadErro)
 
 		if (form.elements[strConta].value != form.elements[strXConta].value)
 		{
-			alert ('A CONTA da Parcela ' + cont + ' não confere ');
+			alert ('A CONTA da Parcela ' + cont + ' nï¿½o confere ');
 			eval ('form.elements[strConta].focus ()');
 
 		return false;
@@ -1075,7 +1075,7 @@ function verificaObrigFPG (form, qtde, cadErro)
 
 		if (form.elements[strNum].value != form.elements[strXNum].value) 
 		{
-			alert ('O NUM.CHEQUE da Parcela ' + cont + ' não confere ');
+			alert ('O NUM.CHEQUE da Parcela ' + cont + ' nï¿½o confere ');
 			eval ('form.elements[strNum].focus ()');
 
 		return false;
@@ -1117,7 +1117,7 @@ function CopiaCodBarraCheque(form, posicao)
 	if ((valor.indexOf(':') != -1) || (valor.length != 34))	
 	
 	{
-				alert('O formato do Código de Barra do cheque está incorreto.');
+				alert('O formato do Cï¿½digo de Barra do cheque estï¿½ incorreto.');
 				eval ('form.elements[strPValor].focus ()');
 				
 	}else{
@@ -1164,8 +1164,8 @@ function EnviaNF()
 				var days = Math.floor(diff / (1000 * 60 * 60 * 24));
 			
 			
-			if (days < -1 ){alert('A DATA do DOCUMENTO '+j+' não pode ser inferior a DATA ATUAL');return false; }
-			if (days > 30 ){alert('A DATA do DOCUMENTO '+j+' não pode ser superior a 30 DIAS');return false; }
+			if (days < -1 ){alert('A DATA do DOCUMENTO '+j+' nï¿½o pode ser inferior a DATA ATUAL');return false; }
+			if (days > 90 ){alert('A DATA do DOCUMENTO '+j+' nï¿½o pode ser superior a 90 DIAS');return false; }
 			
 			if (document.getElementById(_objnumnf).value == '' ){alert('O NUMERO do DOCUMENTO '+u+' deve ser preenchido corretamente.');return false; }
 			if (ValidaCampoNumerico(document.getElementById(_objnumnf).value) != true ){alert('O NUMERO do DOCUMENTO '+u+' deve ser preenchido somente com NUMEROS.');return false; }
@@ -1409,7 +1409,7 @@ echo("
       </tr>
       <tr>
         <td width='50%' bgcolor='#F0F0F0'><font size='1'><b><font face='Verdana, Arial, Helvetica, sans-serif' color='#336699'>DATA
-          EMISSÃO PEDIDO:<br>
+          EMISSï¿½O PEDIDO:<br>
           </font><font face=' Verdana, Arial, Helvetica, sans-serif'>$datapedf</font></b></font></td>
       </center>
       <td width='50%' bgcolor='#F0F0F0'>
@@ -1431,7 +1431,7 @@ echo("
       $xcgc</font></font></td>
     </tr>
     <tr>
-      <td width='100%' bgcolor='#F0F0F0' colspan='2'><font face='Verdana, Arial, Helvetica, sans-serif' size='1'><b><font color='#336699'>ENDEREÇO:<br>
+      <td width='100%' bgcolor='#F0F0F0' colspan='2'><font face='Verdana, Arial, Helvetica, sans-serif' size='1'><b><font color='#336699'>ENDEREï¿½O:<br>
         </font>
         </b><font color='#000000'>$xendereco - $xnumero - $xcomplemento - $xbairro - $xcidade - $xestado - $xcep</font></font></td>
     </tr>
@@ -1460,13 +1460,13 @@ echo("
   <center>
   <table border='0' width='550' cellspacing='1' cellpadding='2'>
     <tr>
-      <td width='100%' colspan='2' bgcolor='#C0C0C0'><font size='1' face='Verdana' color='#FFFFFF'><b>REFERÊNCIA
-        BANCÁRIA </b></font></td>
+      <td width='100%' colspan='2' bgcolor='#C0C0C0'><font size='1' face='Verdana' color='#FFFFFF'><b>REFERï¿½NCIA
+        BANCï¿½RIA </b></font></td>
     </tr>
     <tr>
       <td width='50%' bgcolor='#F0F0F0'><font face='Verdana, Arial, Helvetica, sans-serif' size='1'><b><font color='#336699'>BANCO:<br>
         </font></b><font color='#000000'>$xrb_banco</font></font></td>
-      <td width='50%' bgcolor='#F0F0F0'><font face='Verdana, Arial, Helvetica, sans-serif' size='1'><b><font color='#336699'>AGÊNCIA:<br>
+      <td width='50%' bgcolor='#F0F0F0'><font face='Verdana, Arial, Helvetica, sans-serif' size='1'><b><font color='#336699'>AGï¿½NCIA:<br>
         </font></b><font color='#000000'>$xrb_agencia</font></font></td>
     </tr>
     <tr>
@@ -1517,7 +1517,7 @@ echo("
 		</tr>
   <tr bgcolor='#D6B778'> 
 	<td width='5%' height='0'><font face='Verdana, Arial, Helvetica, sans-serif' size='1' color='#000000'><b>&nbsp;</b></font></td>
-	<td width='70%' height='0' colspan='2'><font face='Verdana, Arial, Helvetica, sans-serif' size='1' color='#000000'><b>DESCRIÇÃO DETALHADA</b></font></td>
+	<td width='70%' height='0' colspan='2'><font face='Verdana, Arial, Helvetica, sans-serif' size='1' color='#000000'><b>DESCRIï¿½ï¿½O DETALHADA</b></font></td>
 	<td width='10%' height='0'><font face='Verdana, Arial, Helvetica, sans-serif' size='1'  color='#000000'><b>UNIT.(R$)</b></font></td>
     <td width='5%' height='0'><font face='Verdana, Arial, Helvetica, sans-serif' size='1'  color='#000000'><b>QTDE</b></font></td>
 	<td width='10%' height='0'><font face='Verdana, Arial, Helvetica, sans-serif' size='1'  color='#000000'><b>TOTAL(R$)</b></font></td>
@@ -1705,7 +1705,7 @@ echo("
 
 	echo("
 		<tr bgcolor='#FFFFFF'> 
-		<td width='5%' height='0' align='left' colspan=7><font face='Verdana, Arial, Helvetica, sans-serif' size='1' color ='#800000'><b>PRODUTOS UNITÁRIOS</b><td>
+		<td width='5%' height='0' align='left' colspan=7><font face='Verdana, Arial, Helvetica, sans-serif' size='1' color ='#800000'><b>PRODUTOS UNITï¿½RIOS</b><td>
 		<tr>
 		");
   
@@ -1893,11 +1893,11 @@ if ( count($array37) > 0 ){
       <td width='100%' bgcolor='#FF0000' colspan='2'><font size='1' face='Verdana' color='#FFFFFF'><b></b></font></td>
     </tr>
      <tr>
-      <td width='100%' bgcolor='#FFFFFF' colspan='2' align = 'center'><font size='6' face='Verdana' color='#FF0000' ><b>ATENÇÃO</b></font></td>
+      <td width='100%' bgcolor='#FFFFFF' colspan='2' align = 'center'><font size='6' face='Verdana' color='#FF0000' ><b>ATENï¿½ï¿½O</b></font></td>
     </tr>
    
     <tr>
-      <td width='100%' bgcolor='#FDDCDB' ><b><center><font face='Verdana, Arial, Helvetica, sans-serif' size='3' color='#000000'>OBSERVAÇÕES PARA CONSTAR NO DOCUMENTO FISCAL:<br></font><BR><font color='#336699' face='Verdana, Arial, Helvetica, sans-serif' size='2'><b>NOTA FISCAL DE ORIGEM DE FÁBRICA<br></b></font>
+      <td width='100%' bgcolor='#FDDCDB' ><b><center><font face='Verdana, Arial, Helvetica, sans-serif' size='3' color='#000000'>OBSERVAï¿½ï¿½ES PARA CONSTAR NO DOCUMENTO FISCAL:<br></font><BR><font color='#336699' face='Verdana, Arial, Helvetica, sans-serif' size='2'><b>NOTA FISCAL DE ORIGEM DE Fï¿½BRICA<br></b></font>
     ");
 for($i = 0; $i < count($array37); $i++ ){
 				
@@ -2001,7 +2001,7 @@ echo("
 		<td width='70%' ><font size='1' face='Verdana'><b>R$ $vppf</b></font></td>
     </tr>
 		<tr bgcolor='#ffffff'>
-        <td width='30%'><font size='1' face='Verdana' color='#336699'><b>VALOR À VISTA:</b></font></td>
+        <td width='30%'><font size='1' face='Verdana' color='#336699'><b>VALOR ï¿½ VISTA:</b></font></td>
 		<td width='70%' ><font size='1' face='Verdana'><b>R$ $vpvf</b></font></td>
     </tr>
 	<tr bgcolor='#ffffff'>
@@ -2036,7 +2036,7 @@ echo("
     <tr>
       <td><b><font face='Verdana, Arial, Helvetica, sans-serif' color='#336699' size='1'>PARTE
         I</font><font face='Verdana, Arial, Helvetica, sans-serif' size='1'><font color='#336699'>V</font>
-        - MODIFICAÇÃO DO PEDIDO</font></b></td>
+        - MODIFICAï¿½ï¿½O DO PEDIDO</font></b></td>
     </tr>
   </tbody>
 </table>
@@ -2052,7 +2052,7 @@ echo("
         
         <td width='100' ><b><font face='Verdana' color='#FFFFFF' size='1'>CODBARRA</font></b></td>
         
-        <td width='80' ><b><font face='Verdana' color='#FFFFFF' size='1'>OPERAÇÃO</font></b></td>
+        <td width='80' ><b><font face='Verdana' color='#FFFFFF' size='1'>OPERAï¿½ï¿½O</font></b></td>
         
       </tr>
 
@@ -2316,7 +2316,7 @@ echo("
         <b><font size='1' face='Verdana'>::</font></b></td>
       <td width='766' bgcolor='#86acb5' valign='top'>
         <b>
-        <font size='1' face='Verdana' color='#FFFFFF'>OBS. SOBRE O CRÉDITO DO CLIENTE</font></b></td>
+        <font size='1' face='Verdana' color='#FFFFFF'>OBS. SOBRE O CRï¿½DITO DO CLIENTE</font></b></td>
     </tr>
     
     <tr>
@@ -2330,7 +2330,7 @@ echo("
         <b><font size='1' face='Verdana'>::</font></b></td>
       <td width='1028' bgcolor='#86acb5' valign='top'>
         <b>
-        <font size='1' face='Verdana' color='#FFFFFF'>OBS. APROVAÇÃO DE CRÉDITO</font></b></td>
+        <font size='1' face='Verdana' color='#FFFFFF'>OBS. APROVAï¿½ï¿½O DE CRï¿½DITO</font></b></td>
     </tr>
     
     <tr>
@@ -2568,7 +2568,7 @@ if($Action == "list"):
 		COD: <input type='text' name='codpedpesq' size='14' maxlength='13'> 
 		CLIENTE: <input type='text' name='palavrachave' size='20'>
 		VENDEDOR: <input type='text' name='nomevendpesq' size='20'><br>
-		RECEBIMENTOS CRÍTICOS:<input type='checkbox' name='pedlib' value='OK'></font>
+		RECEBIMENTOS CRï¿½TICOS:<input type='checkbox' name='pedlib' value='OK'></font>
 		<input class='sbttn' type='submit' name='Submit' value='OK'>
 		
 		<input type='hidden' name='desloc' value='0'>
@@ -2690,7 +2690,7 @@ echo("
         TABELA</font></a></b></td>
           </center>
           <td width='35%'>
-            <p align='right'><font face='Verdana, Arial, Helvetica, sans-serif' color='#000000' size='1'>PÁGINA<b> 
+            <p align='right'><font face='Verdana, Arial, Helvetica, sans-serif' color='#000000' size='1'>Pï¿½GINA<b> 
         $pagina </b>DE<b> $totalpagina</b></font></td>
         </tr>
       </table>
@@ -2844,7 +2844,7 @@ include("numcontg.php");
 }
 
 
-/// INCLUSÃO DO RODAPE ////
+/// INCLUSï¿½O DO RODAPE ////
 
 include ("sif-rodape.php");
 }

@@ -1,0 +1,87 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<?
+$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light);
+$db->voltar(MOD_COR, $pg, "&pg_ped=100");
+?>
+<br>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" class="titulo_superior2">
+  <tr>
+    <td>Enviar Malote </td>
+  </tr>
+</table>
+<table width="100%"  border="0" cellpadding="2" cellspacing="0" class="generalTable defaultBlackText">
+  <form method="post" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=200&Action=Envia"; ?>">
+    <tr style="background-color: #FFFFFF; cursor: pointer;">
+      <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Destinat&aacute;rio</td>
+      <td class="noramlTableCell"><table border="0" cellspacing="1" cellpadding="1" class="generalTable defaultBlackText">
+        <tr>
+          <td class="noramlTableCell"><input name="tipo_dest" type="radio" value="E"></td>
+          <td class="noramlTableCell">Empresa</td>
+          <td class="noramlTableCell"><select name="codempresa" class="campo_select" id="codempresa" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"'>
+            <option selected value="-1">Escolha uma empresa</option>
+            <?
+if ($rs_empresas)
+{
+	while (!$rs_empresas->EOF)
+	{
+?>
+            <option value="<? echo $rs_empresas->fields['codemp']; ?>"><? echo $db->format_str("UP", $rs_empresas->fields['nome']); ?></option>
+            <?
+	 	$rs_empresas->MoveNext();
+	}//WHILE
+	$rs_empresas->Move(0);
+}
+?>
+        </select></td>
+        </tr>
+        <tr>
+          <td class="noramlTableCell"><input name="tipo_dest" type="radio" value="R"></td>
+          <td class="noramlTableCell">Revenda</td>
+          <td class="noramlTableCell"><select name="codrevenda" class="campo_select" id="codrevenda" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"'>
+            <option selected value="-1">Escolha uma revenda</option>
+<?
+if ($rs_revendas)
+{
+	while (!$rs_revendas->EOF)
+	{
+?>
+            <option value="<? echo $rs_revendas->fields['codvend']; ?>"><? echo $db->format_str("UP", $rs_revendas->fields['nome']); ?></option>
+<?
+	 	$rs_revendas->MoveNext();
+	}//WHILE
+	$rs_revendas->Move(0);
+}
+?>
+        </select></td>
+        </tr>
+      </table></td>
+    </tr>
+    <tr style="background-color: #FFFFFF; cursor: pointer;">
+      <td align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">N&ordm; Malote </td>
+      <td class="noramlTableCell"><input name="nmalote" type="text" class="campo_linha" id="nmalote" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"' size="10" maxlength="5"></td>
+    </tr>
+    <tr style="background-color: #FFFFFF; cursor: pointer;">
+      <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Lacre</td>
+      <td class="noramlTableCell"><input name="lacre" type="text" class="campo_linha" id="lacre" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"' size="10" maxlength="7"></td>
+    </tr>
+    <tr style="background-color: #FFFFFF; cursor: pointer;">
+      <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Descri&ccedil;&atilde;o</td>
+      <td class="noramlTableCell"><textarea name="descricao" rows="4" class="campo_caixa" id="descricao" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"'></textarea></td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td><input name="Submit" type="submit" class="botao_cor" value="Enviar">
+      <input name="tipo_remet" type="hidden" id="tipo_remet" value="E"></td>
+    </tr>
+  </form>
+</table>
+</body>
+</html>

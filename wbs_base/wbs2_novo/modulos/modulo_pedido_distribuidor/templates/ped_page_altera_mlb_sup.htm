@@ -1,0 +1,182 @@
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Untitled Document</title>
+<link href="<? echo DIR_CSS; ?>/sistema.css" rel="stylesheet" type="text/css">
+
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+//-->
+</script>
+<style type="text/css">
+<!--
+.style1 {
+	color: #000000;
+	font-size: 10px;
+}
+-->
+</style>
+</head>
+
+<body>
+
+<table width="740" border="0" align="center">
+  <tr>
+    <td valign="top"><table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td><img src="<? echo DIR_IMAGES; ?>/ind_modificar_comissao.gif"></td>
+      </tr>
+      <tr>
+        <td background="<? echo DIR_IMAGES; ?>/spacer.gif" bgcolor="#FFCC00"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+      </tr>
+    </table>    
+      <br>
+ 
+
+      <table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td height="22" bgcolor="#FFEAD5" class="titulos_subcat3 style1">PESQUISA</td>
+        </tr>
+        <tr>
+          <td background="<? echo DIR_IMAGES; ?>/spacer.gif"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+        </tr>
+      </table>      
+      <table width="100%"  border="0" align="center" cellpadding="3" cellspacing="0">
+	   <form method="post" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&Action=pesquisa#pesq"; ?>" name="pesq" >
+        <tr>
+          <td align="right" class="titulos_itens">COD. PEDIDO :</td>
+          <td>            <input name="codbarrapesq" type="text" class="campoquant3" size="14" maxlength="13"></td>
+          <td><input name="imageField" type="image" src="<? echo DIR_IMAGES; ?>/btpesquisaryellow.gif" width="87" height="25" border="0"></td>
+        </tr>
+	  </form>
+      </table>
+
+       <table width="100%"  border="0" cellspacing="2" cellpadding="2">
+         <tr>
+           <td align="right"><strong>COD PEDIDO: </strong></td>
+           <td><span class="nomeprod1"><? echo"$codbarra_rel"; ?></span></td>
+         </tr>
+         <tr>
+           <td align="right">&nbsp;</td>
+           <td>&nbsp;</td>
+         </tr>
+         <tr>
+           <td align="right"><strong>VALOR VENDA: </strong></td>
+           <td><span class="nomeprod1">R$ <? echo"$vpp_rel"; ?></span></td>
+         </tr>
+         <tr>
+           <td align="right"><strong>VALOR TABELA :</strong></td>
+           <td><span class="nomeprod1">R$ <? echo"$vt_rel"; ?></span></td>
+         </tr>
+         <tr>
+           <td width="50%" align="right"><strong>MLB:</strong></td>
+           <td><span class="nomeprod1">R$ <? echo"$mlb_rel"; ?></span></td>
+         </tr>
+         <tr>
+           <td align="right"><strong>MCV:</strong></td>
+           <td><span class="nomeprod1"><? echo"$mcv_rel"; ?> % </span></td>
+         </tr>
+         <tr>
+           <td align="right"><strong>MLB_REAL:</strong></td>
+           <td><span class="nomeprod1">R$ <? echo"$mlb_real_rel"; ?> </span></td>
+         </tr>
+         <tr>
+           <td align="right"><strong>MCV_REAL:</strong></td>
+           <td><span class="nomeprod1"><? echo"$mcv_real_rel"; ?> %</span></td>
+         </tr>
+         <tr>
+           <td align="right"><strong>MCV_PROTEGIDA:</strong></td>
+           <td><span class="nomeprod1"><? echo"$mcv_prot_rel"; ?> %</span></td>
+         </tr>
+         <tr>
+           <td align="right"><strong>MCV_APLICADA:</strong></td>
+           <td><span class="nomeprod1"><? echo"$mcv_aplic_rel"; ?> % </span></td>
+         </tr>
+         <tr>
+           <td align="right"><strong>MEIA_MCV:</strong></td>
+           <td><span class="nomeprod1"><? echo"$meia_mcv_rel"; ?></span></td>
+         </tr>
+       </table>       
+       <table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+         <tr>
+           <td height="22" bgcolor="#FFEAD5" class="titulos_subcat3 style1">SIMULA&Ccedil;&Atilde;O</td>
+         </tr>
+         <tr>
+           <td background="<? echo DIR_IMAGES; ?>/spacer.gif"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+         </tr>
+       </table>    
+	   <a name="simula"></a>   
+       <table width="100%"  border="0" cellspacing="2" cellpadding="2">
+         <tr>
+           <td colspan="2" align="center"><span style="color:#FF0000"><b><? echo"$erro_per"; ?></b></span></td>
+         </tr>
+	   <form method="post" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&Action=simula#simula"; ?>" name="pesq" >
+         <tr>
+           <td align="right"><strong>MCV_APLICADA:</strong></td>
+           <td><input name="mcv_aplic_sim" type="text" class="campoquant3" id="mcv_aplic_sim" size="10" value ="<? echo"$mcv_aplic_sim"; ?>" >
+             %</td>
+         </tr>
+         <tr>
+           <td align="right">&nbsp;</td>
+           <td><input name="meia_mcv_sim" type="checkbox" id="meia_mcv_sim" value="S" <? echo"$chk_meia"; ?>>
+            <strong>MEIA_MCV</strong></td>
+         </tr>
+         <tr>
+           <td width="50%" align="right"><strong>NOVA MLB:</strong></td>
+           <td><span class="nomeprod1">R$ <? echo"$mlb_sim"; ?></span></td>
+         </tr>
+         <tr>
+           <td align="right"><strong>NOVA MCV:</strong></td>
+           <td><span class="nomeprod1"><? echo"$mcv_sim"; ?> % </span></td>
+         </tr>
+         <tr>
+           <td align="right">&nbsp;</td>
+           <td><input name="imageField" type="image" src="<? echo DIR_IMAGES; ?>/bt_simular_mostarda.gif" border="0">
+             <input name="codbarrapesq" type="hidden" value="<? echo"$codbarra_rel"; ?>">
+			<input name="mlb_real" type="hidden" value="<? echo"$mlb_real_rel"; ?>">
+		    <input name="mcv_real" type="hidden" value="<? echo"$mcv_real_rel"; ?>">
+			<input name="vt" type="hidden" value="<? echo"$vt_rel"; ?>">
+		    <input name="fatorvista" type="hidden" value="<? echo"$fatorvista_rel"; ?>">			</td>
+         </tr>
+		 </form>
+       </table>
+       <table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+         <tr>
+           <td height="22" bgcolor="#FFEAD5" class="titulos_subcat4">GRAVAR NOVA MLB </td>
+         </tr>
+         <tr>
+           <td background="<? echo DIR_IMAGES; ?>/spacer.gif"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+         </tr>
+       </table>  
+	   <a name="grava"></a>        
+       <table width="100%"  border="0" cellspacing="2" cellpadding="2">
+         <form method="post" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&Action=grava#grava"; ?>" name="pesq" >
+           <tr>
+             <td align="center" class="vermelhobold11"><span class="nomeprod1"><? echo"$msg"; ?></span></td>
+           </tr>
+           <tr>
+             <td align="center"><input name="imageField" type="image" src="<? echo DIR_IMAGES; ?>/bt_gravar_red.gif" border="0">
+                 <input name="codbarrapesq" type="hidden" value="<? echo"$codbarra_rel"; ?>">
+                 <input name="mlb_sim" type="hidden" id="mlb_sim" value="<? echo"$mlb_sim"; ?>">
+                 <input name="mcv_sim" type="hidden" id="mcv_sim" value="<? echo"$mcv_sim"; ?>"> 
+				 <input name="mcv_prot_sim" type="hidden" id="mcv_prot_sim" value="<? echo"$mcv_prot_max"; ?>">
+             <input name="mcv_aplic_sim" type="hidden" id="mcv_aplic_sim" value="<? echo"$mcv_aplic_sim"; ?>">
+			 <input name="ckerro_per" type="hidden" id="ckerro_per" value="<? echo"$ckerro_per"; ?>"></td>
+           </tr>
+         </form>
+       </table>       
+       <p>&nbsp;</p>
+       <p>&nbsp;    </p></td>
+  </tr>
+  <tr>
+    <td valign="top">&nbsp;</td>
+  </tr>
+
+</table>
+
+</body>
+</html>

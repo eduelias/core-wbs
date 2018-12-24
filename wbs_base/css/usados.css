@@ -1,0 +1,110 @@
+.titulo_tb_acai {
+	font-weight: bold;
+	text-transform: uppercase;
+	background-image: url(../images/fd2coresacai.jpg);
+	background-position: 20px;
+	padding-top: 3px;
+	padding-right: 10px;
+	padding-bottom: 3px;
+	padding-left: 10px;
+	font-family: "Trebuchet MS", Tahoma, Verdana, Arial;
+	font-size: 11px;
+	color: #FFFFFF;
+}
+.conteudo_td1 {
+	text-transform: uppercase;
+	color: #333333;
+	padding: 3px;
+	border-bottom-style: solid;
+	border-bottom-color: #999999;
+	border-bottom-width: 1px;
+	border-right-width: 1px;
+	border-right-style: solid;
+	border-right-color: #999999;
+	border-top-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-left-style: solid;
+	border-top-color: #CCCCCC;
+	border-left-color: #CCCCCC;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+.contorno_td1 {
+	padding: 4px;
+	border: 1px solid #666699;
+}
+.input3 {
+	color: #666699;
+	padding: 2px;
+	background-color: #FFFFFF;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	border: 1px solid #666699;
+}
+.input2 {
+	color: #666699;
+	padding: 2px;
+	border: 1px solid #666699;
+	text-transform: uppercase;
+	font-size: 10px;
+	font-weight: bold;
+	background-position: 20px;
+	background-color: #FFFFFF;
+}
+.titulo_especial {
+	font-family: "Trebuchet MS", Tahoma, Verdana, Arial;
+	font-weight: bold;
+	color: #666699;
+	padding-top: 2px;
+	padding-right: 2px;
+	padding-bottom: 2px;
+	padding-left: 6px;
+	font-size: 20px;
+	font-style: italic;
+}
+a.obshow {
+	position:relative;
+	color:#000;
+	padding-right: 0px;
+	padding-left: 0;
+	text-decoration:none;
+	cursor:help;
+	z-index:5;
+	font-family: "Trebuchet MS", Tahoma, Verdana, Arial;
+}
+a.obshow:hover {
+	background-color:#fff;
+	z-index:20;
+	text-decoration:none;
+	font-family: "Trebuchet MS", Tahoma, Verdana, Arial;
+}
+a.obshow span {
+	display: none;
+	font-family: "Trebuchet MS", Tahoma, Verdana, Arial;
+}
+a.obshow:hover span {
+	display:block;
+	position:absolute;
+	top:20px;
+	left:-100px;
+	width:200px;
+	font-size:10px;
+	padding: 5px;
+	background-color:#E6E6EE;
+	color:#000;
+	text-align: justify;
+	cursor:help;
+	z-index:20;
+	font-family: "Trebuchet MS", Tahoma, Verdana, Arial;
+	text-transform: uppercase;
+	border: 1px solid #666699;
+	float: left;
+}
+.label_campo1 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #000000;
+	padding: 3px;
+}

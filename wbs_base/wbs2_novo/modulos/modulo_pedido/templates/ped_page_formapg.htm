@@ -1,0 +1,745 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/sistema.css" rel="stylesheet" type="text/css">
+<script language='JavaScript' src = "<? echo DIR_JS; ?>/scripts.js"></script>
+<script language='JavaScript' src = "<? echo DIR_JS; ?>/util.js"></script>
+<script language="javascript" src="<? echo DIR_AJAX; ?>/tw-sack.js"></script>
+
+<script language="javascript">
+function PopupGarantia()
+{
+	window.open('http://wbs.ipasoft.com.br/wbs2/garantiaestendidapopup.php','GarantiaEstendida','width=607, height=635');
+}
+
+function adjust(element)
+{
+	return element.value.replace('.',',');
+}
+
+function readValue()
+{
+
+if (parent.frames["iformapg"].document.getElementById("cond_orc")){
+document.getElementById("cond_orc").value = parent.frames["iformapg"].document.getElementById("cond_orc").value;
+}
+
+}
+
+function verifyzip(form1, codped)
+	{
+	document.form1.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=10&"; ?>Action=pesq_cep&codpedselect='+codped+'#entrega';
+	document.form1.target = '';
+	document.form1.submit();
+	}
+
+function ShowHelp(div, title, desc)
+{
+
+var desc1;
+desc1 = "<table width='100%' border='0' cellspacing='1' cellpadding='1' align='center'>";
+desc1 += "<tr><td align='center'><b>SIMULAÇÃO ORÇAMENTO: </b><br><? echo"$codbarraorc"; ?></td></tr>";
+desc1 += " <tr><td align='center'><? echo"$condicaop"; ?></td></tr>";
+desc1 += "</table>";
+
+
+	div = document.getElementById(div);
+	div.style.display = 'inline';
+	div.style.position = 'absolute';
+	div.style.width = '200';
+	div.style.backgroundColor = 'lightyellow';
+	div.style.border = 'dashed 1px black';
+	div.style.padding = '10px';
+	div.innerHTML = '<div style="padding-left:10; padding-right:5">' + desc1 + '</div>';
+}
+
+function HideHelp(div)
+{
+	div = document.getElementById(div);
+	div.style.display = 'none';
+}
+
+
+function troca() 
+{ 
+ var vgarext_12 = document.getElementById("check_12").value
+ //var vgaros = document.getElementById("vgaros_24_select").value
+ //var vtabela_real = "<? echo $_SESSION['valortabela_real']; ?>"
+ //var vtotal = "<? echo $_SESSION['valortotal'] ; ?>"
+ var vtabela_real = document.getElementById("valortabela_real").value
+ var vtotal = document.getElementById("valortotal").value
+ var vtotalf = FormataMoeda(vtotal)
+ 
+ if (form1.check_12.checked) 
+ { 
+  
+ var vtabela_novo = parseFloat(vtabela_real)+parseFloat(vgarext_12);
+ var vtotal_novo = parseFloat(vtotal)+parseFloat(vgarext_12);
+ 
+ var vtotal_novof = FormataMoeda(vtotal_novo)
+   
+ document.getElementById("valortabela_real").value = vtabela_novo
+ document.getElementById("valortotal").value = vtotal_novo
+ document.getElementById("vtotal").innerHTML = vtotal_novof; 
+ //document.getElementById("check_24").checked=false
+  
+ }else{
+  
+
+	 var vtabela_novo = parseFloat(vtabela_real)-parseFloat(vgarext_12);
+	 var vtotal_novo = parseFloat(vtotal)-parseFloat(vgarext_12);
+ 
+ var vtotal_novof = FormataMoeda(vtotal_novo)
+   
+ document.getElementById("valortabela_real").value = vtabela_novo
+ document.getElementById("valortotal").value = vtotal_novo
+ document.getElementById("vtotal").innerHTML = vtotal_novof; 
+ //document.getElementById("check_24").checked=false
+ }
+} 
+
+function troca1() 
+{ 
+ var vgarext_24 = document.getElementById("check_24").value
+ var vtabela_real = "<? echo"$valortabela_real"; ?>"
+ var vtotal = "<? echo"$valortotal"; ?>"
+ var vtotalf = FormataMoeda(vtotal)
+ 
+ if (form1.check_24.checked) 
+ { 
+ var vtabela_novo = parseFloat(vtabela_real)+parseFloat(vgarext_24);
+ var vtotal_novo = parseFloat(vtotal)+parseFloat(vgarext_24);
+ 
+ var vtotal_novof = FormataMoeda(vtotal_novo)
+  
+ document.getElementById("valortabela_real").value = vtabela_novo
+ document.getElementById("valortotal").value = vtotal_novo
+ document.getElementById("vtotal").innerHTML = vtotal_novof; 
+ document.getElementById("check_12").checked=false
+  
+ }else{
+  
+ document.getElementById("valortabela_real").value = vtabela_real
+ document.getElementById("valortotal").value = vtotal
+ document.getElementById("vtotal").innerHTML = vtotalf; 
+ document.getElementById("check_12").checked=false
+ }
+} 
+
+
+function troca_os(base , param, codped, vonsite_desloc) 
+{ 
+var theURL = base + "";
+ var vgaros = document.getElementById("vgaros_12_select").value
+ var vtabela_real = document.getElementById("valortabela_real").value
+ var vtotal = document.getElementById("valortotal").value
+ var cep = document.getElementById("cep").value
+ var vtotalf = FormataMoeda(vtotal)
+ 
+ if (form1.vgaros_12_select.checked) 
+ { 
+  
+ var vtabela_novo = parseFloat(vtabela_real)+parseFloat(vgaros);
+ var vtotal_novo = parseFloat(vtotal)+parseFloat(vgaros);
+ 
+ var vtotal_novof = FormataMoeda(vtotal_novo)
+   
+ document.getElementById("valortabela_real").value = vtabela_novo
+ document.getElementById("valortotal").value = vtotal_novo
+ document.getElementById("vtotal").innerHTML = vtotal_novof; 
+ //document.getElementById("check_24").checked=false
+ 
+  
+	 doit(theURL, 'lista', param+'&Action=upPed_add&menu_not=1&codped='+codped+'&vonsite_desloc='+vonsite_desloc+'&cep='+cep+'', 'GET', '');
+		ajax.onCompletion = function() {onFinish('msg_return', '');}//ajax
+  
+ }else{
+ 
+ var vtabela_novo = parseFloat(vtabela_real)-parseFloat(vgaros);
+ var vtotal_novo = parseFloat(vtotal)-parseFloat(vgaros);
+ 
+ var vtotal_novof = FormataMoeda(vtotal_novo)
+  
+ document.getElementById("valortabela_real").value = vtabela_novo
+ document.getElementById("valortotal").value = vtotal_novo
+ document.getElementById("vtotal").innerHTML = vtotal_novof;; 
+ //document.getElementById("check_12").checked=false
+ 
+  doit(theURL, 'lista', param+'&Action=upPed_del&menu_not=1&codped='+codped+'&vonsite_desloc='+vonsite_desloc+'&cep='+cep+'', 'GET', '');
+		ajax.onCompletion = function() {onFinish('msg_return', '');}//ajax
+ 
+ }
+} 
+
+
+function doOne(base, param,codpped, codped)
+{
+	
+var theURL = base + "";
+var valorgos= document.getElementById("gos_12["+codpped+"]").value;
+var valorgos24= document.getElementById("gos_24["+codpped+"]").value;
+
+var vgaros12 = document.getElementById("vgaros_12_select").value
+//var vgaros24 = document.getElementById("vgaros_24_select").value
+var vgos_novo =0
+var vgos_novof = 0
+var tipo_ons = 12
+
+
+
+  if (document.getElementById("gos_12["+codpped+"]").checked) 
+ { 
+		if (document.getElementById("gos_24["+codpped+"]").checked) 
+	 { 
+		vgos_novo = parseFloat(vgaros12)-parseFloat(valorgos24)
+		document.getElementById("vgaros_12_select").value = vgos_novo
+		vgos_novof = FormataMoeda(vgos_novo)
+		document.getElementById("vgos_12").innerHTML = vgos_novof; 
+		document.getElementById("gos_24["+codpped+"]").checked=false
+	 }
+				
+		
+		
+	if(vgos_novo){ vgos_novo = parseFloat(vgos_novo)+parseFloat(valorgos)}else{ vgos_novo = parseFloat(vgaros12)+parseFloat(valorgos)}	
+	
+	 //var vgos24_novo = parseFloat(vgaros24)+(parseFloat(valorgos) * 1.5);
+	 
+	 document.getElementById("vgaros_12_select").value = vgos_novo
+ 	 //document.getElementById("vgaros_24_select").value = vgos24_novo
+	 
+	 vgos_novof = FormataMoeda(vgos_novo)
+	 //var vgos24_novof = FormataMoeda(vgos24_novo)
+	 document.getElementById("vgos_12").innerHTML = vgos_novof; 
+ 	 //document.getElementById("vgos_24").innerHTML = vgos24_novof; 
+	 
+	 doit(theURL, 'lista', param+'&Action=Addons&menu_not=1&codpped='+codpped+'&codped='+codped+'&tipo_ons='+tipo_ons+'', 'GET', '');
+		ajax.onCompletion = function() {onFinish('msg_return', '');}//ajax
+	 
+	 
+}else{
+	
+		
+	
+	if(vgos_novo){ vgos_novo = parseFloat(vgos_novo)-parseFloat(valorgos)}else{ vgos_novo = parseFloat(vgaros12)-parseFloat(valorgos)}
+	//var vgos24_novo = parseFloat(vgaros24)-parseFloat(valorgos)* 1.5;
+	document.getElementById("vgaros_12_select").value = vgos_novo
+	//document.getElementById("vgaros_24_select").value = vgos24_novo
+	 
+	vgos_novof = FormataMoeda(vgos_novo)
+	 //var vgos24_novof = FormataMoeda(vgos24_novo)
+	 document.getElementById("vgos_12").innerHTML = vgos_novof; 
+ 	 //document.getElementById("vgos_24").innerHTML = vgos24_novof; 
+	 
+	doit(theURL, 'lista', param+'&Action=Delons&menu_not=1&codpped='+codpped+'&codped='+codped+'&tipo_ons='+tipo_ons+'', 'GET', '');
+		ajax.onCompletion = function() {onFinish('msg_return', '');}//ajax
+}
+
+}
+
+function doOne24(base, param,codpped, codped)
+{
+	
+var theURL = base + "";
+var valorgos= document.getElementById("gos_24["+codpped+"]").value;
+var valorgos12= document.getElementById("gos_12["+codpped+"]").value;
+
+var vgaros12 = document.getElementById("vgaros_12_select").value
+//var vgaros24 = document.getElementById("vgaros_24_select").value
+var vgos_novo = 0
+var vgos_novof = 0
+var tipo_ons = 24
+
+  if (document.getElementById("gos_24["+codpped+"]").checked) 
+ { 
+		if (document.getElementById("gos_12["+codpped+"]").checked) 
+	 { 
+		vgos_novo = parseFloat(vgaros12)-parseFloat(valorgos12)
+		document.getElementById("vgaros_12_select").value = vgos_novo
+		vgos_novof = FormataMoeda(vgos_novo)
+		document.getElementById("vgos_12").innerHTML = vgos_novof; 
+		document.getElementById("gos_12["+codpped+"]").checked=false
+	 }
+				
+	
+		
+	 if(vgos_novo){ vgos_novo = parseFloat(vgos_novo)+parseFloat(valorgos)}else{ vgos_novo = parseFloat(vgaros12)+parseFloat(valorgos)}
+	
+	 //var vgos24_novo = parseFloat(vgaros24)+(parseFloat(valorgos) * 1.5);
+	 
+	 document.getElementById("vgaros_12_select").value = vgos_novo
+ 	 //document.getElementById("vgaros_24_select").value = vgos24_novo
+	 
+	 vgos_novof = FormataMoeda(vgos_novo)
+	 //var vgos24_novof = FormataMoeda(vgos24_novo)
+	 document.getElementById("vgos_12").innerHTML = vgos_novof; 
+ 	 //document.getElementById("vgos_24").innerHTML = vgos24_novof; 
+	 
+	 	doit(theURL, 'lista', param+'&Action=Addons&menu_not=1&codpped='+codpped+'&codped='+codped+'&tipo_ons='+tipo_ons+'', 'GET', '');
+		ajax.onCompletion = function() {onFinish('msg_return', '');}//ajax
+}else{
+	
+		
+	if(vgos_novo){ vgos_novo = parseFloat(vgos_novo)-parseFloat(valorgos)}else{ vgos_novo = parseFloat(vgaros12)-parseFloat(valorgos)}
+	
+	//var vgos24_novo = parseFloat(vgaros24)-parseFloat(valorgos)* 1.5;
+	document.getElementById("vgaros_12_select").value = vgos_novo
+	//document.getElementById("vgaros_24_select").value = vgos24_novo
+	 
+	 vgos_novof = FormataMoeda(vgos_novo)
+	 //var vgos24_novof = FormataMoeda(vgos24_novo)
+	 document.getElementById("vgos_12").innerHTML = vgos_novof; 
+ 	 //document.getElementById("vgos_24").innerHTML = vgos24_novof; 
+	 
+	 doit(theURL, 'lista', param+'&Action=Delons&menu_not=1&codpped='+codpped+'&codped='+codped+'&tipo_ons='+tipo_ons+'', 'GET', '');
+		ajax.onCompletion = function() {onFinish('msg_return', '');}//AJAX
+}
+
+}
+
+function doTwo(base, param, codprodcj, tipocj, codped)
+{
+
+		var theURL = base + "";
+				
+	
+var valorgos= document.getElementById("goscj_12["+codprodcj+"]["+tipocj+"]").value;
+var valorgos24= document.getElementById("goscj_24["+codprodcj+"]["+tipocj+"]").value;
+var vgaros12 = document.getElementById("vgaros_12_select").value
+ //var vgaros24 = document.getElementById("vgaros_24_select").value
+var vgos_novo = 0
+var vgos_novof = 0
+var tipo_ons = 12
+
+  if (document.getElementById("goscj_12["+codprodcj+"]["+tipocj+"]").checked) 
+ { 
+ 
+ 		if (document.getElementById("goscj_24["+codprodcj+"]["+tipocj+"]").checked) 
+	 { 
+		vgos_novo = parseFloat(vgaros12)-parseFloat(valorgos24)
+		document.getElementById("vgaros_12_select").value = vgos_novo
+		vgos_novof = FormataMoeda(vgos_novo)
+		document.getElementById("vgos_12").innerHTML = vgos_novof; 
+		document.getElementById("goscj_24["+codprodcj+"]["+tipocj+"]").checked=false
+	 }
+	
+	
+ 	
+
+	if(vgos_novo){ vgos_novo = parseFloat(vgos_novo)+parseFloat(valorgos)}else{ vgos_novo = parseFloat(vgaros12)+parseFloat(valorgos)}
+	//var vgos24_novo = parseFloat(vgaros24)+parseFloat(valorgos) * 1.5;
+	 
+	 document.getElementById("vgaros_12_select").value = vgos_novo
+	 // document.getElementById("vgaros_24_select").value = vgos24_novo
+	  
+	 vgos_novof = FormataMoeda(vgos_novo)
+	 //var vgos24_novof = FormataMoeda(vgos24_novo)
+	 document.getElementById("vgos_12").innerHTML = vgos_novof; 
+ 	 //document.getElementById("vgos_24").innerHTML = vgos24_novof; 
+	 
+	 	doit(theURL, 'lista', param+'&Action=Addcjons&menu_not=1&codprodcj='+codprodcj+'&tipocj='+tipocj+'&codped='+codped+'&tipo_ons='+tipo_ons+'', 'GET', '');
+		ajax.onCompletion = function() {onFinish('msg_return', '');}//ajax
+	 
+}else{
+
+		
+	
+	if(vgos_novo){ vgos_novo = parseFloat(vgos_novo)-parseFloat(valorgos)}else{ vgos_novo = parseFloat(vgaros12)-parseFloat(valorgos)}
+	//var vgos24_novo = parseFloat(vgaros24)-parseFloat(valorgos)* 1.5;
+	document.getElementById("vgaros_12_select").value = vgos_novo
+	//document.getElementById("vgaros_24_select").value = vgos24_novo
+	 
+	vgos_novof = FormataMoeda(vgos_novo)
+	 //var vgos24_novof = FormataMoeda(vgos24_novo)
+	 document.getElementById("vgos_12").innerHTML = vgos_novof; 
+ 	//document.getElementById("vgos_24").innerHTML = vgos24_novof; 
+	 
+	 doit(theURL, 'lista', param+'&Action=Delcjons&menu_not=1&codprodcj='+codprodcj+'&tipocj='+tipocj+'&codped='+codped+'&tipo_ons='+tipo_ons+'', 'GET', '');
+		ajax.onCompletion = function() {onFinish('msg_return', '');}//ajax
+}
+}
+
+function doTwo24(base, param, codprodcj, tipocj, codped)
+{
+
+		var theURL = base + "";
+				
+	
+var valorgos= document.getElementById("goscj_24["+codprodcj+"]["+tipocj+"]").value;
+var valorgos12= document.getElementById("goscj_12["+codprodcj+"]["+tipocj+"]").value;
+var vgaros12 = document.getElementById("vgaros_12_select").value
+ //var vgaros24 = document.getElementById("vgaros_24_select").value
+var vgos_novo = 0
+var vgos_novof = 0
+var tipo_ons = 24
+
+  if (document.getElementById("goscj_24["+codprodcj+"]["+tipocj+"]").checked) 
+ { 
+ 
+ 		if (document.getElementById("goscj_12["+codprodcj+"]["+tipocj+"]").checked) 
+	 { 
+		vgos_novo = parseFloat(vgaros12)-parseFloat(valorgos12)
+		document.getElementById("vgaros_12_select").value = vgos_novo
+		vgos_novof = FormataMoeda(vgos_novo)
+		document.getElementById("vgos_12").innerHTML = vgos_novof; 
+		document.getElementById("goscj_12["+codprodcj+"]["+tipocj+"]").checked=false
+	 }
+	
+	
+ 	
+
+	if(vgos_novo){ vgos_novo = parseFloat(vgos_novo)+parseFloat(valorgos)}else{ vgos_novo = parseFloat(vgaros12)+parseFloat(valorgos)}
+	//var vgos24_novo = parseFloat(vgaros24)+parseFloat(valorgos) * 1.5;
+	 
+	 document.getElementById("vgaros_12_select").value = vgos_novo
+	 // document.getElementById("vgaros_24_select").value = vgos24_novo
+	  
+	 vgos_novof = FormataMoeda(vgos_novo)
+	 //var vgos24_novof = FormataMoeda(vgos24_novo)
+	 document.getElementById("vgos_12").innerHTML = vgos_novof; 
+ 	 //document.getElementById("vgos_24").innerHTML = vgos24_novof; 
+	 
+	 	doit(theURL, 'lista', param+'&Action=Addcjons&menu_not=1&codprodcj='+codprodcj+'&tipocj='+tipocj+'&codped='+codped+'&tipo_ons='+tipo_ons+'', 'GET', '');
+		ajax.onCompletion = function() {onFinish('msg_return', '');}//ajax
+	 
+}else{
+
+		
+	
+	if(vgos_novo){ vgos_novo = parseFloat(vgos_novo)-parseFloat(valorgos)}else{ vgos_novo = parseFloat(vgaros12)-parseFloat(valorgos)}
+	//var vgos24_novo = parseFloat(vgaros24)-parseFloat(valorgos)* 1.5;
+	document.getElementById("vgaros_12_select").value = vgos_novo
+	//document.getElementById("vgaros_24_select").value = vgos24_novo
+	 
+	vgos_novof = FormataMoeda(vgos_novo)
+	 //var vgos24_novof = FormataMoeda(vgos24_novo)
+	 document.getElementById("vgos_12").innerHTML = vgos_novof; 
+ 	//document.getElementById("vgos_24").innerHTML = vgos24_novof; 
+	 
+	 doit(theURL, 'lista', param+'&Action=Delcjons&menu_not=1&codprodcj='+codprodcj+'&tipocj='+tipocj+'&codped='+codped+'&tipo_ons='+tipo_ons+'', 'GET', '');
+		ajax.onCompletion = function() {onFinish('msg_return', '');}//ajax
+}
+}
+
+
+</script>
+</head>
+<body>
+<div id="lista"></div>
+<table width="750"  border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><table width="100%"  border="0" cellspacing="2" cellpadding="5">
+     
+       <tr>
+        <td ><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td background="<? echo DIR_IMAGES; ?>/formpg_ind_fundo_on.gif"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_1_on.gif" width="112" height="50"></td>
+    <td background="<? echo DIR_IMAGES; ?>/formpg_ind_fundo_on.gif"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_2_on.gif" width="123" height="50"></td>
+    <td background="<? echo DIR_IMAGES; ?>/formpg_ind_fundo_off.gif"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_3_off.gif" width="140" height="50"></td>
+    <td background="<? echo DIR_IMAGES; ?>/formpg_ind_fundo_off.gif"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_4_off.gif"></td>
+    <td background="<? echo DIR_IMAGES; ?>/formpg_ind_fundo_off.gif"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_5_off.gif" width="134" height="50"></td>
+  </tr>
+  <tr>
+    <td colspan="5"><table width="100%"  border="0" cellspacing="2" cellpadding="3">
+        <tr>
+          <td width="165"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_comprar_mais.gif" width="165" height="16"></td>
+          <td width="115"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=2&Action=$Action&Action_alter=$Action_alter&codpedselect=$codpedselect"; ?>"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_alterar_pedido_laranja.gif" width="115" height="16" border = "0"></a></td>
+          <td>&nbsp;</td>
+        </tr>
+    </table></td>
+  </tr>
+</table> </td>
+      </tr>
+	   <tr>
+        <td><table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr>
+            <td width="70%"><img src="<? echo DIR_IMAGES; ?>/simulacaopagamento.gif"></td>
+            <td ><? if ($modped == 1){ ?><a href="#" onMouseOut="HideHelp('d22')" onMouseOver="ShowHelp('d22', 'Perdeu sua senha?', 'Perdeu Playboy, perdeooooooooooo!!!.')"><img src="<? echo DIR_IMAGES; ?>/btversimulacaoanterior.gif" border="0"></a><? }?><BR>
+              <div style="display:none; z-index:1; " id="d22"></div>              </td>
+          </tr>
+          <tr>
+            <td colspan="2" background="<? echo DIR_IMAGES; ?>/spacer.gif" bgcolor="#CEDBDE"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+          </tr>
+        </table></td>
+      </tr>
+	    <tr>
+        <td class="titulos_padrao">Passo 1 </td>
+      </tr>
+	  <tr>
+        <td><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+          <form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=11&Action=$Action&Action_alter=$Action_alter&codpedselect=$codpedselect"; ?>" name= "form1" method="post" target="iformapg" onSubmit = "readValue();" >
+            <tr>
+              <td><table width="100%"  border="0" cellpadding="2" cellspacing="2">
+                  <tr>
+                    <td colspan="2" class="titulos_itens">N&ordm; Parcelas:</td>
+                    <td class="titulos_itens">Valor Total:</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td valign="top"><select name="nump" class="campoquant1" id ='nump'>
+                        <?
+	for($i = 1; $i <= 12; $i++ ){
+
+?>
+                        <option value="<? echo"$i"; ?>"><? echo"$i"; ?></option>
+                        <?
+	}//FOR
+
+	if ($count_10x == 0){$ckd_10x = "disabled";}else{$ckd_10x="";}
+
+?>
+                    </select></td>
+                    <td valign="top"><input name="fixa" type="checkbox" id="fixa" value="1">
+FIXAR VALOR <br>
+<input name="sj10x" type="checkbox" id="sj10x" value="1" <? echo $ckd_10x; ?>>
+10x SEM JUROS </td>
+                    <td valign="top" class="valorpedido">R$<span id ='vtotal'><? echo"$valortotalf";?></span></td>
+                    <td><table width="100%"  border="0" cellpadding="2" cellspacing="2">
+                      <tr valign="top">
+                        <td><fieldset>
+                          <legend class="titulos_itens"> Extens&atilde;o de Garantia </legend>
+                          <table width="100%"  border="0" cellspacing="1" cellpadding="1">
+                            <tr>
+                              <td width="16%">&nbsp;</td>
+                              <td width="42%">&nbsp;</td>
+                              <td width="42%">ADICIONAL</td>
+                            </tr>
+                            <tr>
+                              <td><input type="checkbox" name="vgarext_12_select" value="<? echo"$vgarext_12_calc";?>" id ='check_12' onClick="troca()"></td>
+                              <td>+ 12 Meses</td>
+                              <td><strong>R$ <?echo"$vgarext_12f"?></strong></td>
+                            </tr>
+                            <tr>
+                              <td><input type="checkbox" name="vgarext_24_select" value="<? echo"$vgarext_24_calc";?>" id ='check_24' onClick="troca1()" disabled></td>
+                              <td>+ 24 Meses</td>
+                              <td><strong>R$ <?echo"$vgarext_24f"?></strong></td>
+                            </tr>
+                            <tr>
+                              <td>&nbsp;</td>
+                              <td>&nbsp;</td>
+                              <td><a href="#" onClick="PopupGarantia();"><img src="<? echo DIR_IMAGES; ?>/saibamais.gif" width="68" height="17" border="0"></a></td>
+                            </tr>
+                          </table>
+                        </fieldset></td>
+                      </tr>
+                    </table></td>
+                    <td rowspan="2" valign="top"><input name="imageField" type="image" src="<? echo DIR_IMAGES; ?>/btsimular.gif" width="81" height="25" border="0" ></td>
+                  </tr>
+                  <tr>
+                    <td colspan="4" valign="top"><table width="100%"  border="0" cellpadding="2" cellspacing="2">
+                        <tr valign="top">
+                          <td><fieldset>
+                            <legend class="titulos_itens"> Garantia On Site </legend>
+                            <table width="100%" border="0">
+                              <tr>
+                                <td colspan="2"><table width="100%"  border="0" cellspacing="1" cellpadding="1">
+                                  <tr>
+                                    <td width="16%">&nbsp;</td>
+                                    <td width="16%"><strong>CEP:</strong></td>
+                                    <td width="42%" colspan="2"><input name="cep" type="text" class="cmp1" id="cep" size="9" maxlength="8" value ="<? echo"$cep"; ?>" onBlur ="verifyzip(form1, <? echo"$codpedselect"; ?>);">
+                                      (Ex. 99999999) <br>
+                                      <span class="vermelhonegrito">
+                                        <?
+ if ($erro) {
+  echo "$erro";
+  }
+  ?>
+                                      </span></td>
+                                  </tr>
+                                  <tr>
+										<td colspan="3" align="center"><?=$res['cidade']?>                                    </td>
+                                    <td width="42%" align="center"><?=$res['uf']?></td>
+                                  </tr>
+                                  <tr>
+                                    <td colspan="4"><hr size="0"></td>
+                                  </tr>
+
+                                </table></td>
+                                </tr>
+								<?
+								if ($res['cidade_atend'] == "S"){
+								
+								$vgaros_12_calc = $res['valor_desloc'];
+								$vgaros_24_calc = $res['valor_desloc']*1.5;
+								$vgaros_12f =  $prod->fpreco($vgaros_12_calc);
+								$vgaros_24f =  $prod->fpreco($vgaros_24_calc);
+								?>						
+                              <tr>
+                                <td width="65%"><table width="100%"  border="0" cellspacing="1" cellpadding="1">
+                                  <tr>
+                                    <td width="10%" align="center">12</td>
+                                    <td width="10%" align="center">24</td>
+                                    <td width="9%">&nbsp;</td>
+                                    <td width="81%"><strong>PRODUTOS</strong></td>
+                                  </tr>
+                                  <?
+									$prod->listProdSum("pedidoprodtemp.codprod, nomeprod, garonsite_12, v_garonsite_12, garonsite_24, v_garonsite_24, codpped ", "pedidoprodtemp, produtos", "codped = '$codpedselect' and pedidoprodtemp.codprod = produtos.codprod and garonsite_12 = 'OK' and tipoprod = 'UM'", $array1, $array_campo1, "ORDER BY tipoprod, tipocj");
+
+
+									for ($j = 0; $j < count($array1); $j++)
+									{
+										$prod->mostraProd($array1, $array_campo1, $j);
+										$codprod_os = $prod->showcampo0();
+										$nomeprod_os = $prod->showcampo1();
+										$gos_12 = $prod->showcampo2();
+										$v_gos_12 = $prod->showcampo3();
+										$gos_24 = $prod->showcampo4();
+										$v_gos_24= $prod->showcampo5();
+										$codpped_os = $prod->showcampo6();
+										
+										$prod->clear();
+										$prod->listProdU("COUNT(*)", "pedidoprodtemp, produtos", "codped = '$codpedselect' and (tipocj <> 0 or codcat = 73) and pedidoprodtemp.codprod = produtos.codprod GROUP BY tipocj ");
+										$libos = $prod->showcampo0();
+										
+										if ($libos <> 0){
+									if ($gos_12 <> 'OK'){$ckd = "disabled";}else{$ckd="";}
+									if ($gos_24 <> 'OK'){$ckd1 = "disabled";}else{$ckd1="";}
+									?>
+                                  <tr>
+                                    <td align="center"><input type="checkbox" id = "gos_12[<? echo "$codpped_os"; ?>]" name="gos_12[<? echo "$codpped_os"; ?>]" value="<? echo"$v_gos_12";?>"  onClick="if (!document.getElementById('vgaros_12_select').checked){doOne('<? echo "$PHP_SELF"; ?>', '<? echo "pg=".$pg."&pg_ped=23"; ?>', <? echo $codpped_os ?>, <? echo $codpedselect ?>)}else{if(!document.getElementById('gos_12[<? echo "$codpped_os"; ?>]').checked){document.getElementById('gos_12[<? echo "$codpped_os"; ?>]').checked=true}else{document.getElementById('gos_12[<? echo "$codpped_os"; ?>]').checked=false}}" <? echo $ckd; ?>></td>
+                                    <td align="center"><input type="checkbox" id = "gos_24[<? echo "$codpped_os"; ?>]" name="gos_24[<? echo "$codpped_os"; ?>]" value="<? echo"$v_gos_24";?>"  onClick="if (document.getElementById('check_12').checked){if (!document.getElementById('vgaros_12_select').checked){doOne24('<? echo "$PHP_SELF"; ?>', '<? echo "pg=".$pg."&pg_ped=23"; ?>', <? echo $codpped_os ?>, <? echo $codpedselect ?>)}else{if(!document.getElementById('gos_24[<? echo "$codpped_os"; ?>]').checked){document.getElementById('gos_24[<? echo "$codpped_os"; ?>]').checked=true}else{document.getElementById('gos_24[<? echo "$codpped_os"; ?>]').checked=false}}}else{document.getElementById('gos_24[<? echo "$codpped_os"; ?>]').checked=false}" <? echo $ckd1; ?>></td>
+                                    <td><? echo $codprod_os ?></td>
+                                    <td><? echo $nomeprod_os ?></td>
+                                  </tr>
+                                  <?
+								  
+								  }
+									}//FOR
+									
+									$prod->listProdSum("codprodcj , tipocj, SUM(if (garonsite_12 = 'OK', v_garonsite_12, 0)) as gos_12, SUM(if (garonsite_24 = 'OK', v_garonsite_24, 0)) as gos_24", "pedidoprodtemp, produtos", "codped = '$codpedselect' and tipocj <> 0 and pedidoprodtemp.codprod=produtos.codprod ", $array1, $array_campo1, "GROUP BY tipocj ORDER BY tipoprod, tipocj");
+																	
+									
+									for ($j = 0; $j < count($array1); $j++)
+									{
+										$prod->mostraProd($array1, $array_campo1, $j);
+										$codprodcj_os = $prod->showcampo0();
+										$tipocj_os = $prod->showcampo1();
+										$goscj_12 = $prod->showcampo2();
+										$goscj_24 = $prod->showcampo3();
+										
+										$prod->clear();
+										$prod->listProdU("nomeprod", "produtos", "codprod = '$codprodcj_os'");
+										$nomeprod_os = $prod->showcampo0();
+									?>
+                                  <tr>
+                                    <td align="center"><input type="checkbox" id = "goscj_12[<? echo "$codprodcj_os"; ?>][<? echo "$tipocj_os"; ?>]" name="goscj_12[<? echo "$codprodcj_os"; ?>][<? echo "$tipocj_os"; ?>]" value="<? echo"$goscj_12";?>"  onClick="if (!document.getElementById('vgaros_12_select').checked){doTwo('<? echo "$PHP_SELF"; ?>', '<? echo "pg=".$pg."&pg_ped=23"; ?>', <? echo $codprodcj_os ?>,<? echo $tipocj_os ?>, <? echo $codpedselect ?>)}else{if(!document.getElementById('goscj_12[<? echo "$codprodcj_os"; ?>][<? echo "$tipocj_os"; ?>]').checked){document.getElementById('goscj_12[<? echo "$codprodcj_os"; ?>][<? echo "$tipocj_os"; ?>]').checked=true}else{document.getElementById('goscj_12[<? echo "$codprodcj_os"; ?>][<? echo "$tipocj_os"; ?>]').checked=false}}" disabled></td>
+                    
+                                     <td align="center"><input type="checkbox" id = "goscj_24[<? echo "$codprodcj_os"; ?>][<? echo "$tipocj_os"; ?>]" name="goscj_24[<? echo "$codprodcj_os"; ?>][<? echo "$tipocj_os"; ?>]" value="<? echo"$goscj_24";?>"  onClick="if (document.getElementById('check_12').checked){if (!document.getElementById('vgaros_12_select').checked){doTwo24('<? echo "$PHP_SELF"; ?>', '<? echo "pg=".$pg."&pg_ped=23"; ?>', <? echo $codprodcj_os ?>,<? echo $tipocj_os ?>, <? echo $codpedselect ?>)}else{if(!document.getElementById('goscj_24[<? echo "$codprodcj_os"; ?>][<? echo "$tipocj_os"; ?>]').checked){document.getElementById('goscj_24[<? echo "$codprodcj_os"; ?>][<? echo "$tipocj_os"; ?>]').checked=true}else{document.getElementById('goscj_24[<? echo "$codprodcj_os"; ?>][<? echo "$tipocj_os"; ?>]').checked=false}}}else{document.getElementById('goscj_24[<? echo "$codprodcj_os"; ?>][<? echo "$tipocj_os"; ?>]').checked=false}" disabled></td>
+                                     <td><? echo $codprodcj_os ?></td>
+                                    <td><? echo $nomeprod_os ?></td>
+                                  </tr>
+                                 
+								   <?
+								  				 
+									}//FOR
+									?>
+								 <tr>
+                                    <td colspan="4" align="center"><div id="msg_return"></div></td>
+                                    </tr>
+                                </table></td>
+                                <td width="35%"><table width="100%"  border="0" cellspacing="1" cellpadding="1">
+
+                                  <tr>
+                                    <td width="16%">&nbsp;</td>
+                                    <td width="16%">&nbsp;</td>
+                                    <td width="42%">&nbsp;</td>
+                                    <td width="42%">ADICIONAL</td>
+                                  </tr>
+                                  <tr>
+                                    <td>&nbsp;</td>
+                                    <td><input type="checkbox" name="vgaros_12_select" value="<? echo"$vgaros_12_calc";?>" id ='vgaros_12_select' onClick="if (document.getElementById('vgaros_12_select').value != <?=$res['valor_desloc']?>){troca_os('<? echo "$PHP_SELF"; ?>', '<? echo "pg=".$pg."&pg_ped=23"; ?>', <? echo $codpedselect ?>, <?=$res['valor_desloc']?>)}else{document.getElementById('vgaros_12_select').checked=false}"></td>
+                                    <td> TOTAL </td>
+                                    <td><strong>R$ <span id ='vgos_12'><?echo"$vgaros_12f"?></span></strong></td>
+                                  </tr>
+                                </table></td>
+                              </tr>
+							  <?
+							  }
+							  ?>
+                            </table>
+                            <p>&nbsp;</p>
+                          </fieldset></td>
+                        </tr>
+                                        </table></td>
+                    </tr>
+              </table></td>
+            </tr>
+            <tr>
+              <td><table  border="0" cellspacing="2" cellpadding="2">
+                  <tr valign="top">
+                    <td><fieldset>
+                      <legend class="titulos_itens">
+                      <input name="entrada" type="radio" value="0" checked id = "entrada">
+              Parcelas Iguais </legend>
+                      <table width="100%"  border="0" cellspacing="4" cellpadding="4">
+                        <tr>
+                          <td>Data 1&ordm; Vencimento: </td>
+                          <td>Valor Parcela: (opcional) </td>
+                        </tr>
+                        <tr>
+                          <td><input name="diapar" type="text" size="2" maxlength="2" value ="<? echo"$dia"; ?>" class="campoquant1" onKeyUp="return autoTab(this, 2, event);" >
+                    /
+                      <input name="mespar" type="text" size="2" maxlength="2" value ="<? echo"$mes"; ?>" class="campoquant1" onKeyUp="return autoTab(this, 2, event);" >
+                    /
+                    <input name="anopar" type="text" size="4" maxlength="4" value ="<? echo"$ano"; ?>" class="campoquant1" onKeyUp="return autoTab(this, 4, event);" ></td>
+                          <td>R$ 
+                            <input name="vparc_i" type="text" class="campoquant1" id="vparc_i" onFocus="virgula(this, '', 1)" onBlur="virgula(this, 1, '')" onkeyPress="if (!(mascara_valor(this))) return false;" size="10" ></td>
+                        </tr>
+                      </table>
+                    </fieldset></td>
+                    <td><fieldset>
+                      <legend class="titulos_itens">
+                      <input name="entrada" type="radio" value="1" id = "entrada">
+              Entrada Diferenciada + Parcelas Iguais</legend>
+                      <table width="100%"  border="0" cellspacing="4" cellpadding="4">
+                        <tr>
+                          <td>Data Entrada:</td>
+                          <td>Valor de Entrada: </td>
+                          <td>Data 1&ordm; Vencimento:</td>
+                          </tr>
+                        <tr>
+                          <td><input name="diaent" type="text" size="2" maxlength="2" value ="<? echo"$dia"; ?>" class="campoquant1" onKeyUp="return autoTab(this, 2, event);" >
+/
+  <input name="mesent" type="text" size="2" maxlength="2" value ="<? echo"$mes"; ?>" class="campoquant1" onKeyUp="return autoTab(this, 2, event);" >
+/
+<input name="anoent" type="text" size="4" maxlength="4" value ="<? echo"$ano"; ?>" class="campoquant1" onKeyUp="return autoTab(this, 4, event);" ></td>
+                          <td>R$ 
+                            <input name="ventrada" type="text" size="10" value ="0" onkeyPress="if (!(mascara_valor(this))) return false;" onFocus="virgula(this, '', 1)" onBlur="virgula(this, 1, '')" class="campoquant1"></td>
+                          <td><input name="diapar1" type="text" size="2" maxlength="2" value ="<? echo"$dia"; ?>" class="campoquant1" onKeyUp="return autoTab(this, 2, event);" >
+/
+  <input name="mespar1" type="text" size="2" maxlength="2" value ="<? echo"$mes"; ?>" class="campoquant1" onKeyUp="return autoTab(this, 2, event);" >
+/
+<input name="anopar1" type="text" size="4" maxlength="4" value ="<? echo"$ano"; ?>" class="campoquant1" onKeyUp="return autoTab(this, 4, event);" ></td>
+                          </tr>
+                      </table>
+                    </fieldset></td>
+                  </tr>
+              </table></td>
+            </tr>
+            
+        <input name="simula" type="hidden" value ="1" class="campoquant1">
+      <input name="valortabela_real" type="hidden" value ="<? echo"$valortabela_real"; ?>" class="campoquant1" id = "valortabela_real">
+	<input name="valortotal" type="hidden" value ="<? echo"$valortotal"; ?>" class="campoquant1" id ="valortotal">
+		<input name="cond_orc" type="hidden" value ="" class="campoquant1" id = "cond_orc">
+          </form>
+        </table></td>
+      </tr>
+    </table>
+      <br>
+
+      <table width="100%"  border="0" cellspacing="2" cellpadding="5">
+
+        <tr>
+          <td class="titulos_padrao">Passo 2 </td>
+        </tr>
+      <tr>
+          <td><iframe src="<? echo"$PHP_SELF?pg=$pg&pg_ped=11&Action=$Action&Action_alter=$Action_alter&codpedselect=$codpedselect"; ?>" name="iformapg" width="100%" marginwidth="0" height="1500" marginheight="0" scrolling="no" frameborder="0"></iframe></td>
+        </tr>
+      </table>
+
+      </td>
+  </tr>
+</table>
+</body>
+</html>

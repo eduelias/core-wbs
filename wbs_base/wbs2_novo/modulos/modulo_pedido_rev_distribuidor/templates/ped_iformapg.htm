@@ -1,0 +1,394 @@
+<?
+if ($simula == 1 OR $calcular ==1){
+?>
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Untitled Document</title>
+<link href="<? echo DIR_CSS; ?>/sistema.css" rel="stylesheet" type="text/css">
+<script language='JavaScript' src = "<? echo DIR_JS; ?>/scripts.js"></script>
+<script language='JavaScript' src = "<? echo DIR_JS; ?>/util.js"></script>
+<style type="text/css">
+<!--
+body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	background-color: #FFFFFF;
+}
+.formpg_titulotb1 {
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #666666;
+	background-color: #e1e9ea;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+}
+.formpg_tb1 {
+	color: #000000;
+	background-color: #FFFFFF;
+	font-size: 10px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+.negrito10preto {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	color: #000000;
+}
+.cmp1 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #000000;
+	border: 1px inset #7895AF;
+	font-weight: bold;
+}
+.divformpg1 {
+	border-bottom-width: 1px;
+	border-bottom-style: ridge;
+	border-bottom-color: #FFFFFF;
+}
+-->
+</style>
+
+<script language='JavaScript'>
+
+// COPIA VALORES DO CODIGO DE BARRA PARA OS CAMPOS CORRESPONDENTES
+function CopiaCodBarraCheque(form, posicao)
+{
+
+	var cpos;
+	var strValor;
+	var strBanco;
+	var strAgencia;
+	var strConta;
+	var strNum;
+	var valor;
+
+	cpos = (posicao*10) + 10;
+
+    strBanco = cpos - 5;
+    strAgencia = cpos - 4;
+    strConta = cpos - 3;
+    strNum = cpos - 2;
+	strValor = cpos - 1;
+
+	valor = form.elements[strValor].value;
+
+	if (valor != ''){
+
+	if ((valor.indexOf(':') != -1) || (valor.length != 34))
+
+	{
+				alert('O formato do Código de Barra do cheque está incorreto.');
+				eval ('form.elements[strValor].focus ()');
+
+	}else{
+
+	form.elements[strBanco].value = valor.substring (1,4);
+	form.elements[strAgencia].value = valor.substring (4,8);
+	form.elements[strConta].value = valor.substring (23,32);
+	form.elements[strNum].value = valor.substring (13,19);
+
+	form.elements[strValor].disabled=true;
+
+	}
+
+	}
+
+}
+
+var valorMod = 0;
+var valorErro = <? echo "$erro_valor_venda"; ?>;
+
+function confirmaOrc()
+{
+var confirma = true
+
+
+
+
+return confirma;
+}
+
+function verificData()
+{
+var confirma = true
+var numparc = document.getElementById("numparc").value;
+
+for (var j=1; j <= numparc; j++)
+{
+	var _objdparc ="diaparc_"+j+"";
+	var _objmparc ="mesparc_"+j+"";
+	var _objaparc ="anoparc_"+j+"";
+	var dia = document.getElementById(_objdparc).value; 
+	var mes = document.getElementById(_objmparc).value;
+	var ano = document.getElementById(_objaparc).value;
+	var date2 = new Date(ano, mes-1, dia);
+	var now = new Date();
+	var diff = date2.getTime() - now.getTime()
+	var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+	//alert("valores:"+days+" - "+now+" - "+date2+"");
+	if (days < -1){confirma = false}
+	
+	//if (document.getElementById(_objaparc).value < 2005){confirma = false}
+}
+return confirma;
+}
+
+
+function doOne(form1, codped)
+{
+
+var erro = 1;
+
+if (confirmaOrc() == true){
+
+if (valorMod == 0 && valorErro == 0){
+
+if (verificData() == true){
+document.form1.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=10&"; ?>Action=grava&codpedselect='+codped+'';
+document.form1.target = '_parent';
+document.form1.submit();
+}else{
+alert("Verifique se as DATAS DAS PARCELAS foram preenchidas corretamente.\nA DATA DA PARCELA deve ser SUPERIOR que a data atual");
+}
+}else{
+
+if (valorErro ==1){
+alert("O VALOR DE VENDA está inferior ao DESCONTO MÁXIMO permitido.");
+}else{
+alert("Os valores das parcelas foram ALTERADOS. É necessário RECALCULAR antes de continuar");
+}
+
+}
+}else{
+
+if (erro ==1){alert("Todos os dados do MODELO ORÇAMENTO devem ser preenchidos.");}
+
+if (document.getElementById("dddtel_orc").value.length < 2){alert("O DDD está incorreto.");erro=2}
+if (document.getElementById("tel_orc").value.length < 8){alert("O TELEFONE está incorreto.");erro =2}
+
+}
+}
+
+function valormodific()
+{
+	valorMod = 1;
+}
+
+
+
+function copyValue()
+{
+var simulacao;
+var texto_ext = "";
+var garext_12 = document.getElementById("vgarext_12").value;
+var garext_24 = document.getElementById("vgarext_24").value;
+if (garext_12 != ''){ texto_ext = "COM GARANTIA ESTENDIDA DE 12 MESES ADICIONAL A PADRÃO";}
+if (garext_24 != ''){ texto_ext = "COM GARANTIA ESTENDIDA DE 24 MESES ADICIONAL A PADRÃO";}
+
+simulacao = document.getElementById("cond_orc").value;
+simulacao += "\n";
+simulacao += "SIMULAÇÃO <? echo"$nump"; ?> X: "+texto_ext+"\n";
+<?
+	for($i = 1; $i <= $nump; $i++ ){
+
+if ($calcular <> 1){
+$valor_parcf[$i] = number_format($valor_parc[$i],2,',','.');
+}else{
+$valor_parcf[$i] = $valor_parc[$i];
+}
+?>
+simulacao += "<? echo"$i"; ?> - <? echo"$diaparc[$i]"; ?>/<? echo"$mesparc[$i]"; ?>/<? echo"$anoparc[$i]"; ?> - R$ <? echo"$valor_parcf[$i]"; ?>\n";
+<?
+	}//FOR
+?>
+// simulacao += "VALOR TOTAL A PRAZO: R$ <? echo"$valor_prazof"; ?>\n";
+// simulacao += "VALOR À VISTA: R$ <? echo"$valorvendavistaf"; ?>\n";
+document.getElementById("cond_orc").value = simulacao;
+
+}
+
+function limpaValue()
+{
+
+document.getElementById("cond_orc").value = "";
+}
+
+</script>
+
+</head>
+
+<body>
+<table width="100%"  border="0" cellpadding="3" cellspacing="1">
+<form method="post" name= "form1" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=11&Action=$Action&Action_alter=$Action_alter&codpedselect=$codpedselect"; ?>">
+ <tr >
+  	<td align="center">&nbsp;</td>
+    <td></td>
+    <td></td>
+    <td align="right"><input name="imageField2" type="hidden" src="<? echo DIR_IMAGES; ?>/btrecalcular.gif" width="91" height="25" border="0"></td>
+  </tr>
+  <tr class="formpg_titulotb1">
+  	<td align="center">&nbsp;</td>
+    <td>Data Vencimento </td>
+    <td>Valor Parcela</td>
+    <td align="right">   </td>
+  </tr>
+<?
+for($op = 1; $op <= $nump; $op++ ){
+
+if ($calcular <> 1){
+$valor_parcf[$op] = number_format($valor_parc[$op],2,',','.');
+}else{
+$valor_parcf[$op] = $valor_parc[$op];
+}
+
+?>
+  <tr class="formpg_tb1">
+    <td><strong><? echo"$op"; ?></strong></td>
+    <td><? echo"$diaparc[$op]"; ?><input name="<? echo"diaparc[$op]"; ?>" type="hidden" class="cmp1" value="<? echo"$diaparc[$op]"; ?>"  id ="<? echo"diaparc_$op"; ?>" size="2" maxlength="2" onChange="valormodific()">
+      / <? echo"$mesparc[$op]"; ?> <input name="<? echo"mesparc[$op]"; ?>" type="hidden" class="cmp1"  value="<? echo"$mesparc[$op]"; ?>"   id ="<? echo"mesparc_$op"; ?>" size="2" maxlength="2" onChange="valormodific()">
+        / <? echo"$anoparc[$op]"; ?>
+      <input name="<? echo"anoparc[$op]"; ?>" type="hidden" class="cmp1"  value="<? echo"$anoparc[$op]"; ?>"  id ="<? echo"anoparc_$op"; ?>" size="4" maxlength="4" onChange="valormodific()"></td>
+    <td colspan="2"><span class="titulos_itens">R$ <? echo"$valor_parcf[$op]"; ?></span>      <input name="<? echo"valor_parc[$op]"; ?>" type="hidden" class="cmp1" maxlength="13" value = "<? echo"$valor_parcf[$op]"; ?>"  onkeyPress="if (!(mascara_valor(this))) return false;" onFocus="virgula(this, '', 1)" onBlur="virgula(this, 1, '')" onChange="valormodific()"></td>
+  </tr>
+  <tr class="formpg_tb1">
+    <td colspan="4" class="divformpg1"><img src="spacer.gif" width="1" height="1"></td>
+  </tr>
+<?
+}//FOR
+?>
+<input name="calcular" type="hidden" value ="1" class="campoquant1">
+<input name="nump" type="hidden" value ="<? echo"$nump"; ?>" class="campoquant1" id ="numparc">
+
+<input name="valortotal" type="hidden" value ="<? echo $_POST['valortotal']; ?>" class="campoquant1">
+<input name="valortabela_real" type="hidden" value ="<? echo $_POST['valortabela_real']; ?>" class="campoquant1">
+<input name="valorcusto_real" type="hidden" value ="<? echo $_POST['valorcusto_real']; ?>" class="campoquant1">
+<input name="vgarext_12_select" type="hidden" value ="<? echo $_POST['vgarext_12_select']; ?>" class="campoquant1" id="vgarext_12">
+<input name="vgarext_24_select" type="hidden" value ="<? echo $_POST['vgarext_24_select']; ?>" class="campoquant1" id="vgarext_24">
+<input name="sj10x" type="hidden" value ="<? echo $_POST['sj10x']; ?>" class="campoquant1" id="sj10x">
+<input name="tipo_p" type="hidden" value ="<? echo $_POST['tipo_p']; ?>" class="campoquant1" id="tipo_p">
+</table>
+<table border="0" align="right" cellpadding="2" cellspacing="2">
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<p><br>
+</p>
+<table width="100%" border="0" cellspacing="1" cellpadding="1">
+  <tr>
+    <td width="82%"><table  border="0" cellpadding="3" cellspacing="1">
+      <tr>
+        <td class="titulos_itens">VALOR A PRAZO : </td>
+        <td class="valorpedido">R$ <? echo"$valor_prazof"; ?></td>
+      </tr>
+      <tr>
+        <td class="titulos_itens">&Agrave; VISTA:</td>
+        <td class="nomeprod2">R$ <? echo"$valorvendavistaf"; ?></td>
+      </tr>
+      <!--
+      <tr>
+        <td class="titulos_itens">MLB: </td>
+        <td class="nomeprod2">R$ <? echo"$mlbf"; ?></td>
+      </tr>
+      <tr>
+        <td class="titulos_itens">MCV:</td>
+        <td class="nomeprod2"><? echo"$mcvf"; ?> % </td>
+      </tr>
+      -->
+      
+    </table></td>
+    <td width="18%" valign="bottom"><table width="100%" border="0" cellspacing="1" cellpadding="1">
+    <!--
+      <tr>
+        <td><span class="orc_list_prod_print">MLB_REAL: </span></td>
+        <td><span class="orc_list_prod_print">R$ <? echo"$mlb_realf"; ?></span></td>
+      </tr>
+      <tr>
+        <td><span class="orc_list_prod_print">MCV_REAL:</span></td>
+        <td><span class="orc_list_prod_print"><? echo"$mcv_realf"; ?> %</span></td>
+      </tr>
+      -->
+    </table></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<table width="100%"  border="0" cellspacing="2" cellpadding="5">
+   <tr>
+     <td class="titulos_padrao">Passo 3 </td>
+   </tr>
+</table>
+ <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+ 
+     <tr>
+       <td>         <table width="100%" border="0" cellspacing="2" cellpadding="2">
+           <tr>
+             <td><table width="100%"  border="0" cellpadding="2" cellspacing="2">
+                 <tr valign="top">
+                   <td><fieldset class="fieldmpcorpo">
+                     <legend class="fieldmptitulo">
+                     <input name="orcamento" type="radio" id ="orcamento2" value="0" checked >
+                       Gerar Pedido:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</legend>
+                     <table width="100%"  border="0" cellspacing="1" cellpadding="2">
+                       <tr>
+                         <td width="16%"><img src="<? echo DIR_IMAGES; ?>/cadastro_requerido.gif" width="13" height="11"> Cliente:</td>
+                         <td width="84%"><span class="nomeprod2">
+                           <? 
+                       
+                       	$prod->clear();
+                     $prod->listProdU("codcliente, clientenovo.nome","vendedor LEFT JOIN clientenovo ON vendedor.doc = if( vendedor.tipocliente = 'F', clientenovo.cpf, clientenovo.cnpj )", "codvend = ( SELECT codvend FROM pedidotemp WHERE codped ='$codpedselect' )");
+                        echo $nomecliente = $prod->showcampo1();
+                                       
+                       
+                                               
+                       ?>
+                         </span></td>
+                       </tr>
+                     </table>
+                   </fieldset></td>
+                 </tr>
+               </table>
+             <p>&nbsp;</p></td>
+           </tr>
+       </table></td>
+     </tr>
+     <tr>
+       <td>&nbsp;</td>
+     </tr>
+   
+</table>
+ <table width="100%"  border="0" align="center" cellpadding="3" cellspacing="0">
+  <tr>
+    <td width="33%"><a href="<? echo "$PHP_SELF?pg=$pg&pg_ped=2&codpedselect=$codpedselect"; ?>" target="_parent"><img src="<? echo DIR_IMAGES; ?>/btvoltarcarrinhomeiocinza.gif" width="91" height="30" border="0"></a></td>
+    <td>&nbsp;</td>
+    <td width="34%" align="right"><table border="0" cellpadding="0" cellspacing="0">
+
+        <td><img name="botaolaranjao_seta" src="<? echo DIR_IMAGES; ?>/botaolaranjao_seta.gif" width="29" height="30" border="0" alt=""></td>
+        <td><table width="11" height="30" border="0" align="left" cellpadding="0" cellspacing="0">
+            <tr>
+              <td height="3" background="<? echo DIR_IMAGES; ?>/botaolaranjao_top.gif"><img name="botaolaranjao_top" src="<? echo DIR_IMAGES; ?>/botaolaranjao_top.gif" width="11" height="3" border="0" alt=""></td>
+            </tr>
+            <tr>
+              <td height="25" background="<? echo DIR_IMAGES; ?>/botaolaranjao_meio.gif"><input name="teste" type="button" class="botaolaranjao" value="Continuar" onClick="doOne(form1, <? echo"$codpedselect"; ?>)"></td>
+            </tr>
+            <tr>
+              <td height="2" background="<? echo DIR_IMAGES; ?>/botaolaranjao_down.gif"><img name="botaolaranjao_down" src="<? echo DIR_IMAGES; ?>/botaolaranjao_down.gif" width="11" height="2" border="0" alt=""></td>
+            </tr>
+        </table></td>
+        <td><img name="botaolaranjao_fim" src="<? echo DIR_IMAGES; ?>/botaolaranjao_fim.gif" width="15" height="30" border="0" alt=""></td>
+      </tr>
+    </table>
+   </td>
+  </tr>
+</table>
+ </form>
+<br>
+<p>&nbsp;</p>
+</body>
+</html>
+<?
+}
+?>

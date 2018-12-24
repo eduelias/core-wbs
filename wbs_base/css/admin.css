@@ -1,0 +1,114 @@
+.topButtonOff {
+	BORDER-RIGHT: #eeeeee 1px solid; BORDER-TOP: #eeeeee 1px solid; FONT-SIZE: 11px; BORDER-LEFT: #eeeeee 1px solid; WIDTH: 70px; BORDER-BOTTOM: #eeeeee 1px solid; HEIGHT: 70px; BACKGROUND-COLOR: #eeeeee; TEXT-ALIGN: center
+}
+.topButtonOn {
+	BORDER-RIGHT: #eeeeee 1px solid; BORDER-TOP: #666666 1px solid; FONT-SIZE: 11px; BORDER-LEFT: #666666 1px solid; WIDTH: 70px; CURSOR: pointer; BORDER-BOTTOM: #eeeeee 1px solid; HEIGHT: 70px; BACKGROUND-COLOR: #ffffff; TEXT-ALIGN: center
+}
+.topMenuItemsDiv {
+	FILTER: Shadow(Color=#909090, Direction=135)
+}
+.topMenuItems {
+	BORDER-RIGHT: #666666 1px solid; BORDER-TOP: #666666 1px solid; BORDER-LEFT: #666666 1px solid; BORDER-BOTTOM: #666666 1px solid; BACKGROUND-COLOR: #ffffff
+}
+.topMenuItemOn {
+	PADDING-LEFT: 2px; FONT-WEIGHT: bold; FONT-SIZE: 11px; CURSOR: pointer; COLOR: white; HEIGHT: 18px; BACKGROUND-COLOR: #eeeeee
+}
+.topMenuItemOff {
+	PADDING-LEFT: 2px; FONT-WEIGHT: normal; FONT-SIZE: 11px; CURSOR: pointer; COLOR: black; HEIGHT: 18px; BACKGROUND-COLOR: #ffffff
+}
+.quickLinkOff {
+	PADDING-LEFT: 0px; FONT-WEIGHT: normal; FONT-SIZE: 10px; CURSOR: pointer; COLOR: black; FONT-FAMILY: Arial; HEIGHT: 18px; BACKGROUND-COLOR: #ffffff
+}
+.quickLinkOn {
+	PADDING-LEFT: 0px; FONT-WEIGHT: normal; FONT-SIZE: 10px; CURSOR: pointer; COLOR: black; FONT-FAMILY: Arial; HEIGHT: 18px; BACKGROUND-COLOR: #eeeeee
+}
+.quickLinkActiveOff {
+	PADDING-LEFT: 0px; FONT-WEIGHT: normal; FONT-SIZE: 10px; CURSOR: pointer; COLOR: white; FONT-FAMILY: Arial; HEIGHT: 18px; BACKGROUND-COLOR: #5186cd
+}
+.quickLinkActiveOn {
+	PADDING-LEFT: 0px; FONT-WEIGHT: normal; FONT-SIZE: 10px; CURSOR: pointer; COLOR: white; FONT-FAMILY: Arial; HEIGHT: 18px; BACKGROUND-COLOR: #3166ad
+}
+.reportTable {
+	FONT-SIZE: 10px
+}
+.reportPrint {
+	fonr-size: 12px
+}
+INPUT {
+	FONT-SIZE: 10px
+}
+SELECT {
+	FONT-SIZE: 10px
+}
+TEXTAREA {
+	FONT-FAMILY: courier
+}
+BODY {
+	FONT-SIZE: 11px; COLOR: #222222; FONT-FAMILY: Tahoma
+}
+TD {
+	FONT-SIZE: 11px; COLOR: #222222; FONT-FAMILY: Tahoma
+}
+A:active {
+	COLOR: #02339c; TEXT-DECORATION: none
+}
+A:link {
+	COLOR: #842f40; TEXT-DECORATION: none
+}
+A:visited {
+	COLOR: #842f40; TEXT-DECORATION: none
+}
+A:hover {
+	COLOR: #cc0000; TEXT-DECORATION: underline; no-font-weight: bold
+}
+H4 {
+	FONT-SIZE: 12pt; COLOR: #490000
+}
+.tr_hand {
+	CURSOR: pointer
+}
+.ph {
+	FONT-SIZE: 14px; COLOR: white; FONT-FAMILY: Tahoma; BACKGROUND-COLOR: #7aa5c5
+}
+.pn {
+	FONT-SIZE: 11px; COLOR: #333333; FONT-FAMILY: Tahoma; HEIGHT: 20px
+}
+.pi {
+	FONT-SIZE: 11px; COLOR: #333333; FONT-FAMILY: Tahoma; HEIGHT: 20px
+}
+.th {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; BACKGROUND-IMAGE: url(../../../images/admin/th.gif); COLOR: #333333; FONT-FAMILY: Tahoma; HEIGHT: 25px
+}
+.formHelp {
+	FONT-SIZE: 11px; COLOR: #888888; FONT-STYLE: normal
+}
+.printTH {
+	FONT-WEIGHT: bold; FONT-SIZE: 14px; COLOR: #000000; FONT-FAMILY: Tahoma; HEIGHT: 28px
+}
+.fb {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; BACKGROUND-IMAGE: url(../../../images/bg2.gif); COLOR: #333333; FONT-FAMILY: Tahoma; HEIGHT: 50px; TEXT-ALIGN: center
+}
+.tt {
+	FONT-SIZE: 11px; PADDING-BOTTOM: 5px; VERTICAL-ALIGN: top; COLOR: #000000; PADDING-TOP: 7px; FONT-FAMILY: Tahoma; HEIGHT: 28px; sdfbackground-image: url(../../../images/bg1.gif)
+}
+.no_data {
+	PADDING-LEFT: 25px; FONT-WEIGHT: bold; HEIGHT: 60px
+}
+.h3 {
+	FONT-WEIGHT: bold; FONT-SIZE: 16px; COLOR: #bcba07; FONT-FAMILY: Tahoma
+}
+.h3s {
+	FONT-SIZE: 14px; COLOR: #003263; FONT-FAMILY: Tahoma
+}
+.h4 {
+	FONT-SIZE: 12px; COLOR: #013368; FONT-FAMILY: Tahoma
+}
+.h4b {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: black; FONT-FAMILY: Tahoma
+}
+.h5 {
+	FONT-WEIGHT: bold; FONT-SIZE: 10px; COLOR: #222222; FONT-FAMILY: Tahoma
+}
+.h6 {
+	FONT-WEIGHT: bold; FONT-SIZE: 8px; COLOR: #ffffff; FONT-FAMILY: Tahoma
+}

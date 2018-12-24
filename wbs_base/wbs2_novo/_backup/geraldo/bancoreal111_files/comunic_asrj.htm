@@ -1,0 +1,1423 @@
+<html><head><title>. :: CONTEUDO :: .</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" href="comunic_asrj_data/estilo.css" type="text/css">
+<script language="JavaScript1.2" src="comunic_asrj_data/basico.js"></script>
+<script language="JavaScript1.2" src="comunic_asrj_data/util.js"></script>
+<script>
+limpa=0
+
+function ValidaCamposRenda(codCat)
+{
+	try{if(eval("frmPrev1.REVERSAO_"+codCat+".value")==""){
+			alert("Preencha o combo \"percentual de reversão\"")
+			eval("frmPrev1.REVERSAO_"+codCat+".focus()")
+			return false
+		}
+	}catch(err){}
+	try{if(eval("frmPrev1.data_nascimento_benef_"+codCat+".value")==""){
+			alert("Preencha a \"data de nascimento do beneficiário\"")
+			eval("frmPrev1.data_nascimento_benef_"+codCat+".focus()")
+			return false
+		}
+	}catch(err){}
+	try{if(eval("frmPrev1.sexo_benef_"+codCat+".value")==""){
+			alert("Preencha o \"sexo do beneficiário\"")
+			eval("frmPrev1.sexo_benef_"+codCat+".focus()")
+			return false
+		}
+	}catch(err){}
+	try{if(eval("frmPrev1.data_nascimento_menor_"+codCat+".value")==""){
+			alert("Preencha a \"data de nascimento do menor\"")
+			eval("frmPrev1.data_nascimento_menor_"+codCat+".focus()")
+			return false
+		}
+	}catch(err){}
+	try{if(eval("frmPrev1.sexo_menor_"+codCat+".value")==""){
+			alert("Preencha o \"sexo do menor\"")
+			eval("frmPrev1.sexo_menor_"+codCat+".focus()")
+			return false
+		}
+	}catch(err){}
+	try{if(eval("frmPrev1.PRAZO_"+codCat+".value")==""){
+			alert("Preencha o combo \"prazo\"")
+			eval("frmPrev1.PRAZO_"+codCat+".focus()")
+			return false
+		}
+	}catch(err){}
+
+	return true
+}
+
+function ValidaCamposRisco(qtPrev)
+{
+	for(var j=0; j<qtPrev; j++){
+		try{
+			if(eval("frmPrev1.CHK_PREV_RENDA_"+j+".checked")){
+				try{if(eval("frmPrev1.REVERSAO_I_"+j+".value")==""){
+						alert("Preencha o \"percentual de reversão\"")
+						eval("frmPrev1.REVERSAO_I_"+j+".focus()")
+						return false
+					}
+				}catch(err){}
+				try{if(eval("frmPrev1.data_nascimento_benef_I_"+j+".value")==""){
+						alert("Preencha a \"data de nascimento do beneficiário\"")
+						eval("frmPrev1.data_nascimento_benef_I_"+j+".focus()")
+						return false
+					}
+				}catch(err){}
+				try{if(eval("frmPrev1.sexo_benef_I_"+j+".value")==""){
+						alert("Preencha o \"sexo do beneficiário\"")
+						eval("frmPrev1.sexo_benef_I_"+j+".focus()")
+						return false
+					}
+				}catch(err){}
+				try{if(eval("frmPrev1.data_nascimento_menor_I_"+j+".value")==""){
+						alert("Preencha a \"data de nascimento do menor\"")
+						eval("frmPrev1.data_nascimento_menor_I_"+j+".focus()")
+						return false
+					}
+				}catch(err){}
+				try{if(eval("frmPrev1.sexo_menor_I_"+j+".value")==""){
+						alert("Preencha o \"sexo do menor\"")
+						eval("frmPrev1.sexo_menor_I_"+j+".focus()")
+						return false
+					}
+				}catch(err){}
+				try{if(eval("frmPrev1.PRAZO_I_"+j+".value")==""){
+						alert("Preencha o combo \"prazo\"")
+						eval("frmPrev1.PRAZO_I_"+j+".focus()")
+						return false
+					}
+				}catch(err){}
+			}
+		}catch(err){}
+	}
+
+	return true
+}
+function Valida(frm)
+{
+	if (limpa==0){
+		// NOME
+	    if (strTrim(frm.txt_nome.value) == "") {
+	    	alert("Por favor, preencha o campo \"nome\".");
+			frm.txt_nome.focus();
+	    	return false;
+	    }
+	
+		// DATA DE NASCIMENTO
+		if ( strTrim(frm.data_nascimento.value)=="") {
+			alert("Por favor, preencha o campo \"data de nascimento\".");
+			frm.data_nascimento.focus();
+			return false;
+		} else {
+			if(!isValidDate(frm.data_nascimento.value)) {
+				alert("Por favor, verifique se o campo \"data de nascimento\" foi preenchido corretamente.");
+				frm.data_nascimento.focus();
+				return false;
+			} else {
+
+				//verifica se a data de nascimento é menor que o dia atual
+				var dn1 = frm.data_nascimento.value.substring(0,2);
+				var dn2 = frm.data_nascimento.value.substring(3,5);
+				var dn3 = frm.data_nascimento.value.substring(6,10);
+	
+				var datan = new Date(dn3,dn2-1,dn1);
+				var datah = new Date();
+	
+				if(datan >= datah) {
+					alert("A data de nascimento não pode ser maior que a data de hoje");
+					frm.data_nascimento.focus();
+					return false;
+				}
+			}
+		}
+
+		// idade de aposentadoria
+		if (strTrim(frm.idade_benef.value) == "") {
+	    	alert("Favor preencher o campo \"Com que idade pretende se aposentar?\".");
+			frm.idade_benef.focus();
+	    	return false;
+	    }
+
+		bIsRdMensal=false
+		for(i=0; i<frm.RENDAMENSAL.length; i++){
+			if (frm.RENDAMENSAL[i].checked) 
+				{bIsRdMensal=true;break;}
+		}
+		if(!bIsRdMensal){
+			alert("Escolha um tipo de renda mensal.");
+			frm.RENDAMENSAL[0].focus();
+	    	return false;
+		}
+		for(i=0; i<frm.RENDAMENSAL.length; i++){
+			if (frm.RENDAMENSAL[i].checked) {
+				if(i != (frm.RENDAMENSAL.length-1))
+					if(!ValidaCamposRenda(frm.RENDAMENSAL[i].value)) return false;
+			}
+		}
+
+		bIsInfo=false
+		for(i=0; i<frm.info.length; i++)
+			if (frm.info[i].checked) 
+				{bIsInfo=true;break;}
+		if(!bIsInfo && !frm.RENDAMENSAL[frm.RENDAMENSAL.length-1].checked){
+			alert("Por favor, informe de maneira deseja fazer o cálculo.");
+			frm.info[0].focus();
+	    	return false;
+		}
+
+		// Quanto deseja contribuir
+		if (frm.info[0].checked && strTrim(frm.valor_contrib_prim.value)==""){
+			alert("Favor preencher o campo \"Primeira ou única\".");
+			frm.valor_contrib_prim.focus();
+	    	return false;
+		}
+		// Quanto deseja receber de renda mensal
+		if (frm.info[1].checked && strTrim(frm.valor_receb_mensal.value)==""){
+			alert("Favor preencher o campo \"Quanto deseja receber de renda mensal\".");
+			frm.valor_receb_mensal.focus();
+	    	return false;
+		}
+		// valor do fundo acumulado total
+		if (frm.info[2].checked && strTrim(frm.vl_fundo_acum_total.value)==""){
+			alert("Favor preencher o campo \"O valor do fundo acumulado total\".");
+			frm.vl_fundo_acum_total.focus();
+	    	return false;
+		}
+
+		// transferencia de outros fundos
+		if (!frm.possui_plano[0].checked && !frm.possui_plano[1].checked){
+			alert("Favor informar se possui outro(s) planos de previdência.");
+			frm.possui_plano[0].focus();
+			return false;
+		}
+		if (frm.possui_plano[0].checked){
+			if (!frm.transf[0].checked && !frm.transf[1].checked){
+				alert("Favor informar se \n\"Deseja transferir fundos de outro(s) plano(s)de previdência (tradicional, PGBL ou VGBL)?\"");
+				frm.transf[0].focus();
+	    		return false;
+			}
+			if (frm.transf[0].checked && strTrim(frm.valor_transf.value)==""){
+				alert("Favor informar se \n\"Deseja transferir fundos de outro(s) plano(s)de previdência (tradicional, PGBL ou VGBL)?\"");
+				frm.valor_transf.focus();
+	    		return false;
+			}
+		}
+
+		if (frm.rentabEstim.value==""){
+			alert("Favor preencher o campo \"Rentabilidade Estimada\"");
+			frm.rentabEstim.focus()
+			return false;
+		}
+
+		try {
+			if (frm.CHK_MAIS_VIDA_0.checked){
+				if (strTrim(frm.u_vl_benef_unico_0.value)=="" && strTrim(frm.u_vl_pg_mensal_0.value)==""){
+					alert("Favor preencher o campo \"Benefício Único\" ou \"Pagamento Mensal\"");
+					frm.u_vl_benef_unico_0.focus();
+	    			return false;
+				}
+			}
+		}
+		catch(err){}
+
+		for(i=0; i<frm.QUANT_PREV_RENDA.value; i++)
+			if (eval("frm.CHK_PREV_RENDA_"+i+".checked"))
+				if (strTrim(eval("frm.i_vl_benef_unico_"+i+".value"))=="" && 
+					strTrim(eval("frm.i_vl_pg_mensal_"+i+".value"))==""){
+					alert("Favor preencher o campo \"Benefício Único\" ou \"Pagamento Mensal\"");
+					eval("frm.i_vl_benef_unico_"+i+".focus()");
+	    			return false;
+				}
+
+		bIsRdRisco=false;
+
+		if (frm.RENDAMENSAL[frm.RENDAMENSAL.length-1].checked){ 
+			for(i=0; i<frmPrev1.QUANT_PREV_RENDA.value; i++){
+				if (eval("frm.CHK_PREV_RENDA_"+i+".checked")){
+					bIsRdRisco=true;
+					break;
+				}
+			}
+			for(i=0; i<frmPrev1.QUANT_MAIS_VIDA.value; i++){
+				if (eval("frm.CHK_MAIS_VIDA_"+i+".checked")){
+					bIsRdRisco=true;
+					break;
+				}
+			}
+
+		}
+		else{
+			bIsRdRisco=true;
+		} 
+		
+		if(!bIsRdRisco){
+			alert("Escolha um produto.");
+			if (frmPrev1.QUANT_MAIS_VIDA.value > 0)
+				frm.CHK_MAIS_VIDA_0.focus();
+			else
+				frm.CHK_PREV_RENDA_0.focus();				
+	    	return false;
+		}
+		
+		if(!ValidaCamposRisco(frm.QUANT_PREV_RENDA.value)) return false;
+	}
+	else{			
+		//zera a variavel
+		limpa = 0;
+
+		for (var i=0; i<frm.length; i++){
+			try{
+				obj = frm[i]
+				if(obj.type=="text" || obj.type=="textarea")
+					obj.value=''
+				else if (obj.type=="radio" || obj.type=="checkbox")
+					obj.checked=false
+				else
+					obj.selectedIndex=-1
+			}
+			catch(err){}
+		}
+//		frm.reset();
+
+		// Retorno da função
+		return false;
+	}
+
+	return true
+}
+
+function NextPage(page)
+{
+	if (page)
+		frmPrev1.action = page
+	frmPrev1.submit()
+}
+
+function ExibeTopicos(num)
+{
+	rev = "REV_"+num
+	ben = "BEN_"+num
+	men = "MEN_"+num
+	prz = "PRZ_"+num
+
+	try {eval(rev+".style.display=''")}
+	catch(err){}
+
+	try {eval(ben+".style.display=''")}
+	catch(err){}
+
+	try {eval(men+".style.display=''")}
+	catch(err){}
+
+	try {eval(prz+".style.display=''")}
+	catch(err){}
+
+	for(var i=0; i<frmPrev1.RENDAMENSAL.length; i++){
+		if (frmPrev1.RENDAMENSAL[i].value != num){
+			rev = "REV_"+frmPrev1.RENDAMENSAL[i].value
+			ben = "BEN_"+frmPrev1.RENDAMENSAL[i].value
+			men = "MEN_"+frmPrev1.RENDAMENSAL[i].value
+			prz = "PRZ_"+frmPrev1.RENDAMENSAL[i].value
+
+			try {eval(rev+".style.display='none'")}
+			catch(err){}
+
+			try {eval(ben+".style.display='none'")}
+			catch(err){}
+
+			try {eval(men+".style.display='none'")}
+			catch(err){}
+
+			try {eval(prz+".style.display='none'")}
+			catch(err){}
+		}
+	}
+	if (num==0) {
+		informe_sp.style.display='none'
+		CheckInfo()
+		for(i=0; i<document.forms[0].info.length; i++)
+			if(document.forms[0].info[i].checked) 
+				document.forms[0].info[i].checked=false
+	}
+	else{
+		try {informe_sp.style.display=''}
+		catch(err){}
+	}
+}
+
+function ExibeTopicosPrevRenda(num)
+{
+	rev = "REV_I_"+num
+	ben = "BEN_I_"+num
+	men = "MEN_I_"+num
+	prz = "PRZ_I_"+num
+
+	chk = eval("frmPrev1.CHK_PREV_RENDA_"+num+".checked")
+
+	try {eval(rev+".style.display="+((chk)?"''":"'none'"))}
+	catch(err){}
+
+	try {eval(ben+".style.display="+((chk)?"''":"'none'"))}
+	catch(err){}
+
+	try {eval(men+".style.display="+((chk)?"''":"'none'"))}
+	catch(err){}
+
+	try {eval(prz+".style.display="+((chk)?"''":"'none'"))}
+	catch(err){}
+}
+
+function VerificaRenda(obj)
+{
+	for(var i=0; i<frmPrev1.RENDAMENSAL.length; i++)
+		if (frmPrev1.RENDAMENSAL[i].checked && frmPrev1.RENDAMENSAL[i].value=='0'){
+			alert("Escolha primeiro um tipo de Renda Mensal.")
+			CheckInfo(null)
+			obj.checked=false
+		}
+}
+
+function CheckInfo(obj)
+{
+	if (obj==null){
+		contribuicao.style.display='none'
+		rec_renda.style.display='none'
+		vl_fundo.style.display='none'
+		informe_sp.style.display='none'
+	}
+	else if (obj.value=='contrib'){
+		contribuicao.style.display=''
+		rec_renda.style.display='none'
+		vl_fundo.style.display='none'
+	}
+	else if (obj.value=='receb'){
+		contribuicao.style.display='none'
+		rec_renda.style.display=''
+		vl_fundo.style.display='none'
+	}
+	else if (obj.value=='vl_total'){
+		contribuicao.style.display='none'
+		rec_renda.style.display='none'
+		vl_fundo.style.display=''
+	}
+}
+</script></head>
+<body leftmargin="1" topmargin="0" class="scroll" scrolling="NO" bgcolor="#ffffff" marginheight="0" marginwidth="0" text="#000000">
+<a name="topo"></a>
+<div id="overDiv" style="z-index: 1; position: absolute;">&nbsp;</div>
+<script language="JavaScript1.2" src="comunic_asrj_data/overlib.js"></script>
+
+<form method="post" action="/scripts/comunic_asrj.dll?OPERA=SPI_CalculaEstudoLivre" name="frmPrev1" onsubmit="return Valida(frmPrev1)">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+	<tbody><tr> 
+		<!--<td bgcolor="#F7F7F7" width="4" height="28"><img src="/asrj/imagens/comuns/pixel.gif"></td>-->
+		<!--<td rowspan="2" width="58" height="49"><img src="/asrj/imagens/comuns/cont_tit_img_prev.gif"></td>-->
+		<!--<td height="28" bgcolor="#F7F7F7"><img src="/asrj/imagens/comuns/cont_tit_prev.gif"></td>-->
+	</tr>
+	<!--<tr> 
+		<td width="4" height="21">&nbsp;</td>
+		<td height="21"><img src="/asrj/imagens/comuns/cont_tit_prev_simuladores.gif"></td>
+	</tr>-->
+	<tr> 
+		<td height="20" width="4">&nbsp;</td>
+		<td height="20"><img src="comunic_asrj_data/pixel.gif" height="20"></td>
+	</tr>
+</tbody></table>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+	<!-- <COMENTARIO_LINHA> -->
+	<tbody><tr> 
+<!--		<td width="10"><img src="/asrj/imagens/comuns/pixel.gif" width="10" height="1"></td>-->
+		<td>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%">
+				<!-- <COMENTARIO_LINHA> -->
+				<tbody><tr> 
+					<td colspan="3" align="left" height="9">
+						<table border="0" cellpadding="0" cellspacing="0" width="100%">		  
+							<tbody><tr>
+								<td colspan="2">
+									<table border="0" cellpadding="0" cellspacing="0" width="100%">
+										<tbody><tr> 
+											<td class="arial_tit_verde" nowrap="nowrap" width="320">Simulador de Previdência Privada - Livre</td>
+											<td align="right" valign="top">
+												<table border="0" cellpadding="0" cellspacing="0">
+													<tbody><tr> 
+														<td height="21" width="53"><img src="comunic_asrj_data/form_etapas_txt.gif" border="0"></td>
+														<td height="21" width="16"><img name="form_etapas_bt1" src="comunic_asrj_data/form_etapas_bt1_over.gif" border="0" height="21" width="16"></td>
+														<td height="21" width="16"><img src="comunic_asrj_data/form_etapas_bt2.gif" border="0" height="21" width="16"></td>
+														<td height="21" width="16"><img src="comunic_asrj_data/form_etapas_bt3.gif" border="0" height="21" width="16"></td>
+														<td height="21" width="21"><img src="comunic_asrj_data/form_etapas_bt4.gif" border="0" height="21" width="21"></td>
+													</tr>
+												</tbody></table></td>
+										</tr>
+									</tbody></table>
+								</td>
+							</tr>
+						</tbody></table>
+					</td>					
+				</tr>
+				<tr>
+					<td colspan="4">
+						<table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tbody><tr>
+								<td width="54"><img src="comunic_asrj_data/pixel.gif" height="1" width="54"></td>						
+								<td><font class="form_erro"></font></td>						
+							</tr>
+						</tbody></table>
+					</td>
+				</tr>
+				<tr> 
+					<td colspan="4" height="20"><img src="comunic_asrj_data/pixel.gif" height="20" width="1"></td>
+				</tr>
+			</tbody></table>
+			
+			  <table bgcolor="#ffffff" border="0" cellpadding="0" cellspacing="0" width="100%">
+			    <!-- <COMENTARIO_LINHA> -->
+			    <tbody><tr> 
+			      <td align="left"><img src="comunic_asrj_data/form_bullet_orange.gif" border="0"></td>
+			      <td colspan="3" align="left" width="100%">
+				  	<table border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tbody><tr>
+							<td><img src="comunic_asrj_data/form_tit_dados_pessoais.gif" border="0"></td>
+							<td align="right" nowrap="nowrap" width="100%"><font class="verdana_cinza_12px"><i>(*)</i> </font><font class="arial_cinza_10px"><i>Preenchimento obrigatório</i></font></td>
+						</tr>			
+					</tbody></table>
+				  </td>				 
+			    </tr>
+			    <!-- </COMENTARIO_LINHA> -->
+				
+			    <!-- <COMENTARIO_LINHA> -->
+				
+				<tr class="form_tr_dots"> 
+					<td colspan="4" background="comunic_asrj_data/form_dots.gif" bgcolor="#ffffff" height="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>					
+				</tr>
+				<tr class="form_tr"> 
+					<td colspan="4">
+					<table border="0" cellpadding="0" cellspacing="0" width="100%">			
+					<tbody><tr class="form_tr">
+		<td width="10"><img src="comunic_asrj_data/pixel.gif" height="1" width="10"></td>
+		<td width="80">Nome<font class="verdana_cinza_12px">*</font></td>
+		<td width="10"><img src="comunic_asrj_data/pixel.gif" height="1" width="10"></td>
+		<td width="100%"><input class="form_campo" name="txt_nome" value="" maxlength="40" style="background: rgb(255, 255, 255) none repeat scroll 0%; height: 18px; width: 250px; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; color: rgb(102, 102, 102);" size="40" onfocus="cor('#FFEFC9', '#000000', this)" onblur="cor('#FFFFFF', '#666666', this)" type="text"></td>
+		
+	</tr></tbody></table></td>
+				</tr>
+				 <tr class="form_tr_dots"> 
+			      <td colspan="4" background="comunic_asrj_data/form_dots.gif" height="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>			      
+			    </tr>
+			    <tr class="form_tr"> 
+				<td colspan="4">
+					<table border="0" cellpadding="0" cellspacing="0" width="100%">					
+						<tbody><tr class="form_tr"> 
+					      <td width="10"><img src="comunic_asrj_data/pixel.gif" height="1" width="10"></td>
+					      <td>Nascimento<font class="verdana_cinza_12px">*</font></td>
+					      <td width="10"><img src="comunic_asrj_data/pixel.gif" height="1" width="10"></td>
+					      <td width="100%"> 
+					        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+					          <tbody><tr class="form_tr"> 
+					            <td width="80">
+									<input class="form_campo" name="data_nascimento" value="" maxlength="10" style="background: rgb(255, 255, 255) none repeat scroll 0%; height: 18px; width: 77px; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; color: rgb(102, 102, 102);" size="11" onfocus="cor('#FFEFC9', '#000000', this)" onblur="cor('#FFFFFF', '#666666', this)" onkeypress="return traco_data(this)" type="text"></td>
+					            
+					          </tr>
+					        </tbody></table>
+					      </td>
+					    </tr>
+					</tbody></table>
+				</td>
+			  
+			    <!-- </COMENTARIO_LINHA> -->
+				<!-- <COMENTARIO_LINHA> -->
+				
+				</tr><tr class="form_tr_dots"> 
+					<td colspan="4" background="comunic_asrj_data/form_dots.gif" bgcolor="#ffffff" height="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>					
+				</tr>
+			    <tr class="form_tr"> 
+				<td colspan="4">
+					<table border="0" cellpadding="0" cellspacing="0">					
+						<tbody><tr class="form_tr"> 
+					      <td width="10"><img src="comunic_asrj_data/pixel.gif" height="1" width="10"></td>
+					      
+					      <td width="100%"> 
+					        <table border="0" cellpadding="0" cellspacing="0">
+					          <tbody><tr class="form_tr"> 					            
+					            <td nowrap="nowrap" width="83">Sexo<font class="verdana_cinza_12px">*</font>&nbsp;&nbsp;</td>
+					            <td> 
+					              <div id="div0_0" style="border: 1px solid rgb(255, 196, 136); position: relative; left: 0px; top: 0px; width: 78px; height: 18px; background-color: rgb(255, 255, 255);"> 
+                        <div id="div1_0" style="position: absolute; left: 1px; top: -1px; width: 400px; height: 18px; clip: rect(4px, 397px, 16px, 2px);"> 
+                          <select id="combo_0" name="sexo" class="form_combo" style="position: absolute; left: -1px; top: 1px; width: 75px; height: 16px;"><option value="M">Masculino</option><option value="F">Feminino</option></select>
+                        </div>
+                      </div>
+					            </td>
+					          </tr>
+					        </tbody></table>
+					      </td>					     
+					    </tr>
+					</tbody></table>
+				</td>
+			    </tr><tr class="form_tr_dots"> 
+			      <td colspan="4" background="comunic_asrj_data/form_dots.gif" height="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>			      
+			    </tr>
+			    <!-- </COMENTARIO_LINHA> -->
+			   
+							    
+				
+				<!-- <COMENTARIO_LINHA> -->
+			    <tr class="form_tr"> 
+			      <td colspan="4"> 
+			        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			          <tbody><tr class="form_tr"> 
+			            <td width="10"><img src="comunic_asrj_data/pixel.gif" height="1" width="8"></td>
+			            <td nowrap="nowrap" width="230">Com que idade pretende se aposentar?<font class="verdana_cinza_12px">*</font></td>
+			            <td width="5"><img src="comunic_asrj_data/pixel.gif" height="1" width="5"></td>
+			            <td width="100%"><input class="form_campo" name="idade_benef" value="" maxlength="2" style="height: 18px; width: 24px;" size="11" onfocus="cor('#FFEFC9', '#000000', this)" onblur="cor('#FFFFFF', '#666666', this)" onkeypress="return num()" type="text"> &nbsp;<font class="arial_cinza">anos</font></td>
+			          </tr>
+			        </tbody></table>
+			      </td>
+			    </tr>    
+			    <!-- </COMENTARIO_LINHA> -->
+				
+				<!-- <COMENTARIO_LINHA> -->
+		    <tr> 
+				<td colspan="4" height="8"><img src="comunic_asrj_data/pixel.gif" height="8" width="1"></td>
+			</tr>
+			    <tr>
+			      <td align="left"><img src="comunic_asrj_data/form_bullet_orange.gif" border="0"></td>
+			      <td colspan="3" align="left" width="100%"><img src="comunic_asrj_data/form_tit_tipo_renda.gif" border="0"></td>
+			    </tr>
+			    <!-- </COMENTARIO_LINHA> -->
+				
+				<!-- <COMENTARIO_LINHA> -->
+				<tr> 
+				  <td colspan="4" background="comunic_asrj_data/form_dots.gif" bgcolor="#ffffff" height="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>				 
+				</tr>
+				 
+			    <tr class="form_tr"> 
+					<td colspan="4">
+				        <table border="0" cellpadding="0" cellspacing="0">
+							<tbody><tr class="form_tr"> 
+						      <td width="10"><img src="comunic_asrj_data/pixel.gif" height="1" width="10"></td>
+							  <td><input name="RENDAMENSAL" value="00001" onclick="ExibeTopicos('00001')" type="radio"></td>
+						      <td nowrap="nowrap">&nbsp;
+							  	<a href="javascript:;" class="arial_cinza" onmouseover="txt_direita('215',22); return true;" style="" onmouseout="nada();">
+							  	RENDA MENSAL VITALICIA<font class="verdana_cinza_12px">*</font><img src="comunic_asrj_data/icone_interrogacao.gif" border="0"></a>
+								<input name="NMRENDAMENSAL_00001" value="RENDA MENSAL VITALICIA" type="hidden">
+								</td>
+							</tr>
+						</tbody></table>
+					</td>
+			    </tr>
+				
+				
+				
+				
+				
+			    <tr> 
+			      <td colspan="4" background="comunic_asrj_data/form_dots.gif" height="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>			     
+			    </tr>
+				 
+			    <tr class="form_tr"> 
+					<td colspan="4">
+				        <table border="0" cellpadding="0" cellspacing="0">
+							<tbody><tr class="form_tr"> 
+						      <td width="10"><img src="comunic_asrj_data/pixel.gif" height="1" width="10"></td>
+							  <td><input name="RENDAMENSAL" value="00002" onclick="ExibeTopicos('00002')" type="radio"></td>
+						      <td nowrap="nowrap">&nbsp;
+							  	<a href="javascript:;" class="arial_cinza" onmouseover="txt_direita('215',23); return true;" style="" onmouseout="nada();">
+							  	RENDA VITALICIA REVERSIVEL AO BENEFICIARIO INDICADO<font class="verdana_cinza_12px">*</font><img src="comunic_asrj_data/icone_interrogacao.gif" border="0"></a>
+								<input name="NMRENDAMENSAL_00002" value="RENDA VITALICIA REVERSIVEL AO BENEFICIARIO INDICADO" type="hidden">
+								</td>
+							</tr>
+						</tbody></table>
+					</td>
+			    </tr>
+				
+				<tr class="form_tr" id="REV_00002" style="display: none;"> 
+					<td colspan="4">
+				        <table border="0" cellpadding="0" cellspacing="0">
+							<tbody><tr class="form_tr"> 
+						      <td width="35"><img src="comunic_asrj_data/pixel.gif" height="1" width="35"></td>
+							  <td class="arial_cinza" nowrap="nowrap">&nbsp;percentual de reversão&nbsp;</td>
+							  <td>
+								<div id="div0_1" style="border: 1px solid rgb(255, 196, 136); position: relative; left: 0px; top: 0px; width: 47px; height: 18px; background-color: rgb(255, 255, 255);"> 
+								  <div id="div1_1" style="position: absolute; left: 1px; top: -1px; width: 400px; height: 18px; clip: rect(4px, 397px, 16px, 2px);"> 
+									<select id="combo_2" name="REVERSAO_00002" class="form_combo" style="position: absolute; left: -1px; top: 1px; width: 45px; height: 16px;"><option value="50,00">50 %</option><option value="60,00">60 %</option><option value="70,00">70 %</option><option value="80,00">80 %</option><option value="90,00">90 %</option><option value="100,00">100 %</option></select>
+								  </div>
+								</div>
+								</td>
+							</tr>
+						</tbody></table>
+					</td>
+			    </tr>
+				
+				
+				<tr class="form_tr" id="BEN_00002" style="display: none;"> 
+					<td colspan="4">
+				        <table border="0" cellpadding="0" cellspacing="0">
+							<tbody><tr class="form_tr"> 
+						      <td width="35"><img src="comunic_asrj_data/pixel.gif" height="1" width="35"></td>
+							  <td class="arial_cinza">&nbsp;data de nascimento do beneficiário&nbsp;</td>
+							  <td> 
+								<table border="0" cellpadding="0" cellspacing="0" width="100%">
+								  <tbody><tr class="form_tr"> 
+									<td width="80">
+										<input class="form_campo" name="data_nascimento_benef_00002" value="" maxlength="10" style="height: 18px; width: 77px;" size="11" onfocus="cor('#FFEFC9', '#000000', this)" onblur="cor('#FFFFFF', '#666666', this)" onkeypress="return traco_data(this)" type="text"></td>
+									
+								  </tr>
+								</tbody></table>
+							  </td>
+							  <td class="arial_cinza" width="32">&nbsp;</td>
+							  <td class="arial_cinza">&nbsp;sexo do beneficiário&nbsp;<font class="verdana_cinza_12px">*</font></td>
+							  <td> 
+					              <div id="div0_0" style="border: 1px solid rgb(255, 196, 136); position: relative; left: 0px; top: 0px; width: 78px; height: 18px; background-color: rgb(255, 255, 255);"> 
+									<div id="div1_0" style="position: absolute; left: 1px; top: -1px; width: 400px; height: 18px; clip: rect(4px, 397px, 16px, 2px);"> 
+									  <select id="combo_0" name="sexo_benef_00002" class="form_combo" style="position: absolute; left: -1px; top: 1px; width: 75px; height: 16px;"><option value="M">Masculino</option><option value="F">Feminino</option></select>
+									</div>
+								  </div>
+					            </td>
+							</tr>
+						</tbody></table>
+					</td>
+			    </tr>
+				
+				
+				
+				
+			    <tr> 
+			      <td colspan="4" background="comunic_asrj_data/form_dots.gif" height="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>			     
+			    </tr>
+				 
+			    <tr class="form_tr"> 
+					<td colspan="4">
+				        <table border="0" cellpadding="0" cellspacing="0">
+							<tbody><tr class="form_tr"> 
+						      <td width="10"><img src="comunic_asrj_data/pixel.gif" height="1" width="10"></td>
+							  <td><input name="RENDAMENSAL" value="00003" onclick="ExibeTopicos('00003')" type="radio"></td>
+						      <td nowrap="nowrap">&nbsp;
+							  	<a href="javascript:;" class="arial_cinza" onmouseover="txt_direita('215',25); return true;" style="" onmouseout="nada();">
+							  	RENDA TEMPORARIA<font class="verdana_cinza_12px">*</font><img src="comunic_asrj_data/icone_interrogacao.gif" border="0"></a>
+								<input name="NMRENDAMENSAL_00003" value="RENDA TEMPORARIA" type="hidden">
+								</td>
+							</tr>
+						</tbody></table>
+					</td>
+			    </tr>
+				
+				
+				
+				
+				<tr class="form_tr" id="PRZ_00003" style="display: none;"> 
+					<td colspan="4">
+				        <table border="0" cellpadding="0" cellspacing="0">
+							<tbody><tr class="form_tr"> 
+						      <td width="35"><img src="comunic_asrj_data/pixel.gif" height="1" width="35"></td>
+							  <td class="arial_cinza" nowrap="nowrap">&nbsp;prazo&nbsp;</td>
+							  <td>
+								<div id="div0_1" style="border: 1px solid rgb(255, 196, 136); position: relative; left: 0px; top: 0px; width: 62px; height: 18px; background-color: rgb(255, 255, 255);"> 
+								  <div id="div1_1" style="position: absolute; left: 1px; top: -1px; width: 400px; height: 18px; clip: rect(4px, 397px, 16px, 2px);"> 
+									<select id="combo_2" name="PRAZO_00003" class="form_combo" style="position: absolute; left: -1px; top: 1px; width: 60px; height: 16px;"><option value="5">5 anos</option><option value="6">6 anos</option><option value="7">7 anos</option><option value="8">8 anos</option><option value="9">9 anos</option><option value="10">10 anos</option><option value="11">11 anos</option><option value="12">12 anos</option><option value="13">13 anos</option><option value="14">14 anos</option><option value="15">15 anos</option><option value="16">16 anos</option><option value="17">17 anos</option><option value="18">18 anos</option><option value="19">19 anos</option><option value="20">20 anos</option><option value="21">21 anos</option><option value="22">22 anos</option><option value="23">23 anos</option><option value="24">24 anos</option><option value="25">25 anos</option><option value="26">26 anos</option><option value="27">27 anos</option><option value="28">28 anos</option><option value="29">29 anos</option><option value="30">30 anos</option></select>
+								  </div>
+								</div>
+								</td>
+							</tr>
+						</tbody></table>
+					</td>
+			    </tr>
+				
+				
+			    <tr> 
+			      <td colspan="4" background="comunic_asrj_data/form_dots.gif" height="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>			     
+			    </tr>
+				 
+			    <tr class="form_tr"> 
+					<td colspan="4">
+				        <table border="0" cellpadding="0" cellspacing="0">
+							<tbody><tr class="form_tr"> 
+						      <td width="10"><img src="comunic_asrj_data/pixel.gif" height="1" width="10"></td>
+							  <td><input name="RENDAMENSAL" value="00004" onclick="ExibeTopicos('00004')" type="radio"></td>
+						      <td nowrap="nowrap">&nbsp;
+							  	<a href="javascript:;" class="arial_cinza" onmouseover="txt_direita('215',26); return true;" style="" onmouseout="nada();">
+							  	RENDA VITALICIA COM PRAZO MINIMO GARANTIDO<font class="verdana_cinza_12px">*</font><img src="comunic_asrj_data/icone_interrogacao.gif" border="0"></a>
+								<input name="NMRENDAMENSAL_00004" value="RENDA VITALICIA COM PRAZO MINIMO GARANTIDO" type="hidden">
+								</td>
+							</tr>
+						</tbody></table>
+					</td>
+			    </tr>
+				
+				
+				
+				
+				<tr class="form_tr" id="PRZ_00004" style="display: none;"> 
+					<td colspan="4">
+				        <table border="0" cellpadding="0" cellspacing="0">
+							<tbody><tr class="form_tr"> 
+						      <td width="35"><img src="comunic_asrj_data/pixel.gif" height="1" width="35"></td>
+							  <td class="arial_cinza" nowrap="nowrap">&nbsp;prazo&nbsp;</td>
+							  <td>
+								<div id="div0_1" style="border: 1px solid rgb(255, 196, 136); position: relative; left: 0px; top: 0px; width: 62px; height: 18px; background-color: rgb(255, 255, 255);"> 
+								  <div id="div1_1" style="position: absolute; left: 1px; top: -1px; width: 400px; height: 18px; clip: rect(4px, 397px, 16px, 2px);"> 
+									<select id="combo_2" name="PRAZO_00004" class="form_combo" style="position: absolute; left: -1px; top: 1px; width: 60px; height: 16px;"><option value="5">5 anos</option><option value="6">6 anos</option><option value="7">7 anos</option><option value="8">8 anos</option><option value="9">9 anos</option><option value="10">10 anos</option><option value="11">11 anos</option><option value="12">12 anos</option><option value="13">13 anos</option><option value="14">14 anos</option><option value="15">15 anos</option><option value="16">16 anos</option><option value="17">17 anos</option><option value="18">18 anos</option><option value="19">19 anos</option><option value="20">20 anos</option><option value="21">21 anos</option><option value="22">22 anos</option><option value="23">23 anos</option><option value="24">24 anos</option><option value="25">25 anos</option><option value="26">26 anos</option><option value="27">27 anos</option><option value="28">28 anos</option><option value="29">29 anos</option><option value="30">30 anos</option></select>
+								  </div>
+								</div>
+								</td>
+							</tr>
+						</tbody></table>
+					</td>
+			    </tr>
+				
+				
+			    <tr> 
+			      <td colspan="4" background="comunic_asrj_data/form_dots.gif" height="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>			     
+			    </tr>
+				 
+			    <tr class="form_tr"> 
+					<td colspan="4">
+				        <table border="0" cellpadding="0" cellspacing="0">
+							<tbody><tr class="form_tr"> 
+						      <td width="10"><img src="comunic_asrj_data/pixel.gif" height="1" width="10"></td>
+							  <td><input name="RENDAMENSAL" value="00062" onclick="ExibeTopicos('00062')" type="radio"></td>
+						      <td nowrap="nowrap">&nbsp;
+							  	<a href="javascript:;" class="arial_cinza" onmouseover="txt_direita('215',24); return true;" style="" onmouseout="nada();">
+							  	RENDA MENSAL VITALICIA REVERSIVEL AO CONJUGE COM  CONTINUIDADE AOS MENORES<font class="verdana_cinza_12px">*</font><img src="comunic_asrj_data/icone_interrogacao.gif" border="0"></a>
+								<input name="NMRENDAMENSAL_00062" value="RENDA MENSAL VITALICIA REVERSIVEL AO CONJUGE COM  CONTINUIDADE AOS MENORES" type="hidden">
+								</td>
+							</tr>
+						</tbody></table>
+					</td>
+			    </tr>
+				
+				<tr class="form_tr" id="REV_00062" style="display: none;"> 
+					<td colspan="4">
+				        <table border="0" cellpadding="0" cellspacing="0">
+							<tbody><tr class="form_tr"> 
+						      <td width="35"><img src="comunic_asrj_data/pixel.gif" height="1" width="35"></td>
+							  <td class="arial_cinza" nowrap="nowrap">&nbsp;percentual de reversão&nbsp;</td>
+							  <td>
+								<div id="div0_1" style="border: 1px solid rgb(255, 196, 136); position: relative; left: 0px; top: 0px; width: 47px; height: 18px; background-color: rgb(255, 255, 255);"> 
+								  <div id="div1_1" style="position: absolute; left: 1px; top: -1px; width: 400px; height: 18px; clip: rect(4px, 397px, 16px, 2px);"> 
+									<select id="combo_2" name="REVERSAO_00062" class="form_combo" style="position: absolute; left: -1px; top: 1px; width: 45px; height: 16px;"><option value="50,00">50 %</option><option value="60,00">60 %</option><option value="70,00">70 %</option><option value="80,00">80 %</option><option value="90,00">90 %</option><option value="100,00">100 %</option></select>
+								  </div>
+								</div>
+								</td>
+							</tr>
+						</tbody></table>
+					</td>
+			    </tr>
+				
+				
+				<tr class="form_tr" id="BEN_00062" style="display: none;"> 
+					<td colspan="4">
+				        <table border="0" cellpadding="0" cellspacing="0">
+							<tbody><tr class="form_tr"> 
+						      <td width="35"><img src="comunic_asrj_data/pixel.gif" height="1" width="35"></td>
+							  <td class="arial_cinza">&nbsp;data de nascimento do beneficiário&nbsp;</td>
+							  <td> 
+								<table border="0" cellpadding="0" cellspacing="0" width="100%">
+								  <tbody><tr class="form_tr"> 
+									<td width="80">
+										<input class="form_campo" name="data_nascimento_benef_00062" value="" maxlength="10" style="height: 18px; width: 77px;" size="11" onfocus="cor('#FFEFC9', '#000000', this)" onblur="cor('#FFFFFF', '#666666', this)" onkeypress="return traco_data(this)" type="text"></td>
+									
+								  </tr>
+								</tbody></table>
+							  </td>
+							  <td class="arial_cinza" width="32">&nbsp;</td>
+							  <td class="arial_cinza">&nbsp;sexo do beneficiário&nbsp;<font class="verdana_cinza_12px">*</font></td>
+							  <td> 
+					              <div id="div0_0" style="border: 1px solid rgb(255, 196, 136); position: relative; left: 0px; top: 0px; width: 78px; height: 18px; background-color: rgb(255, 255, 255);"> 
+									<div id="div1_0" style="position: absolute; left: 1px; top: -1px; width: 400px; height: 18px; clip: rect(4px, 397px, 16px, 2px);"> 
+									  <select id="combo_0" name="sexo_benef_00062" class="form_combo" style="position: absolute; left: -1px; top: 1px; width: 75px; height: 16px;"><option value="M">Masculino</option><option value="F">Feminino</option></select>
+									</div>
+								  </div>
+					            </td>
+							</tr>
+						</tbody></table>
+					</td>
+			    </tr>
+				
+				
+				<tr class="form_tr" id="MEN_00062" style="display: none;"> 
+					<td colspan="4">
+				        <table border="0" cellpadding="0" cellspacing="0">
+							<tbody><tr class="form_tr"> 
+						      <td width="35"><img src="comunic_asrj_data/pixel.gif" height="1" width="35"></td>
+							  <td class="arial_cinza" width="122">&nbsp;data de nascimento do menor&nbsp;</td>
+							  <td> 
+								<table border="0" cellpadding="0" cellspacing="0" width="100%">
+								  <tbody><tr class="form_tr"> 
+									<td width="80">
+										<input class="form_campo" name="data_nascimento_menor_00062" value="" maxlength="10" style="height: 18px; width: 77px;" size="11" onfocus="cor('#FFEFC9', '#000000', this)" onblur="cor('#FFFFFF', '#666666', this)" onkeypress="return traco_data(this)" type="text"></td>
+									
+								  </tr>
+								</tbody></table>
+							  </td>
+							  <td class="arial_cinza" width="58">&nbsp;</td>
+							  <td class="arial_cinza">&nbsp;sexo do menor&nbsp;<font class="verdana_cinza_12px">*</font></td>
+							  <td> 
+					              <div id="div0_0" style="border: 1px solid rgb(255, 196, 136); position: relative; left: 0px; top: 0px; width: 78px; height: 18px; background-color: rgb(255, 255, 255);"> 
+									<div id="div1_0" style="position: absolute; left: 1px; top: -1px; width: 400px; height: 18px; clip: rect(4px, 397px, 16px, 2px);"> 
+									  <select id="combo_0" name="sexo_menor_00062" class="form_combo" style="position: absolute; left: -1px; top: 1px; width: 75px; height: 16px;"><option value="M">Masculino</option><option value="F">Feminino</option></select>
+									</div>
+								  </div>
+					            </td>
+							</tr>
+						</tbody></table>
+					</td>
+			    </tr>
+				
+				
+				
+			    <tr> 
+			      <td colspan="4" background="comunic_asrj_data/form_dots.gif" height="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>			     
+			    </tr>
+				
+				<tr class="form_tr"> 
+					<td colspan="4">
+				        <table border="0" cellpadding="0" cellspacing="0">
+							<tbody><tr class="form_tr"> 
+						      <td width="10"><img src="comunic_asrj_data/pixel.gif" height="1" width="10"></td>
+							  <td><input name="RENDAMENSAL" value="0" onclick="ExibeTopicos('0')" type="radio"></td>
+						      <td nowrap="nowrap">&nbsp;<font class="arial_cinza">NENHUMA<font>
+							  <input name="NMRENDAMENSAL_0" value="NENHUMA" type="hidden">
+							  </font></font></td>						    					      
+							</tr>
+						</tbody></table>
+					</td>
+			    </tr>			   
+			<!-- </COMENTARIO_LINHA> -->								
+			<!-- <COMENTARIO_LINHA> -->
+				<tr> 
+					<td colspan="4">
+					
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tbody><tr> 
+				<td colspan="5" height="8"><img src="comunic_asrj_data/pixel.gif" height="8" width="1"></td>
+			</tr>
+			<tr>				
+			    <td align="left"><img src="comunic_asrj_data/form_bullet_orange.gif" border="0"></td>
+			    <td colspan="3" align="left" width="100%"><img src="comunic_asrj_data/form_tit_informe.gif" border="0"></td>
+			</tr>
+			<tr> 
+				<td colspan="4" background="comunic_asrj_data/form_dots.gif" bgcolor="#ffffff" height="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>				 
+			</tr>
+			 <!-- </COMENTARIO_LINHA> -->
+
+			<!-- <COMENTARIO_LINHA> -->
+			    <tr class="form_tr" id="informe_sp" style="display: none;"> 
+			      <td colspan="4">
+				  	<table border="0" cellpadding="0" cellspacing="0">
+			      		<tbody><tr class="form_tr"> 
+			      			<td width="10"><img src="comunic_asrj_data/pixel.gif" height="1" width="10"></td>
+			      			<td width="10"><input name="info" value="contrib" onclick="CheckInfo(this);VerificaRenda(this);" type="radio"></td>
+							<td width="100%">&nbsp;Quanto deseja contribuir</td>
+						</tr>
+						<tr>
+							<td colspan="3" id="contribuicao" style="display: none;">
+								<table border="0" cellpadding="0" cellspacing="0">
+					                <tbody><tr> 
+									  <td width="35"><img src="comunic_asrj_data/pixel.gif" height="1" width="35"></td>
+						              <td nowrap="nowrap"><font class="arial_cinza">Primeira ou única <font class="verdana_cinza_12px">*</font></font></td>
+					                  <td width="25"><img src="comunic_asrj_data/pixel.gif" height="1" width="25"></td>									 
+					                  <td>
+							              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+					                		<tbody><tr class="form_tr"> 
+					                  			<td width="10"><img src="comunic_asrj_data/pixel.gif" height="1" width="10"></td>
+					                  			<td align="left" width="100%"> <font class="arial_cinza"> R$&nbsp;</font><input class="form_campo" name="valor_contrib_prim" value="" size="13" maxlength="13" onfocus="cor('#FFEFC9', '#000000', this);virgula(this, '', 1)" onblur="cor('#FFFFFF', '#666666', this);virgula(this, 1, '')" onkeypress="if (!(mascara_valor(this))) return false;" type="text">&nbsp;</td>
+											</tr>
+										  </tbody></table></td>
+					                </tr>
+									<tr> 
+									  <td><img src="comunic_asrj_data/pixel.gif" height="1" width="35"></td>									 
+						              <td nowrap="nowrap"><font class="arial_cinza">Mensais </font></td>
+					                  <td width="25"><img src="comunic_asrj_data/pixel.gif" height="1" width="25"></td>									 
+					                  <td>
+							              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+					                		<tbody><tr class="form_tr"> 
+					                  			<td width="10"><img src="comunic_asrj_data/pixel.gif" height="1" width="10"></td>
+					                  			<td align="left" width="100%"> <font class="arial_cinza"> R$&nbsp;</font><input class="form_campo" name="valor_contrib_mens" value="" size="13" maxlength="13" onfocus="cor('#FFEFC9', '#000000', this);virgula(this, '', 1)" onblur="cor('#FFFFFF', '#666666', this);virgula(this, 1, '')" onkeypress="if (!(mascara_valor(this))) return false;" type="text">&nbsp;</td>
+											</tr>
+										  </tbody></table></td>
+					                </tr>
+									<tr> 
+									  <td><img src="comunic_asrj_data/pixel.gif" height="1" width="35"></td>					                 									
+						              <td nowrap="nowrap"><font class="arial_cinza">Anuais </font></td>
+					                  <td width="25"><img src="comunic_asrj_data/pixel.gif" height="1" width="25"></td>									 
+					                  <td>
+							              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+					                		<tbody><tr class="form_tr"> 
+					                  			<td width="10"><img src="comunic_asrj_data/pixel.gif" height="1" width="10"></td>
+					                  			<td align="left" width="100%"> <font class="arial_cinza"> R$&nbsp;</font><input class="form_campo" name="valor_contrib_anual" value="" size="13" maxlength="13" onfocus="cor('#FFEFC9', '#000000', this);virgula(this, '', 1)" onblur="cor('#FFFFFF', '#666666', this);virgula(this, 1, '')" onkeypress="if (!(mascara_valor(this))) return false;" type="text">&nbsp;</td>
+											</tr>
+										  </tbody></table></td>
+					                </tr>
+					              </tbody></table>
+						       </td>
+						    </tr>
+							<tr class="form_tr"> 
+			      			<td width="10"><img src="comunic_asrj_data/pixel.gif" height="1" width="10"></td>
+			      			<td width="10"><input name="info" value="receb" onclick="CheckInfo(this);VerificaRenda(this); " type="radio"></td>
+							<td width="100%">&nbsp;Quanto deseja receber de renda mensal</td>
+						</tr>
+						<tr>
+							<td colspan="3" id="rec_renda" style="display: none;">
+								<table border="0" cellpadding="0" cellspacing="0">
+					                <tbody><tr class="form_tr"> 
+									  <td width="30"><img src="comunic_asrj_data/pixel.gif" height="1" width="30"></td>					                 									  							 
+					                  <td>
+							              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+					                		<tbody><tr class="form_tr"> 
+					                  			<td width="10"><img src="comunic_asrj_data/pixel.gif" height="1" width="10"></td>
+					                  			<td align="left" width="100%"> <font class="arial_cinza"> R$&nbsp;</font><input class="form_campo" name="valor_receb_mensal" value="" size="13" maxlength="13" onfocus="cor('#FFEFC9', '#000000', this);virgula(this, '', 1)" onblur="cor('#FFFFFF', '#666666', this);virgula(this, 1, '')" onkeypress="if (!(mascara_valor(this))) return false;" type="text">&nbsp;</td>
+											</tr>
+										  </tbody></table></td>
+					                </tr> 
+								</tbody></table></td>
+					         </tr>
+							<tr class="form_tr"> 
+			      			<td width="10"><img src="comunic_asrj_data/pixel.gif" height="1" width="10"></td>
+			      			<td width="10"><input name="info" value="vl_total" onclick="CheckInfo(this);VerificaRenda(this); " type="radio"></td>
+							<td width="100%">&nbsp;O valor do fundo acumulado total</td>
+						</tr>
+						<tr>
+							<td colspan="3" id="vl_fundo" style="display: none;">
+								<table border="0" cellpadding="0" cellspacing="0">
+					                <tbody><tr class="form_tr"> 
+									  <td width="30"><img src="comunic_asrj_data/pixel.gif" height="1" width="30"></td>					                 									  							 
+					                  <td>
+							              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+					                		<tbody><tr class="form_tr"> 
+					                  			<td width="10"><img src="comunic_asrj_data/pixel.gif" height="1" width="10"></td>
+					                  			<td align="left" width="100%"> <font class="arial_cinza"> R$&nbsp;</font><input class="form_campo" name="vl_fundo_acum_total" value="" size="13" maxlength="13" onfocus="cor('#FFEFC9', '#000000', this);virgula(this, '', 1)" onblur="cor('#FFFFFF', '#666666', this);virgula(this, 1, '')" onkeypress="if (!(mascara_valor(this))) return false;" type="text">&nbsp;</td>
+											</tr>
+										  </tbody></table></td>
+					                </tr> 
+								</tbody></table></td>
+					         </tr>					
+						</tbody></table></td>
+			    </tr>				
+			    <!-- </COMENTARIO_LINHA> -->
+				
+			 <!-- <COMENTARIO_LINHA> -->
+				<tr> 
+					<td colspan="4" background="comunic_asrj_data/form_dots.gif" height="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>				 
+				</tr>
+				<tr class="form_tr"> 
+			      <td colspan="4">
+				  	<table border="0" cellpadding="0" cellspacing="0">
+			      		<tbody><tr class="form_tr"> 
+			      			<td width="10"><img src="comunic_asrj_data/pixel.gif" height="1" width="10"></td>			      			
+							<td width="100%">&nbsp;
+								<a href="#base" class="arial_cinza" onmouseover="txt_centralizado('280',28); return true;" style="" onmouseout="nada();">
+								<b>Possui plano de previdência em outra entidade?</b><font class="verdana_cinza_12px">*</font></a>
+								<a href="#base" class="arial_cinza" onmouseover="txt_esquerda('310',28); return true;" style="" onmouseout="nada();">
+								<img src="comunic_asrj_data/icone_interrogacao.gif" border="0"></a></td>
+						</tr>
+						<tr>
+							<td colspan="3">								
+				              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+						          <tbody><tr class="form_tr"> 
+								  	<td width="10"><img src="comunic_asrj_data/pixel.gif" height="1" width="10"></td>		
+						            <td><input name="possui_plano" value="sim" onclick="transfer_val.style.display=''; frmPrev1.transf[0].click()" type="radio"></td>
+						            <td><font class="arial_cinza">Sim</font></td>
+						            <td width="5"><img src="comunic_asrj_data/pixel.gif" height="1" width="5"></td>
+						            <td><input name="possui_plano" value="nao" onclick="transfer_val.style.display='none'; frmPrev1.transf[1].click()" type="radio"></td>
+						            <td><font class="arial_cinza">Não</font></td>	
+			                  		<td width="15"></td>
+			                  		<td align="left" width="100%">&nbsp;</td>
+									</tr>
+							   </tbody></table>
+							 </td>
+						</tr>
+					  </tbody></table>
+				   </td>
+				</tr>		
+			    <tr class="form_tr" id="transfer_val" style="display: none;"> 
+			      <td colspan="4">
+				  	<table border="0" cellpadding="0" cellspacing="0">
+			      		<tbody><tr class="form_tr"> 
+			      			<td width="10"><img src="comunic_asrj_data/pixel.gif" height="1" width="10"></td>			      			
+							<td width="100%">&nbsp;
+								<a href="javascript:;" class="arial_cinza" onmouseover="txt_centralizado('300',28); return true;" style="" onmouseout="nada();">
+								<b>Deseja considerar o valor acumulado neste(s) plano(s) de previdência para esta simulação?</b><font class="verdana_cinza_12px">*</font></a>
+								<a href="javascript:;" class="arial_cinza" onmouseover="txt_esquerda('300',28); return true;" style="" onmouseout="nada();">
+								<img src="comunic_asrj_data/icone_interrogacao.gif" border="0"></a></td>
+						</tr>
+						
+							<tr><td colspan="3">								
+				              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+						          <tbody><tr class="form_tr"> 
+								  	<td width="10"><img src="comunic_asrj_data/pixel.gif" height="1" width="10"></td>		
+						            <td><input name="transf" value="sim" type="radio"></td>
+						            <td><font class="arial_cinza">Sim</font></td>
+						            <td width="5"><img src="comunic_asrj_data/pixel.gif" height="1" width="5"></td>
+						            <td><input name="transf" value="nao" checked="checked" type="radio"></td>
+						            <td><font class="arial_cinza">Não</font></td>
+	
+			                  			<td width="15"><img src="comunic_asrj_data/pixel.gif" height="1" width="15"></td>
+			                  			<td align="left" width="100%"> <font class="arial_cinza"> R$&nbsp;</font><input class="form_campo" name="valor_transf" value="" size="13" maxlength="13" onfocus="cor('#FFEFC9', '#000000', this);virgula(this, '', 1)" onblur="cor('#FFFFFF', '#666666', this);virgula(this, 1, '')" onkeypress="if (!(mascara_valor(this))) return false;" type="text">&nbsp;</td>
+									</tr>
+								  </tbody></table></td>
+							    </tr>
+							</tbody></table></td>
+					</tr>		
+			    <!-- </COMENTARIO_LINHA> -->
+				<!-- <COMENTARIO_LINHA> -->
+				<tr> 
+					<td colspan="4" background="comunic_asrj_data/form_dots.gif" height="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>				 
+				</tr>
+			    <tr class="form_tr"> 
+			      <td colspan="4">&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" class="arial_cinza" onmouseover="txt_direita('340',29); return true;" style="" onmouseout="nada();">
+								<b>Rentabilidade estimada</b><font class="verdana_cinza_12px">*</font><img src="comunic_asrj_data/icone_interrogacao.gif" border="0"></a>
+				<table border="0" cellpadding="0" cellspacing="0">
+			      		<tbody><tr class="form_tr"> 
+			      			<td rowspan="2" width="15"><img src="comunic_asrj_data/pixel.gif" height="1" width="15"></td>		
+						
+						            <td> 
+									<div id="div0_1" style="border: 1px solid rgb(255, 196, 136); position: relative; left: 0px; top: 0px; width: 47px; height: 18px; background-color: rgb(255, 255, 255);"> 
+                      <div id="div1_1" style="position: absolute; left: 1px; top: -1px; width: 400px; height: 18px; clip: rect(4px, 397px, 16px, 2px);"> 
+                        <select id="combo_1" name="rentabEstim" class="form_combo" style="position: absolute; left: -1px; top: 1px; width: 45px; height: 16px;"><option value="6">6 %</option><option value="7">7 %</option><option value="8">8 %</option><option value="9">9 %</option><option value="10">10 %</option><option value="11">11 %</option><option value="12">12 %</option></select>
+                      </div>
+                    </div></td>						            
+									</tr>
+								  </tbody></table></td>
+			    </tr></tbody></table>				
+					
+					
+					
+					</td>
+				</tr><tr>
+		    
+			    <!-- </COMENTARIO_LINHA> -->
+				<!-- <COMENTARIO_LINHA> -->
+		    </tr><tr> 
+				<td colspan="5" height="8"><img src="comunic_asrj_data/pixel.gif" height="8" width="1"></td>
+			</tr>
+			<tr>
+			    <td align="left"><img src="comunic_asrj_data/form_bullet_orange.gif" border="0"></td>
+			    <td colspan="3" align="left" width="100%"><img src="comunic_asrj_data/form_tit_escolha.gif" border="0"><!-- <font class="verdana_cinza_12px">*</font> --></td>
+			</tr>
+
+			
+			<tr> 
+				<td colspan="4" background="comunic_asrj_data/form_dots.gif" height="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>				 
+			</tr>
+			
+			<tr> 
+				<td colspan="4">
+<input name="QUANT_MAIS_VIDA" value="1" type="hidden">
+
+				<input name="QUANT_PREV_RENDA" value="4" type="hidden">
+			    <!-- </COMENTARIO_LINHA> --><table border="0" cellpadding="0" cellspacing="0" width="100%">
+			
+			<tbody><tr>
+					<td colspan="3" align="left" bgcolor="#d6d6d6" height="16"><font class="arial_cinza">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Real Mais Vida</b> (não dedutível do IR)</font></td>															
+				
+								<td class="arial_cinza" align="right" bgcolor="#d6d6d6" nowrap="nowrap">&nbsp;Benefício Único&nbsp;</td>
+					
+								<td colspan="2" class="arial_cinza" align="right" bgcolor="#d6d6d6" nowrap="nowrap">ou&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pagamento Mensal&nbsp;</td>
+											
+				</tr>
+				<tr class="form_tr_dots"> 
+					<td colspan="5" background="comunic_asrj_data/form_dots.gif" bgcolor="#fff4db" height="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>
+					<td background="comunic_asrj_data/form_dots.gif" bgcolor="#fff4db" height="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>				
+				</tr>									
+				
+				<tr class="form_tr"> 						  				
+	  				<td bgcolor="#fff4db" valign="top">
+					<table bgcolor="#fff4db" border="0" cellpadding="0" cellspacing="0">
+							<tbody><tr class="tabela_td">
+								<td bgcolor="#fff4db" width="10"><img src="comunic_asrj_data/pixel.gif" height="1" width="10"></td>
+									<td bgcolor="#fff4db"><input name="CHK_MAIS_VIDA_0" value="00025|REAL MAIS VIDA" type="checkbox"> </td>
+									<td bgcolor="#fff4db">
+									&nbsp;<a href="javascript:;" class="arial_cinza" onmouseover="txt_direita('300',40); return true;" style="" onmouseout="nada();">
+									REAL MAIS VIDA <img src="comunic_asrj_data/icone_interrogacao.gif" border="0"></a></td></tr></tbody></table></td>	
+					<td bgcolor="#fff4db" width="10"><img src="comunic_asrj_data/pixel.gif" height="1" width="10"></td>
+					<td background="comunic_asrj_data/form_dots_vert02.gif" bgcolor="#fff4db" width="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>		
+					<td align="right" bgcolor="#fff4db" valign="top">
+					<font class="arial_cinza">R$ <input style="background: rgb(255, 255, 255) none repeat scroll 0%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; color: rgb(102, 102, 102);" class="form_campo" name="u_vl_benef_unico_0" value="" size="13" maxlength="13" onfocus="cor('#FFEFC9', '#000000', this);virgula(this, '', 1)" onblur="cor('#FFFFFF', '#666666', this);virgula(this, 1, '')" onkeypress="if (!(mascara_valor(this))) return false;" onkeyup="if(this.value.length) u_vl_pg_mensal_0.value='';" type="text">&nbsp;</font></td>
+					<td background="comunic_asrj_data/form_dots_vert02.gif" bgcolor="#fff4db" width="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>
+					<td align="right" bgcolor="#fff4db" valign="top">
+					<font class="arial_cinza">R$ <input style="background: rgb(255, 255, 255) none repeat scroll 0%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; color: rgb(102, 102, 102);" class="form_campo" name="u_vl_pg_mensal_0" value="" size="13" maxlength="13" onfocus="cor('#FFEFC9', '#000000', this);virgula(this, '', 1)" onblur="cor('#FFFFFF', '#666666', this);virgula(this, 1, '')" onkeypress="if (!(mascara_valor(this))) return false;" onkeyup="if(this.value.length) u_vl_benef_unico_0.value='';" type="text">&nbsp;</font></td>
+				</tr>
+				<tr class="form_tr_dots"> 
+					<td colspan="5" background="comunic_asrj_data/form_dots.gif" bgcolor="#ffffff" height="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>
+					<td background="comunic_asrj_data/form_dots.gif" bgcolor="#fffada" height="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>				
+				</tr>
+				
+				
+				<tr>																
+					<td colspan="3" align="left" bgcolor="#d6d6d6" height="16"><font class="arial_cinza">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>RealPrev Renda</b> (dedutível do IR)</font></td>															
+				
+								<td class="arial_cinza" align="right" bgcolor="#d6d6d6" nowrap="nowrap">&nbsp;Benefício Mensal&nbsp;</td>
+					
+								<td colspan="2" class="arial_cinza" align="right" bgcolor="#d6d6d6" nowrap="nowrap">ou&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pagamento Mensal&nbsp;</td>
+											
+				</tr>
+				<tr class="form_tr_dots"> 
+					<td colspan="5" background="comunic_asrj_data/form_dots.gif" bgcolor="#fff4db" height="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>
+					<td background="comunic_asrj_data/form_dots.gif" bgcolor="#fff4db" height="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>				
+				</tr>									
+				
+				<tr class="form_tr"> 						  				
+	  				<td bgcolor="#fff4db" valign="top">
+					<table bgcolor="#fff4db" border="0" cellpadding="0" cellspacing="0">
+							<tbody><tr class="tabela_td">
+								<td bgcolor="#fff4db" width="10"><img src="comunic_asrj_data/pixel.gif" height="1" width="10"></td>
+									<td bgcolor="#fff4db"><input name="CHK_PREV_RENDA_0" value="00009|PENSAO CONJUGE OU COMPANHEIRO" onclick="ExibeTopicosPrevRenda('0')" type="checkbox"> </td>
+									<td bgcolor="#fff4db">
+										&nbsp;<a href="javascript:;" class="arial_cinza" onmouseover="txt_direita('300',11); return true;" style="" onmouseout="nada();">
+										PENSAO CONJUGE OU COMPANHEIRO <img src="comunic_asrj_data/icone_interrogacao.gif" border="0"></a></td></tr></tbody></table></td>	
+					<td bgcolor="#fff4db" width="10"><img src="comunic_asrj_data/pixel.gif" height="1" width="10"></td>
+					<td background="comunic_asrj_data/form_dots_vert02.gif" bgcolor="#fff4db" width="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>		
+					<td align="right" bgcolor="#fff4db" valign="top">
+					<font class="arial_cinza">R$ <input class="form_campo" name="i_vl_benef_unico_0" value="" size="13" maxlength="13" onfocus="cor('#FFEFC9', '#000000', this);virgula(this, '', 1)" onblur="cor('#FFFFFF', '#666666', this);virgula(this, 1, '')" onkeypress="if (!(mascara_valor(this))) return false;" onkeyup="if(this.value.length) i_vl_pg_mensal_0.value='';" type="text">&nbsp;</font></td>
+					<td bgcolor="#fff4db" width="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>
+					<td align="right" bgcolor="#fff4db" valign="top">
+					<font class="arial_cinza">R$ <input class="form_campo" name="i_vl_pg_mensal_0" value="" size="13" maxlength="13" onfocus="cor('#FFEFC9', '#000000', this);virgula(this, '', 1)" onblur="cor('#FFFFFF', '#666666', this);virgula(this, 1, '')" onkeypress="if (!(mascara_valor(this))) return false;" onkeyup="if(this.value.length) i_vl_benef_unico_0.value='';" type="text">&nbsp;</font></td>
+				</tr>
+				
+				
+				<tr class="form_tr" id="BEN_I_0" style="display: none;"> <!--style="display:none"-->
+					<td colspan="6">
+				        <table border="0" cellpadding="0" cellspacing="0">
+							<tbody><tr class="form_tr"> 
+						      <td width="35"><img src="comunic_asrj_data/pixel.gif" height="1" width="35"></td>
+							  <td class="arial_cinza">&nbsp;data de nascimento do beneficiário&nbsp;</td>
+							  <td> 
+								<table border="0" cellpadding="0" cellspacing="0" width="100%">
+								  <tbody><tr class="form_tr"> 
+									<td width="80">
+										<input class="form_campo" name="data_nascimento_benef_I_0" value="" maxlength="10" style="height: 18px; width: 77px;" size="11" onfocus="cor('#FFEFC9', '#000000', this)" onblur="cor('#FFFFFF', '#666666', this)" onkeypress="return traco_data(this)" type="text"></td>					            
+									
+								  </tr>
+								</tbody></table>
+							  </td>
+							  <td class="arial_cinza" width="32">&nbsp;</td>
+							  <td class="arial_cinza">&nbsp;sexo do beneficiário&nbsp;<font class="verdana_cinza_12px">*</font></td>
+							  <td> 
+					              <div id="div0_0" style="border: 1px solid rgb(255, 196, 136); position: relative; left: 0px; top: 0px; width: 78px; height: 18px; background-color: rgb(255, 255, 255);"> 
+									<div id="div1_0" style="position: absolute; left: 1px; top: -1px; width: 400px; height: 18px; clip: rect(4px, 397px, 16px, 2px);"> 
+									  <select id="combo_0" name="sexo_benef_I_0" class="form_combo" style="position: absolute; left: -1px; top: 1px; width: 75px; height: 16px;"><option value="M">Masculino</option><option value="F">Feminino</option></select>
+									</div>
+								  </div>
+					            </td>
+							</tr>
+						</tbody></table>
+					</td>
+			    </tr>
+				
+				
+				
+				
+				<tr class="form_tr_dots"> 
+					<td colspan="5" background="comunic_asrj_data/form_dots.gif" bgcolor="#ffffff" height="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>
+					<td background="comunic_asrj_data/form_dots.gif" bgcolor="#fffada" height="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>				
+				</tr>
+				
+				<tr class="form_tr"> 						  				
+	  				<td bgcolor="#fff4db" valign="top">
+					<table bgcolor="#fff4db" border="0" cellpadding="0" cellspacing="0">
+							<tbody><tr class="tabela_td">
+								<td bgcolor="#fff4db" width="10"><img src="comunic_asrj_data/pixel.gif" height="1" width="10"></td>
+									<td bgcolor="#fff4db"><input name="CHK_PREV_RENDA_1" value="00010|PENSAO POR PRAZO CERTO" onclick="ExibeTopicosPrevRenda('1')" type="checkbox"> </td>
+									<td bgcolor="#fff4db">
+										&nbsp;<a href="javascript:;" class="arial_cinza" onmouseover="txt_direita('300',12); return true;" style="" onmouseout="nada();">
+										PENSAO POR PRAZO CERTO <img src="comunic_asrj_data/icone_interrogacao.gif" border="0"></a></td></tr></tbody></table></td>	
+					<td bgcolor="#fff4db" width="10"><img src="comunic_asrj_data/pixel.gif" height="1" width="10"></td>
+					<td background="comunic_asrj_data/form_dots_vert02.gif" bgcolor="#fff4db" width="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>		
+					<td align="right" bgcolor="#fff4db" valign="top">
+					<font class="arial_cinza">R$ <input class="form_campo" name="i_vl_benef_unico_1" value="" size="13" maxlength="13" onfocus="cor('#FFEFC9', '#000000', this);virgula(this, '', 1)" onblur="cor('#FFFFFF', '#666666', this);virgula(this, 1, '')" onkeypress="if (!(mascara_valor(this))) return false;" onkeyup="if(this.value.length) i_vl_pg_mensal_1.value='';" type="text">&nbsp;</font></td>
+					<td bgcolor="#fff4db" width="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>
+					<td align="right" bgcolor="#fff4db" valign="top">
+					<font class="arial_cinza">R$ <input class="form_campo" name="i_vl_pg_mensal_1" value="" size="13" maxlength="13" onfocus="cor('#FFEFC9', '#000000', this);virgula(this, '', 1)" onblur="cor('#FFFFFF', '#666666', this);virgula(this, 1, '')" onkeypress="if (!(mascara_valor(this))) return false;" onkeyup="if(this.value.length) i_vl_benef_unico_1.value='';" type="text">&nbsp;</font></td>
+				</tr>
+				
+				
+				
+				
+				
+				<tr class="form_tr" id="PRZ_I_1" style="display: none;"> 
+					<td colspan="6">
+				        <table border="0" cellpadding="0" cellspacing="0">
+							<tbody><tr class="form_tr"> 
+						      <td width="35"><img src="comunic_asrj_data/pixel.gif" height="1" width="35"></td>
+							  <td class="arial_cinza" nowrap="nowrap">&nbsp;prazo&nbsp;</td>
+							  <td>
+								<div id="div0_1" style="border: 1px solid rgb(255, 196, 136); position: relative; left: 0px; top: 0px; width: 62px; height: 18px; background-color: rgb(255, 255, 255);"> 
+								  <div id="div1_1" style="position: absolute; left: 1px; top: -1px; width: 400px; height: 18px; clip: rect(4px, 397px, 16px, 2px);"> 
+									<select id="combo_2" name="PRAZO_I_1" class="form_combo" style="position: absolute; left: -1px; top: 1px; width: 60px; height: 16px;"><option value="1">1 anos</option><option value="2">2 anos</option><option value="3">3 anos</option><option value="5">5 anos</option><option value="10">10 anos</option><option value="15">15 anos</option><option value="20">20 anos</option><option value="25">25 anos</option><option value="30">30 anos</option></select>
+								  </div>
+								</div>
+								</td>
+							</tr>
+						</tbody></table>
+					</td>
+			    </tr>
+				
+				<tr class="form_tr_dots"> 
+					<td colspan="5" background="comunic_asrj_data/form_dots.gif" bgcolor="#ffffff" height="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>
+					<td background="comunic_asrj_data/form_dots.gif" bgcolor="#fffada" height="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>				
+				</tr>
+				
+				<tr class="form_tr"> 						  				
+	  				<td bgcolor="#fff4db" valign="top">
+					<table bgcolor="#fff4db" border="0" cellpadding="0" cellspacing="0">
+							<tbody><tr class="tabela_td">
+								<td bgcolor="#fff4db" width="10"><img src="comunic_asrj_data/pixel.gif" height="1" width="10"></td>
+									<td bgcolor="#fff4db"><input name="CHK_PREV_RENDA_2" value="00011|PENSAO AOS MENORES" onclick="ExibeTopicosPrevRenda('2')" type="checkbox"> </td>
+									<td bgcolor="#fff4db">
+										&nbsp;<a href="javascript:;" class="arial_cinza" onmouseover="txt_direita('300',13); return true;" style="" onmouseout="nada();">
+										PENSAO AOS MENORES <img src="comunic_asrj_data/icone_interrogacao.gif" border="0"></a></td></tr></tbody></table></td>	
+					<td bgcolor="#fff4db" width="10"><img src="comunic_asrj_data/pixel.gif" height="1" width="10"></td>
+					<td background="comunic_asrj_data/form_dots_vert02.gif" bgcolor="#fff4db" width="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>		
+					<td align="right" bgcolor="#fff4db" valign="top">
+					<font class="arial_cinza">R$ <input class="form_campo" name="i_vl_benef_unico_2" value="" size="13" maxlength="13" onfocus="cor('#FFEFC9', '#000000', this);virgula(this, '', 1)" onblur="cor('#FFFFFF', '#666666', this);virgula(this, 1, '')" onkeypress="if (!(mascara_valor(this))) return false;" onkeyup="if(this.value.length) i_vl_pg_mensal_2.value='';" type="text">&nbsp;</font></td>
+					<td bgcolor="#fff4db" width="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>
+					<td align="right" bgcolor="#fff4db" valign="top">
+					<font class="arial_cinza">R$ <input class="form_campo" name="i_vl_pg_mensal_2" value="" size="13" maxlength="13" onfocus="cor('#FFEFC9', '#000000', this);virgula(this, '', 1)" onblur="cor('#FFFFFF', '#666666', this);virgula(this, 1, '')" onkeypress="if (!(mascara_valor(this))) return false;" onkeyup="if(this.value.length) i_vl_benef_unico_2.value='';" type="text">&nbsp;</font></td>
+				</tr>
+				
+				
+				<tr class="form_tr" id="BEN_I_2" style="display: none;"> <!--style="display:none"-->
+					<td colspan="6">
+				        <table border="0" cellpadding="0" cellspacing="0">
+							<tbody><tr class="form_tr"> 
+						      <td width="35"><img src="comunic_asrj_data/pixel.gif" height="1" width="35"></td>
+							  <td class="arial_cinza">&nbsp;data de nascimento do beneficiário&nbsp;</td>
+							  <td> 
+								<table border="0" cellpadding="0" cellspacing="0" width="100%">
+								  <tbody><tr class="form_tr"> 
+									<td width="80">
+										<input class="form_campo" name="data_nascimento_benef_I_2" value="" maxlength="10" style="height: 18px; width: 77px;" size="11" onfocus="cor('#FFEFC9', '#000000', this)" onblur="cor('#FFFFFF', '#666666', this)" onkeypress="return traco_data(this)" type="text"></td>					            
+									
+								  </tr>
+								</tbody></table>
+							  </td>
+							  <td class="arial_cinza" width="32">&nbsp;</td>
+							  <td class="arial_cinza">&nbsp;sexo do beneficiário&nbsp;<font class="verdana_cinza_12px">*</font></td>
+							  <td> 
+					              <div id="div0_0" style="border: 1px solid rgb(255, 196, 136); position: relative; left: 0px; top: 0px; width: 78px; height: 18px; background-color: rgb(255, 255, 255);"> 
+									<div id="div1_0" style="position: absolute; left: 1px; top: -1px; width: 400px; height: 18px; clip: rect(4px, 397px, 16px, 2px);"> 
+									  <select id="combo_0" name="sexo_benef_I_2" class="form_combo" style="position: absolute; left: -1px; top: 1px; width: 75px; height: 16px;"><option value="M">Masculino</option><option value="F">Feminino</option></select>
+									</div>
+								  </div>
+					            </td>
+							</tr>
+						</tbody></table>
+					</td>
+			    </tr>
+				
+				
+				
+				
+				<tr class="form_tr_dots"> 
+					<td colspan="5" background="comunic_asrj_data/form_dots.gif" bgcolor="#ffffff" height="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>
+					<td background="comunic_asrj_data/form_dots.gif" bgcolor="#fffada" height="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>				
+				</tr>
+				
+				<tr class="form_tr"> 						  				
+	  				<td bgcolor="#fff4db" valign="top">
+					<table bgcolor="#fff4db" border="0" cellpadding="0" cellspacing="0">
+							<tbody><tr class="tabela_td">
+								<td bgcolor="#fff4db" width="10"><img src="comunic_asrj_data/pixel.gif" height="1" width="10"></td>
+									<td bgcolor="#fff4db"><input name="CHK_PREV_RENDA_3" value="00012|RENDA POR INVALIDEZ" onclick="ExibeTopicosPrevRenda('3')" type="checkbox"> </td>
+									<td bgcolor="#fff4db">
+										&nbsp;<a href="javascript:;" class="arial_cinza" onmouseover="txt_direita('300',30); return true;" style="" onmouseout="nada();">
+										RENDA POR INVALIDEZ <img src="comunic_asrj_data/icone_interrogacao.gif" border="0"></a></td></tr></tbody></table></td>	
+					<td bgcolor="#fff4db" width="10"><img src="comunic_asrj_data/pixel.gif" height="1" width="10"></td>
+					<td background="comunic_asrj_data/form_dots_vert02.gif" bgcolor="#fff4db" width="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>		
+					<td align="right" bgcolor="#fff4db" valign="top">
+					<font class="arial_cinza">R$ <input class="form_campo" name="i_vl_benef_unico_3" value="" size="13" maxlength="13" onfocus="cor('#FFEFC9', '#000000', this);virgula(this, '', 1)" onblur="cor('#FFFFFF', '#666666', this);virgula(this, 1, '')" onkeyPress="if (!(mascara_valor(this))) return false;" onkeyup="if(this.value.length) i_vl_pg_mensal_3.value='';" type="text">&nbsp;</font></td>
+					<td bgcolor="#fff4db" width="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>
+					<td align="right" bgcolor="#fff4db" valign="top">
+					<font class="arial_cinza">R$ <input class="form_campo" name="i_vl_pg_mensal_3" value="" size="13" maxlength="13" onfocus="cor('#FFEFC9', '#000000', this);virgula(this, '', 1)" onblur="cor('#FFFFFF', '#666666', this);virgula(this, 1, '')" onkeypress="if (!(mascara_valor(this))) return false;" onkeyup="if(this.value.length) i_vl_benef_unico_3.value='';" type="text">&nbsp;</font></td>
+				</tr>
+				
+				
+				
+				
+				
+				<tr class="form_tr_dots"> 
+					<td colspan="5" background="comunic_asrj_data/form_dots.gif" bgcolor="#ffffff" height="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>
+					<td background="comunic_asrj_data/form_dots.gif" bgcolor="#fffada" height="1"><img src="comunic_asrj_data/pixel.gif" height="1" width="1"></td>				
+				</tr>
+				
+				</tbody></table></td>				 
+			</tr>
+			
+			 <!-- </COMENTARIO_LINHA> -->
+			    <!-- <COMENTARIO_LINHA> -->
+			    <tr> 
+			      <td colspan="5" align="left" height="10" valign="top"><img src="comunic_asrj_data/pixel.gif" height="10" width="1"></td>
+			    </tr>
+			    <tr> 
+			      <td colspan="4" align="left"> 
+			        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			          <tbody><tr> 
+					  	<td align="right" width="100%"><img src="comunic_asrj_data/form_bt_voltar.gif" onclick="NextPage('/scripts/comunic_asrj.dll?OPERA=SPI_ChamaSimulador')" onmouseover="style.cursor = 'hand';" border="0"></td>
+			            <td align="right" width="100%"><input src="comunic_asrj_data/form_bt_limpar.gif" onclick="limpa=1" onmouseover="style.cursor = 'hand';" border="0" type="image"></td>
+			            <td align="right"><input src="comunic_asrj_data/form_bt_avancar.gif" onmouseover="style.cursor = 'hand';" border="0" type="image"></td>
+			          </tr>
+			        </tbody></table>
+			     
+		</td>
+		<td width="10">&nbsp;</td>
+	</tr>
+</tbody></table>
+<input name="CD_FAMILIA" value="00001" type="hidden">
+<input name="CH" value="BR" type="hidden">
+
+<input name="TS_SUGERE_ESTUDO_SIZE" value="" type="hidden">
+<input name="SAI_CD_FAMILIA" value="" type="hidden">
+<input name="SAI_PE_RENDA_COMPROM" value="" type="hidden">
+<input name="SAI_VL_RESERVA" value="" type="hidden">
+<input name="SAI_DT_APOSENT" value="" type="hidden">
+<input name="SAI_PE_RENTAB" value="" type="hidden">
+<input name="SAI_VL_RENDA_ESTIM" value="" type="hidden">
+<input name="SAI_VL_RENDA_APOSENT" value="" type="hidden">
+<input name="SAI_VL_RENDA_SUGEST" value="" type="hidden">
+<input name="SAI_VL_CONTRIB_INI" value="" type="hidden">
+<input name="SAI_VL_CONTRIB_MES" value="" type="hidden">
+<input name="SAI_CD_CATEG_RENDA" value="" type="hidden">
+<input name="SAI_VL_CONTRIB_INI_T" value="" type="hidden">
+<input name="SAI_VL_CONTRIB_MES_T" value="" type="hidden">
+<input name="SAI_CD_HELP_RENDA" value="" type="hidden">
+<input name="CH" value="BR" type="hidden">
+<input name="casado" value="" type="hidden">
+<input name="data_nascimento_casado" value="" type="hidden">
+<input name="filhos" value="" type="hidden">
+<input name="data_nascimento_filhos" value="" type="hidden">
+<input name="renda" value="" type="hidden">
+<input name="renda_nao_trib" value="" type="hidden">
+<input name="inss" value="" type="hidden">
+<input name="check_renda_aposent_01" value="" type="hidden">
+<input name="teto_inss" value="" type="hidden">
+<input name="valor_renda_aposent_01" value="" type="hidden">
+<input name="valor_renda_aposent_outras" value="" type="hidden">
+<input name="extrainss" value="" type="hidden">
+<input name="transf" value="" type="hidden">
+<input name="transf_valor_renda_aposent_01" value="" type="hidden">
+<input name="aporteTransf" value="" type="hidden">
+<input name="aporte_valor_renda_aposent_01" value="" type="hidden">
+<input name="TIPOCALCULO" value="L" type="hidden">
+
+<br>
+<a name="2">
+<br>
+
+
+
+<script language="JavaScript1.2">
+<!--
+	//funcao que ajusta os tamanhos de todos combos da pagina (/asrj/includes/basico.js)
+//	combo_div("frmPrev1");		
+
+function teste()
+{
+	window.location = '#topo';
+}
+teste();
+-->
+</script></a></td></tr></tbody></table></form></body></html>

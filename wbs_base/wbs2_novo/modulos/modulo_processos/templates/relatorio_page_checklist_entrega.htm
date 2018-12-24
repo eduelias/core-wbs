@@ -1,0 +1,280 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Untitled Document</title>
+<link href="<? echo DIR_CSS; ?>/sistema.css" rel="stylesheet" type="text/css">
+
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+//-->
+
+function printPage()
+{
+    document.getElementById('print').style.visibility = 'hidden';
+	// Do print the page
+    if (typeof(window.print) != 'undefined') {
+        window.print();
+    }
+    document.getElementById('print').style.visibility = '';
+ }
+</script>
+<style type="text/css">
+<!--
+.style2 {color: #FF0000}
+.style4 {color: #FF0000; font-weight: bold; }
+.style5 {
+	font-size: 8px;
+	font-weight: bold;
+}
+.style7 {
+	font-size: 16px;
+	font-weight: bold;
+}
+-->
+</style>
+</head>
+
+<body>
+ <center><input type='button' style='visibility: ; width: 100px; height: 25px' id='print' value='IMPRIMIR' onclick='printPage()'></center>
+<table width="100%" border="0" align="center">
+  <tr>
+    <td valign="top"><table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+         <tr>
+           <td width="79%"><img src="<? echo DIR_IMAGES; ?>/checklist_entrega.gif" width="370" height="40"></td>
+           <td width="21%" align="right"><span class="style7"><? echo "$codbarra"; ?></span><br>
+             <? echo "$nomevend"; ?>
+           </td>
+         </tr>
+         <tr>
+           <td colspan="2" background="<? echo DIR_IMAGES; ?>/spacer.gif" bgcolor="#D9AD00"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+         </tr>
+       </table>       
+              <table width="100%%"  border="0" cellspacing="1" cellpadding="1">
+           <tr>
+             <td><p><strong>CLIENTE:</strong><br>
+               <? echo "$xnome" ?></p>
+             </td>
+             <td><strong>CPF/CNPJ:</strong><br>
+               <? echo "$xdoc" ?></td>
+           </tr>
+           <tr>
+             <td><strong>ENDERE&Ccedil;O:</strong><br>
+               <? echo "$xendereco - $xynumero - $xycomplemento - $xbairro - $xcidade - $xestado - $xcep" ?></td>
+             <td><strong>TELEFONE:</strong><br>
+               <? echo "($xdddtel1)$xtel1<BR>($xdddtel2)$xtel2" ?></td>
+           </tr>
+           <tr>
+             <td><strong>ENDERE&Ccedil;O DE ENTREGA</strong>:<br>
+               <? echo "$endentrega" ?></td>
+             <td><strong>REFER&Ecirc;NCIA PARA ENTREGA:</strong><br>
+               <? echo "$refentrega" ?></td>
+           </tr>
+           <tr>
+             <td colspan="2"><strong>ENTREGA REFERENTE AO(S) PRODUTO(S) CONSTANTE(S) NA(S) NOTA(S) FISCAL(S):</strong><br>
+               <? 
+			   	for($j = 0; $j < count($array612); $j++ ){
+			   
+			   echo "$codnf[$j]"; 
+			   
+			   }?></td>
+          </tr>
+           <tr>
+             <td colspan="2">&nbsp;</td>
+           </tr>
+      </table>       
+         <table width="100%" border="0" cellspacing="1" cellpadding="1">
+           <tr>
+             <td colspan="3" align="center"><strong>DATA IN&Iacute;CIO ____/____/______ HORA: ________</strong></td>
+           </tr>
+           <tr>
+             <td width="1%" align="center"><span class="style5">SIM</span></td>
+             <td width="1%" align="center"><span class="style5"> N&Atilde;O</span></td>
+             <td width="618">&nbsp;</td>
+           </tr>
+           <tr>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td width="1%" align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td><strong>CLIENTE FOI ENCONTRADO ? </strong></td>
+           </tr>
+           <tr>
+             <td align="center" valign="top">&nbsp;</td>
+             <td width="1%" align="center" valign="top">&nbsp;</td>
+             <td>PRIMEIRA TENTATIVA ____/____/______ HORA: ________</td>
+           </tr>
+           <tr>
+             <td align="center" valign="top">&nbsp;</td>
+             <td width="1%" align="center" valign="top">&nbsp;</td>
+             <td>SEGUNDA TENTATIVA ____/____/______ HORA: ________</td>
+           </tr>
+           <tr>
+             <td colspan="3" align="center" valign="top">&nbsp;</td>
+           </tr>
+           <tr>
+             <td align="center" valign="top">&nbsp;</td>
+             <td width="1%" align="center" valign="top">&nbsp;</td>
+             <td><strong>DOCUMENTOS E ACESS&Oacute;RIOS </strong></td>
+           </tr>
+           <tr>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td width="1%" align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td>MANUAL DO USU&Aacute;RIO </td>
+           </tr>
+           <tr>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td width="1%" align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td>CD&acute;S DE INSTALA&Ccedil;&Atilde;O </td>
+           </tr>
+           <tr>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td width="1%" align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td>NOTA FISCAL / CUPOM FISCAL </td>
+           </tr>
+           <tr>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td width="1%" align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td>MOUSE PAD </td>
+           </tr>
+           <tr>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td width="1%" align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td>CAPA P/ MICROCOMPUTADOR</td>
+           </tr>
+           <tr>
+             <td colspan="3" align="center" valign="top">&nbsp;</td>
+           </tr>
+           <tr>
+             <td align="center" valign="top">&nbsp;</td>
+             <td align="center" valign="top">&nbsp;</td>
+             <td><strong>OCORR&Ecirc;NCIAS NA ENTREGA </strong></td>
+           </tr>
+           <tr>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td>FALTOU ALGUM PRODUTO? </td>
+           </tr>
+           <tr>
+             <td align="center" valign="top">&nbsp;</td>
+             <td align="center" valign="top">&nbsp;</td>
+             <td>______________________________________________________________________<br>
+      O(S) PRODUTO(S) ACIMA DESCRITO(S) FOI(M) ENTREGUE(S) EM:<br>
+      <br>
+      DATA:____/____/______ HORA: _________ </td>
+           </tr>
+           <tr>
+             <td align="center" valign="top">&nbsp;</td>
+             <td align="center" valign="top">&nbsp;</td>
+             <td align="center">__________________________________________<br>
+                 <span class="style5">ASSINATURA DO CLIENTE OU PESSOA AUTORIZADA </span></td>
+           </tr>
+           <tr>
+             <td colspan="3" align="center" valign="top">&nbsp;</td>
+           </tr>
+           <tr>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td width="1%" align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td><strong>CLIENTE AUTORIZOU A INSTALA&Ccedil;&Atilde;O ?</strong></td>
+           </tr>
+           <tr>
+             <td colspan="3" align="center" valign="top">&nbsp;</td>
+           </tr>
+           <tr>
+             <td align="center" valign="top">&nbsp;</td>
+             <td width="1%" align="center" valign="top">&nbsp;</td>
+             <td><strong>TESTES REALIZADOS </strong></td>
+           </tr>
+           <tr>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td><p>O LOCAL &Eacute; APROPRIADO PARA INSTALA&Ccedil;&Atilde;O (A INSTALA&Ccedil;&Atilde;O EL&Eacute;TRICA ADEQUADA E DE INTEIRA RESPONSABILIDADE DO CLIENTE E N&Atilde;O SER&Aacute; VERIFICADA PELO INSTALADOR)<br>
+                 OBS: ________________________________________________________________________<br>
+                 O CLIENTE AUTORIZA A INSTALA&Ccedil;&Atilde;O MESMO CIENTE DE QUE O LOCAL N&Atilde;O &Eacute; APROPRIADO<br>
+                 <br>
+             </p></td>
+           </tr>
+           <tr>
+             <td align="center" valign="top">&nbsp;</td>
+             <td width="1%" align="center" valign="top">&nbsp;</td>
+             <td align="center">__________________________________________<br>
+               <span class="style5">ASSINATURA DO CLIENTE OU PESSOA AUTORIZADA </span></td>
+           </tr>
+           <tr>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td width="1%" align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td>MOVIMENTA&Ccedil;&Atilde;O DO MOUSE </td>
+           </tr>
+           <tr>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td width="1%" align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td>SOM</td>
+           </tr>
+           <tr>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td width="1%" align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td>DIGITA&Ccedil;&Atilde;O DO TECLADO </td>
+           </tr>
+           <tr>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td width="1%" align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td>CONFERIR JUNTO AO CLIENTE A CONFIGURA&Ccedil;&Atilde;O DO EQUIPAMENTO </td>
+           </tr>
+           <tr>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td width="1%" align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td>LEITURA DA(S) UNIDADE(S) OPTICA(S).</td>
+           </tr>
+           <tr>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td width="1%" align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td>CONECTAR NA INTERNET PELO MODEM </td>
+           </tr>
+           <tr>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td width="1%" align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td>IMPRESS&Atilde;O </td>
+           </tr>
+           <tr>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td width="1%" align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td>SCANNER</td>
+           </tr>
+           <tr>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td width="1%" align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td>WEB CAM </td>
+           </tr>
+           <tr>
+             <td colspan="3" align="center" valign="top">&nbsp;</td>
+           </tr>
+           <tr>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td>HOUVE ALGUM PROBLEMA ENCONTRADO DURANTE A INSTALA&Ccedil;&Atilde;O ? <br>
+               _______________________________________________________________________<br>
+               O(S) PROBLEMA(S) ACIMA DESCRITO(S) FOI(M) SOLUCIONADO(S) EM:<br>
+               <br>
+               DATA:____/____/______ HORA: _________ </td>
+           </tr>
+           <tr>
+             <td align="center" valign="top">&nbsp;</td>
+             <td align="center" valign="top">&nbsp;</td>
+             <td align="center">__________________________________________<br>
+               <span class="style5">ASSINATURA DO CLIENTE OU PESSOA AUTORIZADA </span></td>
+           </tr>
+           <tr>
+             <td colspan="3" align="center" valign="top">&nbsp;</td>
+           </tr>
+           <tr>
+             <td colspan="3" align="center" valign="top"><strong>DATA T&Eacute;RMINO ____/____/______ HORA: ________</strong></td>
+           </tr>
+      </table>       
+         </td>
+  </tr>
+ 
+
+</table>
+
+</body>
+</html>

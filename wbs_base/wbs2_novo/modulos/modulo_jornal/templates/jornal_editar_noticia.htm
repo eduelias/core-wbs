@@ -1,0 +1,162 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/azul_padrao.css" rel="stylesheet" type="text/css">
+<link href="../../../css/azul_padrao.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="<? echo DIR_SISTEMA; ?>/editor/fckeditor.js"></script>
+<script type="text/javascript" src="<? echo DIR_SISTEMA; ?>/js/calendar.js"></script>
+
+<script type="text/javascript">
+      window.onload = function()
+      {
+        var oFCKeditor = new FCKeditor( 'noticia' ) ;
+		oFCKeditor.BasePath = "<? echo DIR_SISTEMA; ?>/editor/" ;
+		oFCKeditor.Height = 500 ; // 400 pixels
+        oFCKeditor.ReplaceTextarea() ;
+      }
+</script>
+<style type="text/css">
+<!--
+.style1 {font-size: 10px}
+-->
+</style>
+</head>
+
+<body>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><img src="<? echo DIR_IMAGES; ?>/ind_edicao_jornal.gif"></td>
+    <td width="10%" align="right"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=1"; ?>"><img src="<? echo DIR_IMAGES; ?>/bt_voltar_azul_padrao.gif" border="0"></a></td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#3775CA"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+  </tr>
+</table>
+<br>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" class="titulo_superior">
+  <tr>
+    <td>Editar Not&iacute;cia </td>
+  </tr>
+</table>
+<table width="100%"  border="0" cellpadding="2" cellspacing="0" class="generalTable defaultBlackText">
+<form method="post" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=4&Action=Editar"; ?>" name="noticia" enctype="multipart/form-data">
+  <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="#E8EFF9"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+    <td width="10%" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Se&ccedil;&atilde;o</td>
+    <td class="noramlTableCell"><select name="secao" class="input_select" id="secao">
+<option value="<? echo $rs_noticia->fields['codsecao']; ?>" selected>-> <? echo $rs1->fields['nome']; ?></option>
+<?
+if ($rs_secao)
+{
+	while (!$rs_secao->EOF)
+	{
+?>
+<option value="<? echo $rs_secao->fields['codsecao'] ; ?>"><? echo $rs_secao->fields['nome'] ; ?></option>
+<?
+	 	$rs_secao->MoveNext();
+	}//WHILE
+}
+?>
+      </select></td>
+  </tr>
+  <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="#E8EFF9"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+    <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">T&iacute;tulo</td>
+    <td class="noramlTableCell"><input name="titulo" type="text" class="input_linha" id="titulo" value="<? echo $rs_noticia->fields['titulo']; ?>"></td>
+  </tr>
+  <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="#E8EFF9"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+    <td align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Subt&iacute;tulo</td>
+    <td class="noramlTableCell"><input name="subtitulo" type="text" class="input_linha" id="subtitulo" value="<? echo $rs_noticia->fields['subtitulo']; ?>"></td>
+  </tr>
+  <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="#E8EFF9"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+    <td align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Ano</td>
+    <td class="noramlTableCell"><select name="ano" class="input_select" id="ano">
+      <option value="<? echo $rs_noticia->fields['ano']; ?>" selected>-> <? echo $rs_noticia->fields['ano']; ?></option>
+      <option value="2005">2005</option>
+	  <option value="2006">2006</option>
+      <option value="2007">2007</option>
+    </select></td>
+  </tr>
+  <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="#E8EFF9"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+    <td align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Edi&ccedil;&atilde;o</td>
+    <td class="noramlTableCell"><select name="edicao" class="input_select" id="edicao">
+      <option value="<? echo $rs_noticia->fields['edicao']; ?>" selected>-> <? echo $rs_noticia->fields['edicao']; ?></option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+      <option value="11">11</option>
+	  <option value="12">12</option>
+        </select></td>
+  </tr>
+  <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="#E8EFF9"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+    <td align="right" valign="top" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Not&iacute;cia</td>
+    <td class="noramlTableCell"><textarea id="noticia" name="noticia"><? echo $rs_noticia->fields['noticia']; ?></textarea></td>
+  </tr>
+  <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="#E8EFF9"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+    <td align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">In&iacute;cio Publica&ccedil;&atilde;o </td>
+    <td class="noramlTableCell">      <table  border="0" cellpadding="1" cellspacing="1">
+        <tr>
+          <td><input name="public_ini" type="text" class="input_linha" id="public_ini" onFocus="javascript:blur()" value="<? echo $rs_noticia->fields['datahorapublic_ini']; ?>" size="20"></td>
+          <td><a href="javascript:openCalendar('pg=9', 'noticia', 'public_ini', 'datetime')"><img src="<? echo DIR_IMAGES; ?>/b_calendar.png" border="0"></a></td>
+          </tr>
+      </table></td>
+  </tr>
+  <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="#E8EFF9"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+    <td align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Fim Publica&ccedil;&atilde;o </td>
+    <td class="noramlTableCell"><table  border="0" cellspacing="1" cellpadding="1">
+      <tr>
+        <td><input name="public_fim" type="text" class="input_linha" id="public_fim" onFocus="javascript:blur()" value="<? echo $rs_noticia->fields['datahorapublic_fim']; ?>" size="20"></td>
+        <td><a href="javascript:openCalendar('pg=9', 'noticia', 'public_fim', 'datetime')"><img src="<? echo DIR_IMAGES; ?>/b_calendar.png" border="0"></a></td>
+        </tr>
+    </table></td>
+  </tr>
+  <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="#E8EFF9"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+    <td align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Destaque</td>
+    <td class="noramlTableCell"><select name="destaque" class="input_select">
+      <option value="<? echo $rs_noticia->fields['destaque']; ?>" selected>-> <? if($rs_noticia->fields['destaque'] == "S") { echo "Sim"; } else { echo "Não"; } ?></option>
+	  <option value="S">Sim</option>
+      <option value="N">N&atilde;o</option>
+        </select></td>
+  </tr>
+  <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="#E8EFF9"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+    <td align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Status</td>
+    <td class="noramlTableCell"><select name="status" class="input_select">
+      <option value="<? echo $rs_noticia->fields['status']; ?>" selected>-> <? if($rs_noticia->fields['status'] == "HIST") { echo "Histórico"; } elseif($rs_noticia->fields['status'] == "RASC") { echo "Rascunho"; } else { echo "Publicado"; } ?></option>
+	  <option value="HIST">Hist&oacute;rico</option>
+      <option value="PUBLIC">Publicado</option>
+      <option value="RASC">Rascunho</option>
+        </select></td>
+  </tr>
+  <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="#E8EFF9"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+    <td align="right" valign="top" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Imagem</td>
+    <td class="noramlTableCell"><input name="form_data" type="file" size="30">
+      <br>
+      <table  border="0" cellpadding="1" cellspacing="2" class="style1">
+        <tr>
+          <td><strong>Dimens&otilde;es e tamanho apropriados:</strong></td>
+        </tr>
+        <tr>
+          <td>- Largura m&aacute;x: 300 pixels</td>
+        </tr>
+        <tr>
+          <td>- Altura m&aacute;x: 300 pixels</td>
+        </tr>
+        <tr>
+          <td>- Tamanho m&aacute;x: 40 Kbytes </td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><input type="hidden" name="codnoticia_select" value="<? echo $rs_noticia->fields['codnoticia']; ?>"><input name="Submit" type="submit" class="input_botao" value="Editar"></td>
+  </tr>
+</form>
+</table>
+</body>
+</html>

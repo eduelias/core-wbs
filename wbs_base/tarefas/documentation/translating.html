@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- created with PHP Doc System
+     http://www.alexking.org/software/phpdocsystem/ -->
+<html>
+	<head>
+		<title>Tasks Jr.: How do I translate Tasks Jr. into my language?</title>
+		<link rel="stylesheet" type="text/css" href="default.css" />
+	</head>
+	<body>
+		<div id="header">
+			<a href="index.html">Table of Contents</a>
+			<h1><span>Tasks</span></h1>
+		</div>
+		<div id="content">
+<h1 class="module_title">How do I translate Tasks Jr. into my language?</h1>
+<div class="module_content"><p>Basically, all you do is make a copy of english.php in the languages directory, and translate all the strings to your language.</p>
+
+<p>The string that needs to be translated is on the right side, with the key that the application uses to find the string on the left side:</p>
+
+<pre>
+$language->sample = array("key_1" => "This is the string to translate."
+                         ,"key_2" => "This is another string to translate."
+                         );
+</pre>
+
+<p>Some strings have tokens (__0, __1, etc.) in them that will be replaced with actual data. The token is two underscore characters followed by a number. You can move the tokens around the string as you need to to make the sentance work best in your language. For example:</p>
+
+<pre>
+$language->sample = array("key_1" => "This string has __0 token." // number
+                         ,"key_2" => "This string shows the title (__0) of task __1." // title, number
+                         );
+</pre>
+
+<p>Then just send me the file you've created and I'll add it to the next release!</p>
+
+</div>
+<p id="prev_next"><a href="mobile.html">Previous Page</a> | <a href="index.html">Table of Contents</a> | <a href="mac_ie.html">Next Page</a></p>
+			<p id="last_modified">Last Modified: February 28, 2005 @ 12:53 pm<br />(<a href="http://www.kingdesign.net/tasks/documentation/translating.html">check for an updated version of this page</a>)</p>
+		</div>
+
+		<div id="footer">
+			<a href="http://www.alexking.org/software/phpdocsystem/">PHP Doc System</a> Copyright 2003-2004 &copy; Alex King. All rights reserved.<br />
+		</div>
+	</body>
+</html>

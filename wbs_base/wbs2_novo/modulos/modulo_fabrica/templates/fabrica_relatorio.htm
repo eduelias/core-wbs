@@ -1,0 +1,194 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta HTTP-EQUIV = "Refresh" CONTENT = "300; URL = <? echo"$PHP_SELF?pg=$pg&Action=pesquisa&empresa=$empresa"; ?>">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<script language="javascript" src="<? echo DIR_AJAX; ?>/tw-sack.js"></script>
+
+
+<style type="text/css">
+<!--
+.style12 {font-size: 8px; font-weight: bold; font-family: Verdana, Arial, Helvetica, sans-serif; }
+.style22 {font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif; }
+.style24 {font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif; font-weight: bold; }
+-->
+</style>
+<script language="javascript">
+
+
+// FUNCAO DELETE 
+function DelLote(base, param)
+{
+	var message = 'Você deseja deletar este registro?';
+	if ( confirm(message) ) {
+
+		var theURL = base + "";
+		//alert("" + theURL + "");
+		
+		doit(theURL, 'lista', param+'&Action=DelLote&lista=OK&menu_not=1', 'GET', '');
+		ajax.onCompletion = function() {onFinish('msg_return', '');}
+		window.location.reload();
+	} else {
+		return false;
+	}
+}
+
+
+function Cria(base, param)
+{
+		
+		
+		var theURL = base +  "";
+		var modelo_mod = "";
+		var qtde_mod = "";
+		
+		modelo_mod = document.getElementById('modelo_select').value;
+		qtde_mod = document.getElementById('qtde_lote_select').value;
+		
+				
+		//alert("" + modelo_mod + "");
+		
+		doit(theURL, 'lista', param + '&Action=CriaLote&lista=OK&menu_not=1&idop_mod='+modelo_mod+'&qtde_mod='+qtde_mod+'&emp=14', 'GET', '');
+		ajax.onCompletion = function() {onFinish('msg_return', '');}
+		window.location.reload();
+		parent.eti.location.reload();
+}
+
+function Edit(form1)
+	{
+	//modelo_mod = document.getElementById('modelo_select').value;
+	document.form1.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=150&"; ?>Action=';
+	document.form1.target = '';
+	document.form1.submit();
+	}
+
+
+
+
+</script>
+</head>
+
+<body>
+
+<p>
+  <?
+$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light);
+$var_parametro = "&pg_ped=1";
+$db->voltar(MOD_COR, $pg, $var_parametro);
+
+if ($codgrp_vend == 2 or $codgrp_vend == 24){
+?>
+</p>
+<form name="form1" method="post" action="">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td class="style12">&nbsp;</td>
+      <td bgcolor="#509BE7" class="style24">&nbsp;</td>
+      <td bgcolor="#509BE7" class="style24"><div align="center">MODELO</div></td>
+      <td bgcolor="#509BE7" class="style24"><div align="center">QTDE<br>
+      LOTE</div></td>
+      <td class="style12">&nbsp;</td>
+    </tr>
+    <tr>
+      <td bgcolor="#C4DFFD" class="style22"><span class="style24">CRIAR LOTE</span></td>
+      <td bgcolor="#C4DFFD" class="style22">&nbsp;</td>
+      <td bgcolor="#C4DFFD" class="style22"><label>
+        <div align="center"><a href="javascript:Edit('form1')"  ><img src="<? echo DIR_IMAGES; ?>/b_edit.png" border = 0></a>&nbsp;&nbsp;
+          <select name="modelo_select" id="modelo_select">
+            <?
+if ($rs_modelo)
+{
+	$ix = 0;
+	while (!$rs_modelo->EOF)
+	{
+    ?>
+            <option value="<? echo $rs_modelo->fields['idop_mod']; ?>"><? echo $rs_modelo->fields['codprod']; ?> - <? echo $rs_modelo->fields['descr']; ?></option>
+       
+       
+        <?
+	 	$ix++;
+		$rs_modelo->MoveNext();
+	}//WHILE
+}
+?>   
+          </select>
+          </div>
+      </label></td>
+      <td bgcolor="#C4DFFD" class="style22"><div align="center">
+        <input name="qtde_lote_select" type="text" id="qtde_lote_select" size="3" maxlength="3">
+      </div></td>
+      <td bgcolor="#C4DFFD" class="style22"><input type="button" name="button" id="button" value="Criar Lote" onCLick = "Cria('<? echo "$PHP_SELF"; ?>', '<? echo "pg=".$pg."&pg_ped=23"; ?>')"></td>
+    </tr>
+  </table>
+  <label></label>
+</form>
+<?
+}
+?>
+
+<p>&nbsp;</p>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Ordem de Produ&ccedil;&atilde;o</legend>
+<table width="100%" border="0">
+  <tr>
+    <td align="center"><table width="100%" border="0" cellpadding="5">
+      <tr>
+        <td width="6%" align="center" bgcolor="#FFFFFF" class="style12">LOTE</td>
+        <td width="18%" align="center" bgcolor="#FFFFFF" class="style12">DATA</td>
+        <td width="44%" align="center" bgcolor="#FFCC00"><span class="style12">PRODUTO</span></td>
+        <td width="10%" align="center" bgcolor="#FFCC00"><span class="style12">QTDE</span></td>
+        <td width="10%" align="center" bgcolor="#FFCC00"><span class="style12">QTDE <br>
+          PRODUZIDA</span><br></td>
+        <td width="13%" align="center" bgcolor="#FFFFFF"><span class="style12">CONFIGURA&Ccedil;&Atilde;O</span></td>
+        <td width="9%" align="center" bgcolor="#FFFFFF"><span class="style12">ETIQUETA</span></td>
+        <td width="9%" align="center" bgcolor="#FFFFFF">&nbsp;</td>
+      </tr>
+      <?
+if ($rs_lista)
+{
+	$ix = 0;
+	while (!$rs_lista->EOF)
+	{
+    
+     $rs_lista_cb = $db->query_db("SELECT COUNT(*) FROM  op_sn, op  WHERE op.idop ='".$rs_lista->fields['idop']."' and op_sn.idop = op.idop and cb = 'OK' ","SQL_NONE","N");
+     
+     $rs_lista_cb_prod = $db->query_db("SELECT COUNT(*) FROM  op_prod, op  WHERE op.idop ='".$rs_lista->fields['idop']."' and op_prod.idop = op.idop and cb_prod = 'OK' ","SQL_NONE","N");
+     
+     $lote_dec = 70000000 + $rs_lista->fields['idop'];
+	 $lote_hex = strtoupper(dechex($lote_dec));
+         
+                
+      ?>
+      <tr class="style22">
+        <td align="center" bgcolor="#FFFFFF" class="style22"  style="color: #FFFFFF; background-color: #999999;"><b><? echo $lote_hex; ?></b><BR>(<? echo $rs_lista->fields['idop']; ?>)</td>
+        <td align="center" bgcolor="#FFFFCC" class="style22"><strong><? echo $rs_lista->fields['datainicio']; ?></strong></td>
+        <td align="center" bgcolor="#FFFFCC" class="style22"><strong><? echo $rs_lista->fields[5]; ?> - <? echo $rs_lista->fields['nomeprod']; ?><BR><span  style="color: #339933;"><? echo $rs_lista->fields['cli']; ?></span></strong></td>
+        <td align="center" bgcolor="#FFFFCC" class="style22"><? echo $rs_lista->fields['qtde'];  ?></td>
+        <td align="center" bgcolor="#FFFFCC" class="style22"><? echo $rs_lista_cb->fields[0];  ?></td>
+        <td align="center" bgcolor="#FFFFCC" class="style22"><? if ($rs_lista_cb->fields[0] == 0){ ?><iframe src="<? echo "$PHP_SELF?pg=$pg&pg_ped=100&menu_not=1&idop=".$rs_lista->fields['idop'].""; ?>" name="rel" width="60" marginwidth="0" height="18" marginheight="0" scrolling="no" frameborder="0"></iframe><?}?></td>
+        <td align="center" bgcolor="#FFFFCC" class="style22"><? if ($rs_lista_cb->fields[0] == 0){ ?><iframe src="<? echo "http://10.10.9.240/wbsprint/wbsprint.php?lote=".$lote_hex.""; ?>" name="eti" width="65" marginwidth="0" height="18" marginheight="0" scrolling="no" frameborder="0"></iframe><?}?></td>
+        <td align="center" bgcolor="#FFFFCC" class="style22"><? if ($rs_lista_cb->fields[0] == 0 and $rs_lista_cb_prod->fields[0] == 0 and ($codgrp_vend == 2 or $codgrp_vend == 24)){ ?><a href="javascript:DelLote('<? echo "$PHP_SELF"; ?>', '<? echo "pg=".$pg."&pg_ped=23&idop_select=".$rs_lista->fields['idop'].""; ?>')"  ><img src="<? echo DIR_IMAGES; ?>/b_drop.png" border = 0></a><?}?></td>
+      </tr>
+      <?
+	 	$ix++;
+		$rs_lista->MoveNext();
+	}//WHILE
+}
+?>
+    </table></td>
+  </tr>
+</table>
+</fieldset>
+<p>&nbsp;</p>
+<!--
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Produtos</legend>
+	<iframe src="<? echo "$PHP_SELF?pg=$pg&pg_ped=100&menu_not=1"; ?>" name="iped" width="100%" marginwidth="0" height="450" marginheight="0" scrolling="auto" frameborder="0"></iframe>
+</fieldset>
+<fieldset class="campo_fieldset">
+</fieldset>
+-->
+</body>
+</html>

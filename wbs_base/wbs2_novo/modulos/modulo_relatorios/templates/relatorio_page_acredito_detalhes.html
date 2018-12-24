@@ -1,0 +1,91 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="<? echo DIR_CSS; ?>/saci.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/sistema.css" rel="stylesheet" type="text/css">
+<link href="../../../css/saci.css" rel="stylesheet" type="text/css">
+<link href="../../../css/sistema.css" rel="stylesheet" type="text/css">
+<title></title>
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+.style3 {color: #000000; font-weight: bold; }
+-->
+</style>
+ 
+</head>
+
+<body>
+<div align="right"><span class="titulonomeprod"><? echo "$codpedbarra_pesq"; ?></span><br>
+  <!-- INICIO -->
+</div>
+<table width="100%"  border="0" cellpadding="1" cellspacing="1">
+  <tr>
+    <td width="5%" align="left" class="titulonomeprod">&nbsp;</td>
+    <td width="50%" align="Left" class="titulonomeprod">Boleta Banc&aacute;ria e Carteira</td>
+    <td width="15%" align="left" class="titulonomeprod">&nbsp;</td>
+    <td width="15%" align="left" class="titulonomeprod">&nbsp;</td>
+    <td width="15%" align="left" class="titulonomeprod">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="center" class="titulo">&nbsp;</td>
+       <td align="center" class="titulo"><span class="style3">CLIENTE</span></td>
+    <td align="center" class="titulo"><span class="style3">DATA VENC.</span></td>
+    <td align="center" class="titulo"><span class="style3">VALOR </span></td>
+    <td align="center" class="titulo"><span class="style3">ACUMULADO</span></td>
+  </tr>
+  
+  <? 
+  $chave = 0;
+  if ($rs_parc) {
+  	
+		while (!$rs_parc->EOF) { 
+	
+		$valor_acumulado = $valor_acumulado + $rs_parc->fields['valordevido'];
+        
+      if ($rs_parc->fields['pos'] == 1 and $chave == 0){
+      	?> 
+  <tr  bgcolor="#FFCC66">
+  
+    <td align="center" class="sacitd2"><img src="<? echo DIR_IMAGES; ?>/flecharojaup.gif"></td>
+      <td align="center" class="sacitd2">&nbsp;</td>
+    <td align="center" class="sacitd2"><strong>ATRASO</strong></td>
+    <td align="right" class="sacitd2">&nbsp;</td>
+    <td align="right" class="sacitd2">&nbsp;</td>
+  </tr>
+   <tr  bgcolor="#66FF66">
+  
+    <td align="center" class="sacitd2"><img src="<? echo DIR_IMAGES; ?>/flechaverdedown.gif"></td>
+    <td align="center" class="sacitd2">&nbsp;</td>
+    <td align="center" class="sacitd2"><strong>A VENCER</strong></td>
+    <td align="right" class="sacitd2">&nbsp;</td>
+    <td align="right" class="sacitd2">&nbsp;</td>
+  </tr>
+  <?
+      $chave = 1;
+      }
+				 		  
+		?> 
+  <tr  bgcolor="<? echo $bgtr_color; ?>">
+    <td align="center" class="sacitd2"><? echo $rs_parc->fields['opcaixa']; ?></td>
+    <td align="left" class="sacitd2"><b><? echo $rs_parc->fields['cliente']; ?></b><br><? echo $rs_parc->fields['codbarra']; ?><br><b><? echo $rs_parc->fields['numdoc']; ?></b></td>
+    <td align="center" class="sacitd2"><? echo $rs_parc->UserTimeStamp($rs_parc->fields['datavenc'],'d-m-Y'); ?></td>
+    <td align="right" class="sacitd2">R$ <? echo $db->fvalor($rs_parc->fields['valordevido']); ?></td>
+    <td align="right" class="sacitd2">R$ <? echo $db->fvalor($valor_acumulado); ?></td>
+  </tr>
+  <?
+
+		$rs_parc->MoveNext();
+		}//WHILE
+	}
+?>
+</table>
+<p>&nbsp;</p>
+<p>&nbsp; </p>
+</body>
+</html>

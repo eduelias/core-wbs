@@ -1,0 +1,240 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="<? echo DIR_JS; ?>/calendar.js"></script>
+<script language="javascript" src="<? echo DIR_JS; ?>/funcoes01.js"></script>
+</head>
+
+<body>
+<?
+$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light);
+?>
+<br>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Pesquisa</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+      <form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&Action=Pesquisar"; ?>" method="post" name="pesquisa" id="pesquisa">
+        <tr>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">De</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">At&eacute;</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Sol.</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Ocorr&ecirc;ncia</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="60%" align="center" class="generalGreyBorderBottomTableHeaderCell"><input type="hidden" name="Action" value="Pesquisar" /></td>
+        </tr>
+        <tr>
+          <td class="noramlTableCell" style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor=&quot;<? echo $bg_cor_light; ?>&quot;' onmouseout='this.style.backgroundColor=&quot;#FFFFFF&quot;'><table  border="0" cellpadding="1" cellspacing="1">
+              <tr>
+                <td><input name="datainicio" type="text" class="campo_linha" id="datainicio" onfocus='this.style.backgroundColor=&quot;<? echo $bg_cor_light; ?>&quot;; blur()' onblur='this.style.backgroundColor=&quot;#FFFFFF&quot;' /></td>
+                <td><a href="javascript:void(0);" onClick="openCalendar('pg=9', 'pesquisa', 'datainicio', 'datetime')"><img src="<? echo DIR_BOTOES; ?>/calendar_view_month.png" border="0" /></a></td>
+              </tr>
+          </table></td>
+          <td class="noramlTableCell" style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor=&quot;<? echo $bg_cor_light; ?>&quot;' onmouseout='this.style.backgroundColor=&quot;#FFFFFF&quot;'><table  border="0" cellpadding="1" cellspacing="1">
+              <tr>
+                <td><input name="datafim" type="text" class="campo_linha" id="datafim" onfocus='this.style.backgroundColor=&quot;<? echo $bg_cor_light; ?>&quot;; blur()' onblur='this.style.backgroundColor=&quot;#FFFFFF&quot;' /></td>
+                <td><a href="javascript:void(0);" onClick="openCalendar('pg=9', 'pesquisa', 'datafim', 'datetime')"><img src="<? echo DIR_BOTOES; ?>/calendar_view_month.png" border="0" /></a></td>
+              </tr>
+          </table></td>
+          <td class="noramlTableCell" style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'><table border="0" cellspacing="1" cellpadding="1">
+            <tr>
+              <td><input name="sol" type="radio" value="S"></td>
+              <td><strong>S</strong></td>
+              <td><input name="sol" type="radio" value="N" checked></td>
+              <td><strong>N</strong></td>
+            </tr>
+          </table></td>
+          <td align="center" class="noramlTableCell" onfocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onblur='this.style.backgroundColor="#FFFFFF"'><b><?
+            switch ($codvend)
+            {
+                // 1 - Produto
+                case "24" :
+                    // Bruno (24)
+					$ocorrenciatipo = 1;
+					echo "Produto";
+					echo "<input type='hidden' name='ocorrencia' value='1'>";
+					$sss = 1;
+                break;
+                // 2 - Vendas
+                case "2" :
+                    echo "Vendas";
+					echo "<input type='hidden' name='ocorrencia' value='2'>";
+                break;
+                // 3 - Entrega
+                case "28" :
+                    // Jair (28)
+					$ocorrenciatipo = 3;
+					echo "Entrega";
+					echo "<input type='hidden' name='ocorrencia' value='3'>";
+					$sss = 1;
+                break;
+                // 5 - Geral
+                case "27" :
+                    // Magno (27)
+					$ocorrenciatipo = 5;
+					echo "Geral";
+					echo "<input type='hidden' name='ocorrencia' value='5'>";
+					$sss = 1;
+                break;
+                // 6 - Manutenção / 4 - Saci
+                case "20" :
+                    // Luciano (20)
+					echo "
+            <select name='ocorrencia'>
+			  <option selected='selected'>Selecione</option>
+              <option value='6'>Manuten&ccedil;&atilde;o</option>
+              <option value='4'>Saci</option>
+            </select>
+					";
+					$sss = 1;
+                break;
+                // 7 - Produção
+                case "26" :
+                    // Antônio (26)
+					$ocorrenciatipo = 7;
+					echo "Produção";
+					echo "<input type='hidden' name='ocorrencia' value='7'>";
+					$sss = 1;
+                break;
+            }
+			if ($sss == 1)
+			{
+				###echo "<input type='hidden' name='ocorrencia' value='$ocorrenciatipo'>";
+			}
+			else
+			{
+				echo "<input type='hidden' name='ocorrencia' value='2'>";
+				echo "Vendas";
+			}
+			echo "<input type='hidden' name='super' value='$codvend'>";
+		  ?>
+          </b></td>
+          <td class="noramlTableCell"><input type="submit" name="Submit" value="Pesquisar" class="botao_cor" /></td>
+          <td align="center" class="noramlTableCell"><a href="#"></a></td>
+        </tr>
+      </form>
+    </table></td>
+  </tr>
+</table>
+</fieldset>
+<br>
+<? if ($Action == "Pesquisar") { ?>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Resultado Pesquisa</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<form name="lista" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=1"; ?>" method="post">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="50%">&nbsp;</td>
+        <td width="50%" align="right"><a href="" class="link4">Imprimir tudo</a></td>
+      </tr>
+    </table>
+      <br>
+    <table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+      <tr>
+        <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell">Codpesq</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Data Pesq </td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Obs</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Sol.</td>
+          </tr>
+      <?
+if ($rs_pesq)
+{
+	$ix = 0;
+	while (!$rs_pesq->EOF)
+	{
+?>
+      <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+        <td align="center" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;"><? echo $rs_pesq->fields['coddetalhe']; ?></td>
+          <td class="noramlTableCell"><table width="100%" border="0" cellspacing="2" cellpadding="1">
+          <tr>
+            <td>Pedido: <?
+
+$db->connect_wbs();
+
+$rs_codbarra = $db->query_db("SELECT codbarra FROM pedido WHERE codped = '".$rs_pesq->fields['codped']."'","SQL_NONE","N");
+echo $rs_codbarra->fields['codbarra'];
+
+$db->disconnect();
+
+?></td>
+          </tr>
+          <tr>
+            <td>Cliente: <b><?
+
+$db->connect_wbs();
+
+$rs1 = $db->query_db("SELECT nome FROM clientenovo WHERE codcliente = '".$rs_pesq->fields['codcliente']."'","SQL_NONE","N");
+
+echo $rs1->fields[0];
+
+$db->disconnect();
+
+?></b></td>
+          </tr>
+            <tr>
+              <td>Tel.: <?
+
+$db->connect_wbs();
+
+$rs1 = $db->query_db("SELECT dddtel1, tel1, dddtel2, tel2 FROM clientenovo WHERE codcliente = '".$rs_pesq->fields['codcliente']."'","SQL_NONE","N");
+
+$ddd1 = $rs1->fields[0];
+$tel1 = $rs1->fields[1];
+$ddd2 = $rs1->fields[2];
+$tel2 = $rs1->fields[3];
+
+echo "($ddd1) $tel1 / ($ddd2) $tel2";
+
+$db->disconnect();
+
+?></td>
+            </tr>
+            <tr>
+              <td>Vendedor: <?
+
+$db->connect_wbs();
+
+$rs1 = $db->query_db("SELECT nome FROM vendedor WHERE codvend = '".$rs_pesq->fields['codvend_ped']."'","SQL_NONE","N");
+
+echo $db->format_str("UP", $rs1->fields[0]);
+
+$db->disconnect();
+
+?></td>
+            </tr>
+        </table></td>
+          <td align="center" class="noramlTableCell"><? echo $rs_pesq->UserTimeStamp($rs_pesq->fields['datahorainicio'],'d/m/Y H:i'); ?></td>
+          <td valign="top" class="noramlTableCell"><?
+
+$db->connect_wbs();
+
+$rs1 = $db->query_db("SELECT resposta FROM pesquisa_resp WHERE codperg = '18' AND codcliente = '".$rs_pesq->fields['codcliente']."' AND codped = '".$rs_pesq->fields['codped']."'","SQL_NONE","N");
+echo $rs1->fields[0];
+
+$db->disconnect();
+
+?></td>
+          <td align="center" class="noramlTableCell"><strong><? echo $rs_pesq->fields['solucionado']; ?></strong></td>
+        </tr>
+      <?
+	 	$ix++;
+		$rs_pesq->MoveNext();
+	}//WHILE
+}
+?>
+      </table>
+      </td>
+  </tr>
+</form>
+</table>
+</fieldset>
+<? } ?>
+</body>
+</html>

@@ -1,0 +1,387 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/sistema.css" rel="stylesheet" type="text/css">
+<script language="javascript" src="<? echo DIR_JS; ?>/isValidEmail.js"></script>
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+//-->
+</script>
+<script language="javascript">
+  function validate() {
+    if (! isValidEmail(document.forms[0].mailcli.value)) {
+        alert("O e-mail informado não é válido!");
+        return false;
+    }
+    return true;
+  }
+  
+  function validate_final() {
+    if (validate() == true) {
+       document.mail.action = '<? echo "$PHP_SELF?Action=mail&pg=$pg&pg_ped=2&codorcselect=$codorcselect"; ?>';
+		document.mail.submit();
+    }
+    }
+</script> 
+</head>
+
+<body>
+<table width="100%"  border="0" align="center" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="970"><table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td><!--<img src="<? echo DIR_IMAGES; ?>/orcamento.gif" width="160" height="40">--></td>
+        <td width="20%" align="center" valign="middle" class="titulonomeprod"><strong><? echo $codbarra; ?></strong></td>
+      </tr>
+      <tr>
+        <td colspan="2" background="<? echo DIR_IMAGES; ?>/spacer.gif" bgcolor="#007297"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+      </tr>
+      <tr>
+        <td colspan="2"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="5" height="5"></td>
+      </tr>
+      <tr>
+        <td colspan="2">
+<?
+if ($Action == "mail") {
+if ($mail_enviado == 1) { echo "
+      <tr>
+        <td colspan='2'>
+<table width='100%' border='0' cellspacing='1' cellpadding='2'>
+  <tr>
+    <td class='vermelhobold11'>Or&ccedil;amento enviado para o cliente com sucesso.</td>
+  </tr>
+</table>
+		</td>
+      </tr>
+"; } else { echo "
+      <tr>
+        <td colspan='2'>
+<table width='100%' border='0' cellspacing='1' cellpadding='2'>
+  <tr>
+    <td class='vermelhobold11'>Não foi possível enviar o or&ccedil;amento para o cliente.</td>
+  </tr>
+</table>
+		</td>
+      </tr>
+"; } } ?>
+      <tr>
+        <td colspan="2"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="5" height="5"></td>
+      </tr>
+    </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td background="<? echo DIR_IMAGES; ?>/orc_list_r1_c1.gif" width="4"><img name="orc_list_r1_c1" src="<? echo DIR_IMAGES; ?>/orc_list_r1_c1.gif" width="4" height="50" border="0" alt=""></td>
+          <td width="110"><a href="javascript:;" onClick="MM_openBrWindow('<? echo "$PHP_SELF?pg=$pg&pg_ped=2&Action=print&codorcselect=$codorcselect&print_val=1&menu_not=1"; ?>','impressao','scrollbars=yes,width=750,height=450')"><img name="orc_list_r1_c2" src="<? echo DIR_IMAGES; ?>/orc_list_r1_c2.gif" width="110" height="50" border="0" alt=""></a></td>
+          <td width="110"><a href="javascript:;" onClick="MM_openBrWindow('<? echo "$PHP_SELF?pg=$pg&pg_ped=2&Action=print&codorcselect=$codorcselect&menu_not=1"; ?>','impressao','scrollbars=yes,width=750,height=450')"><img name="orc_list_r1_c3" src="<? echo DIR_IMAGES; ?>/orc_list_r1_c3.gif" width="110" height="50" border="0" alt=""></a></td>
+          <td width="110"><a href="<? echo"$PHP_SELF?Action=modifica&pg=$pg&pg_ped=2&codemppesq=$codemppesq&codorcselect=$codorcselect&menu_not=1&modped=1&orcalt=1";?>" target="_blank" ><img name="orc_list_r1_c4" src="<? echo DIR_IMAGES; ?>/orc_list_r1_c4.gif" width="110" height="50" border="0" alt=""></a></td>
+          <!--<td width="110"><a href="<? echo"$PHP_SELF?Action=modifica&pg=$pg&pg_ped=2&codemppesq=$codemppesq&codorcselect=$codorcselect&modped=1&menu_not=1";?>" target="_blank"><img name="orc_list_r1_c5" src="<? echo DIR_IMAGES; ?>/orc_list_r1_c5.gif" width="110" height="50" border="0" alt=""></a></td>-->
+          <td width="117"><a href="<? echo"$PHP_SELF?Action=modifica&pg=$pg&pg_ped=2&codemppesq=$codemppesq&codorcselect=$codorcselect&atual_val=1&modped=1&menu_not=1";?>" target="_blank"><img name="orc_list_r1_c6" src="<? echo DIR_IMAGES; ?>/orc_list_r1_c6.gif" width="117" height="50" border="0" alt=""></a></td>
+          <td background="<? echo DIR_IMAGES; ?>/orc_list_r1_c1.gif"><img name="orc_list_r1_c1" src="<? echo DIR_IMAGES; ?>/orc_list_r1_c1.gif" width="4" height="50" border="0" alt=""></td>
+        </tr>
+        <tr>
+          <td colspan="6" align="right" valign="middle" background="<? echo DIR_IMAGES; ?>/orc_list_r1_c1.gif"><a href="<? echo "$PHP_SELF?pg=$pg&pg_ped=1&codemppesq=$codemppesq"; ?>"><img src="<? echo DIR_IMAGES; ?>/btvoltar_orc.gif" width="68" height="25" border="0"></a></td>
+        </tr>
+      </table>
+      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><table  border="0" align="left" cellpadding="6" cellspacing="0">
+              <tr>
+                <td><img src="<? echo DIR_IMAGES; ?>/cliente.gif" width="28" height="28"></td>
+                <td><strong>NOME CLIENTE:</strong><br>
+				<? echo $nomecliente; ?></td>
+                <td><strong>TELEFONE:</strong><br> 
+                <? echo $telcliente; ?></td>
+                <td><strong>E-MAIL:</strong><br> 
+                <? echo $mailcliente; ?></td>
+                <td><strong>VENDEDOR:</strong><br> 
+                <? echo $nomevendedor; ?></td>
+                <td><strong>DATA PROPOSTA:</strong><br>
+                  <? echo $dataproposta; ?></td>
+              </tr>
+          </table></td>
+        </tr>
+        <tr>
+          <td bgcolor="#007297"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+        </tr>
+        <tr>
+          <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="5" height="5"></td>
+        </tr>
+      </table>
+      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td>
+<?
+if (count($array1) > 0){
+?>
+		  <table width="100%"  border="0" cellpadding="4" cellspacing="0" class="orc_list_prod">
+            <tr>
+              <td class="orc_titulos">Cod</td>
+              <td class="orc_titulos">Produto</td>
+              <td align="center" class="orc_titulos">&nbsp;</td>
+              <td align="center" class="orc_titulos">Qtde</td>
+              <td align="center" class="orc_titulos">Pre&ccedil;o<br>
+              (R$)</td>
+            </tr>
+<?
+
+for ($i = 0; $i < count($arrayx); $i++)
+{
+	if ($xtipoprod <> $tipoprod[$i])
+	{
+		if ($tipoprod[$i] == 'CJ')
+		{
+			$titulocat = "Microcomputadores";
+		}
+		else
+		{
+			$titulocat = "Produtos";
+		}
+?>
+            <tr>
+              <td colspan="5" class="orc_tipo_micro_peca"><? echo "$titulocat"; ?></td>
+            </tr>
+<?
+	}
+	$xtipoprod = $tipoprod[$i];
+	#echo("$xtipocj - $tipocj[$i]");
+	if ($xtipocj <> $tipocj[$i] and $tipoprod[$i] == 'CJ')
+	{
+		$tipocj_n = $tipocj[$i];
+?>
+            <tr>
+              <td align="center" class="orc_config_n"><span class="orc_config_numero"><? echo "$tipocj[$i]"; ?></span></td>
+              <td colspan="4" class="orc_config_n"><br>
+			  <? echo "$nomeprodcj[$i]"; ?></td>
+              </tr>
+            <tr class="orc_list_prod">
+              <td align="center">&nbsp;</td>
+              <td align="right">&nbsp;</td>
+              <td align="center">&nbsp;</td>
+              <td align="center"><strong>Subtotal</strong></td>
+              <td align="right"><strong><? echo "$subtotalf[$tipocj_n]"; ?></strong></td>
+            </tr>
+<?
+	}
+	$xtipocj = $tipocj[$i];
+	if ($tipoprod[$i] == 'CJ')
+	{
+?>
+            <tr>
+              <td align="center" class="orc_list_prod"><? echo "$codprod[$i]"; ?></td>
+              <td class="orc_list_prod"><? echo "$nomeprod[$i]"; ?><br>
+                <span class="orc_descrisao"><? echo "$descres[$i]"; ?></span></td>
+              <td align="center" class="orc_list_prod"><? if($estrela[$i] == "1") {echo "<img src='".DIR_IMAGES."/estrela.gif'>";} ?></td>
+              <td align="center" class="orc_list_prod"><? echo "$qtde[$i]"; ?></td>
+              <td align="right" class="orc_list_prod"><? echo "$pputf[$i]"; ?></td>
+            </tr>
+<?
+	}
+	else
+	{
+?>
+            <tr>
+              <td align="center" class="orc_list_prod"><? echo "$codprod[$i]"; ?></td>
+              <td class="orc_list_prod"><? echo "$nomeprod[$i]"; ?><br>
+                <span class="orc_descrisao"><? echo "$descres[$i]"; ?></span></td>
+              <td align="center" class="orc_list_prod">&nbsp;</td>
+              <td align="center" class="orc_list_prod"><? echo "$qtde[$i]"; ?></td>
+              <td align="right" class="orc_list_prod"><? echo "$pputf[$i]"; ?></td>
+            </tr>
+<?
+	}
+} // For
+?>
+            <tr>
+              <td class="orc_config_n"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+              <td class="orc_config_n">&nbsp;</td>
+              <td class="orc_config_n">&nbsp;</td>
+              <td class="orc_config_n">&nbsp;</td>
+              <td class="orc_config_n">&nbsp;</td>
+            </tr>
+            <tr>
+              <td colspan="2"><table width="70%"  border="0" cellspacing="0" cellpadding="0">
+    <tr class="pesq_orc_legend1">
+      <td width="10%" >VTA:</td>
+      <td width="40%" class="relogio">R$<? echo "$total_tabelaf"; ?></td>
+      <td width="10%">VTN:</td>
+      <td width="40%" class="relogio">R$<? echo "$total_tabela_realf"; ?></td>
+    </tr>
+  </table>  </td>
+              <td align="center">&nbsp;</td>
+              <td align="center"><strong>TOTAL</strong></td>
+              <td align="right"><strong><? echo "$totalf"; ?></strong></td>
+            </tr>
+          </table>
+<?
+}
+?>
+		  </td>
+        </tr>
+        <tr>
+          <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="5" height="5"></td>
+        </tr>
+        <tr>
+          <td bgcolor="#007297"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+        </tr>
+      </table>
+      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><table  border="0" align="center" cellpadding="2" cellspacing="2">
+            <tr>
+              <td><img src="<? echo DIR_IMAGES; ?>/estrela.gif"></td>
+              <td><strong>Produtos que podem ter garantia estendida. </strong></td>
+            </tr>
+          </table>
+          <table  border="0" align="center" cellpadding="6" cellspacing="0">
+              <tr>
+                <td><strong>A Ipasoft recomenda o uso do Sistema Operacional Microsoft Windows&reg; </strong></td>
+              </tr>
+          </table></td>
+        </tr>
+        <tr>
+          <td bgcolor="#007297"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+        </tr>
+        <tr>
+          <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="5" height="5"></td>
+        </tr>
+        <tr>
+          <td><table width="100%"  border="0" cellpadding="6" cellspacing="0">
+              <tr valign="top">
+                <td width="50%"><table width="100%"  border="0" cellpadding="3" cellspacing="0">
+                  <tr>
+                    <td><strong>Condi&ccedil;&otilde;es de Pagamento: </strong></td>
+                  </tr>
+                  <tr>
+                    <td class="orc_simulacao"><? echo $simulacao; ?></td>
+                  </tr>
+                </table></td>
+                <td><table width="100%"  border="0" cellpadding="2" cellspacing="0">
+                  <tr>
+                    <td><strong>GARANTIA:</strong></td>
+                    </tr>
+                  <tr>
+                    <td><? echo $garantia; ?></td>
+                    </tr>
+                  <tr>
+                    <td><strong>IMPOSTOS:</strong></td>
+                    </tr>
+                  <tr>
+                    <td><? echo $impostos; ?></td>
+                    </tr>
+                  <tr>
+                    <td><strong>VALIDADE DA PROPOSTA:</strong></td>
+                    </tr>
+                  <tr>
+                    <td><? echo $validadeproposta; ?> dia(s) uteis </td>
+                    </tr>
+                  <tr>
+                    <td><strong>PRAZO DE ENTREGA:</strong></td>
+                    </tr>
+                  <tr>
+                    <td>A combinar no fechamento do pedido. </td>
+                    </tr>
+                  <tr>
+                    <td><strong>FRETE:</strong></td>
+                    </tr>
+                  <tr>
+                    <td><? echo $frete; ?></td>
+                    </tr>
+                  <tr>
+                    <td><strong>OBS.:</strong></td>
+                    </tr>
+                  <tr>
+                    <td><? echo $obs; ?></td>
+                    </tr>
+                </table></td>
+              </tr>
+            </table></td>
+        </tr>
+        <tr>
+          <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="5" height="5"></td>
+        </tr>
+        <tr>
+          <td><table width="100%"  border="0" cellspacing="0" cellpadding="3">
+            <tr>
+              <td class="orc_tipo_micro_peca">ENVIAR E-MAIL PARA O CLIENTE </td>
+            </tr>
+            <tr>
+              <td><table  border="0" cellpadding="3" cellspacing="0">
+			  	<form action='<? echo "$PHP_SELF?Action=mail&pg=$pg&pg_ped=2&codorcselect=$codorcselect"; ?>' method="post" name="mail">
+                <tr>
+                  <td rowspan="2" align="center" valign="middle"><img src="<? echo DIR_IMAGES; ?>/email.gif" width="25" height="25"></td>
+                  <td><strong>Assunto:</strong></td>
+                  <td><input name="mail_assunto" type="text" class="campo3" id="mail_assunto" value="Or&ccedil;amento Ipasoft: <? echo $nomecliente; ?>"></td>
+                  <td><input name="MAX_FILE_SIZE" type="hidden" id="MAX_FILE_SIZE" value="1000000">
+                      <input name="nomevendedor" type="hidden" value="<? echo $nomevendedorcompleto; ?>">
+                      <input name="mailvendedor" type="hidden" value="<? echo $mailvendedor; ?>"></td></tr>
+                <tr>
+                  <td><strong>E-mail:</strong></td>
+                  <td><input name="mailcli" type="text" class="campo3" id="mailcli" value="<? echo $mailcliente; ?>"></td>
+                  <td><input name="Button" type="button" class="botao3" value="Enviar" onClick="validate_final()"></td>
+                </tr>
+				</form>
+              </table></td>
+            </tr>
+          </table>
+          </td>
+        </tr>
+        <tr>
+          <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="5" height="5"></td>
+        </tr>
+        <tr>
+          <td><table width="100%"  border="0" cellspacing="0" cellpadding="3">
+            <tr>
+              <td class="orc_tipo_micro_peca">Acompanhamento do or&ccedil;amento </td>
+            </tr>
+            <tr>
+              <td><table width="100%"  border="0" cellspacing="0" cellpadding="3">
+                  <form method="post" action='<? echo "$PHP_SELF?Action=acomp_orc&pg=$pg&pg_ped=2&codorcselect=$codorcselect"; ?>'>
+                    <tr>
+                      <td><textarea name="obsorcamento" cols="60" rows="4" class="campo3"><? echo $obsorcamento_show; ?></textarea></td>
+                    </tr>
+                    <tr>
+                      <td><input name="Submit" type="submit" class="botao3" value="Gravar Acompanhamento"></td>
+                    </tr>
+                  </form>
+              </table></td>
+            </tr>
+          </table></td>
+        </tr>
+        <tr>
+          <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="5" height="5"></td>
+        </tr>
+        <tr>
+          <td><table width="100%"  border="0" cellspacing="0" cellpadding="3">
+            <tr>
+              <td class="orc_tipo_micro_peca">STATUS DO OR&Ccedil;AMENTO </td>
+            </tr>
+            <tr>
+              <td><table width="100%"  border="0" cellspacing="0" cellpadding="4">
+                  <tr>
+                    <td width="25%" class="orc_config_n">DATA</td>
+                    <td class="orc_config_n">STATUS</td>
+                  </tr>
+                  <?
+for ($s = 0; $s < count($array8); $s++)
+{
+?>
+                  <tr bgcolor="#F3F3F3">
+                    <td><? echo $statusdata[$s]; ?></td>
+                    <td><? echo $statusstatus[$s]; ?></td>
+                  </tr>
+                  <?
+}
+?>
+              </table></td>
+            </tr>
+          </table></td>
+        </tr>
+    </table></td>
+  </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,170 @@
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Untitled Document</title>
+<link href="<? echo DIR_CSS; ?>/sistema.css" rel="stylesheet" type="text/css">
+
+<script language="JavaScript" type="text/JavaScript">
+<!--
+
+var NameArray = new Array();
+var ValueArray = new Array();
+
+<?
+	for($i = 0; $i < count($arrayx); $i++ ){
+?>
+NameArray[<? echo"$codemp_plat[$i]"; ?>] = new Array(<? echo"$n_placam[$i]"; ?>);
+ValueArray[<? echo"$codemp_plat[$i]"; ?>] = new Array(<? echo"$c_placam[$i]"; ?>);
+<?
+	}//FOR
+?>
+
+function changeOptions(){
+ // Obtain the first dimension position of the currently selected theaterRegion
+ //
+
+ // var cjIX = document.forms["search"].cjSelect.selectedIndex;
+   var cjIX = document.forms["search"].cjSelect.value;
+  
+  if (cjIX > 0){
+   // set the length of the new multi-option
+   //
+
+   	 // CALCULA O NUMERO DE LINHAS DO FOR
+    document.forms["search"].elements["placaSelect"].options.length = NameArray[cjIX].length +1;
+
+    // LINHA INICIAL DO MENU SELECT
+    document.forms["search"].elements["placaSelect"].options[0].text = "=> Selecione a Vitrine";
+    document.forms["search"].elements["placaSelect"].options[0].value = "";
+
+    for (var j=0; j < NameArray[cjIX].length; j++)
+    {
+      document.forms["search"].elements["placaSelect"].options[j+1].text = NameArray[cjIX][j];
+      document.forms["search"].elements["placaSelect"].options[j+1].value = ValueArray[cjIX][j];
+    }
+   
+  }
+  else
+  {
+   // User has reselected the blank 'region' option
+   //
+    document.forms["search"].elements["placaSelect"].options.length = 2;
+    document.forms["search"].elements["placaSelect"].options[0].text = "Selecione a Vitrine";
+    document.forms["search"].elements["placaSelect"].options[0].value = "";
+    document.forms["search"].elements["placaSelect"].options[1].text = "Selecione a Empresa primeiro";
+    document.forms["search"].elements["placaSelect"].options[1].value = "";
+  }
+}
+
+
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+//-->
+</script>
+</head>
+
+<body>
+
+<table width="100%" border="0" align="center">
+  <tr>
+    <td valign="top"><table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td><img src="<? echo DIR_IMAGES; ?>/controle_de_vitrine.gif"></td>
+      </tr>
+      <tr>
+        <td background="<? echo DIR_IMAGES; ?>/spacer.gif" bgcolor="#CDDADC"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+      </tr>
+    </table>    
+	     <table width="100%"  border="0" cellspacing="2" cellpadding="5">
+		  <form method="post" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=2&Action=pesquisa#pesq"; ?>" name="search" >
+        <tr align="right">
+          <td colspan="2"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=&Action="; ?>"><img src="<? echo DIR_IMAGES; ?>/btvoltarcinza.gif" width="83" height="20" border="0"></a></td>
+        </tr>
+        <tr>
+          <td colspan="2" class="titulos_padrao">TRANSFER&Ecirc;NCIA PARA A VITRINE </td>
+        </tr>
+        <tr>
+          <td width="55%" align="left"><select name=cjSelect class="campoquant1" onChange=changeOptions()>
+                <option value="" selected>Selecione a Empresa</option>
+<?
+	for($i = 0; $i < count($arrayx); $i++ ){
+
+?>
+                <option value="<? echo"$codemp_plat[$i]"; ?>"><? echo"$nomeemp_plat[$i]"; ?></option>
+ <?
+	}//FOR
+?>
+            </select>
+            <select name=placaSelect class="campoquant1">
+                <option value="" selected>Selecione a Vitrine</option>
+                <option value="">Selecione a Empresa primeiro</option>
+            </select></td>
+          <td width="45%" align="left"><input name="imageField" type="image" src="<? echo DIR_IMAGES; ?>/btokcinza.gif" width="25" height="25" border="0"></td>
+        </tr>
+		  </form>  
+      </table>  
+      <table width="100%"  border="0" align="center" cellpadding="5" cellspacing="0">
+         <tr >
+           <td width="25%" ><strong>EMPRESA:</strong> <? echo"$nomeemp_pesq"; ?></td>
+           <td width="25%" ><strong>VITRINE:</strong> <? echo"$nomevitrine_pesq"; ?></td>
+ 			<td width="25%" ><a href="javascript:void(0);" onClick="MM_openBrWindow('<? echo "$PHP_SELF?pg=$pg&pg_ped=4&menu_not=1&cjSelect=$cjSelect&placaSelect=$placaSelect"; ?>','telacheia','status=yes,scrollbars=yes,width=600,height=400')">VER PRODUTOS DESTA VITRINE</a> </td>
+         </tr>
+      </table>       
+       <br>
+	   <? if ($cjSelect <> "" and $placaSelect <>""){
+	   ?>
+      
+         <table width="100%" border="0" align="left" cellpadding="2" cellspacing="2">
+		  <form name="form1" method="post" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=2&Action=insert#pesq"; ?>">
+           <tr>
+             <td width="9%" align="center">&nbsp;</td>
+             <td width="78%" align="center"><strong>CODBARRA</strong></td>
+             <td width="13%" align="center"><strong>STATUS</strong></td>
+           </tr>
+		   <?
+	for($i = 1; $i <= 10; $i++ ){
+	if ($status[$i] == 'OK'){$cor = "#006600";}else{$cor = "EA0000";}
+
+?>
+           <tr>
+             <td align="center"><? echo"$i"; ?></td>
+             <td align="center"><input name="codbarra[<? echo"$i"?>]" type="text" id="codbarra[<? echo"$i"?>]" value="<? echo "$codbarra[$i]" ?>" size="50"></td>
+             <td align="center"><span style="color:<? echo"$cor"; ?> "><b><? echo"$status[$i]"; ?></b></span></td>
+           </tr>
+		 <?
+	}//FOR
+?>
+       
+           <tr>
+             <td align="center">&nbsp;</td>
+             <td align="center"></td>
+             <td align="center">&nbsp;</td>
+           </tr>
+           <tr>
+             <td align="center">&nbsp;</td>
+             <td align="center"><input type="submit" name="Submit" value="ADICIONAR &Agrave; VITRINES"></td>
+             <td align="center">&nbsp;</td>
+           </tr> 
+		   
+		   <input type="hidden" name="cjSelect" value="<? echo"$cjSelect" ?>">
+		   <input type="hidden" name="placaSelect" value = "<? echo"$placaSelect" ?>">
+		   </form>
+         </table>     
+	  <?}?>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top">&nbsp;</td>
+  </tr>
+
+</table>
+
+<p>&nbsp;</p>
+<p><BR>
+</p>
+<p>&nbsp;</p>
+
+</body>
+</html>

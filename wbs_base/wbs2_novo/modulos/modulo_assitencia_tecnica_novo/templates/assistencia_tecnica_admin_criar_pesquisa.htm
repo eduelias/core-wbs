@@ -1,0 +1,54 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<?
+$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light);
+$var_parametro = "&pg_ped=1";
+$db->voltar(MOD_COR, $pg, $var_parametro);
+?>
+<br>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Pesquisa</legend>
+<table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+  <form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=101&menu_not=1"; ?>" method="post" name="pesquisa" target="iped">
+    <tr>
+      <td align="center" class="generalGreyBorderBottomTableHeaderCell">Cod Ped</td>
+      <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+      <td align="center" class="generalGreyBorderBottomTableHeaderCell">Cod Barra Pe&ccedil;a</td>
+      <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+      <td align="center" class="generalGreyBorderBottomTableHeaderCell">Nome Cliente</td>
+      <td class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+      <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+      <td width="70%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="noramlTableCell"><input name="codpedpesq" type="text" class="campo_linha" id="codpedpesq" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"' size="15"></td>
+      <td class="noramlTableCell"><strong>OU</strong></td>
+      <td class="noramlTableCell"><input name="codbarrapecapesq" type="text" class="campo_linha" id="codbarrapecapesq" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"' size="15"></td>
+      <td class="noramlTableCell"><strong>E</strong></td>
+      <td class="noramlTableCell"><input name="nomeclientepesq" type="text" class="campo_linha" id="nomeclientepesq" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"' size="30"></td>
+      <td class="noramlTableCell"><input type="submit" name="Submit2" value="Pesquisar" class="botao_cor"></td>
+      <td align="center" class="noramlTableCell"><input name="limpar" type="reset" class="botao_cor" id="limpar" value="Limpar"></td>
+      <td align="center" class="noramlTableCell">&nbsp;</td>
+    </tr>
+  </form>
+</table>
+</fieldset>
+<br>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Pedidos</legend>
+	<iframe src="<? //echo "$PHP_SELF?pg=$pg&pg_ped=101&menu_not=1"; ?>" name="iped" width="100%" marginwidth="0" height="150" marginheight="0" scrolling="auto" frameborder="0"></iframe>
+</fieldset>
+<br>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Produtos do Pedido</legend>
+	<iframe src="<? //echo "$PHP_SELF?pg=$pg&pg_ped=102&menu_not=1"; ?>" name="iprodped" width="100%" marginwidth="0" height="250" marginheight="0" scrolling="auto" frameborder="0"></iframe>
+</fieldset>
+</body>
+</html>

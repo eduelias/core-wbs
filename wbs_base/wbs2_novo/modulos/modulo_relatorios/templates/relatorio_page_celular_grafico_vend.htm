@@ -1,0 +1,112 @@
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Untitled Document</title>
+<link href="<? echo DIR_CSS; ?>/sistema.css" rel="stylesheet" type="text/css">
+
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+//-->
+</script>
+</head>
+
+<body>
+ <form method="post" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&Action=pesquisa&menu_not=1#pesq"; ?>" name="pesq" target ='_blank'>
+<table width="740" border="0" align="center">
+  <tr>
+    <td valign="top"><table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td><img src="<? echo DIR_IMAGES; ?>/relatoriocelular.gif" width="255" height="40"></td>
+      </tr>
+      <tr>
+        <td background="<? echo DIR_IMAGES; ?>/spacer.gif" bgcolor="#EA0000"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+      </tr>
+    </table>    
+      <br>
+<?
+if ($Action <> "pesquisa"){
+?>	  
+
+      <table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td height="22" bgcolor="#FFF0F0" class="titulos_itens">PESQUISA</td>
+        </tr>
+        <tr>
+          <td background="<? echo DIR_IMAGES; ?>/spacer.gif" bgcolor="#EA0000"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+        </tr>
+      </table>      
+      <table width="100%"  border="0" align="center" cellpadding="3" cellspacing="0">
+        <tr>
+          <td class="vermelhobold11">POR:</td>
+          <td>Vendedor</td>
+          <td>Periodo</td>
+          <td rowspan="2"><input name="imageField" type="image" src="<? echo DIR_IMAGES; ?>/btpesquisarred.gif" width="87" height="25" border="0"></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td><select name="codvend_select" class="campoquant4" id="codvend_select" >
+            <option value="...">Escolha o vendedor</option>
+
+              <?
+	for($i = 0; $i < count($array_pesq); $i++ ){
+
+?>
+            <option value="<? echo"$codvend_pesq[$i]"; ?>"><? echo "$nomevend_pesq[$i]"; ?></option>
+
+              <?
+	}//FOR
+?>
+          </select></td>
+          <td><input name="mes" type="text" class="campoquant4" id="mes" size="2" maxlength="2">
+          / 
+            <input name="ano" type="text" class="campoquant4" id="ano" size="4" maxlength="4"></td>
+        </tr>
+      </table>
+       <br>
+	   <?
+	   }
+	   
+     
+
+if ($Action == "pesquisa"){
+?>	 
+	 	<table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+         <tr>
+           <td width="50%" height="22" bgcolor="#FFF0F0" class="titulos_itens">VENDEDOR: <span style="font-weight: normal;
+"><? echo"$nomevend_select"; ?></span></td>
+           <td width="50%" bgcolor="#FFF0F0" class="titulos_itens">PER&Iacute;ODO: <span style="font-weight: normal;
+"><? echo"$mes/$ano"; ?></span></td>
+         </tr>
+         <tr bgcolor="#EA0000">
+           <td colspan="2" background="<? echo DIR_IMAGES; ?>/spacer.gif"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+         </tr>
+       </table>          
+       <br>
+       <table width='100%'  border='0' cellspacing='1' cellpadding='1'>
+  <tr align='center'>
+    <td width='50%'><img src='graph/wbs/gestao_telemig_graph_vend_hora.php?<? echo "mes=$mes&ano=$ano&codempvend_select=$codempvend_select&codvend_select=$codvend_select" ?>'></td>
+
+    <td width='50%'><img src='graph/wbs/gestao_telemig_graph_vend_hora_emp.php?<? echo "mes=$mes&ano=$ano&codempvend_select=$codempvend_select&codvend_select=$codvend_select" ?>'></td>
+  </tr>
+</table>
+	     <?
+	   }
+	   ?>
+
+
+       <p>&nbsp;</p>
+       <p>&nbsp;</p>
+       <p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td valign="top">&nbsp;</td>
+  </tr>
+
+</table>
+</form>
+</body>
+</html>

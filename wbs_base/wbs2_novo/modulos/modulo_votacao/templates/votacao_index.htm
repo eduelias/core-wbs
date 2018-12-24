@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/votacao.css" rel="stylesheet" type="text/css">
+<script language="javascript">
+var duplaSubmissao = 0;
+//document.candidatos.Submit.disabled = true;
+function Envia()
+{
+    if (duplaSubmissao > 0)
+    {
+        alert("Por favor, aguarde, o voto está sendo enviado!");
+        return false;
+    }
+	else
+	{
+		document.candidatos.action = "<? echo"$PHP_SELF?pg=$pg&pg_ped=1&tipo_voto=votar"; ?>";
+		document.candidatos.target = "";
+		document.candidatos.submit();
+	}
+    document.getElementById('Submit').disabled = true;
+	//document.candidatos.Submit.disabled = true;
+	//alert("---> "+ duplaSubmissao +" <----");
+	duplaSubmissao++;
+}
+</script>
+</head>
+
+<body>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><img src="<? echo DIR_IMAGES; ?>/votacao_ind.gif" width="130" height="40"></td>
+  </tr>
+  <tr>
+    <td bgcolor="#D5C8A4"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+  </tr>
+</table>
+<br>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+<form action="" method="post" name="candidatos">
+  <tr>
+    <td class="vot_titulo">Candidatos</td>
+  </tr>
+  <tr>
+    <td class="vot_lista"><table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+      <?	for($i = 0; $i < count($arrayx); $i++ ){ ?>
+      <tr>
+        <td width='1' class='vot_lista2'><? if ($codvend <> $codcandidato_list[$i]) { echo "<input name='codcandidato_post' type='radio' value='$codcandidato_list[$i]' id='codcandidato_post'>"; } else { echo "&nbsp;"; } ?></td>
+        <td class="vot_lista2"><? if ($codvend <> $codcandidato_list[$i]) { echo "$nomecandidato_list[$i]"; } else { echo "<b>$nomecandidato_list[$i]</b>"; } ?></td>
+      </tr>
+      <? }//FOR ?>
+    </table>
+      </td>
+  </tr>
+  <tr>
+    <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="5" height="5"></td>
+  </tr>
+  <tr>
+    <td align="center"><input name="Submit" id="Submit" type="submit" class="vot_botao" value="Confirma Voto" onclick="javascript:Envia();"></td>
+  </tr>
+</form>
+</table>
+</body>
+</html>

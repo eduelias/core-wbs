@@ -1,0 +1,51 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+-->
+</style></head>
+
+<body>
+<table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+  <tr>
+    <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+    <td width="10%" align="center" class="generalGreyBorderBottomTableHeaderCell">Cod Ped </td>
+    <td align="center" class="generalGreyBorderBottomTableHeaderCell">Nome Cliente </td>
+    <td align="center" class="generalGreyBorderBottomTableHeaderCell">Data Pedido </td>
+    <td align="center" class="generalGreyBorderBottomTableHeaderCell">OnSite</td>
+  </tr>
+  <?
+if ($rs_lista)
+{
+	$ix = 0;
+	while (!$rs_lista->EOF)
+	{
+	if ($rs_lista->fields['onsite'] == 'OK'){$onsite = 'ONSITE';}else{$onsite = '';}
+	
+?>
+  <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+    <td align="center" class="noramlTableCell"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=102&menu_not=1&codped_select=".$rs_lista->fields['codped'].""; ?>" target="iprodped"><img src="<? echo DIR_BOTOES; ?>/table_gear.png" alt="Ver Produtos do Pedido" border="0" title="Ver Produtos do Pedido"></a></td>
+    <td align="center" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;"><? echo $rs_lista->fields['codbarra']; ?></td>
+    <td class="noramlTableCell"><strong><? echo $db->format_str("UP", $rs_lista->fields['nome']); ?></strong></td>
+    <td align="center" class="noramlTableCell"><? echo $rs_lista->UserTimeStamp($rs_lista->fields['dataped'],'d/m/Y H:i'); ?></td>
+    <td align="center" class="noramlTableCell"><b><? echo $onsite ?></b></td>
+  </tr>
+  <?
+	 	$ix++;
+		$rs_lista->MoveNext();
+	}//WHILE
+}
+?>
+</table>
+</body>
+</html>

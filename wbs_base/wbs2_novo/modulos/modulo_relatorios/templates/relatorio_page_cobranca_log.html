@@ -1,0 +1,266 @@
+<html>
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="<? echo DIR_CSS; ?>/saci.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/sistema.css" rel="stylesheet" type="text/css">
+<link href="../../../css/saci.css" rel="stylesheet" type="text/css">
+<link href="../../../css/sistema.css" rel="stylesheet" type="text/css">
+<title></title>
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+} 
+.sacitd3 {
+	color: #333333;
+	padding: 2px;
+	border-bottom-style: solid;
+	border-bottom-color: #999999;
+	border-bottom-width: 1px;
+	border-right-width: 1px;
+	border-right-style: solid;
+	border-right-color: #999999;
+	border-top-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-left-style: solid;
+	border-top-color: #CCCCCC;
+	border-left-color: #CCCCCC;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+}
+.style3 {font-weight: bold}
+
+-->
+</style>
+<script language="JavaScript" type="text/JavaScript">
+
+
+function doTwo_load(form3, codcliente_pesq)
+{
+document.form3.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=4&menu_not=1&Action=pesquisa&"; ?>codcliente_pesq='+codcliente_pesq+'';
+document.form3.target = 'ipedlimite';
+document.form3.submit();
+
+document.form3.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=3&menu_not=1&Action=pesquisa&"; ?>codcliente_pesq='+codcliente_pesq+'';
+document.form3.target = 'idescr';
+document.form3.submit();
+
+
+}
+
+function doFour_load(form3, codcliente_pesq)
+{
+
+document.form3.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=1&menu_not=1&Action=ins_jur&"; ?>codcliente_bl='+codcliente_pesq+'';
+document.form3.target = 'ilist';
+document.form3.submit();
+
+}
+
+
+function doFive_load(form33, codcliente_pesq, codcar_pesq, codlog)
+{
+
+var tipolist= '<? echo $tipolist; ?>';
+
+document.form33.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=5&menu_not=1&Action=del_log&"; ?>codcliente_bl='+codcliente_pesq+'&tipolist='+tipolist+'&codcar_bl='+codcar_pesq+'&codlog_bl='+codlog+'';
+document.form33.target = 'idescr';
+document.form33.submit();
+
+}
+
+function doSix_load(form4, codcliente_pesq)
+{
+var descricao= document.getElementById("descricao_log").value;
+var tipolist= '<? echo $tipolist; ?>';
+
+document.form4.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=5&menu_not=1&Action=ins_log&"; ?>codcliente_bl='+codcliente_pesq+'&descricao_log='+descricao+'&tipolist='+tipolist+'';
+document.form4.target = 'ilist';
+document.form4.submit();
+
+}
+
+</script>
+
+</head>
+
+<body>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="center"><div align="left"><span class="titulonomeprod">Dados do Cliente</span></div></td>
+  </tr>
+</table>
+
+<form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=7"; ?>" method="post" name="form3" >
+<table width="100%"  border="0" cellpadding="1" cellspacing="1">
+ 	
+ 
+    <?
+        
+        $rs1 = $db->conn->Execute("SELECT codcliente, nome, cpf, cnpj, dddtel1, tel1, endereco, numero, complemento, bairro, cep, cidade, estado, rescredito ,logincad FROM clientenovo WHERE  codcliente = '".$codcliente_bl."' ORDER BY codcliente, nome");
+            $db->retorno_db($rs1,"N");
+		
+		if ($rs1->fields['rescredito'] <> ''){$bgtr_color = "#FEE0DE";$res=" (RESTRIÇÃO CRÉDITO)";}else{$bgtr_color = "#FFFFFF";$res="";}
+		
+        if ($cor%2 == 0){$bgtr_color = "#FFFFFF";}else{$bgtr_color = "#F2F9EE"; }
+        
+		?>
+   <tr bgcolor="<? echo $bgtr_color; ?>">
+    <td rowspan="2" align="center" valign="middle" class="sacitd2"><a href="javascript:void(0);" class="lkverde2" onClick= "doTwo_load(form3, <? echo $rs1->fields['codcliente']; ?>)"><? echo $rs1->fields['codcliente']; ?></a></td>
+    <td class="sacitd2"><strong><? echo $rs1->fields['nome']; echo $res; ?></strong></td>
+    <td class="sacitd2"><? echo $rs1->fields['cpf']; ?><? echo $rs1->fields['cnpj']; ?><br><b><? echo $rs1->fields['logincad']; ?></b></td>
+    <td class="sacitd2">(<? echo $rs1->fields['dddtel1']; ?>) <? echo $rs1->fields['tel1']; ?></td>
+    <td class="sacitd2"><strong>R$ <? echo $db->fvalor($rs->fields['vtotal']); ?></strong></td>
+    
+   </tr>
+  <tr bgcolor="<? echo $bgtr_color ?>">
+    <td colspan="5" class="sacitd2"><? echo $rs1->fields['endereco']; ?>, <? echo $rs1->fields['numero']; ?> <? echo $rs1->fields['complemento']; ?> - <? echo $rs1->fields['bairro']; ?> CEP: <? echo $rs1->fields['cep']; ?> - <? echo $rs1->fields['cidade']; ?> - <? echo $rs1->fields['estado']; ?></td>
+    </tr>
+  <?
+		
+?>
+</table>
+
+
+</form>
+<table width="100%"  border="0" cellpadding="1" cellspacing="1">
+  <tr>
+    <td colspan="5" align="left" class="titulonomeprod">Boleta Banc&aacute;ria e Carteira</td>
+  </tr>
+  <tr>
+    <td width="5%" align="center" class="titulo">&nbsp;</td>
+       <td width="50%" align="center" class="titulo"><span class="style3">CLIENTE</span></td>
+    <td width="15%" align="center" class="titulo"><span class="style3">DATA VENC.</span></td>
+    <td width="15%" align="center" class="titulo"><span class="style3">VALOR </span></td>
+    <td width="15%" align="center" class="titulo"><span class="style3">ATRASO<br>
+    (DIAS)</span></td>
+  </tr>
+   
+    <tr  bgcolor="<? echo $bgtr_color; ?>">
+    <td align="center" class="sacitd2"><? echo $rs_parc->fields['opcaixa']; ?><br></td>
+    <td align="left" class="sacitd2"><b><? echo $rs_parc->fields['cliente']; ?></b><br><? echo $rs_parc->fields['codbarra']; ?><br><b><? echo $rs_parc->fields['numdoc']; ?></b></td>
+    <td align="center" class="sacitd2"><? echo $rs_parc->UserTimeStamp($rs_parc->fields['datavenc'],'d-m-Y'); ?></td>
+    <td align="right" class="sacitd2">R$ <? echo $db->fvalor($rs_parc->fields['valordevido']); ?></td>
+    <td align="right" class="sacitd2"><? echo $rs_parc->fields['atraso']; ?></td>
+  </tr>
+  </table>
+<p>&nbsp;</p>
+<form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=5&menu_not=1&Action=ins_log&codcliente_bl=".$rs1->fields['codcliente']."&codcar_bl=".$codcar_bl; ?>" method="post" name="form4" target = "idescr" >
+<table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFCC">
+  <tr>
+    <td><div align="center"><br>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="27%"><div align="right"><strong>NOME CONTATO:</strong></div></td>
+            <td width="73%"><input name="contato_bl" type="text" id="contato_bl" maxlength="50"></td>
+          </tr>
+          <tr>
+            <td><div align="right"><strong>SETOR CONTATO:</strong></div></td>
+            <td><input name="setor_bl" type="text" id="setor_bl" maxlength="50"></td>
+          </tr>
+          <tr>
+            <td><div align="right"><strong>DESCRI&Ccedil;&Atilde;O DO CONTATO:</strong></div></td>
+            <td><textarea name="descricao_log" id="descricao_log" cols="50" rows="3" maxlength="100"></textarea></td>
+          </tr>
+          <tr>
+            <td><div align="right"><strong>PR&Oacute;XIMO AGENDAMENTO: </strong></div></td>
+            <td><select name="data_agenda" id="select">
+            
+            <?
+            $rs_diff = $db->query_db("SELECT DATEDIFF('".$rs_parc->fields['datavenc']."', NOW()) ","SQL_NONE","N");
+                 
+            if ($rs_diff->fields[0] >0){$rs_diff->fields[0] = 0;}
+            
+            if ( $codgrp_vend ==  43 or $codgrp_vend == 2 or $codgrp_vend ==  52) {$contador = 30;$datainicio = date("Y-m-d");}else{$contador = 20 + $rs_diff->fields[0];$datainicio = $rs_parc->fields['datavenc'];}
+            
+            #echo $datainicio;
+            
+            for($j = 1; $j < $contador; $j++ ){
+            $rs_agenda = $db->query_db("SELECT DATE_ADD('".$datainicio."', INTERVAL ".$j." DAY), WEEKDAY( DATE_ADD('".$datainicio."', INTERVAL ".$j." DAY)) ","SQL_NONE","N");
+            
+            if($rs_agenda->fields[1] <5){
+            
+            if ($rs_agenda->fields[1] == 0){$sem= "SEG";}
+            if ($rs_agenda->fields[1] == 1){$sem= "TER";}
+            if ($rs_agenda->fields[1] == 2){$sem= "QUA";}
+            if ($rs_agenda->fields[1] == 3){$sem= "QUI";}
+            if ($rs_agenda->fields[1] == 4){$sem= "SEX";}
+                  
+            
+          ?>
+              <option value="<? echo $rs_agenda->fields[0]; ?>"><? echo $rs_agenda->UserTimeStamp($rs_agenda->fields[0],'d-m-Y'); ?> - <? echo $sem; ?></option>
+              
+              
+             <?
+             }//SEMANA
+              }
+              ?>
+              
+            </select>            </td>
+          </tr>
+        </table>
+<br>
+            <input type="submit" name="button" id="button" value="Enviar" >
+            </div></td>
+  </tr>
+</table>
+</form>
+<br>
+<form method="post" name="form33" >
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="14%"><div align="center"><strong>DATA</strong></div></td>
+    <td width="72%"><div align="center"><strong>DESCRI&Ccedil;&Atilde;O CONTATO</strong></div></td>
+    <td width="14%"><div align="center"><strong>USU&Aacute;RIO</strong></div></td>
+  </tr>
+   <?
+  
+   $rs2 = $db->conn->Execute("SELECT datacob, descricao, login, setor, contato, data_agenda, codvisita FROM clientenovo_cobranca WHERE  codcar = '".$codcar_bl."' ORDER BY datacob DESC");
+     $db->retorno_db($rs2,"N");
+  
+   if ($rs2) {
+    $cor = 1;
+		while (!$rs2->EOF) { 
+  ?>
+  <tr>
+    <td class="sacitd3"><div align="center"><b><? echo $rs2->UserTimeStamp($rs2->fields['datacob'], 'd-m-Y H:m:s'); ?></b><? if ( $codgrp_vend ==  43 or $codgrp_vend == 2 or $codgrp_vend ==  52) {?> <br><a href="javascript:void(0);" class="lkverde2" onClick= "doFive_load(form33, <? echo $codcliente_bl; ?>, <? echo $codcar_bl; ?>, <? echo $rs2->fields['codvisita']; ?> )"><img src="<? echo DIR_IMAGES; ?>/b_drop.png" width="16" height="16" border="0"></a><?}?></div></td>
+    <td class="sacitd3"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+        <tr>
+          <td width="17%" bgcolor="#FFCC99"><strong>CONTATO:</strong></td>
+          <td width="83%" bgcolor="#FFCC99"><? echo $rs2->fields['contato']; ?></td>
+        </tr>
+        <tr>
+          <td bgcolor="#FFFFCC"><strong>SETOR: </strong></td>
+          <td bgcolor="#FFFFCC"><? echo $rs2->fields['setor']; ?></td>
+        </tr>
+        <tr>
+          <td colspan="2"><? echo $rs2->fields['descricao']; ?></td>
+        </tr>
+      </table>
+    </td>
+    <td class="sacitd3"><div align="center"><? echo $rs2->fields['login']; ?>
+      <p><strong>AGENDADO PARA:</strong><br>
+        <? echo $rs2->UserTimeStamp($rs2->fields['data_agenda'],'d-m-Y'); ?><br>
+      </p>
+      </div></td>
+  </tr>
+  
+    <?
+		$rs2->MoveNext();
+        $cor++;
+		}//WHILE
+	}
+?>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+</form>
+</body>
+</html>

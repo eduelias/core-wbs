@@ -1,0 +1,504 @@
+/*********************************************************************
+
+      Nome:estilo.css - Banco Real - ABN AMRO BANK - 03/2003  
+  
+*********************************************************************/
+
+.busca_campo {
+  font: normal 10px/normal Arial;
+  color: #404040;
+  background: #FFFFFF;
+  border: 0px solid;
+  height: 12px;
+  width: 80px
+}
+
+.combo{
+	font: normal 9px Small Fonts, Arial;
+	color: #555555;
+}
+
+.login_form_campo {
+  font: normal 10px/normal Arial;
+  color: #404040;
+  background: #FFFFFF;
+  border: 1px #BABABA solid;
+  height: 16px;
+  width: 93px
+}
+
+.form_campo {
+  font: normal 11px/normal Arial;
+  color: #404040;
+  background: #FFFFFF;
+  border: 1px #FFCC99 solid;
+}
+
+.form_campo2 {
+	font: normal 11px/normal Arial;
+	color: #404040;
+	border: 1px #cccccc solid;
+	background : #CCFFFF;
+}
+
+.form_campo3 {
+	font: normal 11px/normal Arial;
+	color: #404040;
+	border: 1px #959595 solid;
+	background : #FFFFFF;
+}
+
+.form_campo4 {
+	font: normal 11px/normal Arial;
+}
+
+.form_fale_campo {
+  font: normal 11px/normal Arial;
+  color: #404040;
+  background: #FFFFFF;
+  border: 1px #BABABA solid;
+}
+
+.form_campo_hidden {
+  font: normal 11px/normal Arial;
+  color: #404040;
+  background: #FFFFFFF;
+  border: 0px;
+}
+
+.form_body{
+	color:#000000;
+	margin: 0 0 0 0;
+	background : #FFFFFF;
+}
+
+.form_tr{
+	font: bold 11px/normal Arial;
+	color: #656565;
+	text-decoration: none;
+	text-align:left;
+	background:#FFF4DB;
+	height : 25;
+}
+
+.form_tr_span{
+	background:#FFF4DB;
+}
+
+.form_tit{
+  font: bold 12px/normal Arial;
+  color: #FF8200;
+  text-decoration: none
+}
+
+.form_tr_dots{	
+	text-align:left;
+	background:#FFF4DB;
+	height:1;
+}
+
+.form_erro{
+	font: 10px/normal Verdana;
+	color: #FF0000;
+	text-decoration: none
+}
+
+.arial_cinza_bold {
+  font: bold 11px/normal Arial;
+  color: #555555;
+  text-decoration: none
+}
+
+.arial_cinza_bold:hover {
+  font: bold 11px/normal Arial;
+  color: #555555;
+  text-decoration: underline
+}
+
+.arial_total_bold {
+	font: bold normal 12px Arial;
+	color: Teal;
+	text-decoration: none
+}
+
+.arial_cinza {
+	font: normal 11px/normal Arial;
+	color: #656565;
+	text-decoration: none
+}
+
+.arial_cinza_10px {
+	font: normal 10px/normal Arial;
+	color: #656565;
+	text-decoration: none
+}
+
+.arial_branca {
+	font: normal normal 11px Arial;
+	color: #FFFFFF;
+	text-decoration: none
+}
+
+.arial_branca_bold {
+  font: bold 11px/normal Arial;
+  color: #FFFFFF;
+  text-decoration: none
+}
+
+.arial_preta_bold {
+  font: bold 11px/normal Arial;
+  color: #000000;
+  text-decoration: none
+}
+
+.arial_preta_bold:hover {
+  font: bold 11px/normal Arial;
+  color: #000000;
+  text-decoration: underline
+}
+
+.arial_preta {
+  font: normal 11px/normal Arial;
+  color: #000000;
+  text-decoration: none
+}
+
+.arial_preta02 {
+  font: normal 11px/normal Arial;
+  color: #252525;
+  text-decoration: none
+}
+
+.arial_laranja {
+  font: normal 11px/normal Arial;
+  color: #FF8200;
+  text-decoration: none
+}
+
+.arial_laranja_bold {
+  font: bold 11px/normal Arial;
+  color: #FF9900;
+  text-decoration: none
+}
+
+.arial_laranja_bold12 {
+	font: bold 12px/normal Arial;
+	color: #FF9900;
+	text-decoration: none
+}
+
+.arial_azul_bold {
+	font: bold 11px/normal Arial;
+	color: Blue;
+	text-decoration: none
+}
+
+.arial_azul_bold2 {
+	font: bold 11px/normal Arial;
+    text-transform: none;
+	color: #0066CC;
+	text-decoration: none
+}
+
+.arial_azul_bold2:hover {
+	font: bold 11px/normal Arial;
+	text-transform: none;
+	color: #0066CC;
+	text-decoration: underline
+}
+
+.arial_cinza_15px {
+  font: normal 15px/normal Arial;
+  color: #656565;
+  text-decoration: none
+}
+
+.arial_verde {
+  font: normal 13px/normal Arial;
+  color: #007573;
+  text-decoration: none
+}
+
+.arial_verde_bold {
+  font: bold 13px/normal Arial;
+  color: #007573;
+  text-decoration: none
+}
+
+.verdana_branco {
+  font: normal 10px/normal Verdana;
+  color: #FFFFFF;
+  text-decoration: none
+}
+
+.verdana_verde {
+  font: normal 9px/normal Verdana;
+  color: #007573;
+  text-decoration: none
+}
+
+.verdana_verde:hover {
+  font: normal 9px/normal Verdana;
+  color: #007573;
+  text-decoration: underline
+}
+
+.verdana_azul {
+  font: normal 10px/normal Verdana;  
+  color: #1851C6;
+  text-decoration: none
+}
+
+.verdana_azul:hover {
+  font: normal 10px/normal Verdana;  
+  color: #1851C6;
+  text-decoration: underline
+}
+
+.verdana_cinza {
+  font: normal 10px/normal Verdana;  
+  color: #444444;
+  text-decoration: none
+}
+
+.verdana_cinza_12px {
+	font: normal 12px/normal Verdana;
+	color: #808080;
+	text-decoration: none
+}
+
+.verdana_cinza_escuro {
+  font: normal 10px/normal Arial;  
+  color: #222222;
+  text-decoration: none
+}
+
+.td_menu {
+  background: #DDDDDD;
+  height: 1px
+}
+
+.log_especificacoes {
+  font: normal 9px/normal Arial;
+  text-transform: none;
+  color: #1851C6;
+  text-decoration: none
+}
+
+.log_especificacoes:hover {
+  font: normal 9px/normal Arial;
+  text-transform: none;
+  color: #1851C6;
+  text-decoration: underline
+}
+
+.log_especificacoes2 {
+	font: normal normal 11px Arial;
+	text-transform: none;
+	color: #1851C6;
+	text-decoration: none
+}
+
+
+.log_especificacoes2:hover {
+	font: normal normal 11px Arial;
+	text-transform: none;
+	color: #1851C6;
+	text-decoration: underline;
+}
+
+
+.log_form_combo{
+	font: normal 9px Small Fonts, Arial;
+	color: #404040;
+	background-color: #D7FEFF;
+}
+
+.form_combo{
+	font: normal 9px Small Fonts, Arial;
+	color: #555555;
+}
+
+.menu_td_bt_nivel1{
+	height:20;
+	font: normal 10px/normal Arial;
+	text-transform: capitalize;
+	color: #404040;
+	height: 17px
+}
+
+.menu_td_bt_nivel2{
+	height:20;
+	font: normal 10px/normal Arial;
+	text-transform: capitalize;
+	color: #005668;
+	height: 17px;
+	text-decoration: none
+}
+
+.menu_td_bt_nivel1_br{
+	height:32;
+	font: normal 10px/normal Arial;
+	text-transform: capitalize;
+	color: #404040;
+	height: 17px;
+	text-decoration: none
+}
+
+.menu_td_bt_pixel{
+	width:15;
+	height:20;
+}
+
+.menu_td_bt_separador{
+	height:20;
+	width:1;
+	background:#DDDDDD
+}
+
+.menu_td_bt_separador_br{
+	height:32;
+	width:1;
+	background:#DDDDDD
+}
+
+.menu_td_bt_nivel0_tit {	
+	height:18;
+	text-align:left;
+	background:#DDDDDD;
+}
+
+.menu_td_bt_nivel0_linha {
+	height:1;
+	background:#EEEEEE;
+}
+
+.menu_td_bt_nivel1_linha {
+	height:1;
+	background:#DDDDDD;
+}
+
+.menu_body{
+	color:#000000;
+	margin: 0 0 0 0;
+	background-image: url(../imagens/menu_bg.gif);
+}
+
+.tabela_tr_titulo{
+	font: bold 11px/normal Arial;
+	color: #656565;
+	text-decoration: none;
+	text-align:center;
+	background:#D6D6D6;	
+	height:15;
+}
+
+.tabela_tr{
+	font: 11px/normal Arial;
+	color: #444444;
+	text-decoration: none;
+	text-align:center;
+	background:#FFF4DB;
+	height : 25;
+}
+
+.tabela_tr2{
+	font: normal 10px Arial;
+	color: #444444;
+	text-decoration: none;
+	text-align: left;
+	background:#FFF4DB;
+	height : 25;
+}
+
+.tabela_tit_tr2{
+	font: bold 10px Verdana;
+	color: #656565;
+	text-decoration: none;
+	text-align:center;
+	background:#D6D6D6;
+	height:15;
+}
+
+.tabela_td{
+	font: 11px/normal Arial;
+	color: #656565;
+	text-decoration: none;
+	text-align:left;
+	background:;	
+}
+
+
+.link_blue {
+	font: normal 11px Arial;
+	color: #1851C6;
+	text-decoration: none text-align: left;
+}
+
+.link_blue:hover {
+	font: normal 11px Arial;
+	color: #1851C6;
+	text-decoration: underline;
+}
+
+.link_blue_small {
+	font: normal 10px Arial;
+	color: #1851C6;
+	text-decoration: none text-align: left;
+}
+
+.link_blue_small:hover {
+	font: normal 10px Arial;
+	color: #1851C6;
+	text-decoration: underline;
+}
+
+.arial_tit_verde {
+	font: bold 13px Arial;
+	color: #007573;
+	text-decoration: none; 
+	text-align: left;
+}
+
+.numero_sort{
+	font: normal 13px Arial;
+	color: #FF9900;
+	text-decoration: none;
+	text-align: left;
+	height:15;
+}
+
+.numero_sort_bold{
+	font: bold 15px Arial;
+	color: #FF9900;
+	text-decoration: none;
+	text-align: left;
+	height:15;
+}
+
+.cash_blue{
+	font: bold 11px Arial;
+	color: #1851C6;
+	text-decoration: none;
+	text-align: left;
+	height:15;
+}
+
+.cash_blue:hover{
+	font: bold 11px Arial;
+	color: #1851C6;
+	text-decoration: underline;
+	text-align: left;
+	height:15;
+}
+
+.scroll {
+	scrollbar-darkshadow-color : "#AEAEAE";
+	scrollbar-3dLight-color : "#AEAEAE";
+	scrollbar-base-color : "#CBCBCB";
+	scrollbar-face-color : "#AEAEAE";
+	scrollbar-highlight-color : "#AEAEAE";
+	scrollbar-shadow-color : "#AEAEAE";
+	scrollbar-arrow-color : "#575757";
+	scrollbar-track-color : "#CBCBCB";	
+}

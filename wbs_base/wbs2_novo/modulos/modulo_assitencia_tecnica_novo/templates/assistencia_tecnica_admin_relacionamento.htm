@@ -1,0 +1,131 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<script language="javascript" src="<? echo DIR_JS; ?>/funcoes01.js"></script>
+</head>
+
+<body>
+<?
+$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light);
+$var_parametro = "&pg_ped=1";
+$db->voltar(MOD_COR, $pg, $var_parametro);
+?>
+<br>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Relacionamento</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+      <form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=8&Action=Adicionar"; ?>" name="adicionar" method="post">
+        <tr>
+          <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Laudo</td>
+          <td class="noramlTableCell"><select name="rel_srv_exec" class="campo_select" id="rel_srv_exec" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"'>
+            <option value="" selected="selected">Selecione...</option>
+            <?
+if ($rs_laudos)
+{
+	while (!$rs_laudos->EOF)
+	{
+?>
+            <option value="<? echo $rs_laudos->fields['codlaudo']; ?>"><? echo $rs_laudos->fields['codlaudo']; ?> - <? echo $db->format_str("UP", $rs_laudos->fields['descricao']); ?></option>
+            <?
+	 	$rs_laudos->MoveNext();
+	}//WHILE
+	$rs_laudos->Move(0);
+}
+?>
+          </select></td>
+        </tr>
+        <tr>
+          <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Servi&ccedil;o Executado</td>
+          <td class="noramlTableCell"><select name="rel_laudo" class="campo_select" id="rel_laudo" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"'>
+            <option value="" selected="selected">Selecione...</option>
+            <?
+if ($rs_srv_exec)
+{
+	while (!$rs_srv_exec->EOF)
+	{
+?>
+            <option value="<? echo $rs_srv_exec->fields['codsrv_exec']; ?>"><? echo $rs_srv_exec->fields['codsrv_exec']; ?> - <? echo $db->format_str("UP", $rs_srv_exec->fields['descricao']); ?></option>
+            <?
+	 	$rs_srv_exec->MoveNext();
+	}//WHILE
+	$rs_srv_exec->Move(0);
+}
+?>
+          </select></td>
+        </tr>
+
+        <tr>
+          <td width="80" align="right" class="noramlTableCell">&nbsp;</td>
+          <td class="noramlTableCell"><input name="pg" type="hidden" id="pg" value="<? echo $pg; ?>">
+              <input name="pg_ped" type="hidden" id="pg_ped" value="8">
+              <input type="submit" name="Submit3" value="OK" class="botao_cor"></td>
+        </tr>
+      </form>
+    </table></td>
+  </tr>
+</table>
+</fieldset>
+<br>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Relacionamento entre Laudos e Servi&ccedil;os Executados </legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <form name="lista" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=4"; ?>" method="post">
+    <tr>
+      <td><table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+        <?
+if ($rs_lista)
+{
+	$ix = 0;
+	while (!$rs_lista->EOF)
+	{
+?>
+        <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+          <td width="1%" align="center" class="noramlTableCell"><a href="<? echo "$PHP_SELF?pg=$pg&pg_ped=8&codsrv_exec_select="; ?><? echo $rs_lista->fields['codsrv_exec']; ?>"><img src="<? echo DIR_BOTOES; ?>/cancel.png" border="0"></a></td>
+          <td class="noramlTableCell"><small><b><? echo $db->format_str("UP", $rs_lista->fields['descricao']);
+		  $rs_lista_rel = $db->query_db("SELECT * FROM os_at_rel_laudos_srv_exec WHERE codsrv_exec = '".$rs_lista->fields['codsrv_exec']."' ORDER BY codrel","SQL_NONE","N");
+		  ?></b></small><br>
+            <table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+
+              <?
+if ($rs_lista_rel)
+{
+	$ix = 0;
+	while (!$rs_lista_rel->EOF)
+	{
+?>
+              <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+                <td width="1%" align="center" class="noramlTableCell"><a href="<? echo "$PHP_SELF?pg=$pg&pg_ped=8&Action=DelRel&codrel_select="; ?><? echo $rs_lista_rel->fields['codrel']; ?>"><img src="<? echo DIR_BOTOES; ?>/cancel.png" border="0"></a></td>
+                <td class="noramlTableCell"><small>
+                  <? $rs_laudo_show = $db->query_db("SELECT * FROM os_at_laudos WHERE codlaudo = '".$rs_lista_rel->fields['codlaudo']."'","SQL_NONE","N");
+				echo $db->format_str("UP", $rs_laudo_show->fields['descricao']); ?>
+                </small></td>
+              </tr>
+              <?
+	 	$ix++;
+		$rs_lista_rel->MoveNext();
+	}//WHILE
+}
+?>
+            </table></td>
+          </tr>
+        <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+          <td colspan="2" align="center" class="noramlTableCell"><hr size="1"></td>
+          </tr>
+        <?
+	 	$ix++;
+		$rs_lista->MoveNext();
+	}//WHILE
+}
+?>
+      </table>
+      </td>
+    </tr>
+  </form>
+</table>
+</body>
+</html>

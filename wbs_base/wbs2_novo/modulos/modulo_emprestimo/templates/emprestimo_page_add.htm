@@ -1,0 +1,122 @@
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Untitled Document</title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<script language="javascript" src="<? echo DIR_JS; ?>/funcoes01.js"></script>
+<script language="javascript">
+
+function DoIt(form1)
+{
+	if (document.getElementById("codvend_select").value != "-1"){
+	document.form1.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=2&Action=pesquisa&empresa=$empresa&Action=$Action"; ?>';
+	document.form1.target = '_self';
+	document.form1.submit();
+	}else{
+	  alert("Escolha o Vendedor a ser emprestado");
+	}
+}
+</script></head>
+
+<body>
+<?
+$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light);
+?>
+<br>
+<br>
+<table  border="0" cellspacing="2" cellpadding="2">
+  <tr>
+  	<td><? $db->botao(MOD_COR, "Lista de Empréstimos", "", "pg=$pg&pg_ped=", "", ""); ?></td>
+	<td><? $db->botao(MOD_COR, "Emprestar Produtos", "", "pg=$pg&pg_ped=2", "", ""); ?></td>
+    <td><? $db->botao(MOD_COR, "Devolver Produtos", "", "pg=$pg&pg_ped=3", "", ""); ?></td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<br>
+
+<table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+ 
+    <tr>
+      <td rowspan="2" align="center" class="generalGreyBorderBottomTableHeaderCell"><img src="<? echo DIR_IMAGES; ?>/messagebox_warning.png" border="0"></td>
+      <td   width="70%" class="generalGreyBorderBottomTableHeaderCell"><strong>Empresa:</strong></td>
+      <td align="right"   class="generalGreyBorderBottomTableHeaderCell"><strong>Empresa Atual:</strong></td>
+    </tr>
+    <tr>
+      <td  bgcolor="<? echo $bg_cor_light; ?>" class="noramlTableCell">
+         </td>
+      <td align="right"  bgcolor="<? echo $bg_cor_light; ?>" class="noramlTableCell"><b><? echo $rs_empresa->fields['nome']; ?></b></td>
+    </tr>
+  
+</table>
+<br>
+<? if ($codemp_transf_vend <> ""){?>
+
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Emprestar Produtos  </legend>
+
+<table width="100%" border="0" align="left" cellpadding="2" cellspacing="2">
+  <form name="form1" method="post" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=2&Action=$Action#pesq"; ?>">
+    <tr>
+      <td width="5%" align="center">&nbsp;</td>
+      <td width="32%" align="center"><strong>CODBARRA</strong></td>
+      <td width="54%" align="center"><strong>PRODUTO</strong></td>
+      <td width="9%" align="center"><strong>STATUS</strong></td>
+    </tr>
+    <?
+	for($i = 1; $i <= 10; $i++ ){
+	if ($nomeprod[$i] <> 'ERRO'){$cor = "#006600";}else{$cor = "EA0000";}
+	if ($status[$i] == 'OK'){$cor1 = "#006600";}else{$cor1 = "EA0000";}
+
+?>
+    <tr>
+      <td align="center"><? echo"$i"; ?></td>
+      <td align="center"><input name="codbarra[<? echo"$i"?>]" type="text" id="codbarra[<? echo"$i"?>]" value="<? echo "$codbarra[$i]" ?>" size="30"></td>
+      <td align="center"><span style="color:<? echo"$cor"; ?> "><? echo"$nomeprod[$i]"; ?></span></td>
+      <td align="center"><span style="color:<? echo"$cor1"; ?> "><b><? echo"$status[$i]"; ?></b></span></td>
+    </tr>
+    <?
+	}//FOR
+?>
+    <tr>
+      <td align="center">&nbsp;</td>
+      <td align="center"></td>
+      <td align="center"></td>
+      <td align="center">&nbsp;</td>
+    </tr>
+    <tr>
+      <td align="center">&nbsp;</td>
+      <td colspan="2" align="center"><strong>LOGIN DO VENDEDOR A SER EMPRESTADO:</strong>        <select name="codvend_select" class="campo_select" id="codvend_select" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"'">
+           <option selected value = -1>Escolha um vendedor ...</option>
+           <?
+if ($rs_vendedor)
+{
+	while (!$rs_vendedor->EOF)
+	{
+?>
+           <option value="<? echo $rs_vendedor->fields['codvend']; ?>" ><? echo $db->format_str("UP", $rs_vendedor->fields['nome']); ?></option>
+           <?
+	 	$rs_vendedor->MoveNext();
+	}//WHILE
+}
+?>
+          </select>      </td>
+      <td align="center">&nbsp;</td>
+    </tr>
+    <tr>
+      <td align="center">&nbsp;</td>
+      <td colspan="2" align="center"><input type="button" name="Submit2" value="<? echo $acao; ?>" onClick = "DoIt(form1)"></td>
+      <td align="center">&nbsp;</td>
+    </tr>
+    <input type="hidden" name="cjSelect2" value="<? echo"$cjSelect" ?>">
+    <input type="hidden" name="placaSelect2" value = "<? echo"$placaSelect" ?>">
+  </form>
+</table>
+<p>&nbsp;</p>
+
+</fieldset>
+<?}?>
+<p>
+</body>
+</html>

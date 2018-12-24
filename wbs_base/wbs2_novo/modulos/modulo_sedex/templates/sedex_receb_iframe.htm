@@ -1,0 +1,117 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="<? echo DIR_SISTEMA; ?>/js/calendar.js"></script>
+
+<script language='JavaScript' src = "<? echo DIR_SISTEMA; ?>/js/util.js"></script>
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+-->
+</style></head>
+
+<body>
+<? if($codrevenda) { ?>
+<table width="100%"  border="0" cellpadding="2" cellspacing="0" class="generalTable defaultBlackText">
+  <form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=2&menu_not=1&Action=Inserir"; ?>" name="ireceb" method="post">
+    <tr style="background-color: #FFFFFF; cursor: pointer;">
+      <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">N&ordm; Sedex</td>
+      <td class="noramlTableCell"><input name="nsedex" type="text" class="campo_linha" id="nsedex" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"' size="15" maxlength="13"></td>
+    </tr>
+    <tr style="background-color: #FFFFFF; cursor: pointer;">
+      <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Peso</td>
+      <td class="noramlTableCell"><select name="codpeso" class="campo_select" id="codpeso" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"'>
+	  <option selected>Escolha...</option>
+<?
+if ($rs_peso)
+{
+	while (!$rs_peso->EOF)
+	{
+?>
+          <option value="<? echo $rs_peso->fields['codpeso']; ?>"><? echo $db->format_str("UP", $rs_peso->fields['peso']); ?></option>
+<?
+	 	$rs_peso->MoveNext();
+	}//WHILE
+}
+?>
+      </select> kg</td>
+    </tr>
+    <tr style="background-color: #FFFFFF; cursor: pointer;">
+      <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Data Envio </td>
+      <td class="noramlTableCell"><table  border="0" cellpadding="1" cellspacing="1">
+        <tr>
+          <td><input name="dataenvio" type="text" class="campo_linha" id="dataenvio" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"; blur()' onBlur='this.style.backgroundColor="#FFFFFF"'></td>
+          <td><a href="javascript:void(0);" onClick="openCalendar('pg=9', 'ireceb', 'dataenvio', 'datetime')"><img src="<? echo DIR_BOTOES; ?>/calendar_view_month.png" border="0" title="Inserir Data"></a></td>
+        </tr>
+      </table></td>
+    </tr>
+    <tr style="background-color: #FFFFFF; cursor: pointer;">
+      <td width="80" align="right" valign="top" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Data Recebimento </td>
+      <td class="noramlTableCell"><table  border="0" cellpadding="1" cellspacing="1">
+        <tr>
+          <td><input name="datareceb" type="text" class="campo_linha" id="datareceb" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"; blur()' onBlur='this.style.backgroundColor="#FFFFFF"'></td>
+          <td><a href="javascript:void(0);" onClick="openCalendar('pg=9', 'ireceb', 'datareceb', 'datetime')"><img src="<? echo DIR_BOTOES; ?>/calendar_view_month.png" border="0"></a></td>
+        </tr>
+      </table></td>
+    </tr>
+    <tr style="background-color: #FFFFFF; cursor: pointer;">
+      <td width="80" align="right" valign="top" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Valor Conteúdo </td>
+      <td class="noramlTableCell">R$
+        <input name="valorconteudo" type="text" class="campo_linha" id="valorconteudo" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"; virgula(this, '', 1)' onBlur='this.style.backgroundColor="#FFFFFF"; virgula(this, 1, '')' onkeypress="if (!(mascara_valor(this))) return false;"></td>
+    </tr>
+    <tr style="background-color: #FFFFFF; cursor: pointer;">
+      <td width="80" align="right" valign="top" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Conteúdo do Sedex </td>
+      <td class="noramlTableCell"><textarea name="conteudo"  class="campo_caixa" id="conteudo"></textarea></td>
+    </tr>
+    <tr style="background-color: #FFFFFF; cursor: pointer;">
+      <td width="80" align="right" valign="top" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Pedidos que possuem pagamentos em cheques vindos no Sedex </td>
+      <td valign="top" class="noramlTableCell"><table width="50%"  border="0" cellpadding="2" cellspacing="2" class="generalTable defaultBlackText">
+        <tr>
+          <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Cod Ped </td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Contrato</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Pagamento</td>
+        </tr>
+<?
+if ($rs_pedido)
+{
+	$xi = 0;
+	while (!$rs_pedido->EOF)
+	{
+?>
+        <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+          <td width="1%" align="center" class="noramlTableCell"><input type="checkbox" name="codpedido[<? echo $xi; ?>]" value="<? echo $rs_pedido->fields['codped']; ?>"></td>
+          <td align="center" class="noramlTableCell"><? echo $rs_pedido->fields['codbarra']; ?></td>
+          <td align="center" class="noramlTableCell"><input type="checkbox" name="ck_contrato[<? echo $xi; ?>]" value="OK"></td>
+          <td align="center" class="noramlTableCell"><input type="checkbox" name="ck_caixa[<? echo $xi; ?>]" value="OK"></td>
+          </tr>
+<?
+	 	$xi++;
+		$rs_pedido->MoveNext();
+	}//WHILE
+}
+?>
+      </table></td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td><input name="Submit" type="submit" class="botao_cor" value="Ok">
+      <input name="codrevenda" type="hidden" id="codrevenda" value="<? echo $codrevenda; ?>">
+      <input name="cep_origem" type="hidden" id="cep_origem" value="<? echo $cep_select; ?>">
+	  <input name="cep_destino" type="hidden" id="cep_destino" value="36010021">
+      <input name="tipo_sedex" type="hidden" id="tipo_sedex" value="R">
+      <input name="numRows" type="hidden" id="numRows" value="<? echo $numRows; ?>"></td>
+    </tr>
+	</form>
+</table>
+<? } ?>
+</body>
+</html>

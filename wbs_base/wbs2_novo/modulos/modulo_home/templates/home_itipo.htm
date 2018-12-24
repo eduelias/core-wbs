@@ -1,0 +1,64 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<script language='javascript'>
+function SetaInfoPopup(texto)
+{
+	parent.frames["ipopupinfo"].document.getElementById('informacoespopup').innerHTML = texto; 
+}
+function iMostraNoticia(endereco)
+{
+	//window.open(endereco, 'newWindow');
+	window.open(endereco, "iframenoticias");
+}
+</script>
+<style type="text/css">
+<!--
+body {
+	font-family: Trebuchet MS, Tahoma, Verdana, Arial;
+	font-size: 10px;
+	color: #000000;
+	background-color: #FFFFFF;
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+.link1popup, a.link1popup:link, a.link1popup:active, a.link1popup:visited {
+	font-size: 10px;
+	color: #000000;
+	font-family: 'Trebuchet MS', Tahoma, Verdana, Arial;
+	text-decoration: none;
+}
+a.link1popup:hover {
+	font-size: 10px;
+	color: #000000;
+	font-family: 'Trebuchet MS', Tahoma, Verdana, Arial;
+	text-decoration: underline;
+}
+-->
+</style></head>
+
+<body>
+<table  border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><a href="<? echo "$PHP_SELF?pg=$pg&pg_ped=3&menu_not=1&Action=Pesquisar&codtiposelect=0"; ?>"><img src="<? echo DIR_IMAGES; ?>/btnoticias.gif" width="55" height="13" border="0"></a></td>
+    <td><a href="<? echo "$PHP_SELF?pg=$pg&pg_ped=3&menu_not=1&Action=Pesquisar&codtiposelect=1"; ?>"><img src="<? echo DIR_IMAGES; ?>/btprocedimentos.gif" width="82" height="13" border="0"></a></td>
+    <td><a href="<? echo "$PHP_SELF?pg=$pg&pg_ped=3&menu_not=1&Action=Pesquisar&codtiposelect=2"; ?>"><img src="<? echo DIR_IMAGES; ?>/btpromocoes.gif" width="63" height="13" border="0"></a></td>
+  </tr>
+</table>
+<hr size="1">
+<table width="100%"  border="0" cellspacing="1" cellpadding="0">
+<?	for($i = 0; $i < count($arrayx); $i++ ){ ?>
+  <tr>
+    <td width="13"><img src="<? echo DIR_IMAGES; ?>/<? echo $tipoimg_list[$i]; ?>.gif" width="13" height="13"></td>
+    <td><a href="javascript:void(0);" onClick="iMostraNoticia('<? echo "$PHP_SELF?pg=$pg&pg_ped=5&menu_not=1&codpopupselect=$codpopup_list[$i]"; ?>');" class="link1popup"><? echo "$titulo_list[$i]"; ?></a></td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#D4D0C8"><img width="1" height="1" src="<? echo DIR_IMAGES; ?>/spacer.gif"></td>
+  </tr>
+<? }//FOR ?>
+</table>
+</body>
+</html>

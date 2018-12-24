@@ -1,0 +1,197 @@
+/* CSS Document */
+
+a.lkverde {
+	border: 1px solid #FFFFFF;
+	background: #FFFFFF;
+	font: 11px verdana, sans-serif;
+	color: #009900;
+	padding: 3px;
+	outline: none;
+	text-decoration: none;
+}
+a.lkverde:hover, a.lkverde:focus {
+	border: 1px solid #009900;
+	background-color: #FFFFFF;
+	color: #009900;
+	text-decoration: none;
+}
+a.lkverde2 {
+	font: 11px verdana, sans-serif;
+	color: #009900;
+	padding: 3px;
+	outline: none;
+	text-decoration: none;
+}
+a.lkverde2:hover, a.lkverde2:focus {
+	background-color: #90D590;
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.saci_tbl_titulo {
+	font-weight: bold;
+	padding: 3px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-right-color: #68C668;
+	border-bottom-color: #68C668;
+	background-color: #90D590;
+}
+.saci_tbl_lista {
+	padding: 4px 3px;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #D4D0C8;
+	border-left-width: 1px;
+	border-left-style: dashed;
+	border-left-color: #D4D0C8;
+}
+.saci_sol_no {
+	text-transform: uppercase;
+	color: #EA0000;
+	padding: 2px;
+	font-size: 9px;
+	font-weight: bolder;
+}
+.saci_sol_ok {
+	text-transform: uppercase;
+	color: #009900;
+	padding: 2px;
+	font-size: 9px;
+	font-weight: bolder;
+}.saci_input {
+	color: #68C668;
+	padding: 2px;
+	border: 1px solid #68C668;
+	text-transform: uppercase;
+	font-size: 10px;
+	font-weight: bold;
+	background-position: 20px;
+	background-color: #FFFFFF;
+}
+.saci_borda1 {
+	padding: 4px;
+	border-left: 5px outset #68C668;
+}
+.saci_tbl_dados1 {
+	color: #333333;
+	padding: 3px;
+	text-transform: uppercase;
+	border-bottom-width: 1px;
+	border-bottom-style: dashed;
+	border-bottom-color: #D4D0C8;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+.saci_input2 {
+	color: #009900;
+	padding: 2px;
+	background-color: #FFFFFF;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	border-bottom: 1px solid #666666;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-left-style: solid;
+	border-top-color: #FFFFFF;
+	border-right-color: #FFFFFF;
+	border-left-color: #FFFFFF;
+}
+.saci_campo_view {
+	text-transform: uppercase;
+	color: #009900;
+}
+.saci_input3 {
+	color: #009900;
+	padding: 2px;
+	background-color: #FFFFFF;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	border: 1px solid #666666;
+}
+.titulospverdec {
+	font-weight: bold;
+	text-transform: uppercase;
+	background-image: url(../images/fd3verde_claro.jpg);
+	background-position: 20px;
+	padding-top: 3px;
+	padding-right: 10px;
+	padding-bottom: 3px;
+	padding-left: 10px;
+	font-family: "Trebuchet MS", Tahoma, Verdana, Arial;
+	font-size: 11px;
+}
+.tdspconteudoverdec {
+	padding: 4px;
+	border: 1px solid #68C668;
+}
+.sacitd1 {
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #FFFFFF;
+	padding: 3px;
+	background-color: #68C668;
+}
+.sacitd2 {
+	text-transform: uppercase;
+	color: #333333;
+	padding: 3px;
+	border-bottom-style: solid;
+	border-bottom-color: #999999;
+	border-bottom-width: 1px;
+	border-right-width: 1px;
+	border-right-style: solid;
+	border-right-color: #999999;
+	border-top-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-left-style: solid;
+	border-top-color: #CCCCCC;
+	border-left-color: #CCCCCC;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+.saci_codatend {
+	font-family: "Trebuchet MS", Tahoma, Verdana, Arial;
+	font-size: 24px;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #009900;
+	font-style: italic;
+}
+.saci_contorno {
+	border: 3px solid #90D690;
+	padding: 4px;
+}.saci_contorno2 {
+	border: 1px solid #666666;
+}
+.pedido {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #3DB636;
+}
+.titulo {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	background-color: #CDFDCD;
+}
+.limite {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	color: #000000;
+}
+.limite_atraso {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	color: #FF0000;
+}
+.limite_av {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	color: #FF9900;
+}

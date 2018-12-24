@@ -1031,7 +1031,7 @@ function EnviaNF()
 			
 			
 			if (days < -1 ){alert('A DATA do DOCUMENTO '+j+' n�o pode ser inferior a DATA DO PEDIDO');return false; }
-			/*//if (days > 30 ){alert('A DATA do DOCUMENTO '+j+' n�o pode ser superior a 30 DIAS');return false; }*/
+			if (days > 90 ){alert('A DATA do DOCUMENTO '+j+' n�o pode ser superior a 90 DIAS');return false; }
 			
 			if (document.getElementById(_objnumnf).value == '' ){alert('O NUMERO do DOCUMENTO '+u+' deve ser preenchido corretamente.');return false; }
 			if (ValidaCampoNumerico(document.getElementById(_objnumnf).value) != true ){alert('O NUMERO do DOCUMENTO '+u+' deve ser preenchido somente com NUMEROS.');return false; }

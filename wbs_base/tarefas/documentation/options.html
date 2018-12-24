@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- created with PHP Doc System
+     http://www.alexking.org/software/phpdocsystem/ -->
+<html>
+	<head>
+		<title>Tasks Jr.: Options and Settings</title>
+		<link rel="stylesheet" type="text/css" href="default.css" />
+	</head>
+	<body>
+		<div id="header">
+			<a href="index.html">Table of Contents</a>
+			<h1><span>Tasks</span></h1>
+		</div>
+		<div id="content">
+<h1 class="module_title">Options and Settings</h1>
+<div class="module_content"><p>When you have completed <a href="installation.html">Installing Tasks Jr.</a>, there are settings you must specify and several options you can set based on your tastes. We'll go through them in the order they appear in the <span class="value">config.php</span> file.</p>
+
+<p>Some of these are called &quot;binary&quot; options. If these options are set to <span class="value">1</span> then they are on or enabled, if they are set to <span class="value">0</span>, then they are off or disabled.
+
+<ul>
+	<li><b>$custom->language</b> - This determines the language used in your installation of Tasks Jr. It needs to be the name of one of the files in the 'languages' directory (without the .php). For example: <span class="value">english</span></li>
+	<li><b>$custom->language_mobile</b> - This determines the language used for the PDA/Mobile version of your installation of Tasks Jr. It also needs to be the name of one of the files in the 'languages' directory (without the .php). For example: <span class="value">english</span></li>
+	<li><b>$custom->tasks_URL</b> - This needs to be set to the web address of your Tasks Jr. installation. The URL should begin with <span class="value">http://</span> and end with <span class="value">/</span>. This is used when creating the URL value in the iCalendar export. For example: <span class="value">http://www.example.com/tasks/</span></li>
+	<li><b>$custom->home_sort_order</b> - This defines the order in which the tasks shown on the <a href="screen_home.html">Home Screen</a>. See more about this <a href="home_sort_order.html">here</a></li> 
+	<li><b>$custom->upcoming_days</b> - This defines the number of days before it's due date that a task will show up in the <a href="screen_upcoming.html">Upcoming Tasks Screen</a>. The default is <span class="value">7</span> days (1 week).</li> 
+	<li><b>$custom->date_format</b> - This defines the order that the date elements are presented in. You can use any character besides y, m and d as the separator. Default valye is <span class="value">m/d/y</span>, examples of other supported formats are <span class="value">y-m-d</span>, <span class="value">d.m.y</span>.</li> 
+	<li><b>$custom->date_picker_months</b> - This defines the number of months that are shown in the <a href="picker_date.html">Date Chooser</a>. The default is <span class="value">3</span>.</li> 
+	<li><b>$custom->server_time_difference</b> - If you are in a different time zone than your web server, set this to the number of hours ahead or behind you are. If you are ahead the number will be positive <span class="value">3</span>, if you are behind the number will be negative <span class="value">-2</span>.</li> 
+	<li><b>$custom->show_deleted_in_history</b> - Set this to <span class="value">1</span> to show tasks that have been deleted in the <a href="screen_history.html">History Screen</a>, or set it to <span class="value">0</span> to exclude deleted tasks from the list.</li>
+	<li><b>$custom->check_for_updates</b> - Set this to <span class="value">1</span> to check for the latest version of Tasks Jr. on the <a href="screen_about.html">About Screen</a>, or set it to <span class="value">0</span> to not check for new versions of Tasks Jr. If this is set to <span class="value">0</span>, it will not check for beta versions either regardless of the $custom->use_beta setting.</li>
+	<li><b>$custom->use_beta</b> - Set this to <span class="value">1</span> to check for the latest beta version of Tasks Jr. on the <a href="screen_about.html">About Screen</a>, or set it to <span class="value">0</span> to not check for new beta versions of Tasks Jr.</li> 
+</ul>
+
+<p>These next settings are used to communicate with PHP iCalendar. 
+
+<ul>
+	<li><b>$custom->ical_enable</b> - Set this to <span class="value">1</span> to enable viewing your tasks in PHP iCalendar; or <span class="value">0</span> if you don't want to view your tasks in a calendar.</li>
+	<li><b>$custom->ical_include_todo</b> - Set this to <span class="value">1</span> include tasks with no <a href="prop_date_due.html">Date Due</a> in iCalendar integration as VTODO items.</li>
+	<li><b>$custom->ical_export_type</b> - This setting determines if your tasks (the ones with <a href="prop_date_due.html">Date Due</a> set) are exported as events or to do items. Set this to <span class="value">event</span> (this is the default) to export your tasks as untimed events (VEVENT) that appear on the calendar on their due date. Set this to <span class="value">todo</span> to export your tasks as to do items (VTODO).</li>
+	<li><b>$custom->ical_days_before</b> - This is the number of days before the current date to include in in the iCalendar export. The default is <span class="value">30</span>. There is no limit as to how large this number can be but the larger the range is that you export, the longer it will take.</li>
+	<li><b>$custom->ical_days_after</b> - This is the number of days after the current date to include in in the iCalendar export. The default is <span class="value">90</span>. There is no limit as to how large this number can be but the larger the range is that you export, the longer it will take.</li>
+	<li><b>$custom->ical_URL</b> - Set this to URL of PHP iCalendar, if you haven't moved it, it will be the same as <b>$custom->tasks_URL</b> with <span class="value">phpicalendar/</span> added at the end. The URL should begin with <span class="value">http://</span> and end with <span class="value">/</span>. For example: <span class="value">http://www.example.com/tasks/phpicalendar/</span>.</li>
+</ul>
+
+<p>This next setting is used for e-mail reminders.
+
+<ul>
+	<li><b>$custom->email_reminders_to</b> - Set this to your e-mail address <span class="value">yourname@example.com</span> or a list of e-mail addresses separated by commas <span class="value">yourname@example.com,yourothername@example.com</span> if you want the reminders sent to more than one address.</li>
+</ul>
+
+<p>These next settings are used to communicate with b2. 
+
+<ul>
+	<li><b>$custom->b2_enable</b> - Set this to <span class="value">1</span> to enable posting to <a href="http://www.cafelog.com/">b2</a> from Tasks Jr.; or <span class="value">0</span> if you don't use b2 or want to use this feature.</li>
+	<li><b>$custom->b2_post_URL</b> - Set this to URL of b2tasks_post.php in your b2 directory. For example: <span class="value">http://www.example.com/b2/b2tasks_post.php</span>.</li>
+</ul>
+
+<p>These next settings are used to communicate with WordPress. 
+
+<ul>
+	<li><b>$custom->wp_enable</b> - Set this to <span class="value">1</span> to enable posting to <a href="http://www.wordpress.org/">WordPress</a> from Tasks Jr.; or <span class="value">0</span> if you don't use WordPress or want to use this feature.</li>
+	<li><b>$custom->wp_post_URL</b> - Set this to URL of b2bookmarklet.php in your wp-admin/ directory. For example: <span class="value">http://www.example.com/wordpress/wp-admin/b2bookmarklet.php</span>.</li>
+</ul>
+
+<p>These next settings are used to communicate with Moveable Type. 
+
+<ul>
+	<li><b>$custom->mt_enable</b> - Set this to <span class="value">1</span> to enable posting to <a href="http://www.moveabletype.org/">Moveable Type</a> from Tasks Jr.; or <span class="value">0</span> if you don't use Moveable Type or want to use this feature.</li>
+	<li><b>$custom->mt_post_URL</b> - Set this to URL of your Moveable Type URL. For example: <span class="value">http://www.example.com/mt/mt.cgi</span>.</li>
+</ul>
+
+</div>
+<p id="prev_next"><a href="create_table.html">Previous Page</a> | <a href="index.html">Table of Contents</a> | <a href="config_php_ical.html">Next Page</a></p>
+			<p id="last_modified">Last Modified: February 28, 2005 @ 1:11 pm<br />(<a href="http://www.kingdesign.net/tasks/documentation/options.html">check for an updated version of this page</a>)</p>
+		</div>
+
+		<div id="footer">
+			<a href="http://www.alexking.org/software/phpdocsystem/">PHP Doc System</a> Copyright 2003-2004 &copy; Alex King. All rights reserved.<br />
+		</div>
+	</body>
+</html>

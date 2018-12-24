@@ -1,0 +1,134 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/saci.css" rel="stylesheet" type="text/css">
+</head>
+<script language="javascript" type="text/javascript">
+var NameArray = new Array();
+var ValueArray = new Array();
+
+<? for($i = 0; $i < count($arrayx); $i++ ){ ?>
+NameArray[<? echo"$cat_id[$i]"; ?>] = new Array(<? echo"$x_subcat_titulo[$i]"; ?>);
+ValueArray[<? echo"$cat_id[$i]"; ?>] = new Array(<? echo"$x_subcat_subid[$i]"; ?>);
+<? }//FOR ?>
+
+function changeOptions(){
+// Obtain the first dimension position of the currently selected theaterRegionvar
+cjIX = document.forms["atendimento"].motivocat.value;
+  
+  if (cjIX > 0){
+   // set the length of the new multi-option
+   //
+
+   	 // CALCULA O NUMERO DE LINHAS DO FOR
+    document.forms["atendimento"].elements["motivosubcat"].options.length = NameArray[cjIX].length +1;
+
+    // LINHA INICIAL DO MENU SELECT
+    document.forms["atendimento"].elements["motivosubcat"].options[0].text = "=> Selecione a Subcategoria";
+    document.forms["atendimento"].elements["motivosubcat"].options[0].value = "";
+
+    for (var j=0; j < NameArray[cjIX].length; j++)
+    {
+      document.forms["atendimento"].elements["motivosubcat"].options[j+1].text = NameArray[cjIX][j];
+      document.forms["atendimento"].elements["motivosubcat"].options[j+1].value = ValueArray[cjIX][j];
+    }
+   
+  }
+  else
+  {
+   // User has reselected the blank 'region' option
+   //
+    document.forms["atendimento"].elements["motivosubcat"].options.length = 2;
+    document.forms["atendimento"].elements["motivosubcat"].options[0].text = "Selecione a Subcategoria...";
+    document.forms["atendimento"].elements["motivosubcat"].options[0].value = "";
+    document.forms["atendimento"].elements["motivosubcat"].options[1].text = "Selecione a Categoria primeiro...";
+    document.forms["atendimento"].elements["motivosubcat"].options[1].value = "";
+  }
+}
+</script>
+<? if (dirname($_SERVER['PHP_SELF']) == "/"){$bar = "";}else{$bar = "/";} ?>
+<script language=JavaScript>
+function VerAgenda()
+{
+	window.open('<? echo "http://" . $_SERVER['HTTP_HOST']. dirname($_SERVER['PHP_SELF']). $bar. "restrito.php?pg=$pg&pg_ped=4&menu_not=1"; ?>','popup_view','width=450, height=400, scrollbars=yes, resizable=no');
+}
+function VerificaData()
+{
+	var dia = document.getElementById("diaagenda").value; 
+	var mes = document.getElementById("mesagenda").value;
+	var ano = document.getElementById("anoagenda").value;
+	var date2 = new Date(ano, mes-1, dia);
+	var now = new Date();
+	var diff = date2.getTime() - now.getTime()
+	var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+	if (days < -1){
+		alert("Data Agenda inferior a data atual");
+        document.form1.dentr.focus();
+        return false;
+	}
+}
+</script>
+
+<body>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%"><img src="<? echo DIR_IMAGES; ?>/ind_relatorio_cheque.gif"></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#68C668"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+  </tr>
+</table>
+<br>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td class="titulospverdec">Pesquisar:</td>
+  </tr>
+  <tr>
+    <td class="tdspconteudoverdec"><table width="100%"  border="0" cellpadding="2" cellspacing="2">
+      <form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&menu_not=1&Action=pesquisa"; ?>" method="post" name="pesqcheque" target="ilist">
+        <tr>
+          <td><table border="0" align="left" cellpadding="2" cellspacing="2">
+              <tr>
+                <td><strong>BCO:</strong></td>
+                <td><input name="bco_pesq" type="text" class="saci_input2" id="bco_pesq" size="4" maxlength="3"></td>
+                <td><strong>NUMCHEQ:</strong></td>
+                <td><input name="numch_pesq" type="text" class="saci_input2" id="numch_pesq" size="7" maxlength="6"></td>
+              </tr>
+            </table></td>
+          <td rowspan="2" align="center" valign="middle"><input name="Button" type="submit" class="saci_input" value="Procurar"></td>
+        </tr>
+        <tr>
+          <td><table border="0" align="right" cellpadding="2" cellspacing="2">
+      <tr>
+        <td><input name="ch_sf" type="radio" value="ALL" checked>
+          <strong> TODOS OS CHEQUES </strong></td>
+        <td><input name="ch_sf" type="radio" value="PG">
+          SF PAGO </td>
+        <td><input name="ch_sf" type="radio" value="NO">
+          SF PENDENTE </td>
+        <td><input name="ch_sf" type="radio" value="JU">
+          SF JUR&Iacute;DICO</td>
+      </tr>
+            </table></td>
+          </tr>
+      </form>
+      
+        <tr>
+          <td colspan="2"><fieldset class="tdspconteudoverdec">
+            <legend class="titulospverdec">Cheques</legend>
+            <iframe src="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&menu_not=1"; ?>" name="ilist" width="100%" marginwidth="0" height="150" marginheight="0" scrolling="yes" frameborder="0"></iframe></fieldset></td>
+        </tr>
+        <tr>
+          <td colspan="2"><fieldset class="tdspconteudoverdec">
+            <legend class="titulospverdec">Forma de Pagamento </legend>
+            <iframe src="<? echo"$PHP_SELF?pg=$pg&pg_ped=2&menu_not=1"; ?>" name="ifpg" width="100%" marginwidth="0" height="300" marginheight="0" scrolling="yes" frameborder="0"></iframe></fieldset></td>
+        </tr>
+     
+    </table></td>
+  </tr>
+</table>
+</body>
+</html>

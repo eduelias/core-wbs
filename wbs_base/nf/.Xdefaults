@@ -1,0 +1,99 @@
+! Parts (C) 1996 By Greg J. Badros <gjb@cs.duke.edu>
+! You may use this file as specified under the GNU General Public License
+
+*customization: -color
+
+! xedit
+*ispell*ispellCommand: /usr/bin/ispell
+*ispell*dictionaries: brazilian spanish american americamed+ english
+*ispell*brazilian.wordChars: ·ÈÌÛ˙¡…Õ”⁄„ı√’‚ÍÙ¬ ‘Á«‡¿¸‹
+*ispell*spanish.wordChars: ·ÈÌÛ˙¡…Õ”⁄‡¿Ò—
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! emacs, xemacs
+
+emacs*Background: DarkSlateGray
+emacs*Foreground: Wheat
+emacs*pointerColor: Orchid
+emacs*cursorColor: Orchid
+emacs*bitmapIcon: on
+emacs*font: fixed
+emacs.geometry: 80x25
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! xterm (and friends)
+
+!XTerm*highlightSelection:  true
+! Uncomment this to use color for the bold attribute
+!XTerm*VT100*colorBDMode:  on
+!XTerm*VT100*colorBD:  blue
+! Uncomment this to use color for underline attribute
+!XTerm.VT100*colorULMode:  on
+!XTerm.VT100*underLine:  off
+!XTerm*VT100*colorUL:  magenta
+! Uncomment this to display the scrollbar 
+!XTerm*scrollBar:  true
+
+! This resource specifies whether or not to ignore the 'alternate screen'
+! of applications such as vi.  When it is on, these applications will restore
+! the contents of the screen when they are exited to what they were before
+! they were started.  When it is off, the contents of vi will remain on the
+! screen after the program is quit.
+!XTerm.VT100.titeInhibit:  true
+
+! Uncomment this to turn off color mode in your xterms
+!XTerm.VT100*colorMode:  off
+!XTerm.VT100*dynamicColors:  on
+
+! Number of lines of scrollback to save
+!XTerm*saveLines:	1500
+
+!xterm*reverseWrap:	true
+
+!*visualBell:		true
+!*scrollTtyOutput:	False
+!*scrollKey:		True
+!Scrollbar.JumpCursor:	True
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!## NETSCAPE
+Netscape*drawingArea.translations:  #replace    \
+<Btn1Down>:           ArmLink()   \n\
+<Btn2Down>:           ArmLink()   \n\
+~Shift<Btn1Up>:       ActivateLink()  \n\
+~Shift<Btn2Up>:       ActivateLink(new-window)  \
+DisarmLink()    \n\
+Shift<Btn1Up>:        ActivateLink(save-only)  \
+DisarmLink()    \n\
+Shift<Btn2Up>:        ActivateLink(save-only)  \
+DisarmLink()    \n\
+<Btn1Motion>:             DisarmLinkIfMoved()  \n\
+<Btn2Motion>:             DisarmLinkIfMoved()  \n\
+<Btn3Motion>:             DisarmLinkIfMoved()  \n\
+<Motion>:             DescribeLink()  \n\
+<Btn3Down>:           xfeDoPopup()    \n\
+<Btn3Up>:             ActivatePopup() \n\
+Ctrl<Btn4Down>: PageUp()\n\
+Ctrl<Btn5Down>: PageDown()\n\
+Shift<Btn4Down>: LineUp()\n\
+Shift<Btn5Down>: LineDown()\n\
+None<Btn4Down>: LineUp()LineUp()LineUp()LineUp()LineUp()LineUp()\n\
+None<Btn5Down>: LineDown()LineDown()LineDown()LineDown()LineDown()LineDown()\n\
+Alt<Btn4Down>: xfeDoCommand(forward)\n\
+Alt<Btn5Down>: xfeDoCommand(back)\n
+Netscape*globalNonTextTranslations: #override\n\
+Shift<Btn4Down>: LineUp()\n\
+Shift<Btn5Down>: LineDown()\n\
+None<Btn4Down>:LineUp()LineUp()LineUp()LineUp()LineUp()LineUp()\n\
+None<Btn5Down>:LineDown()LineDown()LineDown()LineDown()LineDown()LineDown()\n\
+Alt<Btn4Down>: xfeDoCommand(forward)\n\
+Alt<Btn5Down>: xfeDoCommand(back)\n
+<Key>KP_9: PageUp()\n\
+<Key>KP_3: PageDown()\n\
+<Key>KP_8: LineUp()\n\
+<Key>KP_2: LineDown()\n\
+<Key>KP_4: ColumnLeft()\n\
+<Key>KP_6: ColumnRight()\n
+<Btn3Down>: \n\
+<Btn3Down>,<Btn3Up>: xfeDoCommand(back)\n\
+<Btn3Down>,<Btn3Motion>: xfeDoPopup()\n\

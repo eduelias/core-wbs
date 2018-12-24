@@ -1,0 +1,342 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/sistema.css" rel="stylesheet" type="text/css">
+<style>
+a.info{
+    position:relative;
+    color:#000;
+    padding-right: 0px;
+    padding-left: 0;
+    text-decoration:none;
+    cursor:help;
+    z-index:5;
+}
+a.info:hover{background-color:#fff;z-index:20; text-decoration:none;}
+a.info span{display: none}
+a.info:hover span{
+    display:block;
+    position:absolute;
+    top:20px; left:-100px; width:200px;
+    font-size:11px;
+    padding: 5px;
+    border:1px solid #000;
+    background-color:#FFFFFF; color:#000;
+    text-align: center;
+    cursor:help;
+    z-index:20;
+}
+</style>
+<script language='JavaScript' src = "wbs2/scripts.js"></script>
+</head>
+
+<body>
+<script language="javascript">
+
+
+
+function adjust(element)
+{
+	return element.value.replace('.',',');
+}
+
+
+function doTwo(form3, codprod, codcj, codped, codtipocj)
+{
+
+var valormod= document.getElementById("valor_ncj["+codcj+"]["+codtipocj+"]").value;
+
+document.form3.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=2&modped=$modped&codorcselect=$codorcselect&"; ?>Action=atualiza&updtwhat=micro&codprodselect='+ codprod +'&codcjselect='+codcj+'&codpedselect='+codped+'&valormod='+valormod+'&codtipocjselect='+codtipocj+'';
+document.form3.target = '';
+document.form3.submit();
+
+}
+
+function doOne(form3, codpped, codped)
+{
+
+var valormod= document.getElementById("valor_num["+codpped+"]").value;
+
+document.form3.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=2&modped=$modped&codorcselect=$codorcselect&"; ?>Action=atualiza&updtwhat=peca&codppedselect='+codpped+'&codpedselect='+codped+'&valormod='+valormod+'';
+document.form3.target = '';
+document.form3.submit();
+
+}
+
+function doRetorna(form3, codped)
+{
+
+document.form3.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=2&modped=$modped&codorcselect=$codorcselect&"; ?>Action=retornavalores&codpedselect='+codped+'';
+document.form3.target = '';
+document.form3.submit();
+
+}
+
+function doMaxx(block)
+{
+
+	if (block == 0){
+	 alert('IMPORTANTE! Você possui um COMPUTADOR PARA TODOS no seu carrinho! Esse produto so poderá ser vendido através do FINANCIAMENTO CEF para todos ou FINANCIAMENTO BCO BRASIL para todos. O sistema BLOQUEARÁ caso não haja alguma dessas formas de pagamento ateriormente citadas. ');
+ 
+	}
+
+	
+}
+
+</script>
+
+<table width="770"  border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><?
+       include(DIR_SISTEMA."/".DIR_MODULOS."/modulo_pedido/start_ped_topocarrinho.php");
+    ?><br>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td background="<? echo DIR_IMAGES; ?>/formpg_ind_fundo_on.gif"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_1_on.gif" width="112" height="50"></td>
+    <td background="<? echo DIR_IMAGES; ?>/formpg_ind_fundo_off.gif"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_2_off.gif" width="123" height="50"></td>
+    <td background="<? echo DIR_IMAGES; ?>/formpg_ind_fundo_off.gif"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_3_off.gif" width="140" height="50"></td>
+    <td background="<? echo DIR_IMAGES; ?>/formpg_ind_fundo_off.gif"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_4_off.gif"></td>
+    <td background="<? echo DIR_IMAGES; ?>/formpg_ind_fundo_off.gif"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_5_off.gif" width="134" height="50"></td>
+  </tr>
+  <tr>
+    <td colspan="5"><table width="100%"  border="0" cellspacing="2" cellpadding="3">
+        <tr>
+          <td width="165"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_comprar_mais.gif" width="165" height="16"></td>
+          <td width="115"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_alterar_pedido.gif" width="115" height="16"></td>
+          <td>&nbsp;</td>
+        </tr>
+    </table></td>
+  </tr>
+</table>
+<table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><img src="<? echo DIR_IMAGES; ?>/carrinhodecompras.gif" width="255" height="40"></td>
+    <td><p><span class="label">EMPRESA:</span><br>
+      <? echo "$nomeempselect"; ?><br>
+    </p>      </td>
+  </tr>
+  <tr>
+    <td colspan="2" background="<? echo DIR_IMAGES; ?>/spacer.gif" bgcolor="#FF9900"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+  </tr>
+</table>
+<br>
+<?
+if (count($array1) > 0){
+?>
+<form action="" method="post" name ="form3">
+  <table width="100%"  border="0" align="center" cellpadding="3" cellspacing="0">
+    <tr class="titulos_itens">
+      <td align="center">&nbsp;</td>
+      <td align="center">Cod.</td>
+      <td>Produto</td>
+      <td align="center">Gar<br>
+        (M&ecirc;s)
+        <br></td>
+      <td align="center">Cor</td>
+      <td align="center">Qtde.</td>
+      <td align="center">Pos.<br> 
+      Est. </td>
+      <td colspan="2" align="center">Pre&ccedil;o <br>
+(R$) </td>
+      <td align="center">&nbsp;</td>
+      </tr>
+<?
+
+
+for ($i = 0; $i < count($arrayx); $i++)
+{
+
+//ESTOQUE
+$oc_u=0;
+if ($est[$i] >= 0){$img=DIR_IMAGES."/est_pos_ok.gif";}
+if (($est[$i] < 0) and $qtde_oc[$i] > 0){$img=DIR_IMAGES."/note_icon.gif";$oc=$qtde_oc[$i];$oc_u=1;}
+if (($est[$i] < 0) and $qtde_oc[$i] <= 0){$img=DIR_IMAGES."/est_pos_no.gif";}
+
+if ($opcaixa10x[$i] <> ""){$img10x="<img src='".DIR_IMAGES."/10x.gif'>";}else{$img10x="";}
+
+
+	if ($xtipoprod <> $tipoprod[$i])
+	{
+		if ($tipoprod[$i] == 'CJ')
+		{
+			$titulocat = "Microcomputadores";
+		}
+		else
+		{
+			$titulocat = "Produtos Adicionais";
+		}
+?>
+    <tr class="titulos_cat0">
+      <td colspan="7"><? echo "$titulocat"; ?></td>
+      <td colspan="2" align="right">&nbsp;</td>
+      <td align="right"><a href=""><img src="<? echo DIR_IMAGES; ?>/topo0.gif" width="40" height="15" border="0"></a></td>
+      </tr>
+<?
+	}
+	$xtipoprod = $tipoprod[$i];
+
+	if ($xtipocj <> $tipocj[$i] and $tipoprod[$i] == 'CJ')
+	{
+		$tipocj_n = $tipocj[$i];
+		$placaSelectU = $placaSelect_alter[$tipocj[$i]];
+		
+?>
+    <tr class="titulos_subcat0">
+      <td colspan="5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Configura&ccedil;&atilde;o <? echo "$tipocj[$i]"; ?><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<? echo "$nomeprodcj[$i]"; ?></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td colspan="3" align="right"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=3&Action=start_altera&Action_alter=altera&codpedselect=$codpedselect&placaSelect=$placaSelectU"; ?>"><img src="<? echo DIR_IMAGES; ?>/btaltconfig.gif" alt="Alterar Configura&ccedil;&atilde;o" width="119" height="36" border="0"></a></td>
+      </tr>
+    <tr>
+      <td align="center">&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td align="right" class="titulos_itens">&nbsp;</td>
+      <td align="right" class="titulos_itens">SUBTOTAL</td>
+      <td align="center"> <input name="valor_acj[<? echo "$codprodcj[$i]"; ?>][<? echo "$tipocj[$i]"; ?>]" type="hidden" value="<? echo "$subtotalf[$tipocj_n]"; ?>">
+        <input id = "valor_ncj[<? echo "$codprodcj[$i]"; ?>][<? echo "$tipocj[$i]"; ?>]" name="valor_ncj[<? echo "$codprodcj[$i]"; ?>][<? echo "$tipocj[$i]"; ?>]" type="text" class="subtotal" value="<? echo "$subtotalf[$tipocj_n]"; ?>" size="10" onkeyPress="if (!(mascara_valor(this))) return false;" onFocus="virgula(this, '', 1)" onBlur="virgula(this, 1, '')"></td>
+      <td align="center"><input name="imageField" type="image" src="<? echo DIR_IMAGES; ?>/b_edit.png" alt="Altualizar Valor" border="0"  onClick='doTwo(form3, <? echo"$codprod[$i]"; ?>, <? echo"$codprodcj[$i]"; ?>, <? echo"$codpedselect"; ?>, <? echo"$tipocj[$i]"; ?>)'></td>
+      <td align="center"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=2&Action=delete&codpedselect=$codpedselect&delwhat=micro&Dcodprodcj=$codprodcj[$i]&Dtipocj=$tipocj[$i]"; ?>" onClick="return confirm ('Deseja excluir este micro?')"><img src="<? echo DIR_IMAGES; ?>/bteliminar.png" alt="Excluir" width="16" height="16" border="0"></a></td>
+      </tr>
+<?
+	}
+	$xtipocj = $tipocj[$i];
+	if ($prod_lib[$i]==1){ $risc = "style='text-decoration: line-through;'";}else{$risc = "";}
+	#echo "Estrela = $estrela[$i]";
+	
+	if ($tipoprod[$i] == 'CJ')
+	{
+?>
+    <tr onMouseOver="this.bgColor='#FFDBB7'" onMouseOut="this.bgColor ='#FFFFFF'" bgcolor="#FFFFFF">
+      <td align="center">&nbsp;</td>
+      <td align="center"><? echo "$codprod[$i]"; ?></td>
+      <td><span class="nomeprod1"><span <? echo "$risc"; ?>> <? echo "$nomeprod[$i]"; ?> </span><div id="foralinha" align = "center" style="visibility: <? if ($prod_lib[$i]==1){ echo"visible";}else{echo"hidden";}?>; background-color: #FFCC00; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 9px; color: #000000; padding: 3px; font-weight: bold; text-transform: uppercase; position: absolute">FORA DE LISTA</div></span><br>
+        <span class="nomeprod2"><? echo "$descres[$i]"; ?></span><br>
+         <span class="amarelonegrito"><? echo "$descr_plano[$i]"; ?></span></td>
+      <td align="center"><?if ($estrela[$i] ==1){ echo "<img src='".DIR_IMAGES."/estrela.gif' width='13' height='13'>";}?><?if ($estrela_os[$i] ==1){ echo "<img src='".DIR_IMAGES."/kfm_home-alt.png'>";}?><BR><? echo "$gar_cj[$i]"; ?></td>
+      <td><?
+if ($mostra_cor[$i] <> "1") {
+echo "
+<table  border='0' align='center' cellpadding='2' cellspacing='2'>
+  <tr>
+    <td><table  border='0' cellpadding='0' cellspacing='0' bgcolor='$cor1_prod[$i]'>
+      <tr>
+        <td style='$borda_cor1[$i]'><img src='".DIR_IMAGES."/fcor.gif' width='10' height='10'></td>
+      </tr>
+    </table></td>
+    <td><table  border='0' cellpadding='0' cellspacing='0' bgcolor='$cor2_prod[$i]'>
+      <tr>
+        <td style='$borda_cor2[$i]'><img src='".DIR_IMAGES."/fcor.gif' width='10' height='10'></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+";
+}
+?><? echo"$img10x"; ?></td>
+      <td align="center"><? echo "$qtde[$i]"; ?></td>
+      <td align="center"><a class="info" href="#"><img src="<? echo"$img"; ?>" border = "0"><? if ($oc_u == 1){?><span>DATA PREVISÃO: <? echo"$dataprev_ocf[$i]"; ?></span><?}?><BR><? echo"$oc"; ?></a></td>
+      <td colspan="2" align="center"><span class="nomeprod1"><? echo "$pputf[$i]"; ?></span></td>
+      <td align="center"></td>
+      </tr>
+<?
+	}
+	else
+	{
+
+?>
+    <tr onMouseOver="this.bgColor='#FFDBB7'" onMouseOut="this.bgColor ='#FFFFFF'" bgcolor="#FFFFFF">
+      <td align="center">&nbsp;</td>
+      <td align="center"><? echo "$codprod[$i]"; ?></td>
+      <td><span class="nomeprod1"><span <? echo "$risc"; ?>><? echo "$nomeprod[$i]"; ?></span><div id="foralinha" align = "center" style="visibility: <? if ($prod_lib[$i]==1){ echo"visible";}else{echo"hidden";}?>; background-color: #FFCC00; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 9px; color: #000000; padding: 3px; font-weight: bold; text-transform: uppercase; position: absolute">FORA DE LISTA</div></span><br>
+          <span class="nomeprod2"><? echo "$descres[$i]"; ?></span><br>
+          <span class="amarelonegrito"><? echo "$descr_plano[$i]"; ?></span></td>
+      <td align="center"><?if ($estrela[$i] ==1){ echo "<img src='".DIR_IMAGES."/estrela.gif' width='13' height='13'>";}?><?if ($estrela_os[$i] ==1){ echo "<img src='".DIR_IMAGES."/kfm_home-alt.png' >";}?><BR><? echo "$gar_um[$i]"; ?></td>
+      <td><?
+if ($mostra_cor[$i] <> "1") {
+echo "
+<table  border='0' align='center' cellpadding='2' cellspacing='2'>
+  <tr>
+    <td><table  border='0' cellpadding='0' cellspacing='0' bgcolor='$cor1_prod[$i]'>
+      <tr>
+        <td style='$borda_cor1[$i]'><img src='".DIR_IMAGES."/fcor.gif' width='10' height='10'></td>
+      </tr>
+    </table></td>
+    <td><table  border='0' cellpadding='0' cellspacing='0' bgcolor='$cor2_prod[$i]'>
+      <tr>
+        <td style='$borda_cor2[$i]'><img src='".DIR_IMAGES."/fcor.gif' width='10' height='10'></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+";
+}
+?><? echo"$img10x"; ?></td>
+      <td align="center"><? echo "$qtde[$i]"; ?></td>
+      <td align="center"><a class="info" href="#"><img src="<? echo"$img"; ?>" border = "0"><? if ($oc_u == 1){?><span>DATA PREVISÃO: <? echo"$dataprev_ocf[$i]"; ?></span><?}?><BR><? echo"$oc"; ?></a></td>
+      <td align="center"> <input name="valor_aum[<? echo "$codprodcj[$i]"; ?>][<? echo "$tipocj[$i]"; ?>][<? echo "$codprod[$i]"; ?>]" type="hidden" value="<? echo "$pput[$i]"; ?>">
+        <input id = "valor_num[<? echo "$codpped[$i]"; ?>]" name="valor_num[<? echo "$codpped[$i]"; ?>]" type="text" class="subtotal" value='<? echo "$pputf[$i]"; ?>' size="10" onkeyPress="if (!(mascara_valor(this))) return false;" onFocus="virgula(this, '', 1)" onBlur="virgula(this, 1, '')"></td>
+      <td align="center"><input name="imageField" type="image" src="<? echo DIR_IMAGES; ?>/b_edit.png" alt="Altualizar Valor" border="0"  onClick='doOne(form3, <? echo"$codpped[$i]"; ?>, <? echo"$codpedselect"; ?>)'></td>
+      <td align="center"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=2&Action=delete&codpedselect=$codpedselect&codppedselect=$codpped[$i]&delwhat=peca"; ?>" onClick="return confirm ('Deseja excluir este produto?')"><img src="<? echo DIR_IMAGES; ?>/bteliminar.png" alt="Excluir" width="16" height="16" border="0"></a></td>
+      </tr>
+<?
+	}
+$img = "";
+$oc = "";
+$erro_fora_lista = $erro_fora_lista + $prod_lib[$i];
+} // For
+?>
+    <tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td colspan="2">&nbsp;</td>
+      <td>&nbsp;</td>
+      </tr>
+    <tr>
+      <td align="center">&nbsp;</td>
+      <td align="center">&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td class="total2">&nbsp;</td>
+      <td class="total2">TOTAL</td>
+      <td colspan="2" align="center"><span class="total1"><? echo "$totalf"; ?></span></td>
+      <td align="center" class="total1">&nbsp;</td>
+      </tr>
+  </table>
+  <br>
+  <table width="100%"  border="0" align="center" cellpadding="3" cellspacing="0">
+    <tr>
+      <td width="33%"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=2&Action=cancela_carrinho&codpedselect=$codpedselect"; ?>"><img src="<? echo DIR_IMAGES; ?>/btcancelarcarrinho.gif" width="91" height="30" border="0"></a></td>
+      <td align="center"><input name="imageField" type="image" src="<? echo DIR_IMAGES; ?>/btrecupvalorestab.gif" width="135" height="30" border="0" onClick='doRetorna(form3, <? echo"$codpedselect"; ?>)'> </td>
+      <td width="34%" align="right"><? if ($erro_fora_lista == 0 ){?><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=10&Action=delete&codpedselect=$codpedselect&modped=$modped&codorcselect=$codorcselect"; ?>"><img src="<? echo DIR_IMAGES; ?>/btfinalizarcarrinho.gif" alt="Finalizar Compra" width="91" height="30" border="0" onClick="return doMaxx(<? echo $block_maxx; ?>)"></a><? }?></td>
+    </tr>
+  </table>
+</form>
+<?
+} else {
+?>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0" class="carrinhovazio">
+  <tr>
+    <td height="160" align="center">Seu carrinho est&aacute; vazio. </td>
+  </tr>
+  <tr>
+    <td align="center" background="<? echo DIR_IMAGES; ?>/spacer.gif" bgcolor="#FF9900"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+  </tr>
+</table>
+<?
+}
+?></td>
+  </tr>
+</table>
+</body>
+</html>

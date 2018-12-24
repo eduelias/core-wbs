@@ -1,0 +1,122 @@
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>WEB BUSINESS SYSTEM</title>
+
+<script type="text/javascript" language="JavaScript" src="menus.js"></script>
+<link href="<? echo DIR_CSS; ?>/sistema.css" rel="stylesheet" type="text/css">
+<link rel='stylesheet' href='style.css' type='text/css'>
+<link rel='stylesheet' href='css/padrao.css' type='text/css'>
+<SCRIPT language=JavaScript src='scripts.js'></SCRIPT>
+<SCRIPT language=JavaScript src='consiste.js'></SCRIPT>
+<SCRIPT language=JavaScript src='<? echo DIR_AJAX; ?>/javascript.js'></SCRIPT>
+<SCRIPT language=JavaScript src='<? echo DIR_AJAX; ?>/json.js'></SCRIPT>
+<SCRIPT language=JavaScript src='<? echo DIR_JS; ?>/scripts.js'></SCRIPT>
+
+
+</head>
+
+<body onKeyDown='cancelEnter();'>
+  	<? if (C_WBS == 'wbs-teste') {
+		echo '<div style="position:absolute; top:80px; left:40px; font-size:44px; color:#FF0000; font-weight:bold;"> TESTE </div>';
+	}?>
+<?
+	for($i = 0; $i < count($array_menu); $i++ ){
+
+?>
+<DIV id= <? echo"$div_name[$i]"; ?> style='Z-INDEX: 100000; FILTER: progid:DXImageTransform.Microsoft.Shadow(color=#888888,strength=5,direction=135); VISIBILITY: hidden; POSITION: absolute'>
+<TABLE class=topMenuItems cellSpacing=0 cellPadding=1  border=0>
+  <TBODY>
+<?
+		for($j = 0; $j < $sub_array[$i]; $j++ ){
+
+		// DADOS //
+		$xcodpg_menu = $codpg_menu[$i][$j];
+		$xnomem_menu = $nomem_menu[$i][$j];
+		$xarquivo_menu = $arquivo_menu[$i][$j];
+		$xactionpg_menu = $actionpg_menu[$i][$j];
+		$xnovo_menu = $novo_menu[$i][$j];
+		
+		$ppb = ($xnovo_menu=="S"?"../".WBS_NOVO."/":""); 
+		$add= "";
+		if ($xarquivo_menu == "start_ped_index.php" or $xarquivo_menu == "start_ped_atacado_index.php" or  $xarquivo_menu == "start_ped_distribuidor_index.php" or  $xarquivo_menu == "start_ped_rev_distribuidor_index.php"  or  $xarquivo_menu == "start_ped_distribuidor_direto_index.php" or  $xarquivo_menu == "start_ped_distribuidor_especial_index.php"){$add = 1;$add1 = "target = '_blank'";}else{$add=0;$add1="";}
+	/*
+		onclick="gotoTopMenuItem('restrito.php?Action=list&pg=<? echo"$xcodpg_menu"; ?>&desloc=0&menu_not=<? echo"$add"; ?>')"
+		*/
+?>	
+
+   <TR class=topMenuItemOff onmouseover=onTopMenuItem(this)  onmouseout=offTopMenuItem(this) statustext='<? echo"$xnomem_menu"; ?>'>
+    <TD width=25 height=16><IMG src='images/menu_tick.gif' hspace=5 vspace=5></TD>
+    <TD><a href ="<? echo $ppb."restrito.php?Action=list&pg=$xcodpg_menu&desloc=0&menu_not=$add"?>" <?echo "$add1"?> ><? echo"$xnomem_menu"; ?></a></TD>
+    <TD>&nbsp;</TD>
+   </TR>
+
+<? 		}//FOR ?>
+</TBODY></TABLE>
+</DIV>
+<?	}//FOR ?>
+<table width="760"  border="0" align="center" cellpadding="0" cellspacing="0" class="corpo">
+  <tr>
+    <td valign="top"><table width="100%"  border="0" cellpadding="0" cellspacing="0" class="topo">
+        <tr>
+          <td width="150" valign="bottom" bgcolor="#ECF3FA"><a href="<? echo "$PHP_SELF"; ?>"><img src="images/logotipowbs2_1.jpg" width="150" height="30" border="0"></a></td>
+          <td bgcolor="#ECF3FA"><table width="100%"  border="0" align="right" cellpadding="2" cellspacing="1">
+              <tr>
+                <td align="left" class="txt10normal"><a href="<? echo "$PHP_SELF"; ?>"><img src="images/bt_home.gif" width="78" height="23" border="0"></a></td>
+                <td align="center" class="txt10normal"><span id="clock"></span>
+                <script language="JavaScript" type="text/javascript" src="relogio.js"></script></td>
+                <td width="120" align="right"><a href='<? echo DIR_HOME ?>'><img src="images/logout.gif" alt="Sair do Sistema" border="0"></a></td>
+              </tr>
+          </table></td>
+        </tr>
+        <tr>
+          <td background="images/fundomenu.jpg"><a href="<? echo "$PHP_SELF"; ?>"><img src="images/logotipowbs2_2.jpg" width="150" height="80" border="0"></a></td>
+          <td background="images/fundomenu.jpg">
+
+<TABLE cellSpacing=2 cellPadding=0 border=0>
+          <TBODY>
+            <TR>
+              <?
+	for($i = 0; $i < count($array_menu); $i++ ){
+
+		   if ($sub_array[$i] > 0){ ?>
+              <TD class=topButtonOff id=<? echo"$div_name_m[$i]"; ?> onmouseover=onTopButton(this) onmouseout=offTopButton(this)><IMG src='images/<? echo"$image[$i]"; ?>' width="32" height="32"><BR>
+                  <? echo"$menu[$i]"; ?><BR>&nbsp;</TD>
+              <? 
+			  }
+	}//FOR 
+?>
+            </TR>
+          </TBODY>
+        </TABLE>
+		  </td>
+        </tr>
+        <tr bgcolor="#C0D6EF">
+          <td height="20" valign="top"><a href="<? echo "$PHP_SELF"; ?>"><img src="images/logotipowbs2_3.jpg" width="150" height="30" border="0"></a></td>
+          <td><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="50%"><table  border="0" cellspacing="1" cellpadding="2">
+                <tr>
+                  <td><strong>LOGIN:</strong></td>
+                  <td><? echo "$login"; ?></td>
+                  <td><strong>GRUPO:</strong></td>
+                  <td><? echo "$nomegrp"; ?></td>
+                  <td>&nbsp;</td>
+                </tr>
+              </table></td>
+              <td><table  border="0" align="right" cellpadding="2" cellspacing="1">
+                <tr>
+                  <td>&nbsp;</td>
+                  <td><a href="<? echo "$PHP_SELF?Action=list&pg=$pg_sel&pg_ped=$pg_ped"; ?>" target="_blank"><img src="<? echo $img_msg; ?>" width="91" height="25" border="0"></a></td>
+                  </tr>
+              </table></td>
+            </tr>
+          </table></td>
+        </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td valign="top"><table width="100%"  border="0" cellspacing="2" cellpadding="3">
+        <tr>
+          <td>

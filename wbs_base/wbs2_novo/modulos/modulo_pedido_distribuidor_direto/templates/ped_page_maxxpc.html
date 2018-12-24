@@ -1,0 +1,297 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" name="corpo" >
+<title></title>
+<link href="<? echo DIR_CSS; ?>/sistema.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<style>
+a.info{
+    position:relative;
+    color:#000;
+    padding-right: 0px;
+    padding-left: 0;
+    text-decoration:none;
+    cursor:help;
+    z-index:5;
+}
+a.info:hover{background-color:#fff;z-index:20; text-decoration:none;}
+a.info span{display: none}
+a.info:hover span{
+    display:block;
+    position:absolute;
+    top:20px; left:-100px; width:200px;
+    font-size:11px;
+    padding: 5px;
+    border:1px solid #000;
+    background-color:#FFFFFF; color:#000;
+    text-align: center;
+    cursor:help;
+    z-index:20;
+}
+</style>
+
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+//-->
+
+function ShowHelp(div, title, desc)
+{
+	var desc1 = parent.frames["icarrinho"].document.getElementById("micro").value;
+	div = document.getElementById(div);
+	div.style.display = 'inline';
+	div.style.position = 'absolute';
+	div.style.width = '500';
+	div.style.backgroundColor = 'lightyellow';
+	div.style.border = 'dashed 1px black';
+	div.style.padding = '10px';
+	div.innerHTML = '<div style="padding-left:10; padding-right:5">' + desc1 + '</div>';
+}
+
+function HideHelp(div)
+{
+	div = document.getElementById(div);
+	div.style.display = 'none';
+}
+
+
+function doOne(form, codcat, codprodcj, codcj, preco, codped, codprod, codtipocj, i_local, i_total, tipo, ordem)
+{
+
+ 
+for (var j=0; j < i_total; j++)
+    {
+    
+    var _obj ="seta_"+j+"_"+codcat;
+    if (document.getElementById(_obj)){
+    	document.getElementById(_obj).src = "<? echo DIR_IMAGES; ?>/spacer.gif";
+	}
+    var _obja ="seta_"+j+"_"+codcat+"a";
+    if (document.getElementById(_obja)){
+    	document.getElementById(_obja).src = "<? echo DIR_IMAGES; ?>/spacer.gif";
+	}
+    }
+    if (tipo == 1){
+    	var _obj1 ="seta_"+i_local+"_"+codcat+"a";
+    }else{
+    	var _obj1 ="seta_"+i_local+"_"+codcat;
+    }
+document.getElementById(_obj1).src = "<? echo DIR_IMAGES; ?>/requerido.gif";
+    
+document.form.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=6&"; ?>Action=altera&codprodcjselect='+ codprodcj +'&codcatselect='+codcat+'&codcjselect='+codcj+'&precoselect='+preco+'&codpedselect='+codped+'&codtipocjselect='+codtipocj+'&ordemselect='+ordem+'';
+document.form.target = 'icarrinho';
+document.form.submit();
+
+
+
+}
+//-->
+function doTwo(form7, codcj, codped, codtipocj)
+{
+
+var qtde = document.getElementById("qtde_nova").value
+
+document.form7.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=6&Action=alteraqtde&"; ?>codcjselect='+codcj+'&codpedselect='+codped+'&codtipocjselect='+codtipocj+'&qtde_nova='+qtde+'';
+document.form7.target = 'icarrinho';
+document.form7.submit();
+
+}
+
+
+
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+//-->
+</script>
+
+</head>
+
+<body>
+<table width="778"  border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td>
+<?
+include(DIR_SISTEMA."/".DIR_MODULOS."/modulo_pedido_atacado/start_ped_topocarrinho.php");
+
+?>
+
+<br>
+<table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><img src="<? echo DIR_IMAGES; ?>/configureseumaxxpc.gif"></td>
+     <td align="right">
+
+<a href="#" onMouseOut="HideHelp('d22')" onMouseOver="ShowHelp('d22', 'Perdeu sua senha?', 'Perdeu Playboy, perdeooooooooooo!!!.')"><img src="<? echo DIR_IMAGES; ?>/btdetalhemicro.gif" width="115" height="30" border="0"></a>
+
+</td>
+  </tr>
+  <tr>
+    <td background="<? echo DIR_IMAGES; ?>/spacer.gif" bgcolor="#5986C3"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+	<td background="<? echo DIR_IMAGES; ?>/spacer.gif" bgcolor="#5986C3"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+  </tr>
+</table>
+
+<?
+if ($Action_alter == "altera"){
+
+	$Action = "start_altera";
+	$pesq = 1;
+}else{
+	$Action = "start";
+	$pesq = 0;
+}
+
+
+
+?>
+<div style="display:none; z-index:1; " id="d22"></div>
+<div style=" color:#FF0000; font-variant:small-caps; font-size:16px; font-weight:bold; z-index:1; " id="erro"><br><? echo $erro_carrinho; ?><br></div>
+
+<table width="100%"  border="0" align="center" cellpadding="3" cellspacing="1">
+  <tr class="titulos_itens">
+    <td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td align="center">Cod.</td>
+    <td>Produto</td>
+    <td align="center">Gar<br>
+      (M&ecirc;s)</td>
+    <td align="center">Cor</td>
+    <td align="center">Pre&ccedil;o</td>
+    <td align="center">Pos. Est. </td>
+    <td align="center">Dif. Pre&ccedil;o </td>
+  </tr>
+   <form action="start_ped_icarrinho.php" method="post" name="form" target="icarrinho">
+
+ <?
+ $itotal = count($array2);
+
+	for($i = 0; $i < count($array2); $i++ ){
+
+
+if (($relacao_prod_pl[$i]  <> 0 AND $restricao_pl[$i] == 'OK') OR $restricao_pl[$i] <> 'OK'){
+
+if ($xcodcat <> $codcat[$i]){
+
+?>
+  <tr class="titulos_cat">
+  <td colspan="8"><? echo"$nomecat[$i]"; ?></td>
+    <td align="center"><img src="<? echo DIR_IMAGES; ?>/topo1.gif" width="40" height="15"></td>
+  </tr>
+ <?
+ 
+ 	if ($n_prod_int[$i] == "OK" OR $n_prod_ext[$i] == "OK"){
+?>
+	<tr>
+	<td colspan="9" class="titulos_subcat">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	</tr>
+   
+   <tr onMouseOver="this.bgColor='#FFDBB7'" onMouseOut="this.bgColor ='#FFFFFF'" bgcolor="#FFFFFF" onMouseDown="this.bgColor='#ffffff'">
+   <td align="center"><img id = "seta_<? echo"$i"; ?>_<? echo"$codcat[$i]"; ?>a" src="<? echo"$mark"; ?>"></td>
+      <td><input name="<? echo"codprodselect[$codcat[$i]]"; ?>" type="radio" value="-1" onClick='doOne(form,<? echo"$codcat[$i]"; ?>, <? echo"$codsubcat[$i]"; ?>, <? echo"$codcjselect"; ?>, <? echo"$preco[$i]"; ?>, <? echo"$codpedselect"; ?>, <? echo"$codprod"; ?>, <? echo"$codtipocjselect"; ?>, <? echo"$i"; ?>, <? echo"$itotal"; ?> , 1, <? echo"$ordem[$i]"; ?>)' checked></td>
+      <td align="center" class="nomeprod1">&nbsp;</td>
+      <td class="vermelhonegrito">N&Atilde;O ADICIONAR NENHUM PRODUTO </td>
+      <td class="vermelhonegrito">&nbsp;</td>
+      <td class="vermelhonegrito">&nbsp;</td>
+      <td align="center" class="nomeprod1">&nbsp;</td>
+      <td align="center" class="nomeprod1">&nbsp;</td>
+      <td align="center" class="nomeprod1">&nbsp;</td>
+    </tr>
+ <?
+	}
+ 
+}
+$xcodcat = $codcat[$i];
+
+if ($xcodsubcat <> $codsubcat[$i]){
+?>
+
+  <tr>
+  <td colspan="9" class="titulos_subcat">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class = "nomeprod2"><? echo"$nomecat[$i]"; ?>/</span><? echo"$nomesubcat[$i]"; ?></td>
+    </tr>
+<?
+
+
+}
+$xcodsubcat = $codsubcat[$i];
+
+
+//ESTOQUE	
+$oc_u = 0;
+if ($est[$i] > 0){$img=DIR_IMAGES."/est_pos_ok.gif";}
+if (($est[$i] == 0 OR $est[$i] < 0) and $qtde_oc[$i] > 0){$img=DIR_IMAGES."/note_icon.gif";$oc=$qtde_oc[$i];$oc_u=1;}
+if (($est[$i] == 0 OR $est[$i] < 0) and $qtde_oc[$i] <= 0){$img=DIR_IMAGES."/est_pos_no.gif";}
+
+if ($opcaixa10x[$i] <> ""){$img10x="<img src='".DIR_IMAGES."/10x.gif'>";}else{$img10x="";}
+
+if ($opcao[$i] == "checked"){$bgcor = "#F1EA5C";$mark = DIR_IMAGES."/requerido.gif";}else{$bgcor="#FFFFFF";$mark = DIR_IMAGES."/spacer.gif";}
+
+if ($restricao_view[$i] <> 1){
+
+?>
+    <tr bgcolor="<? echo"$bgcor"; ?>"  onmouseover="this.bgColor='#FFDBB7'" onMouseOut="this.bgColor ='<? echo"$bgcor"; ?>'" >
+	<td width="30" align="center"><img id = "seta_<? echo"$i"; ?>_<? echo"$codcat[$i]"; ?>" src="<? echo"$mark"; ?>"> </td>
+      <td><input name="<? echo"codprodselect[$xcodcat]"; ?>" type="radio" value="<? echo"$codprod[$i]"; ?>" onClick='doOne(form, <? echo"$codcat[$i]"; ?>, <? echo"$codsubcat[$i]"; ?>, <? echo"$codcjselect"; ?>, <? echo"$preco[$i]"; ?>, <? echo"$codpedselect"; ?>, <? echo"$codprod"; ?>, <? echo"$codtipocjselect"; ?>,  <? echo"$i"; ?>, <? echo"$itotal"; ?>, 0, <? echo"$ordem[$i]"; ?> )' <? echo"$opcao[$i]"; ?>></td>
+      <td align="center" class="nomeprod1"><? echo"$codprod[$i]"; ?></td>
+      <td><span class="nomeprod1"><a href="javascript:void(0);" onClick="MM_openBrWindow('<? echo"$PHP_SELF?pg=$pg&pg_ped=17&codpedselect=$codpedselect&codprodselect=$codprod[$i]"; ?>','Detalhes','scrollbars=yes,width=550,height=400')"><? echo"$nomeprod[$i]"; ?></a></span><br>
+          <span class="nomeprod2"><? echo"$descres[$i]"; ?></span></td>
+      <td align="center"><span class="nomeprod1"><?if ($estrela[$i] ==1){ echo "<img src='".DIR_IMAGES."/estrela.gif' width='13' height='13'>";}?><BR><? echo"$gar_cj[$i]"; ?></span></td>
+      <td align="center"><?
+if ($mostra_cor[$i] <> "1") {
+echo "
+<table  border='0' align='center' cellpadding='2' cellspacing='2'>
+  <tr>
+    <td><table  border='0' cellpadding='0' cellspacing='0' bgcolor='$cor1_prod[$i]'>
+      <tr>
+        <td style='$borda_cor1[$i]'><img src='".DIR_IMAGES."/fcor.gif' width='10' height='10'></td>
+      </tr>
+    </table></td>
+    <td><table  border='0' cellpadding='0' cellspacing='0' bgcolor='$cor2_prod[$i]'>
+      <tr>
+        <td style='$borda_cor2[$i]'><img src='".DIR_IMAGES."/fcor.gif' width='10' height='10'></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+";
+}
+?><? echo"$img10x"; ?></td>
+      <td align="center" class="nomeprod1"><? echo"$precof[$i]"; ?></td>
+      <td align="center" class="nomeprod1"><a class="info" href="#"><img src="<? echo"$img"; ?>" border = "0"><? if ($oc_u == 1){?><span>DATA PREVISÃO: <? echo"$dataprev_ocf[$i]"; ?></span><?}?><BR><? echo"$oc"; ?></a></td>
+      <td align="center" class="nomeprod1">0,00</td>
+    </tr>
+<?
+}
+}
+$img = "";
+$oc = "";
+	}//FOR
+?>
+
+
+  </form>
+</table>
+<br>
+<table width="100%"  border="0" align="center" cellpadding="3" cellspacing="0">
+  <tr>
+    <td width="33%"><a href="<? echo "$PHP_SELF?pg=$pg&pg_ped=2&codpedselect=$codpedselect"; ?>"><img src="<? echo DIR_IMAGES; ?>/btvoltarcarrinho.gif" width="91" height="30" border="0"></a></td>
+    <td><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+        <form action="#" method="post" name="form7" >
+          <tr>
+            <td><input name="qtde_nova" type="text" class="campoquant" id="qtde_nova" value="1" size="2" maxlength="2"></td>
+            <td><input name="imageField" type="image" src="<? echo DIR_IMAGES; ?>/btaltererquant.gif" width="101" height="30" border="0" onclick = "doTwo(form7, <? echo"$codcjselect"; ?>, <? echo"$codpedselect"; ?>, <? echo"$codtipocjselect"; ?>)"></td>
+          </tr>
+        </form>
+    </table></td>
+    <td width="34%" align="right"><a href="<? echo "$PHP_SELF?pg=$pg&pg_ped=22&Action=grava&codpedselect=$codpedselect&placaSelect=$placaSelect"; ?>"><img src="<? echo DIR_IMAGES; ?>/btguardarcarrinho.gif" border="0"></a></td>
+  </tr>
+</table></td>
+  </tr>
+</table>
+<?
+
+?>
+</body>
+</html>

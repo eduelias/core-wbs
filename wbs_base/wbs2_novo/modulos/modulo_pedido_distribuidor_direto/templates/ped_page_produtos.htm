@@ -1,0 +1,313 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/sistema.css" rel="stylesheet" type="text/css">
+<style>
+a.info{
+    position:relative;
+    color:#000;
+    padding-right: 0px;
+    padding-left: 0;
+    text-decoration:none;
+    cursor:help;
+    z-index:5;
+}
+a.info:hover{background-color:#fff;z-index:20; text-decoration:none;}
+a.info span{display: none}
+a.info:hover span{
+    display:block;
+    position:absolute;
+    top:20px; left:-100px; width:200px;
+    font-size:11px;
+    padding: 5px;
+    border:1px solid #000;
+    background-color:#FFFFFF; color:#000;
+    text-align: center;
+    cursor:help;
+    z-index:20;
+}
+</style>
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+//-->
+function doTwo(form3, codcat, codprod, codcj, preco, codped, ordem)
+{
+var campo = "qtde"+codprod;
+
+var qtde= document.getElementById("qtde["+codprod+"]").value;
+var plano= document.getElementById("plano_select["+codprod+"]").value;
+
+document.form3.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=8&"; ?>Action=adiciona&codprodselect='+ codprod +'&codcatselect='+codcat+'&codcjselect='+codcj+'&precoselect='+preco+'&codpedselect='+codped+'&qtdeselect='+qtde+'&ordemselect='+ordem+'&planoselect='+plano+'';
+document.form3.target = 'iprodutoadc';
+document.form3.submit();
+
+document.form3.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=6&"; ?>codprodselect='+ codprod +'&codcatselect='+codcat+'&codcjselect='+codcj+'&precoselect='+preco+'&codpedselect='+codped+'&ordemselect='+ordem+'';
+document.form3.target = 'icarrinho';
+document.form3.submit();
+
+}
+//-->
+
+var NameArray2 = new Array();
+var ValueArray2 = new Array();
+
+<?
+	for($i = 0; $i < count($array_pesq); $i++ ){
+	$u = $i+1;
+?>
+NameArray2[<? echo"$u"; ?>] = new Array(<? echo"$nomesubcat_pesq[$i]"; ?>);
+ValueArray2[<? echo"$u"; ?>] = new Array(<? echo"$codsubcat_pesq[$i]"; ?>);
+<?
+	}//FOR
+?>
+
+function changePesq(){
+ // Obtain the first dimension position of the currently selected theaterRegion
+ //
+
+  var cjIX = document.forms["pesq"].cjPesq.selectedIndex;
+
+  if (cjIX > 0){
+   // set the length of the new multi-option
+   //
+
+   	 // CALCULA O NUMERO DE LINHAS DO FOR
+    document.forms["pesq"].elements["pesqSelect"].options.length = NameArray2[cjIX].length +1;
+
+    // LINHA INICIAL DO MENU SELECT
+    document.forms["pesq"].elements["pesqSelect"].options[0].text = "=> Selecione a Subcategoria";
+    document.forms["pesq"].elements["pesqSelect"].options[0].value = "";
+
+    for (var j=0; j < NameArray2[cjIX].length; j++)
+    {
+      document.forms["pesq"].elements["pesqSelect"].options[j+1].text = NameArray2[cjIX][j];
+      document.forms["pesq"].elements["pesqSelect"].options[j+1].value = ValueArray2[cjIX][j];
+    }
+  }
+  else
+  {
+   // User has reselected the blank 'region' option
+   //
+    document.forms["pesq"].elements["pesqSelect"].options.length = 2;
+    document.forms["pesq"].elements["pesqSelect"].options[0].text = "Selecione a Subcategoria";
+    document.forms["pesq"].elements["pesqSelect"].options[0].value = "";
+    document.forms["pesq"].elements["pesqSelect"].options[1].text = "Selecione a Categoria primeiro";
+    document.forms["pesq"].elements["pesqSelect"].options[1].value = "";
+  }
+}
+
+</script>
+
+</script>
+</head>
+
+<body>
+<table width="778"  border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><?php
+include(DIR_SISTEMA."/".DIR_MODULOS."/modulo_pedido_atacado/start_ped_topocarrinho.php");
+?>
+<br>
+<table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><img src="<? echo DIR_IMAGES; ?>/produtosadicionais.gif" width="255" height="40"></td>
+  </tr>
+  <tr>
+    <td background="<? echo DIR_IMAGES; ?>/spacer.gif" bgcolor="#D9AD00"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+  </tr>
+</table>
+<br>
+<table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0" class="tblistpecasadicionais3">
+  <tr>
+    <td><iframe src="<? echo "$PHP_SELF?pg=$pg&pg_ped=8&codpedselect=$codpedselect"; ?>" name="iprodutoadc" width="100%" marginwidth="0" height="200" marginheight="0" scrolling="yes" frameborder="0"></iframe></td>
+  </tr>
+</table>
+<br>
+<table width="100%"  border="0" align="center" cellpadding="3" cellspacing="0">
+  <tr>
+    <td width="33%"><a href="<? echo "$PHP_SELF?pg=$pg&pg_ped=2&codpedselect=$codpedselect"; ?>"><img src="<? echo DIR_IMAGES; ?>/btvoltarcarrinhoyellow.gif" width="91" height="30" border="0"></a></td>
+    <td>&nbsp;</td>
+    <td width="34%" align="right"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=5&Action=grava&codpedselect=$codpedselect&placaSelect=$placaSelect"; ?>"><img src="<? echo DIR_IMAGES; ?>/btguardarcarrinho.gif" width="98" height="30" border="0"></a></td>
+  </tr>
+</table>
+<br>
+<a name="pesq"></a>
+<table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="22" bgcolor="#FFFAE6" class="titulos_itens">PESQUISA</td>
+  </tr>
+  <tr>
+    <td background="<? echo DIR_IMAGES; ?>/spacer.gif" bgcolor="#D9AD00"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+  </tr>
+</table>
+<table width="100%"  border="0" align="center" cellpadding="3" cellspacing="0">
+  <form method="post" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=5&Action=pesquisa#pesq"; ?>" name="pesq">
+    <tr>
+      <td class="amarelonegrito">POR:</td>
+      <td>Categoria</td>
+      <td>Subcategoria</td>
+      <td rowspan="4"><input name="imageField" type="image" src="<? echo DIR_IMAGES; ?>/btpesquisaryellow.gif" width="87" height="25" border="0"></td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td><select name="cjPesq" class="campoquant3" id="cjPesq" onChange=changePesq()>
+                    <option value="...">Escolha a categoria</option>
+<?
+	for($i = 0; $i < count($array_pesq); $i++ ){
+$u = $i+1;
+?>
+                <option value="<? echo"$u"; ?>"><? echo"$nomecatp[$i]"; ?></option>
+ <?
+	}//FOR
+?>
+            </select></td>
+      <td><select name="pesqSelect" class="campoquant3">
+            <option value="">Escolha a subcategoria</option>
+	    <option value="">Selecione a categoria</option>
+      </select></td>
+    </tr>
+    <tr>
+      <td class="amarelonegrito">POR:</td>
+      <td>Cod.</td>
+      <td>Produto</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td><strong>
+        <input name="codprodselect" type="text" class="campoquant3" size="5">
+      </strong></td>
+      <td><input name="palavrachave" type="text" class="campoquant3"></td>
+    </tr>
+	<input type="hidden" name="placaSelect" value="<? echo"$placaSelect"; ?>">
+	<input type="hidden" name="codpedselect" value="<? echo"$codpedselect"; ?>">
+  </form>
+</table>
+<br>
+<table width="100%"  border="0" align="center" cellpadding="3" cellspacing="0">
+  <tr class="titulos_itens">
+    <td align="center">Cod.</td>
+    <td>Produto</td>
+    <td align="center">Gar<br>
+      (M&ecirc;s)</td>
+    <td align="center">Cor</td>
+    <td align="center">Pre&ccedil;o</td>
+    <td align="center">Pos. Est. </td>
+    <td align="center">Plano</td>
+    <td align="center">Qtde</td>
+    <td align="center">&nbsp;</td>
+  </tr>
+  <form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=8"; ?>" method="post" name="form3" target="iprodutoadc">
+
+ <?
+	for($i = 0; $i < count($array2); $i++ ){
+
+if ($xcodcat <> $codcat[$i]){
+
+?>
+  <tr class="titulos_cat3">
+    <td colspan="8"><? echo"$nomecat[$i]"; ?></td>
+    <td align="center" class="titulos_cat3"><img src="<? echo DIR_IMAGES; ?>/topo3.gif" width="40" height="15"></td>
+  </tr>
+ <?
+
+}
+$xcodcat = $codcat[$i];
+
+if ($xcodsubcat <> $codsubcat[$i]){
+?>
+
+  <tr>
+    <td colspan="9" class="titulos_subcat3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<? echo"$nomesubcat[$i]"; ?></td>
+  </tr>
+<?
+
+
+}
+$xcodsubcat = $codsubcat[$i];
+
+
+//ESTOQUE
+$oc_u=0;
+if ($est[$i] > 0){$img=DIR_IMAGES."/est_pos_ok.gif";}
+if (($est[$i] == 0 OR $est[$i] < 0) and $qtde_oc[$i] > 0){$img=DIR_IMAGES."/note_icon.gif";$oc=$qtde_oc[$i];$oc_u=1;}
+if (($est[$i] == 0 OR $est[$i] < 0) and $qtde_oc[$i] <= 0){$img=DIR_IMAGES."/est_pos_no.gif";}
+
+if ($opcaixa10x[$i] <> ""){$img10x="<img src='".DIR_IMAGES."/10x.gif'>";}else{$img10x="";}
+
+if ($restricao_view[$i] <> 1){
+
+?>
+    <tr onMouseOver="this.bgColor='#FFDBB7'" onMouseOut="this.bgColor ='#FFFFFF'" bgcolor="#FFFFFF">
+      <td align="center"><? echo"$codprod[$i]"; ?></td>
+      <td><span class="nomeprod1"><a href="javascript:void(0);" onClick="MM_openBrWindow('<? echo"$PHP_SELF?pg=$pg&pg_ped=17&codpedselect=$codpedselect&codprodselect=$codprod[$i]"; ?>','Detalhes','scrollbars=yes,width=550,height=400')"><? echo"$nomeprod[$i]"; ?></a></span><br>
+          <span class="nomeprod2"><? echo"$descres[$i]"; ?></span></td>
+      <td align="center"><span class="nomeprod1"><? echo"$gar_um[$i]"; ?></span></td>
+      <td align="center"><?
+if ($mostra_cor[$i] <> "1") {
+echo "
+<table  border='0' align='center' cellpadding='2' cellspacing='2'>
+  <tr>
+    <td><table  border='0' cellpadding='0' cellspacing='0' bgcolor='$cor1_prod[$i]'>
+      <tr>
+        <td style='$borda_cor1[$i]'><img src='".DIR_IMAGES."/fcor.gif' width='10' height='10'></td>
+      </tr>
+    </table></td>
+    <td><table  border='0' cellpadding='0' cellspacing='0' bgcolor='$cor2_prod[$i]'>
+      <tr>
+        <td style='$borda_cor2[$i]'><img src='".DIR_IMAGES."/fcor.gif' width='10' height='10'></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+";
+}
+?><? echo"$img10x"; ?></td>
+      <td align="center" class="nomeprod1"><? echo"$precof[$i]"; ?></td>
+      <td align="center" class="nomeprod1"><a class="info" href="#"><img src="<? echo"$img"; ?>" border = "0"><? if ($oc_u == 1){?><span>DATA PREVISÃO: <? echo"$dataprev_ocf[$i]"; ?></span><?}?><BR><? echo"$oc"; ?></a></td>
+      <td align="center" class="nomeprod1"><?
+	  if 	($sub_array_plano[$i] <> 0){
+	  ?>
+	  <select name="plano_select[<? echo"$codprod[$i]"; ?>]" class="campoquant3" id = "plano_select[<? echo"$codprod[$i]"; ?>]">
+<?
+
+	  for($j = 0; $j < $sub_array_plano[$i]; $j++ ){
+	  
+	  $codplano_p = $codplano[$i][$j];
+	  $plano_p = $plano[$i][$j];
+	  $desconto_p = $desconto[$i][$j];
+	  
+	  	   
+?>
+        <option value = '<? echo "$codplano_p:$desconto_p" ?>'><? echo "$plano_p" ?></option>
+<?
+}//FOR
+?>
+      </select>
+	<?}
+	else{
+?>
+ <input type="hidden" name="plano_select[<? echo"$codprod[$i]"; ?>]" value="0:0" id = "plano_select[<? echo"$codprod[$i]"; ?>]"> 
+ <?
+}
+	?></td>
+      <td align="center" class="nomeprod1"><input name="qtde[<? echo"$codprod[$i]"; ?>]" type="text" class="campoquant" value="0" size="2" maxlength="3" id = "qtde[<? echo"$codprod[$i]"; ?>]"></td>
+      <td align="center" class="nomeprod1"><input name="imageField" type="image" src="<? echo DIR_IMAGES; ?>/btcarrinhoadd.gif" alt="Adicionar Produto" width="17" height="14" border="0" onClick='doTwo(form3, <? echo"$codcat[$i]"; ?>, <? echo"$codprod[$i]"; ?>, <? echo"$codcjselect"; ?>, <? echo"$preco[$i]"; ?>, <? echo"$codpedselect"; ?>) ,<? echo"$ordem[$i]"; ?>'></td>
+    </tr>
+    <?
+}
+$img = "";
+$oc = "";
+	}//FOR
+?>
+
+  </form>
+</table>
+</td>
+  </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,294 @@
+body, table {
+	font-family: Verdana;
+	font-size: 11px;
+	color: #000000;
+	text-decoration: none;
+}
+.titulos_itens {
+	font-family: Verdana;
+	font-size: 11px;
+	font-weight: bold;
+}
+.titulos_subcat {
+	font-family: Verdana;
+	font-size: 9px;
+	font-weight: bold;
+	text-decoration: none;
+	text-transform: uppercase;
+	color: #FF6600;
+	background-color: #F4F8FB;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-right-color: #5886C3;
+	border-bottom-color: #5886C3;
+}
+.titulos_cat {
+	font-family: Verdana;
+	font-size: 13px;
+	font-weight: bold;
+	text-decoration: none;
+	text-transform: uppercase;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #97B1FF;
+	line-height: 18px;
+	color: #FFFFFF;
+	background-color: #5886C3;
+	border-right-width: 1px;
+	border-right-style: solid;
+	border-right-color: #97B1FF;
+}
+.nomeprod1 {
+	font-family: Verdana;
+	font-size: 9px;
+	text-decoration: none;
+	text-transform: none;
+}
+.nomeprod2 {
+	font-family: Verdana;
+	font-size: 9px;
+	text-decoration: none;
+	color: #666666;
+}
+.tr_itens {
+	font-family: Verdana;
+	font-size: 11px;
+	color: #000000;
+}
+.tblistpecasadicionais2 {
+	font-family: Verdana;
+	font-size: 10px;
+	color: #000000;
+	text-decoration: none;
+	background-color: #FFFFFF;
+	border: 1px dashed #009966;
+}
+.campoquant {
+	font-family: Verdana;
+	font-size: 9px;
+	color: #000000;
+	text-decoration: none;
+	border: 1px outset #666666;
+	text-align: right;
+}
+.titulos_subcat2 {
+	font-family: Verdana;
+	font-size: 9px;
+	font-weight: bold;
+	text-decoration: none;
+	text-transform: uppercase;
+	color: #FF6600;
+	background-color: #F0FFF0;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-right-color: #009966;
+	border-bottom-color: #009966;
+}
+.titulos_cat2 {
+	font-family: Verdana;
+	font-size: 13px;
+	font-weight: bold;
+	text-decoration: none;
+	text-transform: uppercase;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #009933;
+	line-height: 18px;
+	color: #FFFFFF;
+	background-color: #009966;
+	border-right-width: 1px;
+	border-right-style: solid;
+	border-right-color: #009933;
+}
+.titulos_subcat3 {
+	font-family: Verdana;
+	font-size: 9px;
+	font-weight: bold;
+	text-decoration: none;
+	text-transform: uppercase;
+	color: #FF6600;
+	background-color: #FFFAE6;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-right-color: #D9AD00;
+	border-bottom-color: #D9AD00;
+}
+.titulos_cat3 {
+	font-family: Verdana;
+	font-size: 13px;
+	font-weight: bold;
+	text-decoration: none;
+	text-transform: uppercase;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #9F8000;
+	line-height: 18px;
+	color: #FFFFFF;
+	background-color: #D9AD00;
+	border-right-width: 1px;
+	border-right-style: solid;
+	border-right-color: #9F8000;
+}
+.camporange {
+	font-family: Verdana;
+	font-size: 10px;
+	color: #333333;
+	text-decoration: none;
+	border: 1px dotted #FF9900;
+	text-align: justify;
+	background-color: #FFEED5;
+}
+.campoquant1 {
+	font-family: Verdana;
+	font-size: 10px;
+	color: #333333;
+	text-decoration: none;
+	border: 1px solid #5886C3;
+	text-align: justify;
+	background-color: #F4F8FB;
+}
+.campoquant2 {
+	font-family: Verdana;
+	font-size: 10px;
+	color: #333333;
+	text-decoration: none;
+	border: 1px solid #009966;
+	text-align: justify;
+	background-color: #F0FFF0;
+}
+.campoquant3 {
+	font-family: Verdana;
+	font-size: 10px;
+	color: #333333;
+	text-decoration: none;
+	border: 1px solid #D9AD00;
+	text-align: justify;
+	background-color: #FFFAE6;
+}
+.tblistpecasadicionais3 {
+
+	font-family: Verdana;
+	font-size: 10px;
+	color: #000000;
+	text-decoration: none;
+	background-color: #FFFFFF;
+	border: 1px dashed #D9AD00;
+}
+.pesquisa1 {
+	font-family: Verdana;
+	color: #000000;
+	background-color: #F4F8FB;
+	border: 1px solid #5886C3;
+	margin: 2px;
+}
+.pesquisa2 {
+
+	font-family: Verdana;
+	color: #000000;
+	border: 1px solid #009966;
+	margin: 2px;
+}
+.verdenegrito {
+	font-family: Verdana;
+	font-size: 10px;
+	font-weight: bold;
+	color: #009966;
+	text-decoration: none;
+}
+.amarelonegrito {
+
+	font-family: Verdana;
+	font-size: 10px;
+	font-weight: bold;
+	color: #D9AD00;
+	text-decoration: none;
+}
+.titulos_cat0 {
+
+	font-family: Verdana;
+	font-size: 13px;
+	font-weight: bold;
+	text-decoration: none;
+	text-transform: uppercase;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #FF9900;
+	line-height: 18px;
+	color: #FFFFFF;
+	background-color: #FF9900;
+	border-right-width: 1px;
+	border-right-style: solid;
+	border-right-color: #FF9900;
+}
+.titulos_subcat0 {
+	font-family: Verdana;
+	font-size: 9px;
+	font-weight: bold;
+	text-decoration: none;
+	text-transform: uppercase;
+	color: #FF6600;
+	background-color: #FFEBCC;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-right-color: #FF9900;
+	border-bottom-color: #FF9900;
+}
+.subtotal {
+	font-family: Verdana;
+	font-size: 11px;
+	font-weight: bold;
+	color: #000000;
+	text-decoration: none;
+	background-color: #FFFFFF;
+	border: 1px solid #666666;
+	text-align: right;
+}
+.total1 {
+
+	font-family: Verdana;
+	font-size: 13px;
+	font-weight: bold;
+	color: #FF6600;
+	text-decoration: none;
+	text-align: right;
+}
+.total2 {
+
+
+	font-family: Verdana;
+	font-size: 11px;
+	font-weight: bold;
+	color: #000000;
+	text-decoration: none;
+	text-align: right;
+}
+.contorno0 {
+	border: 3px groove #FFB951;
+}
+.carrinhovazio {
+	font-size: 20px;
+	font-weight: bold;
+	color: #FF9900;
+	text-decoration: none;
+	line-height: 36px;
+}
+.produtos {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	color: #000000;
+	text-decoration: none;
+	line-height: 18px;
+	border-top: 1px solid #FF0000;
+	border-right: 1px solid #FF0000;
+	border-bottom: 1px solid #FF0000;
+	border-left: 1px solid #FF0000;
+	background-color: #FFFFE6;
+}

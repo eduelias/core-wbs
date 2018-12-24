@@ -1,0 +1,130 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/saci.css" rel="stylesheet" type="text/css">
+<? if (dirname($_SERVER['PHP_SELF']) == "/"){$bar = "";}else{$bar = "/";} ?>
+<script language=JavaScript>
+function VerAgenda()
+{
+	window.open('<? echo "http://" . $_SERVER['HTTP_HOST']. dirname($_SERVER['PHP_SELF']). $bar. "restrito.php?pg=$pg&pg_ped=4&menu_not=1"; ?>','popup_view','width=450, height=400, scrollbars=yes, resizable=no');
+}
+</script>
+</head>
+
+<body>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><img src="<? echo DIR_IMAGES; ?>/saci_admin.gif" width="190" height="40"></td>
+  </tr>
+  <tr>
+    <td bgcolor="#90D590"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+  </tr>
+</table>
+<br>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%"><table  border="0" align="center" cellpadding="2" cellspacing="2">
+      <tr>
+        <td><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=2"; ?>"><img src="<? echo DIR_IMAGES; ?>/bt_criar_atend.gif" border="0"></a></td>
+        <td><a href="javascript:void(0);" onClick="VerAgenda();"><img src="<? echo DIR_IMAGES; ?>/bt_veragenda.gif" border="0"></a></td>
+        </tr>
+    </table></td>
+    <td><table  border="0" align="center" cellpadding="2" cellspacing="2">
+      <tr>
+        <td><? if ($contornohist == "N") { echo "<img src='<? echo DIR_IMAGES; ?>/requerido.gif'>"; }?><img src="<? echo DIR_IMAGES; ?>/orc_em_aberto.gif" width="22" height="22"></td>
+        <td><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&Action=Aberto"; ?>" class="lkverde2">Aberto</a></td>
+        <td><? if ($contornohist == "S") { echo "<img src='<? echo DIR_IMAGES; ?>/requerido.gif'>"; }?><img src="<? echo DIR_IMAGES; ?>/orc_hist.gif" width="22" height="22"></td>
+        <td><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&Action=Historico"; ?>" class="lkverde2">Hist&oacute;rico</a></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+<br>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+	<form action="<? echo "$PHP_SELF?pg=$pg&Action=Pesquisar"; ?>" method="post" name="form">
+      <tr>
+        <td class="titulospverdec">Pesquisar por:</td>
+      </tr>
+      <tr>
+        <td class="tdspconteudoverdec"><table  border="0" cellpadding="1" cellspacing="1">
+          <tr>
+            <td><strong>Cod.</strong></td>
+            <td><strong>Nome</strong></td>
+            <td><strong>Tipo</strong></td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td><input name="pesqcod" type="text" class="saci_input3" id="pesqcod" size="6"></td>
+            <td><input name="pesqnome" type="text" class="saci_input3" id="pesqnome"></td>
+            <td><select name="pesqtipo" class="saci_input3" id="pesqtipo">
+                <option value="-1">Todos</option>
+                <option value="0">Externa</option>
+                <option value="1">Interna</option>
+            </select></td>
+            <td><table width="100%"  border="0" cellspacing="1" cellpadding="1">
+              <tr>
+                <td><input name="pesqhist" type="radio" value="N" checked></td>
+                <td>Aberto</td>
+                </tr>
+              <tr>
+                <td><input name="pesqhist" type="radio" value="S"></td>
+                <td>Hist&oacute;rico</td>
+                </tr>
+            </table></td>
+            <td><input name="Submit" type="submit" class="saci_input" value="Pesquisar"></td>
+          </tr>
+        </table></td>
+      </tr>
+  </form>
+</table>
+<br>
+<?
+if($txterrodata <> "") {
+echo "<table border=0 align=center cellpadding=0 cellspacing=0>
+  <tr>
+    <td class=saci_sol_no align=center>$txterrodata</td>
+  </tr>
+</table><br>";
+}
+?>
+<table width="100%"  border="0" cellpadding="1" cellspacing="2">
+  <tr>
+    <td align="center" class="titulospverdec"><strong>Cod.</strong></td>
+    <td class="titulospverdec"><strong>Nome Cliente </strong></td>
+    <td class="titulospverdec"><strong>Endere&ccedil;o</strong></td>
+    <td class="titulospverdec"><strong>Data Atend.</strong></td>
+    <td class="titulospverdec"><strong>Data Agenda </strong></td>
+    <td class="titulospverdec"><strong>Hora Agenda </strong></td>
+    <td align="center" class="titulospverdec"><strong>Sol.</strong></td>
+    <td align="center" class="titulospverdec">Tempo</td>
+  </tr>
+  <?	for($i = 0; $i < count($arrayx); $i++ ){ ?>
+  <tr <? echo $tipoverde_list[$i]; ?>>
+    <td align="center" class="sacitd2"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=3&codatendselect=$codatend_list[$i]"; ?>" class="lkverde2"><? echo "$codatend_list[$i]"; ?></a></td>
+    <td class="sacitd2"><? echo "$nomecliente_list[$i]"; ?></td>
+    <td class="sacitd2"><? echo "$endereco_list[$i]"; ?>, <? echo "$numero_list[$i]"; ?> <? echo "$complemento_list[$i]"; ?> <? echo "$bairro_list[$i]"; ?> - <? echo "$cep_list[$i]"; ?></td>
+    <td class="sacitd2"><? echo "$datainicio2_view[$i]"; ?></td>
+    <td class="sacitd2"><? echo "$frmdata_atend[$i]"; ?></td>
+    <td class="sacitd2"><? echo "$hragenda_list[$i]"; ?></td>
+    <td align="center" class="sacitd2"><span class="<? echo "$solucaostatus2_list[$i]"; ?>"><? echo "$solucaostatus_list[$i]"; ?></span></td>
+    <td align="center" class="sacitd2">
+<?php
+
+if(($tipo_list[$i] == "INT") AND ($tempo_list[$i]{0} == "-")) {
+    $tempo_show_list[$i] = "Expirado";
+} elseif (($tipo_list[$i] == "INT") AND ($tempo_list[$i] > "00:00:00")) {
+    $tempo_show_list[$i] = "<b>$tempo_list[$i]</b>";
+} elseif ($tipo_list[$i] == "EXT") {
+    $tempo_show_list[$i] = " ";
+}
+
+echo $tempo_show_list[$i];
+?>
+</td>
+  </tr>
+  <? }//FOR ?>
+</table>
+</body>
+</html>

@@ -1,0 +1,2201 @@
+<html><head><!-- ACC_SNC_AberturaCC_I.tpl -->
+<script type="text/javascript" language="javascript" src="comunic_acc_files/tratardados_acc.js">
+</script>
+<script type="text/javascript" language="JavaScript" src="comunic_acc_files/DateDiff.js">
+</script>
+<script type="text/javascript" language="JavaScript" src="comunic_acc_files/email.js">
+</script>
+<script type="text/javascript" language="JavaScript" src="comunic_acc_files/MsgErros.js">
+</script>
+<script type="text/javascript" language="JavaScript" src="comunic_acc_files/cpf.js"></script>
+<script type="text/javascript" language="javascript">
+//<!--
+
+var duplaSubmissao = 0;
+
+
+//Recebendo parametro de profissao
+params = getParams();
+var Profissao   = unescape(params["PROFISSAO"]);
+Profissao     = Profissao.toUpperCase();
+var Cliente   = unescape(params["CLIENTE"]);
+Cliente       = Cliente.toUpperCase();
+
+
+//var sAgenciasPetrobras = "2308,3451,2777,2869,635,1894,596,2924,3107,3993,2739,205,3142,479,239,96,637,186,2738,3106,2985,2913,3113,5110, 4513, 5232, 4878, 4841, 300, 2850, 3069"
+var sAgenciasPetrobras = "441,410,578,524,3,455,112,4,122,387,530,190,211,190,122,97,310,747,530,677,593,438,26,132,287,200,287,555,747,731"
+
+function getParams() {
+//var idx = document.URL.indexOf('?');
+
+  var  idx = window.location.href.indexOf('?');
+
+  var params = new Array();
+  if (idx != -1)
+  {
+    var url = window.location.href.substring(idx+1, window.location.href.length);
+
+  idx = url.indexOf('#');
+    if (idx != -1)
+      url = url.substring(0, idx);
+
+  var pairs  = url.substring(0, url.length).split('&');
+
+  for (var i=0; i<pairs.length; i++) 
+  {
+    nameVal = pairs[i].split('=');  
+    params[nameVal[0]] = nameVal[1];
+  }
+  }
+  return params;
+}
+
+
+function VerifCEP()
+{   
+ if (document.ABERTURA_I.CEP.value.length == 0)
+ {
+   MostraMensagem("CI0016");
+   //alert("Por favor, informe o CEP");
+   document.ABERTURA_I.CEP.focus();
+   return (false);
+ }
+
+ if (document.ABERTURA_I.CEPCOMPL.value.length == 0)
+ {
+   MostraMensagem("CI0016");
+   //alert("Por favor, informe o complemento do CEP");
+   document.ABERTURA_I.CEPCOMPL.focus();
+   return (false);
+ }
+
+ return (true);
+}
+
+function BuscaCEP()
+{
+ if (document.ABERTURA_I.CEP.value.length > 0 && document.ABERTURA_I.CEPCOMPL.value.length > 0)
+ {
+   document.ABERTURA_I.action="comunic_acc.dll?OPERA=ACC_AberturaCC_F&BUSCACEP=1&PROFISSAO=" + Profissao + '&CLIENTE=' + Cliente;
+ 
+   document.ABERTURA_I.submit(); 
+ }
+}
+
+function Envia(tipo)
+{
+  if (duplaSubmissao > 0)
+  {
+    alert("Por favor, aguarde. Proposta já enviada ao sistema.");
+    return false;
+  }
+  
+  with (document.ABERTURA_I) 
+  {
+       if (CDAGENCIA.value == "")
+       {
+         MostraMensagem("CB0003")
+         //alert("Por favor, informe o c&oacute;digo da ag&ecirc;ncia");
+         CDAGENCIA.focus();
+         return false;
+       }
+       else
+       {
+         if (CDAGENCIA.value <= "0000")
+         {
+           MostraMensagem("CI0015")
+           //alert("Por favor, informe um c&oacute;digo de ag&ecirc;ncia v&aacute;lido");
+           CDAGENCIA.focus();
+           return false;
+         }
+       }
+
+
+       if (NOME.value == "")
+       {
+         MostraMensagem("CB0008")
+         //alert("Por favor, informe seu nome completo");
+         NOME.focus();
+         return false;
+       }
+       if (CPF.value == "")
+       {
+         MostraMensagem("CB0015")
+         //alert("Por favor, informe seu CPF");
+         CPF.focus();
+         return false;
+       }
+       if (CPFDG.value == "")
+       {
+         MostraMensagem("CB0015");
+         //alert("Por favor, informe o d&iacute;gito de seu CPF");
+         CPFDG.focus();
+         return false;
+       }
+
+      if (!confere_cpf (CPF.value, CPFDG.value)) {
+        alert("Por favor, preencha corretamente o CPF");
+        CPF.focus();
+        return;
+      } 
+       
+       if (EMAIL.value == "")
+       {
+         MostraMensagem("CB0018");
+         //alert("Por favor, informe seu e-mail pessoal");
+         EMAIL.focus();
+         return false;
+       }
+       else
+       {
+        if(!confere_email(EMAIL.value.toLowerCase())) 
+        {
+           EMAIL.focus();
+           return false;
+         }
+       }
+       
+       if ((!SEXO[0].checked)&&(!SEXO[1].checked))
+       {
+         MostraMensagem("CB0014");
+         //alert("Por favor, informe o sexo");
+         SEXO[0].focus();
+         return false;
+       }
+       if (ESTCIVIL.options[ESTCIVIL.selectedIndex].value == "")
+       {
+         MostraMensagem("CB0011");
+         //alert("Por favor, informe seu estado civil");
+         ESTCIVIL.focus();
+         return false;
+       }
+
+       var vData, nDia, nMes, nAno
+       if (NASCDIA.value == "" || NASCMES.value == "" || NASCANO.value == "") 
+       {
+         MostraMensagem("CB0019");
+         //alert("Por favor, informe dia, m&ecirc;s e ano de nascimento");
+         NASCDIA.focus();
+         return false;
+       }
+       else
+       {
+         nDia = NASCDIA.value;
+         nMes = NASCMES.value;
+         nAno = NASCANO.value;
+         vData = nMes + '/' + nDia + '/' + nAno;
+         if (!isValidDate(vData)) 
+         {
+           MostraMensagem("CI0010");
+           //alert("Por favor, informe uma data de nascimento v&aacute;lida");
+           NASCDIA.focus();
+           return false;
+         }
+       }
+
+       if (NATURAL.value == "")
+       {
+         MostraMensagem("CI0014");
+         //alert("Por favor, informe sua naturalidade");
+         NATURAL.focus();
+         return false;
+       }
+
+			 if (NATURALUF.value == "")
+       {
+         MostraMensagem("CI0028");
+         NATURALUF.focus();
+         return false;
+       }
+			 
+       if (NACIONAL.options[NACIONAL.selectedIndex].value == "")
+       {
+         MostraMensagem("CI0012");
+         //alert("Por favor, informe sua nacionalidade");
+         NACIONAL.focus();
+         return false;
+       }
+
+       if (RG.value == "")
+       {
+         MostraMensagem("CB0020");
+         //alert("Por favor, informe seu RG");
+         RG.focus();
+         return false;
+       }
+
+       if (EMISSDIA.value == "" || EMISSMES.value == "" || EMISSANO.value == "") 
+       {
+         MostraMensagem("CB0021");
+         //alert("Por favor, informe a data de emiss&atilde;o do RG");
+         EMISSDIA.focus();
+         return false;
+       }
+       else
+       {
+         nDia = EMISSDIA.value;
+         nMes = EMISSMES.value;
+         nAno = EMISSANO.value;
+         vData = nMes + '/' + nDia + '/' + nAno;
+         if (!isValidDate(vData)) 
+         {
+           MostraMensagem("CI0025");
+           //alert("Por favor, informe uma data v&aacute;lida para a emiss&atilde;o do RG");
+           EMISSDIA.focus();
+           return false;
+         }
+       }
+
+       if (ORGEMISSOR.value == "")
+       {
+         MostraMensagem("CI0011");
+         //alert("Por favor, informe o &oacute;rg&atilde;o emissor");
+         ORGEMISSOR.focus();
+         return false;
+       }
+       if (UFEMISSOR.options[UFEMISSOR.selectedIndex].value == "")
+       {
+         MostraMensagem("CB0022");
+         //alert("Por favor, informe o estado do &oacute;rg&atilde;o emissor");
+         UFEMISSOR.focus();
+         return false;
+       }
+       if (NMMAE.value == "")
+       {
+         MostraMensagem("CB0023");
+         //alert("Por favor, informe o nome de sua m&atilde;e");
+         NMMAE.focus();
+         return false;
+       }
+       
+       if (RENDA.value == "")
+       {
+         MostraMensagem("CB0024");
+         //alert("Por favor, informe sua renda");
+         RENDA.focus();
+         return false;
+       }
+
+       if (!VerifCEP())
+         return false;
+
+       if (LOGRADOURO.value == "")
+       {
+         MostraMensagem("CB0025");
+         //alert("Por favor, informe seu logradouro");
+         LOGRADOURO.focus();
+         return false;
+       }
+
+       if (NUMEROLOGR.value == "")
+       {
+         MostraMensagem("CB0026");
+         //alert("Por favor, informe o n&uacute;mero do logradouro ou s/n (sem n&uacute;mero)");
+         NUMEROLOGR.focus();
+         return false;
+       }
+
+       if (BAIRROLOGR.value == "")
+       {
+         MostraMensagem("CI0021");
+         //alert("Por favor, informe o bairro de seu logradouro");
+         BAIRROLOGR.focus();
+         return false;
+       }
+       if (CIDLOGR.value == "")
+       {
+         MostraMensagem("CI0022");
+         //alert("Por favor, informe a cidade de seu logradouro");
+         CIDLOGR.focus();
+         return false;
+       }
+       if (ESTADOLOGR.options[ESTADOLOGR.selectedIndex].value == "")
+       {
+         MostraMensagem("CI0023");
+         //alert("Por favor, informe o estado de seu logradouro");
+         ESTADOLOGR.focus();
+         return false;
+       }
+
+       if (TEL1DDD.value == "")
+       {
+         MostraMensagem("CB0010");
+         //alert("Por favor, informe o DDD de seu telefone residencial");
+         TEL1DDD.focus();
+         return false;
+       }
+       if (TEL1.value == "")
+       {
+         MostraMensagem("CB0009");
+         //alert("Por favor, informe seu telefone residencial");
+         TEL1.focus();
+         return false;
+       }
+
+       if (PROFISSAO.options[PROFISSAO.selectedIndex].value == "")
+       {
+         MostraMensagem("CI0017");         
+         //alert("Por favor, informe sua profiss&atilde;o");
+         PROFISSAO.focus();
+         return false;
+       }
+
+      DSPROFISSAO.value = PROFISSAO.options[PROFISSAO.selectedIndex].text;
+
+       if (tipo == 0)
+         submit();
+  }
+
+  duplaSubmissao++;
+  
+  return true;
+}
+
+function LimpaTudo()
+{
+  // Limpa todos os elementos "text" e "password"
+  for ( var i=0; i < document.ABERTURA_I.elements.length; i++ )
+    if ( document.ABERTURA_I.elements[i].type != "button" && document.ABERTURA_I.elements[i].type != "hidden" 
+    && document.ABERTURA_I.elements[i].type != "radio")
+      document.ABERTURA_I.elements[i].value="";
+  
+}
+
+function Classifica(tipo)
+{
+  var temp_opts = new Array();
+  var temp = new Object();
+  var box;
+
+  //else if (tipo == 3)
+  //  box = document.ABERTURA_I.NACIONAL;
+  //else
+    box = document.ABERTURA_I.PROFISSAO;
+
+  for(var i=0; i<(box.options.length-1); i++)
+  {
+    temp_opts[i] = box.options[i+1];
+  }
+
+  for(var x=0; x<temp_opts.length-1; x++)
+  {
+    for(var y=(x+1); y<temp_opts.length; y++)
+    {
+      if(temp_opts[x].text > temp_opts[y].text)
+      {
+        temp = temp_opts[x].text;
+        temp_opts[x].text = temp_opts[y].text;
+        temp_opts[y].text = temp;
+        temp = temp_opts[x].value;
+        temp_opts[x].value = temp_opts[y].value;
+        temp_opts[y].value = temp;
+      }
+    }
+  }
+
+  for(var i=0; i<(box.options.length-1); i++)
+  {
+    box.options[i+1].value = temp_opts[i].value;
+    box.options[i+1].text = temp_opts[i].text;
+  }
+}
+
+function VerifEstCivil()
+{
+  if (document.ABERTURA_I.ESTCIVIL.value == "5")
+  {
+    //document.ABERTURA_I.NMCONJUGE.value = "";
+    //document.ABERTURA_I.NMCONJUGE.disabled = true;
+    alert("Por favor, informe outro estado civil");
+    return (false);
+  }
+  else if (document.ABERTURA_I.ESTCIVIL.value == "")
+  {
+    //document.ABERTURA_I.NMCONJUGE.disabled = true;
+    alert("Por favor, informe o seu estado civil");
+    return (false);
+  }
+
+  return (true);
+}
+
+function SaidaEstCivil()
+{
+  /*
+  if (document.ABERTURA_I.ESTCIVIL.value == "5") // SOLTEIRO
+  {
+     document.ABERTURA_I.NMCONJUGE.value = "";
+     document.ABERTURA_I.NMCONJUGE.disabled = true;
+  }
+  else
+     document.ABERTURA_I.NMCONJUGE.disabled = false;
+
+  return (true);
+  */
+}
+
+function Carrega()
+{
+  if (document.ABERTURA_I.CEP.value.length != 0 && 
+      document.ABERTURA_I.CEPCOMPL.value.length != 0)
+  {
+    if (document.ABERTURA_I.LOGRADOURO.value == "                                        ")
+      document.ABERTURA_I.LOGRADOURO.value = "";
+    if (document.ABERTURA_I.BAIRROLOGR.value == "                    ")
+      document.ABERTURA_I.BAIRROLOGR.value = "";
+    if (document.ABERTURA_I.CIDLOGR.value == "                    ")
+      document.ABERTURA_I.CIDLOGR.value = "";
+
+    document.ABERTURA_I.LOGRADOURO.focus();
+  }
+  
+  CarregaErro();
+
+  //setUp(); // Select
+}
+
+function RetiraTags(vErro)
+{
+  var iPositionIni;
+  var iPositionFin;
+
+  iPositionIni = 0;
+  iPositionFin = 0;
+  while(iPositionIni != -1 || iPositionFin !=  -1) {
+    iPositionIni = vErro.indexOf("<");
+    iPositionFin = vErro.indexOf(">");
+    vErro = vErro.substring(0, iPositionIni) + vErro.substring(iPositionFin+1, vErro.length);
+  }
+  
+  return vErro;
+}
+
+function CarregaErro()
+{
+  var iInd = 0;
+  var vErro;
+  
+  with (document.ABERTURA_I) 
+  {
+    if(TEXTOERRO.value != "") 
+    {
+      vErro = TEXTOERRO.value;
+      vErro = RetiraTags(vErro);
+      alert(vErro);
+      TEXTOERRO.value = "";
+    }
+  }
+}
+
+// Inicio - Pesquisa do select por caracter digitado
+function setUp() 
+{
+  // parametro 1 = nome do form
+  // parametro 2 = nome do select
+  obj1 = new SelObj('ABERTURA_I','PROFISSAO');
+  obj1.bldInitial(); 
+}
+
+function SelObj(formname,selname,str) 
+{
+  this.formname = formname;
+  this.selname = selname;
+  this.select_str = str || '';
+  this.selectArr = new Array();
+  this.initialize = initialize; // Contem a chamada da funcao initialize()
+  this.bldInitial = bldInitial; // Contem a chamada da funcao bldInitial()
+  this.bldUpdate = bldUpdate; // Contem a chamada da funcao bldUpdate()
+  this.str_ant = '';
+}
+
+function bldInitial() 
+{
+  this.initialize();
+  for(var i=0;i<this.selectArr.length;i++)
+    document.forms[this.formname][this.selname].options[i] = this.selectArr[i];
+
+  document.forms[this.formname][this.selname].options.length = this.selectArr.length;
+  return;
+}
+
+function initialize() 
+{
+  if (this.select_str == '') 
+  {
+    for(var i=0;i<document.forms[this.formname][this.selname].options.length;i++) 
+    {
+      this.selectArr[i] = document.forms[this.formname][this.selname].options[i];
+      this.select_str += document.forms[this.formname][this.selname].options[i].value+":"+
+      document.forms[this.formname][this.selname].options[i].text+",";
+    }
+  }
+  else 
+  {
+    var tempArr = this.select_str.split(',');
+    var aux = tempArr.length - 1;
+    for(var i=0;i<aux;i++) 
+    {
+      var prop = tempArr[i].split(':');
+      this.selectArr[i] = new Option(prop[1],prop[0]);
+    }
+  }
+  return;
+}
+
+
+function PegaTecla(tk)
+{
+    var tecla = ' ';
+  switch (tk)
+  {
+    case 48: tecla = '0'; break;
+    case 49: tecla = '1'; break;
+    case 50: tecla = '2'; break;
+    case 51: tecla = '3'; break;
+    case 52: tecla = '4'; break;
+    case 53: tecla = '5'; break;
+    case 54: tecla = '6'; break;
+    case 55: tecla = '7'; break;
+    case 56: tecla = '8'; break;
+    case 57: tecla = '9'; break;
+
+    case 65: tecla = 'A'; break;
+    case 66: tecla = 'B'; break;
+    case 67: tecla = 'C'; break;
+    case 68: tecla = 'D'; break;
+    case 69: tecla = 'E'; break;
+    case 70: tecla = 'F'; break;
+    case 71: tecla = 'G'; break;
+    case 72: tecla = 'H'; break;
+    case 73: tecla = 'I'; break;
+    case 74: tecla = 'J'; break;
+    case 75: tecla = 'K'; break;
+    case 76: tecla = 'L'; break;
+    case 77: tecla = 'M'; break;
+    case 78: tecla = 'N'; break;
+    case 79: tecla = 'O'; break;
+    case 80: tecla = 'P'; break;
+    case 81: tecla = 'Q'; break;
+    case 82: tecla = 'R'; break;
+    case 83: tecla = 'S'; break;
+    case 84: tecla = 'T'; break;
+    case 85: tecla = 'U'; break;
+    case 86: tecla = 'V'; break;
+    case 87: tecla = 'W'; break;
+    case 88: tecla = 'X'; break;
+    case 89: tecla = 'Y'; break;
+    case 90: tecla = 'Z'; break;
+
+    case 97:  tecla = 'A'; break;
+    case 98:  tecla = 'B'; break;
+    case 99:  tecla = 'C'; break;
+    case 100: tecla = 'D'; break;
+    case 101: tecla = 'E'; break;
+    case 102: tecla = 'F'; break;
+    case 103: tecla = 'G'; break;
+    case 104: tecla = 'H'; break;
+    case 105: tecla = 'I'; break;
+    case 106: tecla = 'J'; break;
+    case 107: tecla = 'K'; break;
+    case 108: tecla = 'L'; break;
+    case 109: tecla = 'M'; break;
+    case 110: tecla = 'N'; break;
+    case 111: tecla = 'O'; break;
+    case 112: tecla = 'P'; break;
+    case 113: tecla = 'Q'; break;
+    case 114: tecla = 'R'; break;
+    case 115: tecla = 'S'; break;
+    case 116: tecla = 'T'; break;
+    case 117: tecla = 'U'; break;
+    case 118: tecla = 'V'; break;
+    case 119: tecla = 'W'; break;
+    case 120: tecla = 'X'; break;
+    case 121: tecla = 'Y'; break;
+    case 122: tecla = 'Z'; break;
+  }
+  return tecla;
+}
+
+
+function bldUpdate() 
+{
+  //var str = document.forms[this.formname][this.textname].value.replace('^\\s*','');
+  var str;
+  var tk = (navigator.appName == "Netscape" ? evnt.which : event.keyCode);
+
+  if (tk==27) 
+  {
+    // Esc - retira o ultimo caracter
+    this.str_ant = this.str_ant.substring(0,this.str_ant.length - 1);
+    str = this.str_ant;
+  }
+  else if ((tk>=48 && tk<=57) || (tk>=65 && tk<=90) || (tk>=97 && tk<=122)) 
+  {
+    // Numeros ou Letras
+    str = this.str_ant + PegaTecla(tk);
+    this.str_ant = str;
+  }
+  else
+    return false;
+
+  if(str == '') {this.bldInitial();return;}
+  this.initialize();
+
+  // Armazena o combo anterior
+  selectArr2 = new Array();
+  for(var i=0;i<document.forms[this.formname][this.selname].options.length;i++)
+    selectArr2[i] = document.forms[this.formname][this.selname].options[i];
+
+  // Inclui no combo se a letra digitada foi encontrada no combo
+  var j = 0;
+  pattern1 = new RegExp("^"+str,"i");
+  for(var i=0;i<this.selectArr.length;i++)
+  {
+    if(pattern1.test(this.selectArr[i].text.substring(8,this.selectArr[i].text.length))) 
+      document.forms[this.formname][this.selname].options[j++] = this.selectArr[i];
+  }
+
+  // Se a letra n&atilde;o foi encontrada no combo, voltar o combo anterior
+  if(j==0)
+  {
+    for(var i=0;i<selectArr2.length;i++)
+      document.forms[this.formname][this.selname].options[j++] = selectArr2[i];
+    this.str_ant = this.str_ant.substring(0,this.str_ant.length - 1);
+    j = i;
+  }
+
+  document.forms[this.formname][this.selname].options.length = j;
+  if(j==1)
+    document.forms[this.formname][this.selname].options[0].selected = true;
+}
+// Fim da pesquisa do select
+
+function CartaCredito()
+{
+  if (Envia(1))
+  {
+    var pagina, titulo, opcao;
+     
+    pagina = '/abra/abra.dll/abra/p3/abrabr.asp';
+    pagina = pagina + '?Ag=' + document.ABERTURA_I.CDAGENCIA.value;
+    pagina = pagina + '&Nome=' + convEspaco(document.ABERTURA_I.NOME.value);
+    pagina = pagina + '&Cpf=' + document.ABERTURA_I.CPF.value;
+    pagina = pagina + '&DgCpf=' + document.ABERTURA_I.CPFDG.value;
+    pagina = pagina + '&Email=' + convEspaco(document.ABERTURA_I.EMAIL.value);
+    if (document.ABERTURA_I.SEXO[0].checked)
+      pagina = pagina + '&Sexo=M';
+    else
+      pagina = pagina + '&Sexo=F';
+    pagina = pagina + '&EC=' + document.ABERTURA_I.ESTCIVIL.value;
+    pagina = pagina + '&DN=' + document.ABERTURA_I.NASCDIA.value;
+    pagina = pagina + '&MN=' + document.ABERTURA_I.NASCMES.value;
+    pagina = pagina + '&AN=' + document.ABERTURA_I.NASCANO.value;
+    pagina = pagina + '&Mae=' + convEspaco(document.ABERTURA_I.NMMAE.value);
+    pagina = pagina + '&Pai=' + convEspaco(document.ABERTURA_I.NMPAI.value);
+    pagina = pagina + '&Renda=' + document.ABERTURA_I.RENDA.value;
+    pagina = pagina + '&Cep=' + document.ABERTURA_I.CEP.value;
+    pagina = pagina + '&Cep2=' + document.ABERTURA_I.CEPCOMPL.value;
+    pagina = pagina + '&End=' + convEspaco(document.ABERTURA_I.LOGRADOURO.value);
+    pagina = pagina + '&Nr=' + document.ABERTURA_I.NUMEROLOGR.value;
+    pagina = pagina + '&Compl=' + convEspaco(document.ABERTURA_I.COMPLEMLOGR.value);
+    pagina = pagina + '&Bairro=' + convEspaco(document.ABERTURA_I.BAIRROLOGR.value);
+    pagina = pagina + '&Cid=' + convEspaco(document.ABERTURA_I.CIDLOGR.value);  
+    pagina = pagina + '&Est=' + document.ABERTURA_I.ESTADOLOGR.value;
+    pagina = pagina + '&Ddd1=' + document.ABERTURA_I.TEL1DDD.value;
+    pagina = pagina + '&Tel1=' + document.ABERTURA_I.TEL1.value;
+    pagina = pagina + '&hdnCartaCredito=' + document.ABERTURA_I.hdnCartaCredito.value;
+    
+    titulo = 'Carta';
+
+    opcao = 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,menubar=no,width=620,height=450,outerWidth=620,outerHeight=450';
+
+   window.open(pagina,titulo,opcao);
+   
+   //if(document.ABERTURA_I.hdnCartaCredito.value == "0")
+   //{
+   // alert('Por favor, preencha a carta de cr&eacute;dito.')
+   // return false;
+   //}
+   
+ 
+  }
+
+  return;
+}
+
+function convEspaco(s) 
+{
+  st = "";
+  for(a = 0; a < s.length; a++) 
+  {
+    if(s.charAt(a) == " ")
+      st = st + "%20";
+    else
+      st = st + s.charAt(a);
+  }
+  return st;
+}
+
+function SetaCombos()
+{
+  for (i = 0; i < 179; i++)
+  {
+    if(document.ABERTURA_I.PROFISSAO.options[i].value == "")
+		{
+      document.ABERTURA_I.PROFISSAO.options[i].selected = true;
+			
+			/****************************************************************
+			Caso o codigo da Profissao seja de Universitarios, setar o opt-in
+			com a opcao 'sim'.
+			****************************************************************/
+			if(document.ABERTURA_I.PROFISSAO.options[i].value == "00932")
+    		document.ABERTURA_I.UNIVERSITARIO[0].checked = true;
+			else
+				document.ABERTURA_I.UNIVERSITARIO[1].checked = true;
+		}
+  }
+
+  for (i = 0; i < 72; i++)
+  {
+    if(document.ABERTURA_I.NACIONAL.options[i].value == "BRASILEIRA")
+      document.ABERTURA_I.NACIONAL.options[i].selected = true;
+  }
+}
+
+function consisteProfissao()
+{
+	if(document.ABERTURA_I.UNIVERSITARIO[0].checked == true)
+	{
+		for (i = 0; i < 179; i++)
+  	{
+			if(document.ABERTURA_I.PROFISSAO.options[i].value == "00932")
+    		document.ABERTURA_I.PROFISSAO.options[i].selected = true;
+		}
+	}
+}
+
+
+/******************* Formatacao Monetaria *******************************/
+
+var isNN = (navigator.appName.indexOf("Netscape")!=-1);
+
+function autoTab(input,len, e) {
+  //var keyCode = (isNN) ? e.which : e.keyCode; 
+  var keyCode = e.keyCode;
+  var filter = (isNN) ? [0,8,9] : [0,8,9,16,17,18,37,38,39,40,46];
+  if(input.value.length >= len && !containsElement(filter,keyCode)) {
+    input.value = input.value.slice(0, len);
+    input.form[(getIndex(input)+1) % input.form.length].focus();
+   }
+   function containsElement(arr, ele) {
+     var found = false, index = 0;
+     while(!found && index < arr.length)
+     if(arr[index] == ele) found = true;
+     else index++;
+     return found;
+   } 
+   function getIndex(input) {
+     var index = -1, i = 0, found = false; 
+     while (i < input.form.length && index == -1)
+     if (input.form[i] == input)index = i;
+     else i++;
+     return index;
+   }
+   return true;
+  }
+
+function FormataValor(campo,tammax,e) {
+  //var keyCode = (isNN) ? e.which : e.keyCode;
+  var keyCode = e.keyCode;
+  vr=campo.value;
+  vr=vr.replace("/","");
+  vr=vr.replace("/","");
+  vr=vr.replace(",","");
+  vr=vr.replace(".","");
+  vr=vr.replace(".","");
+  vr=vr.replace(".","");
+  vr=vr.replace(".","");
+  tam = vr.length;
+  if(tam < tammax && keyCode != 8) tam=vr.length+1;
+  if(keyCode == 8) tam=tam-1;
+  if(keyCode == 8 || keyCode >= 48 && keyCode <= 57 || keyCode >= 96 && keyCode <= 105 ){
+     if(tam <= 2) campo.value=vr;
+     if((tam > 2)&&(tam <= 5))  campo.value=vr.substr(0,tam-2) + ',' + vr.substr(tam-2,tam);
+     if((tam >= 6)&&(tam <= 8)) campo.value=vr.substr(0,tam-5) + '.' + vr.substr(tam-5,3) + ',' + vr.substr(tam-2,tam);
+     if((tam >= 9)&&(tam <= 11)) campo.value=vr.substr(0,tam-8) + '.' + vr.substr(tam-8,3) + '.' + vr.substr(tam-5,3) + ',' + vr.substr(tam-2,tam);
+     if((tam >= 12)&&(tam <= 14)) campo.value=vr.substr(0,tam-11) + '.' + vr.substr(tam-11,3) + '.' + vr.substr(tam-8,3) + '.' + vr.substr(tam-5,3) + ',' + vr.substr(tam-2,tam);
+     if((tam >= 15)&&(tam <= 17)) campo.value=vr.substr(0,tam-14) + '.' + vr.substr(tam-14,3) + '.' + vr.substr(tam-11,3) + '.' + vr.substr(tam-8,3) + '.' + vr.substr(tam-5,3) + ',' + vr.substr(tam-2,tam);
+  }		
+}
+
+/*
+Arredonda
+=========
+
+Arredonda sValor pelo número de iCasasDecimais.
+
+Retorna número em ponto flutuante
+
+sValor: número com ponto decimal
+
+Nota: se a String estiver com o separador da parte decimal como sendo ',',
+a rotina desprezará tudo que estiver à direita dele.
+
+Exemplos:
+a) Arredonda('6,523',2); - retorna 6
+b) Arredonda('6,525',2); - retorna 6
+
+c) Arredonda('6.523',2); - retorna 6.52
+d) Arredonda('6.525',2); - retorna 6.53
+*/
+
+function Arredonda( sValor, iCasasDecimais ) {
+
+    iPotenciaDeDez=1
+    dblValor=parseFloat(sValor);
+//    alert('no Início --- sValor = '+sValor+' dblValor = '+dblValor);
+
+    // passo para inteiro a parte inteira e mais as casas decimais do valor
+    // para poder fazer o arredondamento
+    for( i=0; i<iCasasDecimais; i++)
+        iPotenciaDeDez*=10;
+//    alert('iPotenciaDeDez = '+iPotenciaDeDez);
+
+    dblValor *= iPotenciaDeDez;
+
+    dblValor = Math.round(dblValor)/iPotenciaDeDez;
+
+//    alert('no Fim --- sValor = '+sValor+' dblValor = '+dblValor);
+
+    return dblValor.toString();
+
+}
+
+/*
+PreencheComZerosNaCasaDecimal
+=============================
+
+Preenche com zeros na casa decimal de sValor pelo número de iCasasDecimais
+
+sValor: número com ponto decimal
+
+Obs.: se iCasasDecimais for menor ou igual ao número de casas decimais que sValor
+já tem, não faz nada.
+
+*/
+function PreencheComZerosNaCasaDecimal( sValor, sSeparador, iCasasDecimais) {
+
+    if( iCasasDecimais <= 0 )
+        return sValor;
+
+    sValorFormatado = sValor;
+
+    if( (i = sValor.indexOf(sSeparador)) != -1 ) {
+        i = sValor.length - i - 1;
+    }
+//    alert("PreencheComZerosNaCasaDecimal - i = "+i);
+    while(i < iCasasDecimais ) {
+        if( i == -1 ) {
+            sValorFormatado += sSeparador;
+        }
+        else {
+            sValorFormatado += "0";
+        }
+        i++;
+    }
+    return sValorFormatado;
+}
+
+/*
+
+RetiraCaracteresNaoNumericos
+============================
+
+Retira caracteres nao numericos e troca o caractere que está em iIndPontoDec
+que separa a parte inteira da parte decimal do número
+
+sValor
+sSeparador = "." ou ","
+iIndPontoDec = posição do separador entre a parte inteira e decimal
+*/
+
+function RetiraCaracteresNaoNumericos( sValor, sSeparador, iIndPontoDec ) {
+var numero = "0123456789";          // domínio de dígitos válidos
+var sValorLimpo = "";
+var i=0;
+
+//    alert("RetiraCaracteresNaoNumericos - sValor = "+sValor);
+//    alert("RetiraCaracteresNaoNumericos - sSeparador = "+sSeparador);
+//    alert("RetiraCaracteresNaoNumericos - iIndPontoDec = "+iIndPontoDec);
+    for (i=0; i < sValor.length; i++)
+    {
+        if (numero.indexOf(sValor.charAt(i)) != -1)
+            sValorLimpo += sValor.charAt(i);
+            // substitui ponto decimal por vírgula
+        if (i+1 == iIndPontoDec)
+        {
+            i++;
+            sValorLimpo += sSeparador;
+        }
+        else
+            if ((i==0) && (iIndPontoDec==0))
+                sValorLimpo += sSeparador;
+    }
+//    alert("RetiraCaracteresNaoNumericos - sValorLimpo = "+sValorLimpo);
+    return sValorLimpo;
+}
+
+/*
+RetiraZerosAEsquerda
+====================
+
+*/
+function RetiraZerosAEsquerda( sValor, sSeparador ) {
+    // retira zeros à esquerda
+    while (sValor.charAt(0)=="0")
+        sValor = sValor.substring(1, sValor.length);
+
+    // transforma "<sSeparador>xx" em "0<sSeparador>xx"
+    if (sValor.charAt(0)==sSeparador)
+        sValor = "0" + sValor;
+
+    return sValor;
+}
+
+function FormataNumero( sValor, iCasasDecimais ) {
+   var indPontoDec;                            // localizacao do ponto decimal
+   var valorLimpo = "";                        // valor filtrado (apenas numeros e virgula)
+   var cont = 0;                               // contador
+   var indPonto = 0;                           // localizacao do último ponto
+   var indVirgula = 0;                         // localizacao da última virgula
+   var qtPonto = 0;                            // qtde de pontos de milhar
+   var qtResto = 0;                            // resto de indPontoDec / 3
+   var limite = 0;                             // limite da colocação do ponto de milhar
+
+
+        // descobre qual o último separador que está sendo utilizado
+        indVirgula = sValor.lastIndexOf(',');
+        indPonto = sValor.lastIndexOf('.');
+        sSeparador = ",";
+        if (indVirgula == indPonto) {
+                indPontoDec = -1;
+        }
+        else {
+            if (indVirgula > indPonto) {
+                indPontoDec = indVirgula;
+            }
+            else {
+                indPontoDec = indPonto;
+            }
+        }
+
+        // Arredonda pelo número de casas decimais
+        valorLimpo = Arredonda( RetiraCaracteresNaoNumericos(sValor,'.',indPontoDec), iCasasDecimais );
+//        alert("FN 1- RetiraCaracteresNaoNumericos = "+RetiraCaracteresNaoNumericos(sValor,'.',indPontoDec));
+//        alert("FN 2- Arredonda = "+Arredonda( RetiraCaracteresNaoNumericos(sValor,'.',indPontoDec), iCasasDecimais ));
+//        alert("FN 3- valorLimpo = "+valorLimpo);
+
+        // descobre qual o último separador que está sendo utilizado
+        indVirgula = valorLimpo.lastIndexOf(',');
+        indPonto = valorLimpo.lastIndexOf('.');
+        if (indVirgula == indPonto) {
+                indPontoDec = -1;
+        }
+        else {
+            if (indVirgula > indPonto) {
+                indPontoDec = indVirgula;
+            }
+            else {
+                indPontoDec = indPonto;
+            }
+        }
+
+        // limpa dígitos não numéricos do valor e transforma número com vírgula decimal
+        valorLimpo = RetiraCaracteresNaoNumericos(valorLimpo,sSeparador,indPontoDec);
+//        alert("FN 4- RetiraCaracteresNaoNumericos = "+RetiraCaracteresNaoNumericos(valorLimpo,sSeparador,indPontoDec));
+
+        // Preenche com zeros na casa decimal caso seja necessário
+        valorLimpo = PreencheComZerosNaCasaDecimal(valorLimpo,sSeparador,iCasasDecimais);
+//        alert("FN 5- PreencheComZerosNaCasaDecimal = "+PreencheComZerosNaCasaDecimal(valorLimpo,sSeparador,iCasasDecimais));
+
+        // coloca separação de milhar
+        indPontoDec = valorLimpo.lastIndexOf(',');
+        qtPonto = Math.floor(indPontoDec/3);
+        qtResto = indPontoDec%3;
+        if (qtResto==0)
+                limite=1;
+        else
+                limite=0;
+        for (cont=qtPonto-1; cont >= limite; cont--)
+                valorLimpo = valorLimpo.substring(0, qtResto + cont*3) + '.' +
+                             valorLimpo.substring(qtResto + cont*3, valorLimpo.length);
+
+
+        return valorLimpo;
+}
+
+function FormataMoeda(valor, blnUnidade)
+{
+    return FormataNumero( valor, 2 );
+}
+
+/*
+FormataDecimal
+==============
+a) Retira caracteres inválidos, deixando somente números e vírgula
+b) Transforma vírgula em ponto
+c) Se estiver faltando dígito na parte inteira acrescenta
+d) completa com zeros a direita da vírgula até completar 2 casas decimais.
+e) se tiver mais que 2 casas decimais, mantém todas as casas.
+
+*/
+function FormataDecimal(valor, blnUnidade)
+{
+   var indPontoDec;                  // localizacao do ponto decimal
+/*
+   var valorLimpo = "";              // valor filtrado (apenas numeros e virgula)
+   var cont = 0;                     // contador
+   var indPonto = 0;                 // localizacao do último ponto
+   var indVirgula = 0;               // localizacao da última virgula
+   var numero = "0123456789";        // domínio de dígitos válidos
+   var qtPonto = 0;                  // qtde de pontos de milhar
+   var qtResto = 0;                  // resto de indPontoDec / 3
+   var limite = 0;                   // limite da colocação do ponto de milhar
+*/
+
+    // descobre qual o último separador que está sendo utilizado
+
+    indPontoDec = valor.lastIndexOf(',');
+    sSeparador = ".";
+
+    valorLimpo = RetiraCaracteresNaoNumericos(valor,sSeparador,indPontoDec);
+//        alert("FD - RetiraCaracteresNaoNumericos = "+RetiraCaracteresNaoNumericos(valor,sSeparador,indPontoDec));
+
+    valorLimpo = PreencheComZerosNaCasaDecimal(valorLimpo,sSeparador,2);
+//        alert("FD - PreencheComZerosNaCasaDecimal = "+PreencheComZerosNaCasaDecimal(valorLimpo,sSeparador,2));
+    valorLimpo = RetiraZerosAEsquerda(valorLimpo, sSeparador);
+//        alert("FD - RetiraZerosAEsquerda = "+RetiraZerosAEsquerda(valorLimpo, sSeparador));
+
+    return valorLimpo;
+}
+
+
+function buscaAgencias()
+{
+	window.open('/Agn/scripts/engine_agn.dll?OPERA=ConsultaAgencia_A&cliente=generico&opener=ABRAPF', 'Agencias', 'toolbar=no,location=no, directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,menubar=no,width=500,height=430');	
+}
+//-->
+</script>
+<script type="text/javascript" language="javascript">
+      appName = navigator.appName;
+      appVer = parseInt(navigator.appVersion);
+      var ver="";
+      if (appName == "Netscape" && appVer >= 4) 
+        ver = "n4";
+      else if (appName == "Microsoft Internet Explorer" && appVer >= 4) 
+        ver = "e4";
+        
+      if (ver == "e4") {document.write ("<link rel='stylesheet' href='/acc/css/txt_box.css'>");}
+      if (ver == "n4") {document.write ("<link rel='stylesheet' href='/acc/css/txt_box_net.css'>");} 
+    
+</script><link rel="stylesheet" href="comunic_acc_files/txt_box_net.css"><title></title></head>
+
+  <body leftmargin="0" topmargin="0" onload="javascript:Carrega(); SetaCombos(); document.ABERTURA_I.CDAGENCIA.focus();" bgcolor="#fffae6" marginheight="0" marginwidth="0">
+  
+<script type="text/javascript" language="JavaScript">
+document.write('<form method="post" action="/scripts/comunic_acc.dll?OPERA=ACC_ABERTURACC_F&PROFISSAO='+Profissao+'&CLIENTE=' + Cliente + '#INICIO" name="ABERTURA_I" autocomplete="off">');
+</script><form method="post" action="/scripts/comunic_acc.dll?OPERA=ACC_ABERTURACC_F&amp;PROFISSAO=UNDEFINED&amp;CLIENTE=SNC#INICIO" name="ABERTURA_I" autocomplete="off">
+
+    <br>
+     
+<script type="text/javascript" language="javascript">
+        //<!--
+        //Classifica(6);
+        //-->
+      
+</script>
+    <table border="0" cellpadding="5" cellspacing="0" width="100%">
+      <tbody><tr>
+        <td class="texto">
+          <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tbody><tr>
+              <td>
+                <img src="comunic_acc_files/form_tit_cc.gif" height="19" width="272">
+              </td>
+            </tr>
+          </tbody></table>
+        </td>
+      </tr>
+      <tr>
+        <td class="texto" colspan="1">
+            <br>
+             Os campos marcados com asterisco (*) são de preenchimento obrigatório.
+            <br>
+        </td>
+      </tr>
+      <tr>
+        <td class="texto">
+          <input name="STEP" value="D" type="hidden"> 
+<script type="text/javascript" language="javascript">
+        //<!--
+        //Classifica(3);
+        //-->
+      
+</script>
+          <a name="INICIO"></a>
+          <table border="0" cellpadding="0" cellspacing="5" width="100%">
+            <tbody><tr>
+              <td class="texto" nowrap="nowrap" width="35%">
+                *Código da agência:
+              </td>
+              <td class="texto" xwidth="62%">
+                <input name="DSPROFISSAO" value="" type="hidden">
+                <input name="CDAGENCIA" size="4" maxlength="4" onfocus="SetarEvento(this,4,'9')" value="" class="imput" type="text"> 
+								<a href="javascript: buscaAgencias();" class="textoLink">Procure 
+              		a agência</a> mais próxima.
+              </td>
+            </tr>
+            <tr>
+              <td class="texto">
+                *Nome completo:
+              </td>
+              <td class="texto">
+                <input name="NOME" size="40" maxlength="80" onfocus="SetarEvento(this,80,'X')" value="" class="imput" type="text"> 
+              </td>
+            </tr>
+            <tr>
+              <td class="texto">
+                *CPF:
+              </td>
+              <td class="texto">
+                <input name="CPF" size="9" maxlength="9" onfocus="SetarEvento(this,9,'9')" value="" class="imput" type="text"> <input name="CPFDG" size="2" maxlength="2" onfocus="SetarEvento(this,2,'9')" value="" class="imput" type="text"> 
+              </td>
+            </tr>
+            <tr>
+              <td class="texto">
+                *E-mail pessoal:
+              </td>
+              <td class="texto">
+                <input name="EMAIL" size="30" maxlength="40" onfocus="SetarEvento(this,40)" value="" class="imput" type="text"> <input name="TIPOEMAIL" value="1" type="hidden"> <!--1=residencial-->
+                 <!--
+                      &nbsp;*Tipo Email: 
+                        <select name="TIPOEMAIL">
+                        <option selected value="">
+                        <option value="1">Residencial</option>
+                        <option value="2">Comercial</option>
+                        <option value="3">Outros</option>
+                        </select>
+                        -->
+                 
+              </td>
+            </tr>
+            <tr>
+              <td class="texto" height="17">
+                *Sexo:
+              </td>
+              <td class="texto" height="17">
+                <input name="SEXO" value="M" type="radio"> M <input name="SEXO" value="F" type="radio"> F
+              </td>
+            </tr>
+            <tr>
+              <td class="texto">
+                *Estado civil:
+              </td>
+              <td class="texto">
+                <select name="ESTCIVIL" xonblur="SaidaEstCivil()" class="imput"><option selected="selected" value="">
+                    Selecione
+                  </option><option value="1">
+                    Casado
+                  </option><option value="2">
+                    Desquitado
+                  </option><option value="3">
+                    Divorciado
+                  </option><option value="4">
+                    Marital
+                  </option><option value="7">
+                    Separado
+                  </option><option value="5">
+                    Solteiro
+                  </option><option value="6">
+                    Viúvo
+                  </option></select> 
+              </td>
+            </tr>
+            <tr>
+              <td class="texto">
+                *Nascimento:
+              </td>
+              <td class="texto" valign="top">
+                <input name="NASCDIA" size="2" maxlength="2" onfocus="SetarEvento(this,2,'9')" value="" class="imput" type="text"> / <input name="NASCMES" size="2" maxlength="2" onfocus="SetarEvento(this,2,'9')" value="" class="imput" type="text"> / <input name="NASCANO" size="4" maxlength="4" onfocus="SetarEvento(this,4,'9')" value="" class="imput" type="text"> 
+              </td>
+            </tr>
+            <tr>
+              <td class="texto">
+                *Naturalidade:
+              </td>
+              <td class="texto">
+                <input name="NATURAL" maxlength="20" size="20" onfocus="SetarEvento(this,20,'X')" value="" class="imput" type="text"> *UF <select name="NATURALUF" class="imput"><option selected="selected" value="">
+                  </option><option value="AC">
+                    AC
+                  </option><option value="AL">
+                    AL
+                  </option><option value="AM">
+                    AM
+                  </option><option value="AP">
+                    AP
+                  </option><option value="BA">
+                    BA
+                  </option><option value="CE">
+                    CE
+                  </option><option value="DF">
+                    DF
+                  </option><option value="ES">
+                    ES
+                  </option><option value="GO">
+                    GO
+                  </option><option value="MA">
+                    MA
+                  </option><option value="MG">
+                    MG
+                  </option><option value="MS">
+                    MS
+                  </option><option value="MT">
+                    MT
+                  </option><option value="PA">
+                    PA
+                  </option><option value="PB">
+                    PB
+                  </option><option value="PE">
+                    PE
+                  </option><option value="PI">
+                    PI
+                  </option><option value="PR">
+                    PR
+                  </option><option value="RJ">
+                    RJ
+                  </option><option value="RN">
+                    RN
+                  </option><option value="RO">
+                    RO
+                  </option><option value="RR">
+                    RR
+                  </option><option value="RS">
+                    RS
+                  </option><option value="SC">
+                    SC
+                  </option><option value="SE">
+                    SE
+                  </option><option value="SP">
+                    SP
+                  </option><option value="TO">
+                    TO
+                  </option></select> 
+              </td>
+            </tr>
+            <tr>
+              <td class="texto">
+                *Nacionalidade:
+              </td>
+              <td>
+                <select name="NACIONAL" class="imput"><option selected="selected" value="">
+                      Selecione 
+                  </option><option value="ALEMA">
+                    ALEMA                                   
+                  </option><option value="ANGOLANA">
+                    ANGOLANA                                
+                  </option><option value="ARGELINA">
+                    ARGELINA                                
+                  </option><option value="ARGENTINA">
+                    ARGENTINA                               
+                  </option><option value="AUSTRALIANA">
+                    AUSTRALIANA                             
+                  </option><option value="AUSTRIACA">
+                    AUSTRIACA                               
+                  </option><option value="BAHAMENSE">
+                    BAHAMENSE                               
+                  </option><option value="BELGA">
+                    BELGA                                   
+                  </option><option value="BOLIVIANA">
+                    BOLIVIANA                               
+                  </option><option value="BRASILEIRA">
+                    BRASILEIRA                              
+                  </option><option value="BRITANICA">
+                    BRITANICA                               
+                  </option><option value="CABOVERDIANA">
+                    CABO VERDIANA                           
+                  </option><option value="CANADENSE">
+                    CANADENSE                               
+                  </option><option value="CHILENA">
+                    CHILENA                                 
+                  </option><option value="CHINESA">
+                    CHINESA                                 
+                  </option><option value="COLOMBIANA">
+                    COLOMBIANA                              
+                  </option><option value="COREANA">
+                    COREANA                                 
+                  </option><option value="COSTARIQUENHA">
+                    COSTARIQUENHA                           
+                  </option><option value="CUBANA">
+                    CUBANA                                  
+                  </option><option value="DINAMARQUESA">
+                    DINAMARQUESA                            
+                  </option><option value="DOMINICANA">
+                    DOMINICANA                              
+                  </option><option value="EGIPCIA">
+                    EGIPCIA                                 
+                  </option><option value="EQUATORIANA">
+                    EQUATORIANA                             
+                  </option><option value="ESPANHOLA">
+                    ESPANHOLA                               
+                  </option><option value="FILANDESA">
+                    FILANDESA                               
+                  </option><option value="FILIPINO">
+                    FILIPINO                                
+                  </option><option value="FRANCESA">
+                    FRANCESA                                
+                  </option><option value="GABONESA">
+                    GABONESA                                
+                  </option><option value="GREGA">
+                    GREGA                                   
+                  </option><option value="GUATEMALTECA">
+                    GUATEMALTECA                            
+                  </option><option value="GUIANESA">
+                    GUIANESA                                
+                  </option><option value="GUINEENSE">
+                    GUINEENSE                               
+                  </option><option value="HOLANDESA">
+                    HOLANDESA                               
+                  </option><option value="HUNGARA">
+                    HUNGARA                                 
+                  </option><option value="INDIANA">
+                    INDIANA                                 
+                  </option><option value="INGLESA">
+                    INGLESA                                 
+                  </option><option value="IRANIANA">
+                    IRANIANA                                
+                  </option><option value="IRAQUIANA">
+                    IRAQUIANA                               
+                  </option><option value="IRLANDESA">
+                    IRLANDESA                               
+                  </option><option value="ISRAELENSE">
+                    ISRAELENSE                              
+                  </option><option value="ITALIANA">
+                    ITALIANA                                
+                  </option><option value="IUGUSLAVA">
+                    IUGUSLAVA                               
+                  </option><option value="JAMAICANA">
+                    JAMAICANA                               
+                  </option><option value="JAPONESA">
+                    JAPONESA                                
+                  </option><option value="LIBANESA">
+                    LIBANESA                                
+                  </option><option value="LUXEMBURGUESA">
+                    LUXEMBURGUESA                           
+                  </option><option value="MALAIA">
+                    MALAIA                                  
+                  </option><option value="MARROQUINA">
+                    MARROQUINA                              
+                  </option><option value="MEXICANA">
+                    MEXICANA                                
+                  </option><option value="NEOZELANDESA">
+                    NEO ZELANDESA                           
+                  </option><option value="NICARAGUANO">
+                    NICARAGUANO                             
+                  </option><option value="NIGERIANA">
+                    NIGERIANA                               
+                  </option><option value="NORTEAMERICANA">
+                    NORTE AMERICANA                         
+                  </option><option value="NORUEGUESA">
+                    NORUEGUESA                              
+                  </option><option value="PANAMENHA">
+                    PANAMENHA                               
+                  </option><option value="PARAGUAIA">
+                    PARAGUAIA                               
+                  </option><option value="PERUANA">
+                    PERUANA                                 
+                  </option><option value="POLONESA">
+                    POLONESA                                
+                  </option><option value="PORTUGUESA">
+                    PORTUGUESA                              
+                  </option><option value="ROMENA">
+                    ROMENA                                  
+                  </option><option value="SALVADORENHA">
+                    SALVADORENHA                            
+                  </option><option value="SINGAPUREANA">
+                    SINGAPUREANA                            
+                  </option><option value="SIRIA">
+                    SIRIA                                   
+                  </option><option value="SOVIETICA">
+                    SOVIETICA                               
+                  </option><option value="SUECA">
+                    SUECA                                   
+                  </option><option value="SUICA">
+                    SUICA                                   
+                  </option><option value="SULAFRICANA">
+                    SUL AFRICANA                            
+                  </option><option value="TCHECA">
+                    TCHECA                                  
+                  </option><option value="TURCA">
+                    TURCA                                   
+                  </option><option value="URUGUAIA">
+                    URUGUAIA                                
+                  </option><option value="VENEZUELANA">
+                    VENEZUELANA                             
+                  </option></select> 
+              </td>
+            </tr>
+            <tr>
+              <td class="texto">
+                *RG:
+              </td>
+              <td>
+                <input name="CDTIPOID" value="1" type="hidden"> <!--1=RG-->
+                 <input name="RG" maxlength="15" size="15" onfocus="SetarEvento(this,15)" value="" class="imput" type="text"> 
+              </td>
+            </tr>
+            <tr>
+              
+          <td class="texto"> *Data de expedição: </td>
+              <td class="texto" valign="top">
+                <input name="EMISSDIA" size="2" maxlength="2" onfocus="SetarEvento(this,2,'9')" value="" class="imput" type="text"> / <input name="EMISSMES" size="2" maxlength="2" onfocus="SetarEvento(this,2,'9')" value="" class="imput" type="text"> / <input name="EMISSANO" size="4" maxlength="4" onfocus="SetarEvento(this,4,'9')" value="" class="imput" type="text"> 
+              </td>
+            </tr>
+            <tr>
+              <td class="texto">
+                *Orgão emissor:
+              </td>
+              <td class="texto">
+                <input name="ORGEMISSOR" maxlength="5" size="5" onfocus="SetarEvento(this,5,'X')" value="" class="imput" type="text"> *UF <select name="UFEMISSOR" class="imput"><option selected="selected" value="">
+                  </option><option value="AC">
+                    AC
+                  </option><option value="AL">
+                    AL
+                  </option><option value="AM">
+                    AM
+                  </option><option value="AP">
+                    AP
+                  </option><option value="BA">
+                    BA
+                  </option><option value="CE">
+                    CE
+                  </option><option value="DF">
+                    DF
+                  </option><option value="ES">
+                    ES
+                  </option><option value="GO">
+                    GO
+                  </option><option value="MA">
+                    MA
+                  </option><option value="MG">
+                    MG
+                  </option><option value="MS">
+                    MS
+                  </option><option value="MT">
+                    MT
+                  </option><option value="PA">
+                    PA
+                  </option><option value="PB">
+                    PB
+                  </option><option value="PE">
+                    PE
+                  </option><option value="PI">
+                    PI
+                  </option><option value="PR">
+                    PR
+                  </option><option value="RJ">
+                    RJ
+                  </option><option value="RN">
+                    RN
+                  </option><option value="RO">
+                    RO
+                  </option><option value="RR">
+                    RR
+                  </option><option value="RS">
+                    RS
+                  </option><option value="SC">
+                    SC
+                  </option><option value="SE">
+                    SE
+                  </option><option value="SP">
+                    SP
+                  </option><option value="TO">
+                    TO
+                  </option></select> 
+              </td>
+            </tr>
+            <tr>
+              <td class="texto">
+                *Nome da mãe:
+              </td>
+              <td>
+                <input name="NMMAE" maxlength="40" size="40" onfocus="SetarEvento(this,40,'X')" value="" class="imput" type="text"> 
+              </td>
+            </tr>
+            <tr>
+              <td class="texto">
+                Nome do pai:
+              </td>
+              <td>
+                <input name="NMPAI" maxlength="40" size="40" onfocus="SetarEvento(this,40,'X')" value="" class="imput" type="text"> 
+              </td>
+            </tr>
+            <tr>
+              <td class="texto">
+                Nome do cônjuge:
+              </td>
+              <td>
+                <input name="NMCONJUGE" maxlength="40" size="40" onclick="VerifEstCivil()" onfocus="SetarEvento(this,40,'X')" value="" class="imput" type="text"> 
+              </td>
+            </tr>
+            <tr>
+              
+          <td class="texto"> *Renda mensal comprovada: </td>
+              <td class="texto">
+								<input name="RENDA" maxlength="13" size="13" onfocus="SetarEvento(this,13,'9');" onkeydown="FormataValor(this,17,event)" onkeyup="return autoTab(this,17,event);" onblur="this.value = FormataMoeda(FormataDecimal(this.value, false), false);" value="" class="imput" type="text">
+              </td>
+            </tr>
+            <tr>
+              <td class="texto">
+                *CEP:
+              </td>
+              <td class="texto">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                  <tbody><tr>
+                    <td class="texto" width="100%">
+                      <input name="CDTIPOEND" value="1" type="hidden"> <!--1=residencial-->
+                      <input name="CEP" size="5" maxlength="5" onfocus="SetarEvento(this,5,'9')" value="" class="imput" type="text"> 
+                      - 
+                      <input name="CEPCOMPL" size="3" maxlength="3" onfocus="SetarEvento(this,3,'9')" value="" class="imput" type="text"> &nbsp; 
+                      <a href="javascript:BuscaCEP()" onclick="javascript:VerifCEP()" class="textoLink"> &gt; Pesquisar endereço</a> 
+                    </td>
+                  </tr>
+                </tbody></table>
+              </td>
+            </tr>
+            <tr>
+              <td class="texto">
+                *Logradouro:
+              </td>
+              <td>
+                <input name="LOGRADOURO" maxlength="40" size="40" onfocus="SetarEvento(this,40)" value="" class="imput" type="text"> 
+              </td>
+            </tr>
+            <tr>
+              <td class="texto">
+                *Número:
+              </td>
+              <td>
+                <input name="NUMEROLOGR" size="5" maxlength="5" onfocus="SetarEvento(this,5)" value="" class="imput" type="text"> 
+              </td>
+            </tr>
+            <tr>
+              <td class="texto">
+                Complemento:
+              </td>
+              <td class="texto">
+                <input name="COMPLEMLOGR" size="15" maxlength="15" onfocus="SetarEvento(this,15)" value="" class="imput" type="text"> 
+              </td>
+            </tr>
+            <tr>
+              <td class="texto">
+                *Bairro:
+              </td>
+              <td>
+                <input name="BAIRROLOGR" size="20" maxlength="20" onfocus="SetarEvento(this,20,'X')" value="" class="imput" type="text"> 
+              </td>
+            </tr>
+            <tr>
+              <td class="texto">
+                *Cidade:
+              </td>
+              <td class="texto">
+                <input name="CIDLOGR" size="20" maxlength="20" onfocus="SetarEvento(this,20,'X')" value="" class="imput" type="text"> 
+              </td>
+            </tr>
+            <tr>
+              <td class="texto">
+                *Estado:
+              </td>
+              <td>
+                <select name="ESTADOLOGR" class="imput"><option selected="selected" value="">
+                  </option><option value="AC">
+                    AC
+                  </option><option value="AL">
+                    AL
+                  </option><option value="AM">
+                    AM
+                  </option><option value="AP">
+                    AP
+                  </option><option value="BA">
+                    BA
+                  </option><option value="CE">
+                    CE
+                  </option><option value="DF">
+                    DF
+                  </option><option value="ES">
+                    ES
+                  </option><option value="GO">
+                    GO
+                  </option><option value="MA">
+                    MA
+                  </option><option value="MG">
+                    MG
+                  </option><option value="MS">
+                    MS
+                  </option><option value="MT">
+                    MT
+                  </option><option value="PA">
+                    PA
+                  </option><option value="PB">
+                    PB
+                  </option><option value="PE">
+                    PE
+                  </option><option value="PI">
+                    PI
+                  </option><option value="PR">
+                    PR
+                  </option><option value="RJ">
+                    RJ
+                  </option><option value="RN">
+                    RN
+                  </option><option value="RO">
+                    RO
+                  </option><option value="RR">
+                    RR
+                  </option><option value="RS">
+                    RS
+                  </option><option value="SC">
+                    SC
+                  </option><option value="SE">
+                    SE
+                  </option><option value="SP">
+                    SP
+                  </option><option value="TO">
+                    TO
+                  </option></select> 
+              </td>
+            </tr>
+            <tr>
+              <td class="texto">
+                *Telefone residencial:
+              </td>
+              <td class="texto">
+                <input name="TIPOTEL1" value="1" type="hidden"> <!-- 1=residencial -->
+                <input name="TEL1DDD" size="2" maxlength="2" onfocus="SetarEvento(this,2,'9')" value="" class="imput" type="text"> - <input name="TEL1" size="8" maxlength="8" onfocus="SetarEvento(this,8,'9')" value="" class="imput" type="text"> 
+								(DDD - Número do telefone)
+              </td>
+            </tr>
+            <tr>
+              <td class="texto">
+                Telefone celular:
+              </td>
+              <td class="texto">
+                <input name="TIPOTEL2" value="3" type="hidden"> <!-- 3=celular -->
+							 	<input name="TEL2DDD" size="2" maxlength="2" onfocus="SetarEvento(this,2,'9')" value="" class="imput" type="text"> - <input name="TEL2" size="8" maxlength="8" onfocus="SetarEvento(this,8,'9')" value="" class="imput" type="text"> 
+							 	(DDD - Número do telefone)
+              </td>
+            </tr>
+						<tr>
+              <td class="texto">
+                *Universitário:
+              </td>
+              <td class="texto">
+                <input name="UNIVERSITARIO" value="SIM" onclick="consisteProfissao();" type="radio">Sim&nbsp;&nbsp;
+								<input name="UNIVERSITARIO" value="NAO" onclick="consisteProfissao();" type="radio">Não </td>
+            </tr>
+            <tr>
+              <td class="texto">
+                *Profissão:
+              </td>
+              <td>
+                <select name="PROFISSAO" onchange="consisteProfissao();" xonkeyup="javascript:obj1.bldUpdate();" class="imput" style="width: 230px;"><option selected="selected" value="">
+                    Selecione 
+                  </option><option value="00125">
+                    Administrador                           - 00125
+                  </option><option value="00131">
+                    Advogado                                - 00131
+                  </option><option value="00405">
+                    Agenciador de propaganda                - 00405
+                  </option><option value="00292">
+                    Agente administrativo                   - 00292
+                  </option><option value="00595">
+                    Agente de servs.funerario e embalsamador- 00595
+                  </option><option value="00594">
+                    Agente de viagem e guia de turismo      - 00594
+                  </option><option value="00103">
+                    Agronomo                                - 00103
+                  </option><option value="00591">
+                    Alfaiate                                - 00591
+                  </option><option value="00126">
+                    Analista de sistemas                    - 00126
+                  </option><option value="00923">
+                    Aposentado (exceto func.publico)        - 00923
+                  </option><option value="00102">
+                    Arquiteto                               - 00102
+                  </option><option value="00134">
+                    Assistente social                       - 00134
+                  </option><option value="00128">
+                    Astronomo e meteorologista              - 00128
+                  </option><option value="00168">
+                    Atleta profissional e tecnico em desport- 00168
+                  </option><option value="00162">
+                    Ator e diretor de espetaculos publicos  - 00162
+                  </option><option value="00123">
+                    Atuario e matematico                    - 00123
+                  </option><option value="00394">
+                    Auxiliar de escritorio e assemelhados   - 00394
+                  </option><option value="00596">
+                    Auxiliar de laboratorio                 - 00596
+                  </option><option value="00395">
+                    Bancario e economiario                  - 00395
+                  </option><option value="00135">
+                    Bibliotec.arquivista,museologo e arqueol- 00135
+                  </option><option value="00116">
+                    Biologo e biomedico                     - 00116
+                  </option><option value="00931">
+                    Bolsista,estagiario e assemelhados      - 00931
+                  </option><option value="00544">
+                    Bombeiro de inst.de gas,agua,esgoto e as- 00544
+                  </option><option value="00511">
+                    Cabelereiro,barbeiro,manicure,massagista- 00511
+                  </option><option value="00163">
+                    Cantor e compositor                     - 00163
+                  </option><option value="00907">
+                    Capit.rec.rend.de aplic.de cap.ativo fin- 00907
+                  </option><option value="00391">
+                    Chefe intermediario                     - 00391
+                  </option><option value="00183">
+                    Comandante de embarcacoes               - 00183
+                  </option><option value="00182">
+                    Comissario de bordo                     - 00182
+                  </option><option value="00136">
+                    Comunicologo                            - 00136
+                  </option><option value="00124">
+                    Contador                                - 00124
+                  </option><option value="00533">
+                    Contramestre de embarcacoes             - 00533
+                  </option><option value="00165">
+                    Coreografo e bailarino                  - 00165
+                  </option><option value="00403">
+                    Corretor de imoveis,seguros,tits e vlrs - 00403
+                  </option><option value="00193">
+                    Decorador                               - 00193
+                  </option><option value="00214">
+                    Delegado de policia                     - 00214
+                  </option><option value="00491">
+                    Demonstrador                            - 00491
+                  </option><option value="00192">
+                    Desenhista comercial                    - 00192
+                  </option><option value="00105">
+                    Desenhista industrial                   - 00105
+                  </option><option value="00158">
+                    Desenhista tecnico                      - 00158
+                  </option><option value="00593">
+                    Despachante e despachante aduaneiro     - 00593
+                  </option><option value="00212">
+                    Diplomata                               - 00212
+                  </option><option value="00301">
+                    Diretor de empresas                     - 00301
+                  </option><option value="00144">
+                    Diretor de estabelecimento de ensino    - 00144
+                  </option><option value="00121">
+                    Economista                              - 00121
+                  </option><option value="00703">
+                    Eletricista e assemelhados              - 00703
+                  </option><option value="00542">
+                    Eletricista manut. veics,maqs,apars,etc - 00542
+                  </option><option value="00598">
+                    Empregado domestico                     - 00598
+                  </option><option value="00161">
+                    Empresario e produtor de espetaculos pub- 00161
+                  </option><option value="00113">
+                    Enfermeiro e nutricionista              - 00113
+                  </option><option value="00101">
+                    Engenheiro                              - 00101
+                  </option><option value="00191">
+                    Escultor,pintor e assemelhados          - 00191
+                  </option><option value="00949">
+                    Espolio                                 - 00949
+                  </option><option value="00122">
+                    Estatistico                             - 00122
+                  </option><option value="00597">
+                    Estivador,carregador,embalador e assemel- 00597
+                  </option><option value="00933">
+                    Ex-universitario                        - 00933
+                  </option><option value="00117">
+                    Farmaceutico                            - 00117
+                  </option><option value="00413">
+                    Feirante                                - 00413
+                  </option><option value="00213">
+                    Fiscal                                  - 00213
+                  </option><option value="00106">
+                    Fisico                                  - 00106
+                  </option><option value="00114">
+                    Fisioterapeuta e terapeuta ocupacional  - 00114
+                  </option><option value="00118">
+                    Fonoaudiologo                           - 00118
+                  </option><option value="00922">
+                    Funcionario publico civil aposentado    - 00922
+                  </option><option value="00605">
+                    Garimpeiro                              - 00605
+                  </option><option value="00127">
+                    Geografo                                - 00127
+                  </option><option value="00107">
+                    Geologo                                 - 00107
+                  </option><option value="00303">
+                    Gerente                                 - 00303
+                  </option><option value="00521">
+                    Govern.de hotel,camar,port,coz,garcon   - 00521
+                  </option><option value="00717">
+                    Joalheiros e ourives                    - 00717
+                  </option><option value="00412">
+                    Jornaleiro                              - 00412
+                  </option><option value="00171">
+                    Jornalista                              - 00171
+                  </option><option value="00543">
+                    Lanterneiro e pintor de veic.metalicos  - 00543
+                  </option><option value="00404">
+                    Leiloeiro,avaliador e assemelhados      - 00404
+                  </option><option value="00166">
+                    Locutor e coment.de radio e tv.e radial - 00166
+                  </option><option value="00535">
+                    Maquinista e foguista de emb,locom.e ass- 00535
+                  </option><option value="00534">
+                    Marinheiro e assemelhados               - 00534
+                  </option><option value="00541">
+                    Mecanico de manut.de veic.auto.e maquina- 00541
+                  </option><option value="00702">
+                    Mecanico manut,mont,prep.e opr.maqs,apar- 00702
+                  </option><option value="00111">
+                    Medico                                  - 00111
+                  </option><option value="00203">
+                    Membros poder exec:pres,min,gov,pref,etc- 00203
+                  </option><option value="00205">
+                    Membros poder jud:min.trb.sup,desem,juiz- 00205
+                  </option><option value="00201">
+                    Membros poder leg:sen,dep.fed,dep.est,ve- 00201
+                  </option><option value="00701">
+                    Mestre e contramestre                   - 00701
+                  </option><option value="00295">
+                    Militar em geral                        - 00295
+                  </option><option value="00921">
+                    Militar reformado                       - 00921
+                  </option><option value="00492">
+                    Modelo de modas                         - 00492
+                  </option><option value="00532">
+                    Motorista de veic.de transp.de carga    - 00532
+                  </option><option value="00531">
+                    Motorista de veic.de transp.de passageir- 00531
+                  </option><option value="00164">
+                    Musico                                  - 00164
+                  </option><option value="00215">
+                    Ocupante de cargo de dir.assess.superior- 00215
+                  </option><option value="00291">
+                    Ocupante de cargo de dir.e assess.interm- 00291
+                  </option><option value="00115">
+                    Odontologo                              - 00115
+                  </option><option value="00216">
+                    Oficiais das forcas armadas e auxiliares- 00216
+                  </option><option value="00167">
+                    Operador de camera de cinema e televisao- 00167
+                  </option><option value="00159">
+                    Outros                                  - 00159
+                  </option><option value="00145">
+                    Outros trab.de nivel sup.ligados ensino - 00145
+                  </option><option value="00641">
+                    Pecuarista (bovinicultura de leite)     - 00641
+                  </option><option value="00643">
+                    Pecuarista de aves                      - 00643
+                  </option><option value="00645">
+                    Pecuarista de outros                    - 00645
+                  </option><option value="00644">
+                    Pecuarista de piscicultura              - 00644
+                  </option><option value="00642">
+                    Pecuarista de suinos                    - 00642
+                  </option><option value="00640">
+                    Pecuarista(bovinicultura de corte)      - 00640
+                  </option><option value="00924">
+                    Pensionista                             - 00924
+                  </option><option value="00181">
+                    Piloto de aeronaves                     - 00181
+                  </option><option value="00501">
+                    Porteiro edf,ascensorista,garagista,fax.- 00501
+                  </option><option value="00211">
+                    Procurador e assemelhados               - 00211
+                  </option><option value="00625">
+                    Produtor de algodao                     - 00625
+                  </option><option value="00626">
+                    Produtor de batata                      - 00626
+                  </option><option value="00624">
+                    Produtor de cacau                       - 00624
+                  </option><option value="00623">
+                    Produtor de cafe                        - 00623
+                  </option><option value="00622">
+                    Produtor de cana                        - 00622
+                  </option><option value="00621">
+                    Produtor de citrus                      - 00621
+                  </option><option value="00629">
+                    Produtor de floricultura                - 00629
+                  </option><option value="00628">
+                    Produtor de fruticultura                - 00628
+                  </option><option value="00627">
+                    Produtor de horticultura                - 00627
+                  </option><option value="00620">
+                    Produtor de soja/milho/trigo/arroz/feija- 00620
+                  </option><option value="00143">
+                    Professor de ensino de 1. e 2. graus    - 00143
+                  </option><option value="00142">
+                    Professor de ensino superior            - 00142
+                  </option><option value="00138">
+                    Profissionais de letras e artes         - 00138
+                  </option><option value="00901">
+                    Prop.de estab.agricola,pecuaria,floresta- 00901
+                  </option><option value="00902">
+                    Proprietario de estab.comercial         - 00902
+                  </option><option value="00904">
+                    Proprietario de estab.de prest.servicos - 00904
+                  </option><option value="00903">
+                    Proprietario de estab.industrial        - 00903
+                  </option><option value="00906">
+                    Proprietario de imovel,rec.rend.aluguel - 00906
+                  </option><option value="00905">
+                    Proprietario de microempresa            - 00905
+                  </option><option value="00592">
+                    Protetico                               - 00592
+                  </option><option value="00132">
+                    Psicologo                               - 00132
+                  </option><option value="00172">
+                    Publicitario                            - 00172
+                  </option><option value="00104">
+                    Quimico                                 - 00104
+                  </option><option value="00137">
+                    Relacoes publicas                       - 00137
+                  </option><option value="00910">
+                    Sacerdote ou membro de o.ou seitas relig- 00910
+                  </option><option value="00393">
+                    Sec.,estenografo,dat.,recep.,telef.e ass- 00393
+                  </option><option value="00396">
+                    Securitario                             - 00396
+                  </option><option value="00293">
+                    Serventuario da justica                 - 00293
+                  </option><option value="00297">
+                    Servidor publico estadual               - 00297
+                  </option><option value="00296">
+                    Servidor publico federal                - 00296
+                  </option><option value="00298">
+                    Servidor publico municipal              - 00298
+                  </option><option value="00133">
+                    Sociologo                               - 00133
+                  </option><option value="00401">
+                    Supv,insp.e agente de compras e vendas  - 00401
+                  </option><option value="00294">
+                    Tabeliao                                - 00294
+                  </option><option value="00153">
+                    Tecnico de agronomia e agrimensura      - 00153
+                  </option><option value="00152">
+                    Tecnico de biologia                     - 00152
+                  </option><option value="00151">
+                    Tecnico de contabilidade e estatistica  - 00151
+                  </option><option value="00156">
+                    Tecnico de elet.eletronica e telecomunic- 00156
+                  </option><option value="00157">
+                    Tecnico de laboratorio e raio-x         - 00157
+                  </option><option value="00155">
+                    Tecnico de mecanica                     - 00155
+                  </option><option value="00154">
+                    Tecnico de quimica                      - 00154
+                  </option><option value="00108">
+                    Tecnologo                               - 00108
+                  </option><option value="00715">
+                    Trab. da fab.de calcados e artefatos cou- 00715
+                  </option><option value="00713">
+                    Trab.da fab.de artefatos de madeira     - 00713
+                  </option><option value="00716">
+                    Trab.da fab.de prods.de borracha e plast- 00716
+                  </option><option value="00710">
+                    Trab.da fab.e prep.de alimento e bebidas- 00710
+                  </option><option value="00712">
+                    Trab.de fab.de prods.texteis-exceto roup- 00712
+                  </option><option value="00392">
+                    Trab.servs contb.de caixa e trabs assem - 00392
+                  </option><option value="00706">
+                    Trab.tratam.de fumo e fab.cigarros,charu- 00706
+                  </option><option value="00601">
+                    Trabalhador agricola                    - 00601
+                  </option><option value="00714">
+                    Trabalhador da fab.de papel e papelao   - 00714
+                  </option><option value="00705">
+                    Trabalhador da fabricacao de roupas     - 00705
+                  </option><option value="00602">
+                    Trabalhador da pecuaria                 - 00602
+                  </option><option value="00604">
+                    Trabalhador da pesca                    - 00604
+                  </option><option value="00711">
+                    Trabalhador de artes graficas           - 00711
+                  </option><option value="00709">
+                    Trabalhador de construcao civil         - 00709
+                  </option><option value="00708">
+                    Trabalhador de usinagem de metais       - 00708
+                  </option><option value="00603">
+                    Trabalhador florestal                   - 00603
+                  </option><option value="00707">
+                    Trabalhador metalurgico e siderurgico   - 00707
+                  </option><option value="00657">
+                    Trabalhadores de benef.prods div.agropec- 00657
+                  </option><option value="00653">
+                    Trabalhadores de cerealistas            - 00653
+                  </option><option value="16006518">
+                    Trabalhadores de cooperativas agropecuar- 00651
+                  </option><option value="00655">
+                    Trabalhadores de frigorificos           - 00655
+                  </option><option value="00652">
+                    Trabalhadores de laticinios             - 00652
+                  </option><option value="00654">
+                    Trabalhadores de maquinistas de cafe    - 00654
+                  </option><option value="00656">
+                    Trabalhadores de usina - acucar e alcool- 00656
+                  </option><option value="00658">
+                    Trabalhadores transp.exclusivo-pec.agric- 00658
+                  </option><option value="00704">
+                    Trabr.de instl.de proc.quimico          - 00704
+                  </option><option value="00932">
+                    Universitario                           - 00932
+                  </option><option value="00411">
+                    Vendedor de comercio varej.e atacadista - 00411
+                  </option><option value="00402">
+                    Vendedor,repres.coml,caixeiro-viaj,assem- 00402
+                  </option><option value="00112">
+                    Veterinario e zootecnista               - 00112
+                  </option></select> 
+              </td>
+            </tr>
+          </tbody></table>
+        </td>
+      </tr>
+    </tbody></table>
+    <table>
+      <tbody><tr>
+        <td>
+          <table border="0" cellpadding="0" cellspacing="5" width="100%">
+            <tbody><tr>
+              <td class="texto">
+                <input value=" Enviar " name="enviar" onclick="javascript:Envia(0);" class="botao" type="button"> <input value=" Limpar " name="reset" onclick="javascript:LimpaTudo();" class="botao" type="button"> 
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <br>
+                 <font class="textoNegrito"><b>Importante</b>:<br><br></font>
+                 <font class="texto">Universitário e militar em curso de formação: você
+                 	não precisa comprovar renda para abrir conta. Preencha o campo "renda" com o
+                 	valor R$ 0.<br>Os dados aqui coletados serão utilizados apenas para os processos autorizados.
+                 	</font> 
+              </td>
+            </tr>
+          </tbody></table>
+        </td>
+      </tr>
+    </tbody></table>
+      
+    <input name="QTDEPROF" value="178" type="hidden">
+    
+    <input name="ALEMA" value="00002" type="hidden">
+    <input name="ANGOLANA" value="00054" type="hidden">
+    <input name="ARGELINA" value="00061" type="hidden">
+    <input name="ARGENTINA" value="00004" type="hidden">
+    <input name="AUSTRALIANA" value="00051" type="hidden">
+    <input name="AUSTRIACA" value="00006" type="hidden">
+    <input name="BAHAMENSE" value="00038" type="hidden">
+    <input name="BELGA" value="00024" type="hidden">
+    <input name="BOLIVIANA" value="00012" type="hidden">
+    <input name="BRASILEIRA" value="00001" type="hidden">
+    <input name="BRITANICA" value="00032" type="hidden">
+    <input name="CABOVERDIANA" value="00059" type="hidden">
+    <input name="CANADENSE" value="00025" type="hidden">
+    <input name="CHILENA" value="00021" type="hidden">
+    <input name="CHINESA" value="00010" type="hidden">
+    <input name="COLOMBIANA" value="00036" type="hidden">
+    <input name="COREANA" value="00027" type="hidden">
+    <input name="COSTARIQUENHA" value="00066" type="hidden">
+    <input name="CUBANA" value="00037" type="hidden">
+    <input name="DINAMARQUESA" value="00028" type="hidden">
+    <input name="DOMINICANA" value="00057" type="hidden">
+    <input name="EGIPCIA" value="00046" type="hidden">
+    <input name="EQUATORIANA" value="00034" type="hidden">
+    <input name="ESPANHOLA" value="00007" type="hidden">
+    <input name="FILANDESA" value="00048" type="hidden">
+    <input name="FILIPINO" value="00071" type="hidden">
+    <input name="FRANCESA" value="00009" type="hidden">
+    <input name="GABONESA" value="00060" type="hidden">
+    <input name="GREGA" value="00039" type="hidden">
+    <input name="GUATEMALTECA" value="00069" type="hidden">
+    <input name="GUIANESA" value="00067" type="hidden">
+    <input name="GUINEENSE" value="00052" type="hidden">
+    <input name="HOLANDESA" value="00029" type="hidden">
+    <input name="HUNGARA" value="00018" type="hidden">
+    <input name="INDIANA" value="00058" type="hidden">
+    <input name="INGLESA" value="00023" type="hidden">
+    <input name="IRANIANA" value="00045" type="hidden">
+    <input name="IRAQUIANA" value="00050" type="hidden">
+    <input name="IRLANDESA" value="00062" type="hidden">
+    <input name="ISRAELENSE" value="00047" type="hidden">
+    <input name="ITALIANA" value="00011" type="hidden">
+    <input name="IUGUSLAVA" value="00022" type="hidden">
+    <input name="JAMAICANA" value="00068" type="hidden">
+    <input name="JAPONESA" value="00013" type="hidden">
+    <input name="LIBANESA" value="00005" type="hidden">
+    <input name="LUXEMBURGUESA" value="00049" type="hidden">
+    <input name="MALAIA" value="00070" type="hidden">
+    <input name="MARROQUINA" value="00055" type="hidden">
+    <input name="MEXICANA" value="00033" type="hidden">
+    <input name="NEO ZELANDESA" value="00030" type="hidden">
+    <input name="NICARAGUANO" value="00056" type="hidden">
+    <input name="NIGERIANA" value="00040" type="hidden">
+    <input name="NORTE AMERICANA" value="00008" type="hidden">
+    <input name="NORUEGUESA" value="00065" type="hidden">
+    <input name="PANAMENHA" value="00053" type="hidden">
+    <input name="PARAGUAIA" value="00003" type="hidden">
+    <input name="PERUANA" value="00031" type="hidden">
+    <input name="POLONESA" value="00014" type="hidden">
+    <input name="PORTUGUESA" value="00017" type="hidden">
+    <input name="ROMENA" value="00020" type="hidden">
+    <input name="SALVADORENHA" value="00063" type="hidden">
+    <input name="SINGAPUREANA" value="00035" type="hidden">
+    <input name="SIRIA" value="00016" type="hidden">
+    <input name="SOVIETICA" value="00015" type="hidden">
+    <input name="SUECA" value="00043" type="hidden">
+    <input name="SUICA" value="00026" type="hidden">
+    <input name="SULAFRICANA" value="00041" type="hidden">
+    <input name="TCHECA" value="00064" type="hidden">
+    <input name="TURCA" value="00044" type="hidden">
+    <input name="URUGUAIA" value="00019" type="hidden">
+    <input name="VENEZUELANA" value="00042" type="hidden">
+    
+    <input name="QTDENACIONAL" value="71" type="hidden">
+    
+    <input name="hdnCartaCredito" value="" type="hidden">
+
+    <input name="COR" value="FFFAE6" type="hidden">
+
+    
+    
+    <input name="TEXTOERRO" value="" type="hidden">
+
+
+
+<!-- *********************** CCE-CAMPANHA ************************************************
+-->
+<script src="comunic_acc_files/cce.js"></script>
+<script>
+	var logCampanha = new ControleCampanha();
+	logCampanha.engineLog = "https://www128.abnamro.com.br/CCE/Scripts/engine_cce.dll";
+
+	logCampanha.oferta = 1
+	logCampanha.persistLog = false;
+
+	logCampanha.logAcesso();
+</script><img src="comunic_acc_files/transp.gif" onerror="carregaImagemDefault(this);" border="0" height="0" width="0">
+<!-- *************************************************************************************
+-->
+
+  </form></body></html>

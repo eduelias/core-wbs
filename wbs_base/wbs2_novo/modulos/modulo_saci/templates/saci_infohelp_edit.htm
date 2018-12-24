@@ -1,0 +1,279 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/saci.css" rel="stylesheet" type="text/css">
+<script language="javascript" type="text/javascript">
+var NameArray = new Array();
+var ValueArray = new Array();
+
+<? for($i = 0; $i < count($arrayx); $i++ ){ ?>
+NameArray[<? echo"$cat_id[$i]"; ?>] = new Array(<? echo"$x_subcat_titulo[$i]"; ?>);
+ValueArray[<? echo"$cat_id[$i]"; ?>] = new Array(<? echo"$x_subcat_subid[$i]"; ?>);
+<? }//FOR ?>
+
+function changeOptions(){
+// Obtain the first dimension position of the currently selected theaterRegionvar
+cjIX = document.forms["atendimento"].motivocat.value;
+  
+  if (cjIX > 0){
+   // set the length of the new multi-option
+   //
+
+   	 // CALCULA O NUMERO DE LINHAS DO FOR
+    document.forms["atendimento"].elements["motivosubcat"].options.length = NameArray[cjIX].length +1;
+
+    // LINHA INICIAL DO MENU SELECT
+    document.forms["atendimento"].elements["motivosubcat"].options[0].text = "=> Selecione a Subcategoria";
+    document.forms["atendimento"].elements["motivosubcat"].options[0].value = "";
+
+    for (var j=0; j < NameArray[cjIX].length; j++)
+    {
+      document.forms["atendimento"].elements["motivosubcat"].options[j+1].text = NameArray[cjIX][j];
+      document.forms["atendimento"].elements["motivosubcat"].options[j+1].value = ValueArray[cjIX][j];
+    }
+   
+  }
+  else
+  {
+   // User has reselected the blank 'region' option
+   //
+    document.forms["atendimento"].elements["motivosubcat"].options.length = 2;
+    document.forms["atendimento"].elements["motivosubcat"].options[0].text = "Selecione a Subcategoria...";
+    document.forms["atendimento"].elements["motivosubcat"].options[0].value = "";
+    document.forms["atendimento"].elements["motivosubcat"].options[1].text = "Selecione a Categoria primeiro...";
+    document.forms["atendimento"].elements["motivosubcat"].options[1].value = "";
+  }
+}
+</script>
+<? if (dirname($_SERVER['PHP_SELF']) == "/"){$bar = "";}else{$bar = "/";} ?>
+<script language=JavaScript>
+function VerAgenda()
+{
+	window.open('<? echo "http://" . $_SERVER['HTTP_HOST']. dirname($_SERVER['PHP_SELF']). $bar. "restrito.php?pg=$pg&pg_ped=4&menu_not=1"; ?>','popup_view','width=450, height=400, scrollbars=yes, resizable=no');
+}
+</script>
+</head>
+
+<body>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%"><img src="<? echo DIR_IMAGES; ?>/saci_infohelp.gif" width="190" height="40"></td>
+    <td><div align="right"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=1"; ?>"><img src="<? echo DIR_IMAGES; ?>/bt_voltar_green.gif" border="0"></a></div></td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#68C668"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+  </tr>
+</table>
+<br>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td class="titulospverdec">Editar Atendimento </td>
+  </tr>
+  <tr>
+    <td class="tdspconteudoverdec"><table width="100%"  border="0" cellpadding="2" cellspacing="2">
+      <form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&Action=Editar"; ?>" method="post" name="atendimento">
+        <tr>
+          <td colspan="2" align="right"><span class="saci_campo_view"><strong>          </strong></span>
+            <table  border="0" align="right" cellpadding="2" cellspacing="2">
+                <tr>
+                  <td><strong>Cod. Atend.: </strong></td>
+                  <td class="saci_codatend"><? echo "$codatendselect"; ?>
+                    <input name="codatendimento" type="hidden" id="codatendimento" value="<? echo "$codatendselect"; ?>">
+                  </td>
+                </tr>
+                        </table></td>
+          </tr>
+        <tr>
+          <td width="15%" align="right"><strong>Cod. Cliente:</strong></td>
+          <td><span class="saci_campo_view"><strong><? echo "$codcliente_view"; ?>
+                  <input name="codcliente" type="hidden" id="codcliente" value="<? echo "$codcliente_view"; ?>">
+          </strong></span></td>
+        </tr>
+        <tr>
+          <td colspan="2"><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                <td width="10%" class="saci_tbl_dados1"><strong>Nome</strong></td>
+                <td class="saci_tbl_dados1"><? echo "$nomecliente_view"; ?></td>
+              </tr>
+              <tr>
+                <td class="saci_tbl_dados1"><strong>CPF/CNPJ</strong></td>
+                <td class="saci_tbl_dados1"><? echo "$doccliente"; ?></td>
+              </tr>
+              <tr>
+                <td class="saci_tbl_dados1"><strong>Endere&ccedil;o</strong></td>
+                <td class="saci_tbl_dados1"><? echo "$endereco_view"; ?>, <? echo "$numero_view"; ?> <? echo "$complemento_view"; ?> - <? echo "$bairro_view"; ?> - <? echo "$cep_view"; ?></td>
+              </tr>
+              <tr>
+                <td class="saci_tbl_dados1"><strong>Telefone</strong></td>
+                <td class="saci_tbl_dados1">(<? echo "$dddtel1_view"; ?>) <? echo "$tel1_view"; ?></td>
+              </tr>
+          </table></td>
+        </tr>
+        <tr>
+          <td align="right"><strong>Cod. Pedido:</strong></td>
+          <td><a href="" class="lkverde2"><? echo "$codbarraped_view"; ?></a><strong>
+            <input name="codpedido" type="hidden" id="codpedido" value="<? echo "$codbarraped_view"; ?>">
+          </strong></td>
+        </tr>
+        <tr>
+          <td align="right"><strong>Nome Contato:</strong></td>
+          <td><input name="contato" type="text" class="saci_input2" id="contato" value="<? echo "$contato_view"; ?>"></td>
+        </tr>
+        <tr>
+          <td align="right"><strong>Telefone:</strong></td>
+          <td>(<input name="dddtel" type="text" class="saci_input2" value="<? echo "$dddtel_view"; ?>" size="2" maxlength="2">)
+              <input name="tel" type="text" class="saci_input2" id="tel" size="8" maxlength="8" value="<? echo "$tel_view"; ?>"></td>
+        </tr>
+        <tr>
+          <td colspan="2"><fieldset class="tdspconteudoverdec">
+            <legend class="titulospverdec">Motivo</legend>
+            <table width="100%"  border="0" cellspacing="1" cellpadding="1">
+              <tr>
+                <td width="15%" align="right"><strong>Alterar Motivo: </strong></td>
+                <td><table  border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td><input name="alt_motivo" type="checkbox" id="alt_motivo" value="S"></td>
+                      <td>Sim</td>
+                    </tr>
+                </table></td>
+              </tr>
+              <tr>
+                <td align="right"><strong>Motivo:</strong></td>
+                <td><select name="motivocat" class="saci_input3" id="motivocat" onChange="changeOptions();">
+                    <option value="" selected>Selecione um Motivo...</option>
+                    <? for($i = 0; $i < count($arrayx); $i++ ){ ?>
+                    <option value="<? echo"$cat_id[$i]"; ?>"><? echo"$cat_titulo[$i]"; ?></option>
+                    <? }//FOR ?>
+                </select></td>
+              </tr>
+              <tr>
+                <td align="right">&nbsp;</td>
+                <td><span class="saci_campo_view"><strong>* <? echo "$titulocat_view"; ?>
+                  <input name="motivocat2" type="hidden" id="motivocat2" value="<? echo "$codcat_view"; ?>">
+                </strong></span></td>
+              </tr>
+              <tr>
+                <td align="right">&nbsp;</td>
+                <td><select name="motivosubcat" class="saci_input3" id="motivosubcat">
+                    <option value="" selected>Selecione a Subcategoria...</option>
+                    <option value="">Selecione a Categoria primeiro...</option>
+                </select></td>
+              </tr>
+              <tr>
+                <td align="right">&nbsp;</td>
+                <td><span class="saci_campo_view"><strong>* <? echo "$titulosubcat_view"; ?>
+                  <input name="motivosubcat2" type="hidden" id="motivosubcat2" value="<? echo "$codsubcat_view"; ?>">
+                </strong></span></td>
+              </tr>
+            </table>
+          </fieldset></td>
+        </tr>
+        <tr>
+          <td align="right"></td>
+          <td><a href="javascript:void(0);" class="lkverde2" onClick="VerAgenda();">Ver Agenda</a></td>
+        </tr>
+        <tr>
+          <td align="right"><strong>Data Agenda: </strong></td>
+          <td><input name="diaagenda" type="text" class="saci_input2" size="2" maxlength="2" value="<? echo "$frmdatadd_atend"; ?>">
+            /
+              <input name="mesagenda" type="text" class="saci_input2" value="<? echo "$frmdatamm_atend"; ?>" size="2" maxlength="2">
+              /
+              <input name="anoagenda" type="text" class="saci_input2" value="<? echo "$frmdataaaaa_atend"; ?>" size="4" maxlength="4"></td>
+        </tr>
+        <tr>
+          <td align="right" valign="top"><strong>Hora Agenda: </strong></td>
+          <td><select name="hragenda" class="saci_input3">
+            <option value="00:00:00">Selecione se necess&aacute;rio</option>
+            <option value="09:30:00">9:30</option>
+            <option value="11:00:00">11:00 (Extra)</option>
+            <option value="14:00:00">14:00</option>
+            <option value="15:00:00">15:00</option>
+            <option value="16:00:00">16:00</option>
+            <option value="17:00:00">17:00</option>
+          </select></td>
+        </tr>
+        <tr>
+          <td align="right" valign="top"><strong>OBS:</strong></td>
+          <td><textarea name="obs" cols="60" rows="5" class="saci_input3"><? echo "$obs_view"; ?></textarea></td>
+        </tr>
+        <tr>
+          <td align="right" valign="top"><strong>Solu&ccedil;&atilde;o:</strong></td>
+          <td><textarea name="solucao" cols="60" rows="5" class="saci_input3"><? echo "$solucao_view"; ?></textarea></td>
+        </tr>
+        <tr>
+          <td align="right" valign="top"><strong>Retorno Atend.: </strong></td>
+          <td><select name="retorno" class="saci_input3" id="retorno">
+            <option value="0">Selecione se necess&aacute;rio</option>
+			  <option value="30">30 minutos</option>
+              <option value="60">1 hora</option>
+              <option value="180">3 horas</option>
+              <option value="1440">24 horas</option>
+            </select></td>
+        </tr>
+        <tr>
+          <td align="right" valign="top"><strong>Status Solu&ccedil;&atilde;o: </strong></td>
+          <td><table  border="0" cellspacing="1" cellpadding="1">
+              <tr>
+                <td><input name="solucaostatus" type="radio" value="OK"></td>
+                <td>Solucionado</td>
+              </tr>
+              <tr>
+                <td><input name="solucaostatus" type="radio" value="NO" checked></td>
+                <td>N&atilde;o Solucionado</td>
+              </tr>
+          </table></td>
+        </tr>
+        <tr>
+          <td align="right"><strong>Status:</strong></td>
+          <td><select name="status" class="saci_input3">
+              <option value="0">Aberto</option>
+              <option value="1">Fechado</option>
+              <option value="2">Cancelado Cliente</option>
+              <option value="3">Cancelado Operador</option>
+          </select></td>
+        </tr>
+        <tr>
+          <td align="right"><strong>Humor:</strong></td>
+          <td><table  border="0" cellspacing="1" cellpadding="1">
+            <tr>
+              <td><img src="wbs2/emoticons/<? echo "$humor1_view"; ?>.gif" width="15" height="15"></td>
+              <td class="saci_campo_view"><? echo "$humor2_view"; ?></td>
+            </tr>
+          </table></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td><input name="Submit" type="submit" class="saci_input" value="Salvar">
+              <input name="Reset" type="reset" class="saci_input" value="Cancelar"></td>
+        </tr>
+      </form>
+    </table></td>
+  </tr>
+</table>
+<br>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td class="titulospverdec">Status</td>
+  </tr>
+  <tr>
+    <td class="tdspconteudoverdec"><table width="100%"  border="0" cellspacing="2" cellpadding="1">
+        <tr>
+          <td class="sacitd1">ID</td>
+          <td class="sacitd1">STATUS</td>
+          <td class="sacitd1">DATA HORA </td>
+          <td class="sacitd1">RESPONS&Aacute;VEL</td>
+        </tr>
+		<? for($i = 0; $i < count($array6); $i++ ){ ?>
+        <tr>
+          <td class="sacitd2"><? echo "$codstatus_view[$i]"; ?></td>
+          <td class="sacitd2"><? echo "$statusstatus2_view[$i]"; ?></td>
+          <td class="sacitd2"><? echo "$dthrstatus_view[$i]"; ?></td>
+          <td class="sacitd2"><? echo "$loginstatus_view[$i]"; ?></td>
+        </tr>
+		<? }//FOR ?>
+    </table></td>
+  </tr>
+</table>
+</body>
+</html>

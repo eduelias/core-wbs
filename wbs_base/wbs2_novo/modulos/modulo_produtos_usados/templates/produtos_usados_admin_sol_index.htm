@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/usados.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><img src="<? echo DIR_IMAGES; ?>/produtos_usados_admin_ind.gif"></td>
+  </tr>
+  <tr>
+    <td bgcolor="#666699"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+  </tr>
+</table>
+<br>
+
+<table  border="0" cellspacing="3" cellpadding="2">
+  <tr>
+    <td><a href="<? echo "$PHP_SELF?pg=$pg&pg_ped=3"; ?>"><img src="<? echo DIR_IMAGES; ?>/bt_inserir_produtos_usados.gif" width="125" height="30" border="0"></a></td>
+    <td><a href="<? echo "$PHP_SELF?pg=$pg&pg_ped=1"; ?>"><img src="<? echo DIR_IMAGES; ?>/bt_ver_produtos_usados.gif" width="98" height="30" border="0"></a></td>
+  </tr>
+</table>
+<br>
+
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+  <form action="<? echo "$PHP_SELF?pg=$pg&pg_ped=2&Action=Pesquisar"; ?>" method="post" name="form">
+    <tr>
+      <td class="titulo_tb_acai">Pesquisar por:</td>
+    </tr>
+    <tr>
+      <td class="contorno_td1"><table  border="0" cellpadding="1" cellspacing="1">
+          <tr>
+            <td><strong>Cod.</strong></td>
+            <td><strong>Vendedor</strong></td>
+            <td><strong>Cliente</strong></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td><input name="pesqcod" type="text" class="input3" id="pesqcod" size="6"></td>
+            <td><input name="pesqvendedor" type="text" class="input3" id="pesqvendedor"></td>
+            <td><input name="pesqcliente" type="text" class="input3" id="pesqcliente"></td>
+            <td><input name="Submit" type="submit" class="input2" value="Pesquisar"></td>
+          </tr>
+      </table></td>
+    </tr>
+  </form>
+</table>
+<br>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="titulo_especial">Solicita&ccedil;&otilde;es</td>
+  </tr>
+  <tr>
+    <td bgcolor="#666699"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+  </tr>
+  <tr>
+    <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="10" height="10"></td>
+  </tr>
+</table>
+<table width="100%"  border="0" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="titulo_tb_acai"><strong>Vendedor</strong></td>
+    <td class="titulo_tb_acai">Nome Cliente</td>
+    <td class="titulo_tb_acai"><strong>Telefone</strong></td>
+    <td class="titulo_tb_acai">Produto</td>
+    <td class="titulo_tb_acai">Data/Hora</td>
+    <td width="15" class="titulo_tb_acai">&nbsp;</td>
+    <td width="15" class="titulo_tb_acai">&nbsp;</td>
+  </tr>
+  <?	for($i = 0; $i < count($arraya); $i++ ){ ?>
+  <tr valign="top">
+    <td class="conteudo_td1"><? echo "$vendedor_list[$i]"; ?></td>
+    <td class="conteudo_td1"><strong><? echo "$cliente_list[$i]"; ?></strong></td>
+    <td class="conteudo_td1">(<? echo "$dddtel_list[$i]"; ?>) <? echo "$tel_list[$i]"; ?></td>
+    <td class="conteudo_td1"><? echo "$produto_list[$i]"; ?></td>
+    <td class="conteudo_td1"><? echo "$datahora_list[$i]"; ?></td>
+    <td align="center" class="conteudo_td1"><a class="obshow"><img src="<? echo DIR_IMAGES; ?>/icon_explora.gif" width="14" height="15" border="0"><span><strong>Observações:</strong><br>
+    <? echo "$obs_list[$i]"; ?></span></a></td>
+    <td align="center" class="conteudo_td1"><a href="<? echo "$PHP_SELF?pg=$pg&pg_ped=2&codsolselect=$codsol_list[$i]&Action=Excluir"; ?>" onclick="return confirm ('Deseja apagar esta Solicitação?');"><img src="<? echo DIR_IMAGES; ?>/b_drop.png" width="16" height="16" border="0"></a></td>
+  </tr>
+  <? }//FOR ?>
+</table>
+</body>
+</html>

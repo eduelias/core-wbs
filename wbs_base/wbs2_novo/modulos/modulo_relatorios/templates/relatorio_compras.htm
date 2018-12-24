@@ -1,0 +1,230 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<script language="javascript" src="<? echo DIR_JS; ?>/funcoes01.js"></script>
+<script type="text/javascript" src="<? echo DIR_JS; ?>/calendar.js"></script>
+</head>
+
+<body>
+<?
+$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light);
+?>
+<br>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Pesquisa</legend>
+<table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+  <form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=100&Action=Pesquisar"; ?>" name="pesquisa" method="post">
+    <tr>
+      <td align="center" class="generalGreyBorderBottomTableHeaderCell">Empresa</td>
+      <td align="center" class="generalGreyBorderBottomTableHeaderCell">Cod. Produto</td>
+      <td class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+      <td width="70%" align="center" class="generalGreyBorderBottomTableHeaderCell"><input name="pg" type="hidden" id="pg" value="<? echo $pg; ?>">
+          <input name="pg_ped" type="hidden" id="pg_ped" value="100">
+          <input name="Action" type="hidden" id="Action" value="Pesquisar"></td>
+    </tr>
+    <tr>
+      <td class="noramlTableCell"><select name="empresa" class="campo_select" id="empresa" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"' onChange="DoIt(form)">
+            <option selected>Escolha uma empresa ...</option>
+			<option value="-1">TODAS EMPRESAS</option>
+            <?
+if ($rs_empresas)
+{
+	while (!$rs_empresas->EOF)
+	{
+?>
+            <option value="<? echo $rs_empresas->fields['codemp']; ?>"><? echo $db->format_str("UP", $rs_empresas->fields['nome']); ?></option>
+            <?
+	 	$rs_empresas->MoveNext();
+	}//WHILE
+}
+?>
+        </select></td>
+      <td class="noramlTableCell"><table  border="0" cellpadding="1" cellspacing="1">
+        <tr>
+          <td><input name="codprod_pesq" type="text" class="campo_linha" id="codprod_pesq"  size="5" /></td>
+          </tr>
+      </table></td>
+      <td class="noramlTableCell"><input type="submit" name="Submit" value="Pesquisar" class="botao_cor"></td>
+      <td align="center" class="noramlTableCell">&nbsp;</td>
+    </tr>
+  </form>
+</table>
+</fieldset>
+<br>
+<?php if($libera_sql == 2) { ?>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Ordem de Compra em Aberto </legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <form name="lista" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=200"; ?>" method="post">
+    <tr>
+      <td><table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+        <tr>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="10%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="7%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="7%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="37%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="3%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="8%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="8%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="4%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="4%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="9%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="8%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          </tr>
+        <tr>
+          <td width="3%" align="center" class="generalGreyBorderBottomTableHeaderCell">OC</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Fornecedor</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Data Compra</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Data Prev<br>
+            Chegada</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Produto</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Qtde</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Valor<br>
+            Unitario</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Valor<br>
+            Total</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">ICMS<br>
+            (%)</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell"><p>IP<br>
+            (%)</p>            </td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell"><p>Valor IP</p></td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Custo<br>
+            Gerencial</td>
+          </tr>
+        <?
+if ($rs_lista)
+{
+	$ix = 0;
+	while (!$rs_lista->EOF)
+	{
+    
+        
+        
+          $rs_lista4 = $db->query_db("SELECT nomeprod FROM produtos WHERE codprod = '".$rs_lista->fields['codprod']."' ","SQL_NONE","N");
+ 		  $rs_lista3 = $db->query_db("SELECT nome FROM fornecedor WHERE codfor = '".$rs_lista->fields['codfor']."' ","SQL_NONE","N");
+    
+?>
+        <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+          <td align="center" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;"><b><? echo $rs_lista->fields['codoc']; ?></b><BR></td>
+          <td align="center" class="noramlTableCell"><? echo $rs_lista3->fields['nome']; ?><br></td>
+          <td align="center" class="noramlTableCell"><strong><? echo $rs_lista->fields['datacompra']; ?></strong></td>
+          <td align="center" class="noramlTableCell"><? echo $rs_lista->fields['dataprevcheg']; ?></td>
+          <td align="center" class="noramlTableCell"><strong><? echo $rs_lista4->fields['nomeprod']; ?></strong></td>
+          <td align="center" class="noramlTableCell"><? echo $rs_lista->fields['qtdecomp']; ?></td>
+          <td align="center" class="noramlTableCell"><? echo $db->fvalor($rs_lista->fields['pcu']); ?></td>
+          <td align="center" class="noramlTableCell"><? echo $db->fvalor($rs_lista->fields['pcu']* $rs_lista->fields['qtdecomp']); ?></td>
+          <td align="center" class="noramlTableCell"><? echo $rs_lista->fields['icms']; ?></td>
+          <td align="center" class="noramlTableCell"><? echo $rs_lista->fields['ipi']; ?></td>
+          <td align="center" class="noramlTableCell"><? echo $db->fvalor(($rs_lista->fields['ipi']/100)*$rs_lista->fields['pcu']* $rs_lista->fields['qtdecomp']); ?></td>
+          <td align="center" class="noramlTableCell"><? echo $db->fvalor($rs_lista->fields['custo_ger']); ?></td>
+          </tr>
+        <?
+	 	$ix++;
+		$rs_lista->MoveNext();
+        
+        $vfinal = $vfinal + $vtotal;
+        
+	}//WHILE
+}
+?>
+      </table>
+      </td>
+    </tr>
+  </form>
+</table>
+</fieldset>
+<p>&nbsp;</p>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Ordem de Compras Fechadas (&uacute;ltimas 3)</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <form name="lista" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=200"; ?>" method="post">
+    <tr>
+      <td><table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+        <tr>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="10%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="7%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="7%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="37%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="3%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="8%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="8%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="4%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="4%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="9%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="8%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          </tr>
+        <tr>
+          <td width="3%" align="center" class="generalGreyBorderBottomTableHeaderCell">OC</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Fornecedor</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Data Compra</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Data Prev<br>
+            Chegada</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Produto</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Qtde</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Valor<br>
+            Unitario</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Valor<br>
+            Total</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">ICMS<br>
+            (%)</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell"><p>IP<br>
+            (%)</p></td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell"><p>Valor IP</p></td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Custo<br>
+            Gerencial</td>
+          </tr>
+        <?
+if ($rs_lista1)
+{
+	$ix = 0;
+	while (!$rs_lista1->EOF)
+	{
+    
+        
+        
+          $rs_lista4 = $db->query_db("SELECT nomeprod FROM produtos WHERE codprod = '".$rs_lista1->fields['codprod']."' ","SQL_NONE","N");
+ 		  $rs_lista3 = $db->query_db("SELECT nome FROM fornecedor WHERE codfor = '".$rs_lista1->fields['codfor']."' ","SQL_NONE","N");
+    
+?>
+        <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+          <td align="center" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;"><b><? echo $rs_lista1->fields['codoc']; ?></b><BR></td>
+          <td align="center" class="noramlTableCell"><? echo $rs_lista3->fields['nome']; ?><br></td>
+          <td align="center" class="noramlTableCell"><strong><? echo $rs_lista1->fields['datacompra']; ?></strong></td>
+          <td align="center" class="noramlTableCell"><? echo $rs_lista1->fields['dataprevcheg']; ?></td>
+          <td align="center" class="noramlTableCell"><strong><? echo $rs_lista4->fields['nomeprod']; ?></strong></td>
+          <td align="center" class="noramlTableCell"><? echo $rs_lista1->fields['qtdecomp']; ?></td>
+          <td align="center" class="noramlTableCell"><? echo $db->fvalor($rs_lista1->fields['pcu']); ?></td>
+          <td align="center" class="noramlTableCell"><? echo $db->fvalor($rs_lista1->fields['pcu']* $rs_lista1->fields['qtdecomp']); ?></td>
+          <td align="center" class="noramlTableCell"><? echo $rs_lista1->fields['icms']; ?></td>
+          <td align="center" class="noramlTableCell"><? echo $rs_lista1->fields['ipi']; ?></td>
+          <td align="center" class="noramlTableCell"><? echo $db->fvalor(($rs_lista1->fields['ipi']/100)*$rs_lista1->fields['pcu']* $rs_lista1->fields['qtdecomp']); ?></td>
+          <td align="center" class="noramlTableCell"><? echo $db->fvalor($rs_lista1->fields['custo_ger']); ?></td>
+          </tr>
+        <?
+	 	$ix++;
+		$rs_lista1->MoveNext();
+        
+        $vfinal = $vfinal + $vtotal;
+        
+	}//WHILE
+}
+?>
+      </table></td>
+    </tr>
+  </form>
+</table>
+</fieldset>
+<p></p>
+<p>&nbsp;</p>
+<p>
+  <?php } ?>
+</p>
+<p>&nbsp;</p>
+<p>&nbsp; </p>
+</body>
+</html>

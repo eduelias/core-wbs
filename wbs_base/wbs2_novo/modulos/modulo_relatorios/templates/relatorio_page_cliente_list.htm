@@ -1,0 +1,65 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="<? echo DIR_CSS; ?>/saci.css" rel="stylesheet" type="text/css">
+<title></title>
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+-->
+</style>
+<script language="JavaScript" type="text/JavaScript">
+
+function doTwo_load(form3, codcliente_pesq)
+{
+document.form3.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=4&menu_not=1&Action=pesquisa&"; ?>codcliente_pesq='+codcliente_pesq+'';
+document.form3.target = 'ipedlimite';
+document.form3.submit();
+
+document.form3.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=2&menu_not=1&Action=pesquisa&"; ?>codcliente_pesq='+codcliente_pesq+'';
+document.form3.target = 'iped';
+document.form3.submit();
+
+document.form3.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=3&menu_not=1&"; ?>codcliente_pesq='+codcliente_pesq+'';
+document.form3.target = 'idescr';
+document.form3.submit();
+
+
+}
+</script>
+
+</head>
+
+<body>
+<form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=7"; ?>" method="post" name="form3" >
+<table width="100%"  border="0" cellpadding="1" cellspacing="1">
+ 
+    <? if ($rs) {
+		while (!$rs->EOF) { 
+		
+		if ($rs->fields['rescredito'] <> ''){$bgtr_color = "#FEE0DE";$res=" (RESTRIÇÃO CRÉDITO)";}else{$bgtr_color = "#FFFFFF";$res="";}
+		
+		?>
+   <tr bgcolor="<? echo $bgtr_color; ?>">
+    <td rowspan="2" align="center" valign="middle" class="sacitd2"><a href="javascript:void(0);" class="lkverde2" onClick= "doTwo_load(form3, <? echo $rs->fields['codcliente']; ?>)"><? echo $rs->fields['codcliente']; ?></a></td>
+    <td class="sacitd2"><strong><? echo $rs->fields['nome']; echo $res; ?></strong></td>
+    <td class="sacitd2"><? echo $rs->fields['cpf']; ?><? echo $rs->fields['cnpj']; ?></td>
+    <td class="sacitd2">(<? echo $rs->fields['dddtel1']; ?>) <? echo $rs->fields['tel1']; ?></td>
+  </tr>
+  <tr bgcolor="<? echo $bgtr_color ?>">
+    <td colspan="3" class="sacitd2"><? echo $rs->fields['endereco']; ?>, <? echo $rs->fields['numero']; ?> <? echo $rs->fields['complemento']; ?> - <? echo $rs->fields['bairro']; ?> CEP: <? echo $rs->fields['cep']; ?> - <? echo $rs->fields['cidade']; ?> - <? echo $rs->fields['estado']; ?></td>
+  </tr>
+  <?
+		$rs->MoveNext();
+		}//WHILE
+	}
+?>
+</table>
+</form>
+</body>
+</html>

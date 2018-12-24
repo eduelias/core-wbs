@@ -1,0 +1,146 @@
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Untitled Document</title>
+<link href="<? echo DIR_CSS; ?>/sistema.css" rel="stylesheet" type="text/css">
+
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+//-->
+</script>
+</head>
+
+<body>
+ <form method="post" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&Action=pesquisa&menu_not=1#pesq"; ?>" name="pesq" target ='_blank'>
+<table width="740" border="0" align="center">
+  <tr>
+    <td valign="top"><table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td><img src="<? echo DIR_IMAGES; ?>/relatoriocelular.gif" width="255" height="40"></td>
+      </tr>
+      <tr>
+        <td background="<? echo DIR_IMAGES; ?>/spacer.gif" bgcolor="#EA0000"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+      </tr>
+    </table>    
+      <br>
+<?
+if ($Action <> "pesquisa"){
+?>	  
+
+      <table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td height="22" bgcolor="#FFF0F0" class="titulos_itens">PESQUISA</td>
+        </tr>
+        <tr>
+          <td background="<? echo DIR_IMAGES; ?>/spacer.gif" bgcolor="#EA0000"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+        </tr>
+      </table>      
+      <table width="100%"  border="0" align="center" cellpadding="3" cellspacing="0">
+        <tr>
+          <td class="vermelhobold11">POR:</td>
+          <td>Vendedor</td>
+          <td>Periodo</td>
+          <td rowspan="2"><input name="imageField" type="image" src="<? echo DIR_IMAGES; ?>/btpesquisarred.gif" width="87" height="25" border="0"></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td><select name="codvend_select" class="campoquant4" id="codvend_select" >
+              <option value="...">Escolha a categoria</option>
+              <?
+	for($i = 0; $i < count($array_pesq); $i++ ){
+
+?>
+              <option value="<? echo"$codvend_pesq[$i]"; ?>"><? echo"$nomevend_pesq[$i]"; ?></option>
+              <?
+	}//FOR
+?>
+          </select></td>
+          <td>DE 
+            <input name="dini" type="text" class="campoquant4" id="dini" size="2" maxlength="2">
+            /
+            <input name="mini" type="text" class="campoquant4" id="mini" size="2" maxlength="2">
+            /
+            <input name="aini" type="text" class="campoquant4" id="aini" size="4" maxlength="4">
+            AT&Eacute;
+            <input name="dfim" type="text" class="campoquant4" id="dfim" size="2" maxlength="2">
+/
+<input name="mfim" type="text" class="campoquant4" id="mfim" size="2" maxlength="2">
+/
+<input name="afim" type="text" class="campoquant4" id="afim" size="4" maxlength="4"></td>
+          </tr>
+      </table>
+       <br>
+	   <?
+	   }
+	   ?>
+	   
+       <table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+         <tr>
+           <td width="50%" height="22" bgcolor="#FFF0F0" class="titulos_itens">VENDEDOR: <span style="font-weight: normal;
+"><? echo"$nomevend_select"; ?></span></td>
+           <td width="50%" bgcolor="#FFF0F0" class="titulos_itens">PER&Iacute;ODO: <span style="font-weight: normal;
+"><? echo"DE: $dini/$mini/$aini ATÉ: $dfim/$mfim/$afim"; ?></span></td>
+         </tr>
+         <tr bgcolor="#EA0000">
+           <td colspan="2" background="<? echo DIR_IMAGES; ?>/spacer.gif"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+         </tr>
+       </table>       
+       <br>
+       <table width="100%"  border="1" align="center" cellpadding="3" cellspacing="0">
+         <tr class="titulos_itens">
+           <td align="center">Cod.</td>
+           <td>Cliente</td>
+           <td align="center">CPF/CNPJ</td>
+           <td align="center">Plano</td>
+           <td align="center">Qtde</td>
+          </tr>
+         <?
+	for($i = 0; $i < count($array2); $i++ ){
+?>
+         <tr >
+           <td colspan="5" >&nbsp;</td>
+          </tr>
+         
+         <tr onMouseOver="this.bgColor='#FFDBB7'" onMouseOut="this.bgColor ='#FFFFFF'" bgcolor="#FFFFFF">
+           <td align="center"><? echo"$codbarra_rel[$i]"; ?></td>
+           <td><span class="nomeprod1"><? echo"$nome_rel[$i]"; ?></span><br>               </td>
+           <td align="center"><? echo"$doc[$i]"; ?></td> 
+		    <td colspan="2" align="center" class="nomeprod1">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<?
+		for($j = 0; $j < $sub_array[$i]; $j++ ){
+?>
+         
+             <tr>
+               <td align="left"><? echo $nomeplano_rel[$i][$j]; ?></td>
+               <td align="left"><? echo $nomeprod_rel[$i][$j]; ?></td>
+               <td align="center"><? echo $qtde_rel[$i][$j];  ?></td>
+             </tr>
+           
+            
+         <?
+		 }//FOR
+		?> 
+		</table>
+		 </td>
+          </tr>
+<?
+	}//FOR
+?>
+       </table>
+       <p>&nbsp;</p>
+       <p>&nbsp;</p>
+       <p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td valign="top">&nbsp;</td>
+  </tr>
+
+</table>
+</form>
+</body>
+</html>

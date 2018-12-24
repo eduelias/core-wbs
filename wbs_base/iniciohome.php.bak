@@ -1,0 +1,457 @@
+<?php
+
+#include_once("classprod.php" );
+
+// VARIAVEIS DA PAGINA
+$acrescimo = 5;
+$tabela = "codbarra";					// Tabela EM USO
+$condicao1 = "codcat=$codcat";		// condicao sem WHERE e separadas por AND or OR -> ADD/UP/DEL 
+$condicao2 = "";						// condicao sem WHERE e separadas por AND or OR -> LISTAR 
+$parm = " order by nomecat limit $desloc,$acrescimo ";								// order by nome
+$campopesq = "nomecat";				// Campo a ser pesquisado -> LISTAR 
+$nomeform = "CATEGORIA";
+$titulo = "HOME";
+
+$Actionter = "unlock";
+
+
+// INICIO DA CLASSE
+$prod = new operacao();
+
+	$dataatual = $prod->gdata();
+
+	//DADOS DO USUARIO
+	$prod->listProd("vendedor", "nome='$login'");
+				
+		$nomevendselect = $prod->showcampo1();
+		$codvendselect = $prod->showcampo0();
+		$tipovend = $prod->showcampo2();
+		$codgrpold = $prod->showcampo3();
+		$tipoclienteold = $prod->showcampo7();
+		$docold = $prod->showcampo8();
+		$codproj = $prod->showcampo25();
+		$tipouserproj = $prod->showcampo26();
+		$meta = $prod->showcampo27();
+		if ($tipoclienteold == "F"){
+			$prod->listProd("clientenovo", "cpf='$docold'");
+			$xcodcliente=	$prod->showcampo0();
+		}else{
+			$prod->listProd("clientenovo", "cnpj='$docold'");
+			$xcodcliente=	$prod->showcampo0();
+		}
+		
+
+	 
+
+
+// ACOES PRINCIPAIS DA PAGINA
+switch ($Action) {
+
+    case "insert":
+
+
+		$desloc=0;
+		
+        break;
+
+	 case "update":
+
+		 
+		 break;
+
+	 case "list":
+
+		$ini = 1;
+		
+		$Actionsec="list";
+	
+		
+		 break;
+
+
+	 case "delete":
+
+		
+		$Actionsec="list";
+		
+		 break;
+
+}
+
+
+// OCULTAR TODO O RESTO DA PÁGINA ////
+if ($Actionter == "unlock"){
+
+include("sif-topo.php");
+
+
+
+
+if($Action == "list" ):
+
+		
+
+$prod->listProd("clientenovo", "codcliente=$xcodcliente");
+
+			// Dados do Cliente 
+		$xcodcliente=	$prod->showcampo0();
+		$xnome=			$prod->showcampo1();
+		$xcpf=			$prod->showcampo4();
+		$xcnpj=			$prod->showcampo5();
+		$xendereco=		$prod->showcampo14();
+		$xbairro=		$prod->showcampo15();
+		$xcidade=		$prod->showcampo16();
+		$xcep=			$prod->showcampo17();
+		$xestado=		$prod->showcampo18();
+		$xdddtel1=		$prod->showcampo21();
+		$xtel1=			$prod->showcampo22();
+		$xdddtel2=		$prod->showcampo23();
+		$xtel2=			$prod->showcampo24();
+		$xramal=		$prod->showcampo25();
+		$xemail=		$prod->showcampo77();
+
+
+/// INICIO - PARTE LISTAGEM DOS REGISTROS ////
+// VERIFICA CONSITENCIA DE DATAS
+$prod->listProdMY("IF (NOW() > '2004-10-31 00:00:00' , 'S', 'N')", "" , $array129, $array_campo129, "" );
+$prod->mostraProd( $array129, $array_campo129, 0 );
+$control = $prod->showcampo0();
+
+if ($control <> 'S'){
+
+echo('
+<script language=JavaScript>
+setTimeout("');echo("window.open('noticias.php?tipo=$tipovend','somename','toolbar=0,width=500,height=300,copyhistory=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no')");echo('",0);
+</script>
+');
+}
+
+echo("
+
+<center>
+  <table width='550'>
+    <tbody>
+      <tr>
+        <td bgColor='#d6e7ef'>
+          <table cellSpacing='0' cellPadding='15' width='100%' border='0'>
+            <tbody>
+              <tr>
+                <td width='100%' bgColor='#ffffff'>
+                  <table cellSpacing='0' cellPadding='2' width='500' border='0'>
+                    <tbody>
+                      <tr>
+                        
+  </center>
+                        <td width='232'>'<b><font face=' Verdana, Arial, Helvetica, sans-serif' size=' 1' >SE&Ccedil;&Atilde;O</font><font face=' Verdana, Arial, Helvetica, sans-serif' size=' 6' ><br><font color='#FF9933' size='3' face='Verdana'>
+                        $titulo</font></font></b></td>
+                        <td width='189' bgcolor='#FFFFFF'>
+                          <p align='center'><b><font face='Verdana' size='1'>
+                         <SCRIPT LANGUAGE='JavaScript'>
+document.write(customDateString())
+</SCRIPT></font></b></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+<center>
+  <table width='550'>
+    <tbody>
+      <tr>
+        <td bgColor='#86ACB5'>
+          <table cellSpacing='0' cellPadding='15' width='100%' border='0'>
+            <tbody>
+              <tr>
+                <td width='100%' bgColor='#ffffff'>
+                  <table border='0' cellpadding='5' cellspacing='1' style='border-collapse: collapse' bordercolor='#111111' width='100%' id='AutoNumber1'>
+                    <tr>
+                      <td width='50%' bgcolor='#FFFFFF' valign='middle'><b>
+                      <font face='Verdana' size='2' color='#800000'>SEJA 
+                      BEM-VINDO&nbsp;<br>
+                      AO SISTEMA DO </font>
+                      <font face='Verdana' size='2'>GRUPO IPASOFT.</font></b>
+                        <p><img border='0' src='images/fn1.jpg' width='227' height='197'>
+                      </td>
+                      <td width='50%' bgcolor='#F2E4C4' valign='top'><p>
+                      <b>
+                          <font face='Verdana' color='#800000' size='2'>DADOS DO 
+                          USUÁRIO</font></b></p>
+                        <p>
+                      <font face='Verdana' size='1'>Verifique se os dados abaixo 
+                      estão corretos para sua segurança.</font></p>
+                      <table border='0' cellpadding='5' cellspacing='1' style='border-collapse: collapse' bordercolor='#111111' width='100%' id='AutoNumber2'>
+                        <tr>
+                          <td width='100%' bgcolor='#D6B778' colspan='2'>&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td width='100%' bgcolor='#FFFFFF' colspan='2'>
+                          <font face='Verdana' size='1'><b>
+                          <font color='#800000'>NOME USUÁRIO:</font><br>
+                          </b></font><font face='Verdana' size='1'>$xnome</font></td>
+                        </tr>
+                        <tr>
+                          <td width='100%' bgcolor='#FFFFFF' colspan='2'><b>
+                          <font size='1' face='Verdana'>CPF/CNPJ<br>
+                          </font></b><font face='Verdana' size='1'>$xcpf $xcgc</font></td>
+                        </tr>
+                        <tr>
+                          <td width='50%' bgcolor='#FFFFFF'>
+                          <font size='1' face='Verdana'><b>
+                          ENDERECO<br>
+                          </b>$xendereco - $xbairro</font></td>
+                          <td width='50%' bgcolor='#FFFFFF'>
+                          <font size='1' face='Verdana'><b>
+                          CIDADE/ESTADO/CEP<br>
+                          </b>$xcidade - $xestado - $xcep</font></td>
+                        </tr>
+                        <tr>
+                          <td width='50%' bgcolor='#FFFFFF'>
+                          <font face='Verdana' size='1'><b>EMAIL CONTATO<br>
+                          </b>$xemail</font></td>
+                          <td width='50%' bgcolor='#FFFFFF'>
+                          <font size='1' face='Verdana'><b>
+                          TELEFONE<br>
+                          </b>($xdddtel1) $xtel1<br>
+                          ($xdddtel2) $xtel2</font></td>
+                        </tr>
+                        <tr>
+                          <td width='100%' bgcolor='#FFFFFF' colspan='2'>
+                          <b>
+                          <font size='1' face='Verdana'>GRUPO PERTENCENTE</font><font size='1' face='Verdana' color='#800000'><br>
+                          </font>
+                          </b>
+                          <font size='1' face='Verdana'></font></td>
+                        </tr>
+                      </table>
+						
+						
+                       
+                      </td>
+                    </tr>
+                    <tr>
+                      <td width='50%' bgcolor='#F2E4C4' valign='top'><b><font color='#800000' size='2' face='Verdana'>ESTATÍSTICA EM&nbsp;<br>
+ VALORES :</font></b>
+                        <p><font face='Verdana' size='1'>Abaixo estão as
+                        tabelas com estatísticas de pedidos e orçamentos em
+                        valores.
+                        </font></p>
+                        <table border='0' cellpadding='5' cellspacing='1' style='border-collapse: collapse' bordercolor='#111111' width='100%' id='AutoNumber10'>
+                        <tr>
+                          <td width='36%' align='center' bgcolor='#D6B778'><b><font face='Verdana' size='1' color='#663300'>USUÁRIO</font></b></td>
+                          <td width='59%' align='center' bgcolor='#F2E4C4'><b>
+                          <font face='Verdana' size='1' color='#663300'>
+                          MÊS/ANO</font></b>
+                          </td>
+                        </tr>
+                         <form method='POST' action='http://wbs.ipasoft.com.br/graph/wbs/line_vend.php' name='Form' target = '_blank'>
+                        <tr>
+                        
+                          <td width='30%' align='center' bgcolor='#FFFFFF'>
+                          <b><font size='1' face='Verdana' color='#800000'>META<br>
+                          DIÁRIA</font></b></td>
+                          <td width='59%' align='center' bgcolor='#FFFFFF'>
+                         
+                            <p><input type='text' name='mes' size='2' maxlength='2'>/<input type='text' name='ano' size='4' maxlength='4'><input type='submit' value='OK' name='B1'></p>
+                        
+                          </td>
+                        </tr>  
+
+							   <input type='hidden' name='login' value='$login'>
+   						       <input type='hidden' name='metauser' value='$meta'>
+							   <input type='hidden' name='codproj' value='$codproj'>
+							   <input type='hidden' name='tipovend' value='$tipovend'>
+                        </form>
+                            <form method='POST' action='http://wbs.ipasoft.com.br/graph/wbs/line_vend_mes.php' name='Form' target = '_blank'>
+                        <tr>
+                        
+                          <td width='30%' align='center' bgcolor='#FFFFFF'>
+                          <b><font face='Verdana' size='1' color='#800000'>META<br>
+                          ACUMULADA<br>
+                          MÊS</font></b></td>
+                          <td width='59%' align='center' bgcolor='#FFFFFF'>
+                         
+                            <p><b>
+                          <font face='Verdana' size='1' color='#663300'>
+                          ANO: </font></b><input type='text' name='ano' size='4' maxlength='4'><input type='submit' value='OK' name='B1'></p>
+                        
+                          </td>
+							<input type='hidden' name='login' value='$login'>
+							<input type='hidden' name='metauser' value='$meta'>
+							<input type='hidden' name='codproj' value='$codproj'>
+							<input type='hidden' name='tipovend' value='$tipovend'>
+                        </form>
+                      </table>
+                        &nbsp;
+		");
+			if ($tipouserproj == "Y"){
+				echo("
+                        <table border='0' cellpadding='5' cellspacing='1' style='border-collapse: collapse' bordercolor='#111111' width='100%' id='AutoNumber11'>
+                        <tr>
+                          <td width='36%' align='center' bgcolor='#D6B778'><b><font face='Verdana' size='1' color='#663300'>SUPERVISOR</font></b></td>
+                          <td width='59%' align='center' bgcolor='#F2E4C4'><b>
+                          <font face='Verdana' size='1' color='#663300'>
+                          MÊS/ANO</font></b>
+                          </td>
+                        </tr>
+                        <form method='POST' action='http://wbs.ipasoft.com.br/graph/wbs/bar_vend_sup.php' name='Form' target = '_blank'>
+                        <tr>
+                        
+                          <td width='30%' align='center' bgcolor='#FFFFFF'>
+                          <b><font size='1' face='Verdana' color='#800000'>META<br>
+                          DIÁRIA<br>
+                          VENDEDOR</font></b></td>
+                          <td width='59%' align='center' bgcolor='#FFFFFF'>
+                         
+                            <p><input type='text' name='mes' size='2' maxlength='2'>/<input type='text' name='ano' size='4' maxlength='4'><input type='submit' value='OK' name='B1'><br>
+                            <b><font size='1' face='Verdana' color='#800000'>PROJETO:<br>
+                            </font></b> <select size='1' class=drpdwn name='codproj'>
+												 
+											  
+						");
+
+					if ($codgrpold == "2"){
+
+						$prod->listProdgeral("projeto_nome", "", $array, $array_campo , "order by nomeproj");
+						for($i = 0; $i < count($array); $i++ ){
+								
+								$prod->mostraProd( $array, $array_campo, $i );
+
+								$nomeproj = $prod->showcampo1();
+								$codproj= $prod->showcampo0();
+						echo("		
+							<option selected value='$codproj'>$nomeproj</option>
+						");
+						}
+
+					}else{
+						
+
+							$prod->listProdgeral("projeto_nome", "codproj='$codproj'", $array, $array_campo , "");
+							$prod->mostraProd( $array, $array_campo, 0 );
+								$nomeproj = $prod->showcampo1();
+							echo("		
+											<option selected value='$codproj'>$nomeproj</option>
+							");
+					}
+						echo("	
+											  </select>
+							
+							</p>
+                        
+                          </td>
+                        </tr>  
+
+							   <input type='hidden' name='login' value='joao'>
+   						       <input type='hidden' name='metauser' value='$meta'>
+						
+                        </form>
+                        <form method='POST' action='http://wbs.ipasoft.com.br/graph/wbs/line_vend_mes_sup.php' name='Form' target = '_blank'>
+                        <tr>
+                        
+                          <td width='30%' align='center' bgcolor='#FFFFFF'>
+                          <b><font face='Verdana' size='1' color='#800000'>META<br>
+                          ACUMULADA<br>
+                          MÊS</font></b></td>
+                          <td width='59%' align='center' bgcolor='#FFFFFF'>
+                         
+                            <p><b>
+                          <font face='Verdana' size='1' color='#663300'>
+                          ANO: </font></b><input type='text' name='ano' size='4' maxlength='4'><input type='submit' value='OK' name='B1'><br>
+                            <b><font size='1' face='Verdana' color='#800000'>PROJETO:<br>
+                            </font></b>
+					 <select size='1' class=drpdwn name='codproj'>
+												 
+											  
+						");
+
+					if ($codgrpold == "2"){
+
+						$prod->listProdgeral("projeto_nome", "", $array, $array_campo , "order by nomeproj");
+						for($i = 0; $i < count($array); $i++ ){
+								
+								$prod->mostraProd( $array, $array_campo, $i );
+
+								$nomeproj = $prod->showcampo1();
+								$codproj= $prod->showcampo0();
+						echo("		
+							<option selected value='$codproj'>$nomeproj</option>
+						");
+						}
+
+					}else{
+						
+
+							$prod->listProdgeral("projeto_nome", "codproj='$codproj'", $array, $array_campo , "");
+							$prod->mostraProd( $array, $array_campo, 0 );
+								$nomeproj = $prod->showcampo1();
+							echo("		
+											<option selected value='$codproj'>$nomeproj</option>
+							");
+					}
+						echo("	
+											  </select>
+							
+							</p>
+
+								 <input type='hidden' name='login' value='joao'>
+   						       <input type='hidden' name='metauser' value='$meta'>
+							  </form>
+                        
+                          </td>
+                        </tr>
+                      </table> 
+						
+						");
+			}
+			echo("
+
+                       
+                      </td>
+                      <td width='50%' bgcolor='#FFFFFF' valign='middle'><img border='0' src='images/fn2.jpg' width='250' height='289'><br>
+						
+						
+                       
+                      </td>
+                    </tr>
+                    <tr>
+                      <td width='100%' bgcolor='#D6E7EF' valign='top' colspan='2'><font size='1' face='Verdana'><font color='#FF0000'>
+                      IMPORTANTE:</font> Todos os passos deste usuário estão 
+                      sendo monitorados para garantir a sua segurança.</font></td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+
+
+
+	");
+
+
+
+/// FIM - PARTE DE LISTAGEM DOS REGISTROS ////
+
+endif;
+
+include ("sif-rodape.php");
+
+}
+
+
+?>
+       

@@ -1,0 +1,193 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<script language="javascript" src="<? echo DIR_JS; ?>/funcoes01.js"></script>
+<script type="text/javascript" src="<? echo DIR_JS; ?>/calendar.js"></script>
+</head>
+
+<body>
+<?
+$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light);
+?>
+<br>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Pesquisa</legend>
+<table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+  <form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=100&Action=Pesquisar"; ?>" name="pesquisa" method="post">
+    <tr>
+      <td align="center" class="generalGreyBorderBottomTableHeaderCell">Empresa</td>
+      <td align="center" class="generalGreyBorderBottomTableHeaderCell">Per&iacute;odo</td>
+      <td class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+      <td width="70%" align="center" class="generalGreyBorderBottomTableHeaderCell"><input name="pg" type="hidden" id="pg" value="<? echo $pg; ?>">
+          <input name="pg_ped" type="hidden" id="pg_ped" value="100">
+          <input name="Action" type="hidden" id="Action" value="Pesquisar"></td>
+    </tr>
+    <tr>
+      <td class="noramlTableCell"><select name="empresa" class="campo_select" id="empresa" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"' onChange="DoIt(form)">
+            <option selected>Escolha uma empresa ...</option>
+			<option value="-1">TODAS EMPRESAS</option>
+            <?
+if ($rs_empresas)
+{
+	while (!$rs_empresas->EOF)
+	{
+?>
+            <option value="<? echo $rs_empresas->fields['codemp']; ?>"><? echo $db->format_str("UP", $rs_empresas->fields['nome']); ?></option>
+            <?
+	 	$rs_empresas->MoveNext();
+	}//WHILE
+}
+?>
+        </select></td>
+      <td class="noramlTableCell"><table  border="0" cellpadding="1" cellspacing="1">
+        <tr>
+          <td><input name="mes" type="text" class="campo_linha" id="mes" size="2" maxlength="2" /></td>
+          <td><input name="ano" type="text" class="campo_linha" id="ano"  size="4" maxlength="4" /></td>
+        </tr>
+      </table></td>
+      <td class="noramlTableCell"><input type="submit" name="Submit" value="Pesquisar" class="botao_cor"></td>
+      <td align="center" class="noramlTableCell">&nbsp;</td>
+    </tr>
+  </form>
+</table>
+</fieldset>
+<br>
+<?php if($libera_sql == 2) { ?>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Resultado Pesquisa </legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <form name="lista" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=200"; ?>" method="post">
+    <tr>
+      <td><table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+        <tr>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="14%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="14%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="73%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          </tr>
+        <tr>
+          <td width="13%" align="center" class="generalGreyBorderBottomTableHeaderCell">Pedido</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Vend</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">NF</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Produtos</td>
+          </tr>
+        <?
+if ($rs_lista)
+{
+	$ix = 0;
+	while (!$rs_lista->EOF)
+	{
+    
+        $rs_lista3 = $db->query_db("SELECT if( SUM( if( tipo = 02.30, 1, 0 ) + if( tipo = 02.31, 1, 0 ) + if( tipo = 02.32, 1, 0 ) + if( tipo = 02.33, 1, 0 ) + if( tipo = 02.34, 1, 0 ) ) >0, 'CARTÃO', '' ) as res FROM pedidoparcelas WHERE codped = '".$rs_lista->fields['codped']."' ","SQL_NONE","N");
+        
+          $rs_lista4 = $db->query_db("SELECT nome FROM vendedor WHERE codvend = '".$rs_lista->fields['codvend']."' ","SQL_NONE","N");
+          
+          $rs_lista5 = $db->query_db("SELECT tipo_pis FROM clientenovo WHERE codcliente = '".$rs_lista->fields['codcliente']."' ","SQL_NONE","N");
+ 		
+      
+     $vtotal = 0;   
+    if ($rs_lista5->fields[0] == 'C'){
+    
+?>
+        <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+          <td align="center" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;"><b><? echo $rs_lista->fields['codbarra']; ?></b><BR><? echo $rs_lista3->fields['res']; ?></td>
+          <td align="center" class="noramlTableCell"><? echo $rs_lista4->fields['nome']; ?><br>
+            <? echo $rs_lista->fields['dataped']; ?></td>
+          <td align="center" class="noramlTableCell"><strong>
+    <?       
+            
+            
+            
+             $rs_lista2 = $db->query_db("SELECT datanf,  nf, valornf FROM  pedidonf WHERE codped = '".$rs_lista->fields['codped']."'  ORDER BY datanf","SQL_NONE","N");
+   if ($rs_lista2)
+{
+	
+	while (!$rs_lista2->EOF)
+	{
+          echo $rs_lista2->fields['datanf']." - ".$rs_lista2->fields['nf']." - ". $db->fvalor($rs_lista2->fields['valornf'])." <br>"; 
+        
+	 	$ix++;
+		$rs_lista2->MoveNext();
+        
+    
+	}//WHILE
+}
+?>  
+          </strong>          </td>
+          <td align="center" class="noramlTableCell"><table width="100%" border="0">
+              <?
+              
+                 $rs_lista1 = $db->query_db("SELECT pedidoprod.codprod,  nomeprod, SUM(qtde) as qtde, SUM(ppu*qtde) as valor  FROM  pedidoprod, produtos WHERE  pedidoprod.codprod = produtos.codprod and chk_pis_confins = 'S'  and codped = '".$rs_lista->fields['codped']."' GROUP by pedidoprod.codprod ORDER BY produtos.nomeprod","SQL_NONE","N");
+
+             
+if ($rs_lista1)
+{
+	$ix = 0;
+    $vtotal = 0;
+	while (!$rs_lista1->EOF)
+	{
+    
+  $valor = $rs_lista1->fields['valor']*$rs_lista->fields['fator'];
+?>
+          
+            <tr>
+              <td width="71%"><? echo $rs_lista1->fields['nomeprod'];
+ ?></td>
+              <td width="9%" align="center"><? echo $rs_lista1->fields['qtde'];
+ ?></td>
+              <td width="20%" align="center"><? echo $db->fvalor($valor);
+ ?></td>
+            </tr>
+            
+            
+             <?
+	 	$ix++;
+		$rs_lista1->MoveNext();
+        
+        $vtotal = $vtotal + $valor;
+	}//WHILE
+}
+?>
+<tr>
+              <td>&nbsp;</td>
+              <td align="center">&nbsp;</td>
+              <td align="center"><b><? echo $db->fvalor($vtotal);
+ ?></b></td>
+            </tr>
+          </table>            </td>
+          </tr>
+        <?
+	 	  }// CONSUMIDOR FINAL
+        
+        $ix++;
+		$rs_lista->MoveNext();
+        
+                
+        $vfinal = $vfinal + $vtotal;
+        
+        #echo $vfinal;
+        
+      
+        
+	}//WHILE
+}
+?>
+
+        <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">TOTAL</td>
+          <td align="center" class="noramlTableCell" style="background-color:<? echo $bg_cor; ?>"><b><? echo $db->fvalor($vfinal); ?></b></td>
+          </tr>
+      </table>
+      </td>
+    </tr>
+  </form>
+</table>
+</fieldset>
+<?php } ?>
+</body>
+</html>

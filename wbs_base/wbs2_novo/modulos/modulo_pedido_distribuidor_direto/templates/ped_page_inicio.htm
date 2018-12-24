@@ -1,0 +1,189 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/sistema.css" rel="stylesheet" type="text/css">
+<script language="javascript" src="<? echo DIR_AJAX; ?>/tw-sack.js"></script>
+<style type="text/css">
+<!--
+.cmp1 {	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #000000;
+	border: 1px inset #7895AF;
+}
+.negrito10preto {	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	color: #000000;
+}
+-->
+</style>
+
+<script language='JavaScript'>
+var duplaSubmissao = 0;
+var theURL = "<? echo $PHP_SELF; ?><? echo "?pg=".$pg."&pg_ped=23"; ?>";
+
+
+function Envia(tipo)
+{
+    if (duplaSubmissao > 0)
+    {
+        alert("Por favor, aguarde. Proposta já enviada ao sistema.");
+        return false;
+    }
+
+   
+		
+	if (document.form1.codvend_user_select.value == "-1")
+	{
+		alert("A escolha do LOGIN é obrigatória");
+		return false;
+	}
+  
+  	if (document.form1.senha_user.value == "")
+	{
+		alert("Preencha a SENHA do usuário");
+		return false;
+	}
+	
+					
+        if (tipo == 0)
+    {
+		document.form1.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=&"; ?>Action=start&codvend_user='+document.form1.codvend_user_select.value+'senha_user='+document.form1.senha_user.value+'#entrega';
+		document.form1.target = '';
+        document.form1.submit();
+    }
+
+    duplaSubmissao++;
+
+    return true;
+}
+</script>
+</head>
+
+<body>
+<div id="lista"></div>
+<table width="400"  border="0" align="center" cellpadding="3" cellspacing="0">
+<form action="<? echo "$PHP_SELF?pg=$pg&Action=start"; ?>" method="post" name = "form1">
+<?
+if ($var_allemp == "Y" or $id_session <> "") {
+if ($var_allemp == "Y") {
+?>
+  <tr class="titulos_itens">
+    <td align="center"><img src="<? echo DIR_IMAGES; ?>/empresaint.gif" width="49" height="48"></td>
+    <td>Selecione a Empresa:</td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><select name="var_codemp">
+<?
+for ($i = 0; $i < count($arrayemp); $i++) {
+
+
+if ($var_tipo <> 'R' and $var_codgrp <> 21 and $var_codgrp <> 62 and $var_codgrp <> 42 and $var_codgrp <> 13 and $var_codgrp <> 56 and $var_codgrp <> 54 and $var_codgrp <> 32){
+
+?>
+	<option value="<? echo "$codemp[$i]"; ?>"><? echo "$nomeemp[$i]"; ?></option>
+<?
+}else{
+	if ($var_tipo <> 'R'){
+		if ($codemp[$i] <> 14 ){
+		?>
+			<option value="<? echo "$codemp[$i]"; ?>"><? echo "$nomeemp[$i]"; ?></option>
+		<?
+		}
+	}else{
+		if ($codemp[$i] == 1 or $codemp[$i] == 15 or $codemp[$i] == 20 ){
+		?>
+			<option value="<? echo "$codemp[$i]"; ?>"><? echo "$nomeemp[$i]"; ?></option>
+		<?
+		}
+	}//IF REVENDAS
+	
+}//GRUPOS
+}//FOR
+?>
+    </select></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><table  border="0" cellspacing="2" cellpadding="2">
+      <tr valign="top">
+        <td><fieldset>
+          <legend class="titulos_itens"> LOGIN DO VENDEDOR</legend>
+          <table width="100%"  border="0" cellspacing="4" cellpadding="4">
+
+            <tr class="negrito10preto">
+              <td align="center">LOGIN
+                <select name="codvend_user_select" class="cmp1">
+                    <?
+	for($i = 0; $i < count($array6); $i++ ){
+        
+?>
+                    <option value="<? echo"$codvend_user[$i]"; ?>"><? echo"$nome_user[$i]"; ?></option>
+                    <?
+
+	}//FOR
+?>
+                    <option value='-1' selected>ESCOLHA</option>
+                </select></td>
+              <td align="center">SENHA:
+                <input name="senha_user" type="password" class="cmp1" id="senha_user" size="8" maxlength="8" "></td>
+            </tr>
+          </table>
+        </fieldset></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td colspan="2"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="5" height="5"></td>
+  </tr>
+<?
+}
+
+if ($id_session <> "") {
+?>
+  <tr class="titulos_subcat0">
+    <td align="center"><img src="<? echo DIR_IMAGES; ?>/carrinhocheio.gif" width="49" height="48"></td>
+    <td>Voc&ecirc; possui produtos no seu carrinho de compras.<br>
+Deseja continuar a compra?</td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><input name="ck" type="radio" value="OK">
+      Sim <input name="ck" type="radio" value="NO" checked> 
+      N&atilde;o</td>
+  </tr>
+  <tr>
+    <td colspan="2"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="5" height="5"></td>
+  </tr>
+<?
+}
+?>
+  <tr>
+    <td colspan="2" align="center">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <!-- fwtable fwsrc="botaolaranjao.png" fwbase="botaolaranjao.gif" fwstyle="Dreamweaver" fwdocid = "1370560583" fwnested="1" -->
+      <tr>
+        <td><img name="botaolaranjao_seta" src="<? echo DIR_IMAGES; ?>/botaolaranjao_seta.gif" width="29" height="30" border="0" alt=""></td>
+        <td><table width="11" height="30" border="0" align="left" cellpadding="0" cellspacing="0">
+            <tr>
+              <td height="3" background="<? echo DIR_IMAGES; ?>/botaolaranjao_top.gif"><img name="botaolaranjao_top" src="<? echo DIR_IMAGES; ?>/botaolaranjao_top.gif" width="11" height="3" border="0" alt=""></td>
+            </tr>
+            <tr>
+              <td height="25" background="<? echo DIR_IMAGES; ?>/botaolaranjao_meio.gif"><input name="Action" type="button" class="botaolaranjao" value="Continuar" onClick="javascript:Envia(0);"></td>
+            </tr>
+            <tr>
+              <td height="2" background="<? echo DIR_IMAGES; ?>/botaolaranjao_down.gif"><img name="botaolaranjao_down" src="<? echo DIR_IMAGES; ?>/botaolaranjao_down.gif" width="11" height="2" border="0" alt=""></td>
+            </tr>
+        </table></td>
+        <td><img name="botaolaranjao_fim" src="<? echo DIR_IMAGES; ?>/botaolaranjao_fim.gif" width="15" height="30" border="0" alt=""></td>
+      </tr>
+    </table>
+    
+    </td>
+  </tr>
+<?
+}
+?>
+</form>
+</table>
+</body>
+</html>

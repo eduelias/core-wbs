@@ -1,0 +1,70 @@
+<html>
+
+<LINK href='css/admin.css' type=text/css rel=stylesheet>
+<SCRIPT language=JavaScript src='menus.js' type=text/javascript></SCRIPT>
+<BODY bgColor=#aaaaaa topMargin=10 marginheight='10' marginwidth='10'>
+
+<?
+	for($i = 0; $i < count($array); $i++ ){
+
+?>
+<DIV id= <? echo"$div_name[$i]"; ?> style='Z-INDEX: 100000; FILTER: progid:DXImageTransform.Microsoft.Shadow(color=#888888,strength=5,direction=135); VISIBILITY: hidden; POSITION: absolute'>
+<TABLE class=topMenuItems cellSpacing=0 cellPadding=0 width=200 border=0>
+  <TBODY>
+<?
+		for($j = 0; $j < $sub_array[$i]; $j++ ){
+
+		// DADOS //
+		$xcodpg = $codpg[$i][$j];
+		$xnomem = $nomem[$i][$j];
+		$xarquivo = $arquivo[$i][$j];
+		$xactionpg = $actionpg[$i][$j];
+?>	
+
+   <TR class=topMenuItemOff onmouseover=onTopMenuItem(this) 
+  onclick="gotoTopMenuItem('restrito.php?pg=<? echo"$xcodpg";  ?>')" onmouseout=offTopMenuItem(this) statustext='<? echo"$xnomem"; ?>'>
+    <TD width=25 height=16><IMG hspace=2 
+      src='teste/ic_profiles.gif' 
+    vspace=2></TD>
+    <TD><? echo"$xnomem";  ?></TD></TR>
+
+<? 		}//FOR ?>
+		
+</TBODY></TABLE></DIV>
+
+<?	}//FOR ?>
+	  
+
+<DIV align=center>
+<TABLE height=72 cellSpacing=1 cellPadding=7 width=780 bgColor=black 
+  border=0><TBODY>
+  <TR>
+    <TD width='20%' height=70 bgColor=white><IMG hspace=10 
+      src='teste/logo.gif'> </TD>
+    <TD width='80%' bgColor=#eeeeee>
+      <TABLE height=70 cellSpacing=0 cellPadding=0 width='100%' border=0>
+        <TBODY>
+        <TR>
+          <TD>
+            <TABLE cellSpacing=2 cellPadding=0 border=0>
+              <TBODY>
+				<TR>
+<?
+	for($i = 0; $i < count($array); $i++ ){
+?>
+				  
+				  	 <TD class=topButtonOff id=<? echo"$div_name_m[$i]"; ?> onmouseover=onTopButton(this) onmouseout=offTopButton(this)><IMG src='teste/cubes.gif'><BR> <? echo"$menu[$i]"; ?></TD>
+  				  
+<? 
+	}//FOR 
+?>
+
+				</TR>
+			  </TBODY>
+			</TABLE>
+		  </TD>
+		</TR>
+	    </TBODY>
+	  </TABLE>
+</body>
+</html>

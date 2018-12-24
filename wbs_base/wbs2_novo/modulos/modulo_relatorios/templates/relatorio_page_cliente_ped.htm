@@ -1,0 +1,60 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="<? echo DIR_CSS; ?>/saci.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/sistema.css" rel="stylesheet" type="text/css">
+<link href="../../../css/saci.css" rel="stylesheet" type="text/css">
+<link href="../../../css/sistema.css" rel="stylesheet" type="text/css">
+<title></title>
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+.style3 {color: #000000; font-weight: bold; }
+-->
+</style>
+
+</head>
+
+<body>
+CLIENTE: <span class="verdenegrito"><? echo $rs_cliente->fields['nome']; ?></span><br>
+<BR>
+
+<table width="100%"  border="0" cellpadding="1" cellspacing="1">
+ <tr>
+    <td align="center" class="titulo"><span class="style3">CODPED</span></td>
+    <td align="center" class="titulo"><span class="style3">DATAPED</span></td>
+    <td align="center" class="titulo"><span class="style3">DATA ENTREGA </span></td>
+    <td align="center" class="titulo"><span class="style3">VENDEDOR</span></td>
+    <td align="center" class="titulo"><span class="style3">STATUS</span></td>
+  </tr>
+  <? if ($rs) {
+		while (!$rs->EOF) { 
+		
+		  $rs_tipo = $db->query_db("SELECT count(*) as qtde FROM pedidoprod, produtos WHERE codped = '".$rs->fields['codped']."' and codcat = 27 and pedidoprod.codprod  = produtos.codprod","SQL_NONE","N");
+					  
+		  if ( $rs_tipo->fields['qtde'] > 0){ $celular = 1;}else{$celular = 0;}
+		  
+		  $rs_vend = $db->query_db("SELECT nome FROM vendedor WHERE codvend = '".$rs->fields['codvend']."'","SQL_NONE","N");
+		  
+		?>
+ 
+  <tr>
+    <td align="center" valign="middle" class="sacitd2"><strong><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=3&menu_not=1&codped_pesq=".$rs->fields['codped']."&codpedbarra_pesq=".$rs->fields['codbarra']."&Action=pesquisa"; ?>" class="lkverde2" target="idescr"><? echo $rs->fields['codbarra']; ?></a></strong></td>
+	<td class="sacitd2"><? echo $rs->UserTimeStamp($rs->fields['dataped'],'d-m-Y H:i:s'); ?></td>
+    <td align="center" class="sacitd2"><? echo $rs->UserTimeStamp($rs->fields['dataentrega'],'d-m-Y H:i:s'); ?></td>
+    <td align="center" class="sacitd2"><? echo $rs_vend->fields['nome']; ?></td>
+    <td align="center" class="sacitd2"><b><? echo $rs->fields['status']; ?></b></td>
+  </tr>
+     <?
+		$rs->MoveNext();
+		}//WHILE
+	}
+?>
+</table>
+</body>
+</html>

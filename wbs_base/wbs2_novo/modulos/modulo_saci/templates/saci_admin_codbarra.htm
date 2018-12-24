@@ -1,0 +1,28 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="<? echo DIR_CSS; ?>/saci.css" rel="stylesheet" type="text/css">
+<title></title>
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+-->
+</style></head>
+
+<body>
+<table width="100%"  border="0" cellpadding="1" cellspacing="1">
+  <? for($i = 0; $i < count($arrayx); $i++ ){ ?>
+  <tr>
+    <td class="sacitd2"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=7&menu_not=1&codped_select=$codped_view[$i]"; ?>" class="lkverde2" target="idados"><? echo "$codbarra_view[$i]"; ?></a></td>
+    <td class="sacitd2"><? echo "$dataped_view[$i]"; ?></td>
+    <td class="sacitd2"><? echo "$dataentrega_view[$i]"; ?></td>
+  </tr>
+  <? }//FOR ?>
+</table>
+</body>
+</html>

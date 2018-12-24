@@ -1,0 +1,143 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<script language="javascript" src="<? echo DIR_JS; ?>/funcoes01.js"></script>
+<script type="text/javascript" src="<? echo DIR_JS; ?>/calendar.js"></script>
+<script language="JavaScript" type="text/JavaScript">
+var NameArray2 = new Array();
+var ValueArray2 = new Array();
+
+<?
+	for($i = 0; $i < count($array_pesq); $i++ ){
+	$u = $i+1;
+?>
+NameArray2[<? echo"$u"; ?>] = new Array(<? echo"$nomevend_pesq[$i]"; ?>);
+ValueArray2[<? echo"$u"; ?>] = new Array(<? echo"$codvend_pesq[$i]"; ?>);
+<?
+	}//FOR
+?>
+
+function changePesq()
+{
+
+  var cjIX = document.forms["pesquisa"].codproj_pesq.selectedIndex;
+
+  if (cjIX > 0){
+
+   	// CALCULA O NUMERO DE LINHAS DO FOR
+    document.forms["pesquisa"].elements["pesqSelect"].options.length = NameArray2[cjIX].length +1;
+
+    // LINHA INICIAL DO MENU SELECT
+    document.forms["pesquisa"].elements["pesqSelect"].options[0].text = "=> Selecione o Vendedor";
+    document.forms["pesquisa"].elements["pesqSelect"].options[0].value = "";
+
+		for (var j=0; j < NameArray2[cjIX].length; j++)
+		{
+			document.forms["pesquisa"].elements["pesqSelect"].options[j+1].text = NameArray2[cjIX][j];
+			document.forms["pesquisa"].elements["pesqSelect"].options[j+1].value = ValueArray2[cjIX][j];
+		}
+  }
+  else
+  {
+    document.forms["pesquisa"].elements["pesqSelect"].options.length = 2;
+    document.forms["pesquisa"].elements["pesqSelect"].options[0].text = "Selecione o Vendedor";
+    document.forms["pesquisa"].elements["pesqSelect"].options[0].value = "";
+    document.forms["pesquisa"].elements["pesqSelect"].options[1].text = "Selecione o Projeto primeiro";
+    document.forms["pesquisa"].elements["pesqSelect"].options[1].value = "";
+  }
+}
+
+</script>
+</head>
+
+<body>
+<?
+$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light);
+?>
+<br>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Pesquisa</legend>
+<table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+  <form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=100&Action=Pesquisar"; ?>" name="pesquisa" method="post">
+    <tr>
+      <td width="14%" align="center" class="generalGreyBorderBottomTableHeaderCell">Projeto</td>
+      <td width="15%" align="center" class="generalGreyBorderBottomTableHeaderCell">Vendedor</td>
+      <td width="42%" align="center" class="generalGreyBorderBottomTableHeaderCell">Per&iacute;odo</td>
+      <td width="8%" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+      <td width="21%" align="center" class="generalGreyBorderBottomTableHeaderCell"><input name="pg" type="hidden" id="pg" value="<? echo $pg; ?>">
+          <input name="pg_ped" type="hidden" id="pg_ped" value="100">
+      <input name="Action" type="hidden" id="Action" value="Pesquisar"></td>
+    </tr>
+    <tr>
+      <td class="noramlTableCell"><select name="codproj_pesq" class="campo_select" id="codproj_pesq" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"'  onchange="changePesq();">
+        <option selected value ="">Escolha um projeto ...</option>
+       
+        
+<?
+	for($i = 0; $i < count($array_pesq); $i++ ){
+$u = $i+1;
+?>
+                <option value="<? echo"$u"; ?>"><? echo"$nomeprojp[$i]"; ?></option>
+ <?
+	}//FOR
+?>
+            <!--<option value="-1">TODOS PROJETOS</option>--><br>
+ </select></td>
+      <td class="noramlTableCell"><select name="pesqSelect" class="campo_select" id="pesqSelect" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"'>
+        <option selected value ="">Escolha um vendedor ...</option>
+              
+      </select></td>
+      <td class="noramlTableCell"><table width="100%"  border="0" cellpadding="1" cellspacing="1">
+        <tr>
+          <td><input name="mes" type="text" id="mes" size="2" maxlength="2">
+            /
+            <input name="ano" type="text" id="ano" size="4" maxlength="4"></td>
+          </tr>
+      </table></td>
+      <td class="noramlTableCell"><input type="submit" name="Submit" value="Pesquisar" class="botao_cor"></td>
+      <td align="center" class="noramlTableCell">&nbsp;</td>
+    </tr>
+  </form>
+</table>
+</fieldset>
+<br>
+<?php if($codproj_select <> "" and $ano <> "" and $mes <> "") { ?>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Resultado Pesquisa </legend>
+<table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="33%" height="22" bgcolor="#FFF0F0" class="titulos_itens">PROJETO:<span style="font-weight: normal;
+"><? echo"$nomeproj"; ?></span></td>
+    <td width="33%" bgcolor="#FFF0F0" class="titulos_itens">VENDEDOR: <span style="font-weight: normal;
+"><? echo"$nomevend"; ?></span></td>
+    <td width="34%" bgcolor="#FFF0F0" class="titulos_itens">PER&Iacute;ODO: <span style="font-weight: normal;
+"><? echo"$mes / $ano"; ?></span></td>
+  </tr>
+  <tr bgcolor="#EA0000">
+    <td colspan="3" background="<? echo DIR_IMAGES; ?>/spacer.gif"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <form name="lista" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=200"; ?>" method="post">
+    <tr>
+      <td><table width='100%'  border='0' cellspacing='1' cellpadding='1'>
+  <tr align='center'>
+    <td width='50%'><img src='graph/wbs/celular_meta_graph_pc.php?<? echo "mes=$mes&ano=$ano&codproj=$codproj_select&codvend=$codvend_select&metauser=".$rs_list1->fields['meta_c']; ?>'></td>
+    <td><img src='graph/wbs/celular_meta_graph_pi.php?<? echo "mes=$mes&ano=$ano&codproj=$codproj_select&codvend=$codvend_select&metauser=".$rs_list1->fields['meta_pi']; ?>'></td>
+  </tr>
+  <tr align='center'>
+    <td><img src='graph/wbs/celular_meta_graph_pcar.php?<? echo "mes=$mes&ano=$ano&codproj=$codproj_select&codvend=$codvend_select&metauser=".$rs_list1->fields['meta_car']; ?>'></td>
+    <td><img src='graph/wbs/celular_meta_graph_pcar_fat.php?<? echo "mes=$mes&ano=$ano&codproj=$codproj_select&codvend=$codvend_select&metauser=".$rs_list1->fields['meta_car_fat']; ?>'></td>
+  </tr>
+</table>
+      </td>
+    </tr>
+  </form>
+</table>
+</fieldset>
+<?php } ?>
+</body>
+</html>

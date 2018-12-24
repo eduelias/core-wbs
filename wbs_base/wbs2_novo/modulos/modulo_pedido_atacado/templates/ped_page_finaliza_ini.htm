@@ -1,0 +1,229 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/sistema.css" rel="stylesheet" type="text/css">
+<script language="javascript">
+function adjust(element)
+{
+	return element.value.replace('.',',');
+}
+</script>
+<SCRIPT LANGUAGE="JavaScript">
+
+var duplaSubmissao = 0;
+
+function Envia(tipo)
+{
+  if (duplaSubmissao > 0)
+  {
+    alert("Por favor, aguarde. Proposta já enviada ao sistema.");
+    return false;
+  }
+  
+ if (document.getElementById("verif_finasa").value != 1){var desc1 = parent.frames["ichecklist_finasa"].document.getElementById("print_finasa").value;}else{ desc1 = 1}
+ if (document.getElementById("verif_celular").value != 1){var desc2 = parent.frames["ichecklist_celular"].document.getElementById("print_celular").value;}else{ desc2 = 1}
+  
+   if (desc1 == 1 && desc2 == 1){
+	 if (tipo == 0){
+        document.form1.submit();
+		duplaSubmissao++;
+        }
+	}else{
+		alert ("A impressão do Check-list é obrigatório!");
+		duplaSubmissao = 0;
+	}
+	//alert ("desc1"+ desc1 + "desc2" + desc2 + "");
+
+
+  return true;
+}
+
+</script>
+
+<style type="text/css">
+<!--
+.style1 {
+	color: #FF0000;
+	font-weight: bold;
+}
+.style2 {
+	color: #666666;
+	font-weight: bold;
+	size: 14pt;
+}
+-->
+</style>
+</head>
+
+<body>
+
+<table width="750"  border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td>
+	<table width="100%"  border="0" cellspacing="2" cellpadding="5">
+     
+       <tr>
+        <td ><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td background="<? echo DIR_IMAGES; ?>/formpg_ind_fundo_on.gif"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_1_on.gif" width="112" height="50"></td>
+    <td background="<? echo DIR_IMAGES; ?>/formpg_ind_fundo_on.gif"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_2_on.gif" width="123" height="50"></td>
+    <td background="<? echo DIR_IMAGES; ?>/formpg_ind_fundo_on.gif"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_3_on.gif" width="140" height="50"></td>
+    <td background="<? echo DIR_IMAGES; ?>/formpg_ind_fundo_on.gif"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_4_on.gif"></td>
+    <td background="<? echo DIR_IMAGES; ?>/formpg_ind_fundo_on.gif"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_5_on.gif" width="134" height="50"></td>
+  </tr>
+  <tr>
+    <td colspan="5"><table width="100%"  border="0" cellspacing="2" cellpadding="3">
+        <tr>
+          <td width="165"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_comprar_mais.gif" width="165" height="16"></td>
+          <td width="115"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=2&Action=$Action&Action_alter=$Action_alter&codpedselect=$codpedselect"; ?>"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_alterar_pedido_laranja.gif" width="115" height="16" border = "0"></a></td>
+          <td>&nbsp;</td>
+        </tr>
+    </table></td>
+  </tr>
+</table> 
+          <table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+            <tr>
+              <td><img src="<? echo DIR_IMAGES; ?>/fechamento.gif"></td>
+            </tr>
+            <tr>
+              <td background="<? echo DIR_IMAGES; ?>/spacer.gif" bgcolor="#CEDBDE"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+            </tr>
+          </table>          </td>
+      </tr>
+	   <tr>
+        <td class="titulos_padrao">Confirma&Ccedil;&Atilde;O:</td>
+      </tr>
+	  <tr>
+        <td><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+          <form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=14&Action=$Action&Action_alter=$Action_alter&codpedselect=$codpedselect&codorcselect=$codorcselect"; ?>" name= "form1" method="post"   >
+            <tr>
+              <td><table width="100%"  border="0" cellspacing="2" cellpadding="2">
+                <tr>
+                  <td width="50" align="center">&nbsp;</td>
+                  </tr>
+                
+                <tr align="center">
+                  <td class="titatrib">&nbsp;</td>
+                </tr>
+				<? 
+				$prod->clear();
+				$prod->listProdU("COUNT(*), tipo", "pedidoparcelastemp", "codped = '$codpedselect' and (tipo = '02.44' or tipo = '02.48'  or tipo = '02.52') GROUP BY tipo");
+				$cont_finasa = $prod->showcampo0();
+				
+				$prod->clear();
+				$prod->listProdU("COUNT(*), tipo", "pedidoparcelastemp", "codped = '$codpedselect' and (tipo = '02.52') GROUP BY tipo");
+				$tipo_finasa = $prod->showcampo0();
+				
+				
+				if ($cont_finasa > 0 ){
+				
+				if ($tipo_finasa > 0){$tipo_finasa_cel = 1;}else{ $tipo_finasa_cel = 0;}
+				#echo "tipo_finasa".$tipo_finasa."= $tipo_finasa_cel";
+				?>
+                <tr align="center" bgcolor="#FFFF99">
+                  <td class="titatrib"><fieldset>
+                          <legend class="style2">
+      FINANCIAMENTO BANCÁRIO </legend><BR><p><span class="style1">ATENÇÃO: </span>Este pedido possui financiamento atrav&eacute;s do FINASA. <br>
+                    Click no bot&atilde;o IMPRIMIR CHECK-LIST FINASA, confira os itens e anexe ao contrato do FINASA.
+                    <br>
+                    <br>
+                    <span class="style1">PROCEDIMENTO OBRIGAT&Oacute;RIO</span> </p>
+                    <iframe src="<? echo"$PHP_SELF?pg=$pg&pg_ped=15&Action=checklist_finasa&Action_alter=$Action_alter&codpedselect=$codpedselect&tipo_finasa_cel=$tipo_finasa_cel"; ?>" name="ichecklist_finasa" width="100%" marginwidth="0" height="25" marginheight="0" scrolling="no" frameborder="0"></iframe></fieldset>
+					<input id = "verif_finasa" name="verif_finasa" value="0" type="hidden" >					</td>
+                </tr>
+				<?
+				}else{
+				?>
+				<input id = "verif_finasa" name="verif_finasa" value="1" type="hidden" >
+				<?
+				}
+				
+				
+	// PESQUISA POR PRODUTOS QUE NAO POSSUEM PRODUTOS DE CELULAR
+	
+    $prod->clear();
+    $prod->listProdU("COUNT(*)","pedidoprodtemp, produtos", "codped='$codpedselect' and produtos.codsubcat = 203 and codplano <> 7 and pedidoprodtemp.codprod=produtos.codprod ");
+    $count_prod_ncel = $prod->showcampo0();
+	#echo "aqui - $codpedselect".$count_prod_ncel;
+    
+	if ($count_prod_ncel <> 0){
+				
+				?>
+				
+                <tr align="center" bgcolor="#FFCC00">
+                  <td class="titatrib"><fieldset>
+                          <legend class="style2">
+      TELEMIG CELULAR </legend><BR>
+      <p><span class="style1">ATENÇÃO: </span>Este pedido possui venda de CELULAR. <br>
+                    Click no bot&atilde;o IMPRIMIR CHECK-LIST CELULAR, confira os itens e anexe <br>
+                    &agrave; documenta&ccedil;&atilde;o que ser&aacute; enviada para a TELEMIG CELULAR.</p>
+      <p><span class="style1">PROCEDIMENTO OBRIGAT&Oacute;RIO</span></p>
+      <iframe src="<? echo"$PHP_SELF?pg=$pg&pg_ped=15&Action=checklist_telemig&Action_alter=$Action_alter&codpedselect=$codpedselect"; ?>" name="ichecklist_celular" width="100%" marginwidth="0" height="25" marginheight="0" scrolling="no" frameborder="0"></iframe></fieldset>
+	  <input id = "verif_celular" name="verif_celular" value="0" type="hidden" >	  	</td>
+                </tr>
+				
+				<?
+				}else{
+				?>
+				<input id = "verif_celular" name="verif_celular" value="1" type="hidden" >
+				<?
+				}
+				?>
+                <tr align="center">
+                  <td class="titatrib">&nbsp;</td>
+                  </tr>
+                <tr align="center" bgcolor="#FFFFFF">
+                  <td class="titatrib"><fieldset>
+                    
+                    <iframe src="<? echo"$PHP_SELF?pg=$pg&pg_ped=15&Action=pesquisa_vpropag&Action_alter=$Action_alter&tipo_orc_view=$tipo_orc&codvend_view=$codvendselect&codemp_view=$codempselect"; ?>" name="pesquisa" width="60%" marginwidth="0" height="220" marginheight="0" scrolling="no" frameborder="0"></iframe>
+                    </fieldset>
+                                     </td>
+                </tr>
+                <tr align="center">
+                  <td class="titatrib">&nbsp;</td>
+                </tr>
+				  <tr>
+                  <td align="center" class="carrinhovazio">Deseja Finalizar o <? echo" $titulo";?> ? </td>
+                  </tr>
+              </table>                
+                <table width="100%"  border="0" align="center" cellpadding="3" cellspacing="0">
+                  <tr>
+                    <td width="33%"><a href="<? echo "$PHP_SELF?pg=$pg&pg_ped=2&codpedselect=$codpedselect"; ?>" target="_parent"><img src="<? echo DIR_IMAGES; ?>/btvoltarcarrinhomeiocinza.gif" width="91" height="30" border="0"></a></td>
+                    <td>&nbsp;</td>
+                    <td width="34%" align="right"><table border="0" cellpadding="0" cellspacing="0">
+                        <!-- fwtable fwsrc="botaolaranjao.png" fwbase="botaolaranjao.gif" fwstyle="Dreamweaver" fwdocid = "1370560583" fwnested="1" -->
+                        <tr>
+                          <td><img name="botaolaranjao_seta" src="<? echo DIR_IMAGES; ?>/botaolaranjao_seta.gif" width="29" height="30" border="0" alt=""></td>
+                          <td><table width="11" height="30" border="0" align="left" cellpadding="0" cellspacing="0">
+                              <tr>
+                                <td height="3" background="<? echo DIR_IMAGES; ?>/botaolaranjao_top.gif"><img name="botaolaranjao_top" src="<? echo DIR_IMAGES; ?>/botaolaranjao_top.gif" width="11" height="3" border="0" alt=""></td>
+                              </tr>
+                              <tr>
+                                <td height="25" background="<? echo DIR_IMAGES; ?>/botaolaranjao_meio.gif"><input name="teste" type="button" class="botaolaranjao" value="Finalizar" onClick="javascript:Envia(0);" ></td>
+                              </tr>
+                              <tr>
+                                <td height="2" background="<? echo DIR_IMAGES; ?>/botaolaranjao_down.gif"><img name="botaolaranjao_down" src="<? echo DIR_IMAGES; ?>/botaolaranjao_down.gif" width="11" height="2" border="0" alt=""></td>
+                              </tr>
+                          </table></td>
+                          <td><img name="botaolaranjao_fim" src="<? echo DIR_IMAGES; ?>/botaolaranjao_fim.gif" width="15" height="30" border="0" alt=""></td>
+                        </tr>
+                    </table></td>
+                  </tr>
+                </table></td>
+            </tr>
+            
+            <input name="simula" type="hidden" value ="1" class="campoquant1">
+            <input name="valortabela_real" type="hidden" value ="<? echo"$valortabela_real"; ?>" class="campoquant1">
+			<input name="valortotal" type="hidden" value ="<? echo"$valortotal"; ?>" class="campoquant1">
+          </form>
+        </table></td>
+      </tr>
+    </table>
+      </td>
+  </tr>
+</table>
+
+</body>
+
+</html>

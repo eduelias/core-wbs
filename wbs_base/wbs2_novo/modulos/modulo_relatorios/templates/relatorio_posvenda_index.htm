@@ -1,0 +1,380 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="<? echo DIR_JS; ?>/calendar.js"></script>
+<script language="javascript" src="<? echo DIR_JS; ?>/funcoes01.js"></script>
+</head>
+
+<body>
+<?
+$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light);
+?>
+<br>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Pesquisa</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+      <form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&Action=Pesquisar"; ?>" method="post" name="pesquisa" id="pesquisa">
+        <tr>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">De</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">At&eacute;</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Sol.</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Ocorr&ecirc;ncia</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="60%" align="center" class="generalGreyBorderBottomTableHeaderCell"><input type="hidden" name="Action" value="Pesquisar" /></td>
+        </tr>
+        <tr>
+          <td class="noramlTableCell" style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor=&quot;<? echo $bg_cor_light; ?>&quot;' onmouseout='this.style.backgroundColor=&quot;#FFFFFF&quot;'><table  border="0" cellpadding="1" cellspacing="1">
+              <tr>
+                <td><input name="datainicio" type="text" class="campo_linha" id="datainicio" onfocus='this.style.backgroundColor=&quot;<? echo $bg_cor_light; ?>&quot;; blur()' onblur='this.style.backgroundColor=&quot;#FFFFFF&quot;' /></td>
+                <td><a href="javascript:void(0);" onclick="openCalendar('pg=9', 'pesquisa', 'datainicio', 'datetime')"><img src="<? echo DIR_BOTOES; ?>/calendar_view_month.png" border="0" /></a></td>
+              </tr>
+          </table></td>
+          <td class="noramlTableCell" style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor=&quot;<? echo $bg_cor_light; ?>&quot;' onmouseout='this.style.backgroundColor=&quot;#FFFFFF&quot;'><table  border="0" cellpadding="1" cellspacing="1">
+              <tr>
+                <td><input name="datafim" type="text" class="campo_linha" id="datafim" onfocus='this.style.backgroundColor=&quot;<? echo $bg_cor_light; ?>&quot;; blur()' onblur='this.style.backgroundColor=&quot;#FFFFFF&quot;' /></td>
+                <td><a href="javascript:void(0);" onclick="openCalendar('pg=9', 'pesquisa', 'datafim', 'datetime')"><img src="<? echo DIR_BOTOES; ?>/calendar_view_month.png" border="0" /></a></td>
+              </tr>
+          </table></td>
+          <td class="noramlTableCell" style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'><table border="0" cellspacing="1" cellpadding="1">
+            <tr>
+              <td><input name="sol" type="radio" value="S"></td>
+              <td><strong>S</strong></td>
+              <td><input name="sol" type="radio" value="N" checked></td>
+              <td><strong>N</strong></td>
+            </tr>
+          </table></td>
+          <td class="noramlTableCell" onfocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onblur='this.style.backgroundColor="#FFFFFF"'><select name="ocorrencia" class="campo_select" onfocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onblur='this.style.backgroundColor="#FFFFFF"'>
+            <option value="-1">Todas Ocorr&ecirc;ncias</option>
+            <option value="5">Geral</option>
+            <option value="1">Produto</option>
+            <option value="2">Vendas</option>
+            <option value="3">Entrega</option>
+            <option value="4">Saci</option>
+            <option value="6">Manuten&ccedil;&atilde;o</option>
+            <option value="7">Produ&ccedil;&atilde;o</option>
+          </select>
+          </td>
+          <td class="noramlTableCell"><input type="submit" name="Submit" value="Pesquisar" class="botao_cor" /></td>
+          <td align="center" class="noramlTableCell"><a href="#"></a></td>
+        </tr>
+      </form>
+    </table></td>
+  </tr>
+</table>
+</fieldset>
+<br>
+<? if ($Action == "Pesquisar") { ?>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Resultado Pesquisa</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<form name="lista" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=1"; ?>" method="post">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="50%">&nbsp;</td>
+        <td width="50%" align="right"><a href="" class="link4">Imprimir tudo</a></td>
+      </tr>
+    </table>
+      <br>
+    <table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+      <tr>
+        <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell">Codpesq</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Supervisor</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Data Pesq </td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Ocorr&ecirc;ncia</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Obs</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Sol.</td>
+          </tr>
+      <?
+if ($rs_pesq)
+{
+	$ix = 0;
+	while (!$rs_pesq->EOF)
+	{
+?>
+      <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+        <td align="center" class="noramlTableCell"><input name="rows_codpesq[<? echo $ix; ?>]" type="checkbox" id="id_rows_codpesq<? echo $ix; ?>" value="<? echo $rs_pesq->fields['coddetalhe']; ?>"></td>
+          <td align="center" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;"><? echo $rs_pesq->fields['coddetalhe']; ?></td>
+          <td class="noramlTableCell"><table width="100%" border="0" cellspacing="2" cellpadding="1">
+          <tr>
+            <td>Pedido: <?
+
+$db->connect_wbs();
+
+$rs_codbarra = $db->query_db("SELECT codbarra FROM pedido WHERE codped = '".$rs_pesq->fields['codped']."'","SQL_NONE","N");
+echo $rs_codbarra->fields['codbarra'];
+
+$db->disconnect();
+
+?></td>
+          </tr>
+          <tr>
+            <td>Cliente: <b><?
+
+$db->connect_wbs();
+
+$rs1 = $db->query_db("SELECT nome FROM clientenovo WHERE codcliente = '".$rs_pesq->fields['codcliente']."'","SQL_NONE","N");
+
+echo $rs1->fields[0];
+
+$db->disconnect();
+
+?></b></td>
+          </tr>
+            <tr>
+              <td>Tel.: <?
+
+$db->connect_wbs();
+
+$rs1 = $db->query_db("SELECT dddtel1, tel1, dddtel2, tel2 FROM clientenovo WHERE codcliente = '".$rs_pesq->fields['codcliente']."'","SQL_NONE","N");
+
+$ddd1 = $rs1->fields[0];
+$tel1 = $rs1->fields[1];
+$ddd2 = $rs1->fields[2];
+$tel2 = $rs1->fields[3];
+
+echo "($ddd1) $tel1 / ($ddd2) $tel2";
+
+$db->disconnect();
+
+?></td>
+            </tr>
+            <tr>
+              <td>Vendedor: <?
+
+$db->connect_wbs();
+
+$rs1 = $db->query_db("SELECT nome FROM vendedor WHERE codvend = '".$rs_pesq->fields['codvend_ped']."'","SQL_NONE","N");
+
+echo $db->format_str("UP", $rs1->fields[0]);
+
+$db->disconnect();
+
+?></td>
+            </tr>
+        </table></td>
+          <td align="center" class="noramlTableCell"><?
+            switch ($rs_pesq->fields['codocorrencia'])
+            {
+                // 1 - Produto
+                case "1" :
+                    // MSG Bruno : 24
+					echo "Bruno";
+                break;
+                // 2 - Vendas
+                case "2" :
+                    // Pesquisar no cadastro de vendedor o cod supervisor
+                    $prod->clear();
+                    $prod->listProdU("codsuper","vendedor", "codvend = '".$rs_pesq->fields['codvend_ped']."'");
+                    $codsuper_view = $prod->showcampo0();
+                    $prod->clear();
+                    $prod->listProdU("nome","vendedor", "codvend = '$codsuper_view'");
+                    $nomesuper_view = $prod->showcampo0();
+					echo $nomesuper_view;
+                break;
+                // 3 - Entrega
+                case "3" :
+                    // MSG Jair
+					echo "Jair";
+                break;
+                // 4 - Saci
+                case "4" :
+                    // Luciano
+					echo "Luciano";
+                break;
+                // 5 - Geral
+                case "5" :
+                    // Magno
+					echo "Magno";
+                break;
+                // 6 - Manuten&ccedil;&atilde;o
+                case "6" :
+                    // Luciano
+					echo "Luciano";
+                break;
+                // 7 - Produ&ccedil;&atilde;o
+                case "7" :
+                    // Ant&ocirc;nio
+					echo "Ant&ocirc;nio";
+                break;
+            }
+		  ?></td>
+          <td align="center" class="noramlTableCell"><? echo $rs_pesq->UserTimeStamp($rs_pesq->fields['datahorainicio'],'d/m/Y H:i'); ?></td>
+          <td align="center" class="noramlTableCell"><b><?
+            switch ($rs_pesq->fields['codocorrencia'])
+            {
+                // 1 - Produto
+                case "1" :
+                    // MSG Bruno : 24
+					echo "Produto";
+                break;
+                // 2 - Vendas
+                case "2" :
+                    echo "Vendas";
+                break;
+                // 3 - Entrega
+                case "3" :
+                    // MSG Jair
+					echo "Entrega";
+                break;
+                // 4 - Saci
+                case "4" :
+                    // Luciano
+					echo "Saci";
+                break;
+                // 5 - Geral
+                case "5" :
+                    // Magno
+					echo "Geral";
+                break;
+                // 6 - Manutenção
+                case "6" :
+                    // Luciano
+					echo "Manutenção";
+                break;
+                // 7 - Produção
+                case "7" :
+                    // Antônio
+					echo "Produção";
+                break;
+            }
+		  ?></b></td>
+          <td valign="top" class="noramlTableCell"><?
+
+$db->connect_wbs();
+
+$rs1 = $db->query_db("SELECT resposta FROM pesquisa_resp WHERE codperg = '18' AND codcliente = '".$rs_pesq->fields['codcliente']."' AND codped = '".$rs_pesq->fields['codped']."'","SQL_NONE","N");
+echo $rs1->fields[0];
+
+$db->disconnect();
+
+?></td>
+          <td align="center" class="noramlTableCell"><strong><? echo $rs_pesq->fields['solucionado']; ?></strong></td>
+        </tr>
+      <?
+	 	$ix++;
+		$rs_pesq->MoveNext();
+	}//WHILE
+}
+?>
+      </table>
+        <hr size="1" noshade>
+      <table border="0" cellspacing="2" cellpadding="2" class="generalTable defaultBlackText">
+        <tr>
+          <td><img src="<? echo DIR_IMAGES; ?>/arrow_ltr.png" border="0"></td>
+		    <td>&nbsp;</td>
+            <td class="noramlTableCell" style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'><a href="javascript:void(0);" class="link5" onClick="setCheckboxesRange('lista', true, 'id_rows_codpesq', 0, '<? echo $numRows; ?>'); return false;">Marcar Todos</a></td>
+            <td class="noramlTableCell" style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'><a href="javascript:void(0);" class="link5" onClick="setCheckboxesRange('lista', false, 'id_rows_codpesq', 0, '<? echo $numRows; ?>'); return false;">Desmarcar Todos</a></td>
+            <td>&nbsp;</td>
+            <td><table width="100%" border="0" cellspacing="0" cellpadding="1">
+              <tr>
+                <td><strong>Com Marcados:</strong> </td>
+              </tr>
+              <tr>
+                <td><select name="Action" class="campo_select" id="Action" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"'>
+                  <option value="" selected="selected">Selecione...</option>
+                  <option value="Solucionar">Solucionar</option>
+                  </select></td>
+              </tr>
+              </table></td>
+            <td><input name="Submit" type="submit" class="botao_cor" id="Submit" value="OK" onClick="return confirm('Confirma esta ação?')"></td>
+            <td><input name="numRows" type="hidden" id="numRows" value="<? echo $numRows; ?>">
+            <input type="hidden" name="pg" value="<? echo $pg; ?>">
+              <input type="hidden" name="pg_ped" value="<? echo $pg_ped; ?>"></td>
+          </tr>
+        </table>
+      <hr size="1" noshade>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="60%" valign="top"><table border="0" cellspacing="2" cellpadding="2" class="generalTable defaultBlackText">
+            <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+              <td class="noramlTableCell"><img src="<? echo DIR_BOTOES; ?>/chart_pie.png" border="0" title="Pagar"></td>
+              <td class="noramlTableCell"><em>Total de Pesquisas Realizadas</em></td>
+              <td class="noramlTableCell"><? echo $rs_total->fields['total']; ?></td>
+              <td align="center" class="noramlTableCell">&nbsp;</td>
+            </tr>
+            <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+              <td class="noramlTableCell"><img src="<? echo DIR_BOTOES; ?>/chart_pie_add.png" border="0" title="Pagar"></td>
+              <td class="noramlTableCell"><em>Pesquisas Respondidas</em></td>
+              <td class="noramlTableCell"><? echo $rs_resp->fields['resp']; ?></td>
+              <td align="center" class="noramlTableCell"><strong>
+                <? $porc_resp = ($rs_resp->fields['resp']*100)/$rs_total->fields['total']; echo $db->fvalor($porc_resp); ?>
+                %</strong></td>
+            </tr>
+            <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+              <td class="noramlTableCell"><img src="<? echo DIR_BOTOES; ?>/chart_pie_delete.png" border="0" title="Pagar"></td>
+              <td class="noramlTableCell"><em>Pesquisas N&atilde;o Respondidas</em></td>
+              <td class="noramlTableCell"><? echo $rs_nresp->fields['nresp']; ?></td>
+              <td align="center" class="noramlTableCell"><strong>
+                <? $porc_nresp = ($rs_nresp->fields['nresp']*100)/$rs_total->fields['total']; echo $db->fvalor($porc_nresp); ?>
+                %</strong></td>
+            </tr>
+            <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+              <td class="noramlTableCell"><img src="<? echo DIR_BOTOES; ?>/chart_pie_error.png" border="0" title="Pagar"></td>
+              <td class="noramlTableCell"><em>Pesquisas com Ocorr&ecirc;ncias </em></td>
+              <td class="noramlTableCell"><? echo $rs_ocorrencia->fields['ocorrencia']; ?></td>
+              <td align="center" class="noramlTableCell"><strong>
+                <? $porc_ocorrencia = ($rs_ocorrencia->fields['ocorrencia']*100)/$rs_total->fields['total']; echo $db->fvalor($porc_ocorrencia); ?>
+                %</strong></td>
+            </tr>
+          </table></td>
+          <td width="40%" align="right" valign="top"><table border="0" cellspacing="2" cellpadding="2" class="generalTable defaultBlackText">
+            <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+              <td class="noramlTableCell"><img src="<? echo DIR_BOTOES; ?>/chart_pie.png" border="0" title="Pagar"></td>
+              <td class="noramlTableCell"><em>Geral</em></td>
+              <td class="noramlTableCell"><? echo $rs_geral->fields[0]; ?></td>
+              <td align="center" class="noramlTableCell"><strong><? $porc_geral = ($rs_geral->fields[0]*100)/$rs_total2->fields[0]; echo $db->fvalor($porc_geral); ?>%</strong></td>
+            </tr>
+            <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+              <td class="noramlTableCell"><img src="<? echo DIR_BOTOES; ?>/chart_pie.png" border="0" title="Pagar"></td>
+              <td class="noramlTableCell"><em>Produto</em></td>
+              <td class="noramlTableCell"><? echo $rs_produto->fields[0]; ?></td>
+              <td align="center" class="noramlTableCell"><strong><? $porc_produto = ($rs_produto->fields[0]*100)/$rs_total2->fields[0]; echo $db->fvalor($porc_produto); ?>%</strong></td>
+            </tr>
+            <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+              <td class="noramlTableCell"><img src="<? echo DIR_BOTOES; ?>/chart_pie.png" border="0" title="Pagar"></td>
+              <td class="noramlTableCell"><em>Vendas</em></td>
+              <td class="noramlTableCell"><? echo $rs_vendas->fields[0]; ?></td>
+              <td align="center" class="noramlTableCell"><strong><? $porc_vendas = ($rs_vendas->fields[0]*100)/$rs_total2->fields[0]; echo $db->fvalor($porc_vendas); ?>%</strong></td>
+            </tr>
+            <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+              <td class="noramlTableCell"><img src="<? echo DIR_BOTOES; ?>/chart_pie.png" border="0" title="Pagar"></td>
+              <td class="noramlTableCell"><em>Entrega</em></td>
+              <td class="noramlTableCell"><? echo $rs_entrega->fields[0]; ?></td>
+              <td align="center" class="noramlTableCell"><strong><? $porc_entrega = ($rs_entrega->fields[0]*100)/$rs_total2->fields[0]; echo $db->fvalor($porc_entrega); ?>%</strong></td>
+            </tr>
+            <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+              <td class="noramlTableCell"><img src="<? echo DIR_BOTOES; ?>/chart_pie.png" border="0" title="Pagar"></td>
+              <td class="noramlTableCell">Saci</td>
+              <td class="noramlTableCell"><? echo $rs_saci->fields[0]; ?></td>
+              <td align="center" class="noramlTableCell"><strong><? $porc_saci = ($rs_saci->fields[0]*100)/$rs_total2->fields[0]; echo $db->fvalor($porc_saci); ?>%</strong></td>
+            </tr>
+            <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+              <td class="noramlTableCell"><img src="<? echo DIR_BOTOES; ?>/chart_pie.png" border="0" title="Pagar"></td>
+              <td class="noramlTableCell">Manuten&ccedil;&atilde;o</td>
+              <td class="noramlTableCell"><? echo $rs_manutencao->fields[0]; ?></td>
+              <td align="center" class="noramlTableCell"><strong><? $porc_manutencao = ($rs_manutencao->fields[0]*100)/$rs_total2->fields[0]; echo $db->fvalor($porc_manutencao); ?>%</strong></td>
+            </tr>
+            <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+              <td class="noramlTableCell"><img src="<? echo DIR_BOTOES; ?>/chart_pie.png" border="0" title="Pagar"></td>
+              <td class="noramlTableCell">Produ&ccedil;&atilde;o</td>
+              <td class="noramlTableCell"><? echo $rs_producao->fields[0]; ?></td>
+              <td align="center" class="noramlTableCell"><strong><? $porc_producao = ($rs_producao->fields[0]*100)/$rs_total2->fields[0]; echo $db->fvalor($porc_producao); ?>%</strong></td>
+            </tr>
+          </table></td>
+        </tr>
+      </table></td>
+  </tr>
+</form>
+</table>
+</fieldset>
+<? } ?>
+</body>
+</html>

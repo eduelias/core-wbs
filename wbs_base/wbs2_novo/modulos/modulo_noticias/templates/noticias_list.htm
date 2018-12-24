@@ -1,0 +1,149 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+//echo("<strong>S</strong>[$sucesso] <strong>PG</strong>[$pg] <strong>PG_PED</strong>[$pg_ped] <strong>ACTION</strong>[$Action]");
+/*
+if ($sucesso == 1)
+{
+	if (dirname($_SERVER['PHP_SELF']) == "/"){$bar = "";}else{$bar = "/";}
+	echo "<meta http-equiv='refresh' content='0;URL=http://" . $_SERVER['HTTP_HOST']. dirname($_SERVER['PHP_SELF']). $bar. "restrito.php?pg=$pg&pg_ped=1&tiposucesso=hist'>";
+	exit();
+}
+*/
+?>
+<title></title>
+<link href="<? echo DIR_CSS; ?>/abc.css" rel="stylesheet" type="text/css">
+<? if (dirname($_SERVER['PHP_SELF']) == "/"){$bar = "";}else{$bar = "/";} ?>
+<script language=JavaScript>
+function AbrePopup(n_pop)
+{
+	//$PHP_SELF?pg=$pg&pg_ped=2&codpopupselect=$codpopup_list[$i]&menu_not=1
+	window.open('<? echo "http://" . $_SERVER['HTTP_HOST']. dirname($_SERVER['PHP_SELF']). $bar. "restrito.php?pg=$pg&pg_ped=4&menu_not=1&codpopupselect="; ?>'+n_pop+'','popup_view','width=450, height=400, scrollbars=yes, resizable=no');
+}
+</script>
+</head>
+
+<body>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><img src="<? echo DIR_IMAGES; ?>/noticiasinternasadm.gif" width="255" height="40"></td>
+  </tr>
+  <tr>
+    <td bgcolor="#666666"><img src="spacer.gif" width="1" height="1"></td>
+  </tr>
+  <tr>
+    <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="10" height="10"></td>
+  </tr>
+  <tr>
+    <td class="abc5">Listando</td>
+  </tr>
+  <tr>
+    <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="10" height="10"></td>
+  </tr>
+  <tr>
+    <td><table width="100%"  border="0" cellpadding="1" cellspacing="2">
+	<form action="<? echo "$PHP_SELF?pg=$pg&Action=Pesquisar"; ?>" method="post" name="form">
+      <tr>
+        <td class="abc1">pesquisar por </td>
+      </tr>
+      <tr>
+        <td class="abc2"><table  border="0" cellpadding="1" cellspacing="1" class="abc4">
+          <tr>
+            <td><strong>COD</strong></td>
+            <td><strong>T&Iacute;TULO</strong></td>
+            <td><strong>TIPO</strong></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td><input name="pesqcod" type="text" class="abc3" id="pesqcod" size="6"></td>
+            <td><input name="pesqtitulo" type="text" class="abc3" id="pesqtitulo"></td>
+            <td><select name="pesqtipo" class="abc3" id="pesqtipo">
+              <option value="-1">Todos</option>
+              <option value="0">Not&iacute;cias</option>
+              <option value="1">Procedimentos</option>
+              <option value="2">Promo&ccedil;&otilde;es</option>
+			  <option value="3">Página Inicial</option>
+            </select></td>
+            <td><input name="Submit" type="submit" class="abc1" value="Pesquisar"></td>
+          </tr>
+        </table></td>
+      </tr>
+	  </form>
+    </table></td>
+  </tr>
+  <tr>
+    <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="10" height="10"></td>
+  </tr>
+</table>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+<?php
+if(($Action == "Gravar") OR ($Action == "Editar") OR ($Action == "Historico")) {
+    if($Action == "Gravar") {
+        $msgok = "Notícia adicionada com sucesso!";
+    } elseif ($Action == "Editar") {
+        $msgok = "Notícia editada com sucesso!";
+    } elseif ($Action == "Historico") {
+        $msgok = "Status da Notícia alterada para Histórico!";
+    }
+    echo "<span class='abcsucesso'>$msgok</span>";
+}
+?>
+	</td>
+    <td width="50%" align="right"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=2"; ?>"><img src="<? echo DIR_IMAGES; ?>/btinserirnoticia.gif" width="110" height="30" border="0"></a></td>
+  </tr>
+  <tr>
+    <td colspan="2"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="10" height="10"></td>
+  </tr>
+</table>
+<table width="100%"  border="0" align="center" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="abc1">cod</td>
+    <td class="abc1">grupo</td>
+    <td class="abc1">tipo</td>
+    <td class="abc1">t&iacute;tulo</td>
+    <td class="abc1">data/hora in&iacute;cio </td>
+    <td class="abc1">data/hora termino </td>
+    <td class="abc1">status</td>
+    <td class="abc1" align="center">&nbsp;</td>
+    <td class="abc1" align="center">&nbsp;</td>
+  </tr>
+<?	for($i = 0; $i < count($arrayx); $i++ ){ ?>
+  <tr>
+    <td class='abc2'><a onClick="AbrePopup(<? echo $codpopup_list[$i]; ?>);" href="javascript:void(0);"><? echo "$codpopup_list[$i]"; ?></a></td>
+    <td class='abc2'><? /* echo "$nomegrp_list[$i]"; */ echo $codgrp_list[$i]; ?></td>
+    <td class='abc2'><?
+$atipo_list = $tipo_list[$i];
+if($atipo_list == "0"){echo "<img src='".DIR_IMAGES."/btnoticias.gif'>"; if ($pg_ini_list[$i] == 1){echo "<BR>(Página Inicial)";}}
+elseif($atipo_list == "1") {echo "<img src='".DIR_IMAGES."/btprocedimentos.gif'>";if ($pg_ini_list[$i] == 1){echo "<BR>(Página Inicial)";}}
+else {echo "<img src='".DIR_IMAGES."/btpromocoes.gif'>";if ($pg_ini_list[$i] == 1){echo "<BR>(Página Inicial)";}}
+?></td>
+    <td class='abc2'><a class="abcinfo">Ver T&iacute;tulo<span><strong>Título:</strong><br><? echo "$titulo_list[$i]"; ?><br><strong>Sub-Título:</strong><br><? echo "$subtitulo_list[$i]"; ?></span></a></td>
+    <td class='abc2'><? echo "$datainicio_list[$i]"; ?></td>
+    <td class='abc2'><? echo "$datafim_list[$i]"; ?></td>
+    <td align='center' class='abc2'><img src='<? echo DIR_IMAGES; ?>/<? echo "$status_img_list[$i]"; ?>' border='0'></td>
+    <td class='abc2' align="center"><a href='<? echo "$PHP_SELF?pg=$pg&pg_ped=3&codpopupselect=$codpopup_list[$i]"; ?>'><img src='<? echo DIR_IMAGES; ?>/notint_edt.gif' width='15' height='15' border='0'></a></td>
+    <td class='abc2' align="center"><a href='<? echo "$PHP_SELF?pg=$pg&pg_ped=1&codpopupselect=$codpopup_list[$i]&Action=Historico"; ?>'><img src='<? echo DIR_IMAGES; ?>/notint_hist.gif' width='15' height='15' border='0'></a></td>
+  </tr>
+<? }//FOR ?>
+</table>
+<br>
+<table width="100%"  border="0" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="abc1">legendas</td>
+  </tr>
+  <tr>
+    <td class="abc2"><table  border="0" cellpadding="2" cellspacing="2" class="abc4">
+      <tr>
+        <td><img src="<? echo DIR_IMAGES; ?>/notint_edt.gif" width="15" height="15" border="0"></td>
+        <td>Edita Not&iacute;cia</td>
+        <td><img src="<? echo DIR_IMAGES; ?>/notint_hist.gif" width="15" height="15" border="0"></td>
+        <td>Enviar para   HIST&Oacute;RICO</td>
+        </tr>
+    </table></td>
+  </tr>
+</table>
+</body>
+</html>

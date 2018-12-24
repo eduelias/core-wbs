@@ -1,0 +1,132 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/saci.css" rel="stylesheet" type="text/css">
+</head>
+<script language="javascript" type="text/javascript">
+
+function mascara_cpf(form, campo, cpf)
+{
+	var mycpf = '';
+    mycpf = mycpf + cpf;
+    if (mycpf.length == 3) {
+        mycpf = mycpf + '.';
+        document.getElementById(campo).value = mycpf;
+    }
+    if (mycpf.length == 7) {
+        mycpf = mycpf + '.';
+        document.getElementById(campo).value = mycpf;
+    }
+    if (mycpf.length == 11) {
+        mycpf = mycpf + '-';
+        document.getElementById(campo).value = mycpf;
+    }
+    if (mycpf.length == 14) {
+    }
+}
+
+
+function mascara_cnpj(form, campo, cnpj)
+{
+	var mycpf = '';
+    mycpf = mycpf + cnpj;
+    if (mycpf.length == 2) {
+        mycpf = mycpf + '.';
+        document.getElementById(campo).value = mycpf;
+    }
+    if (mycpf.length == 6) {
+        mycpf = mycpf + '.';
+        document.getElementById(campo).value = mycpf;
+    }
+    if (mycpf.length == 10) {
+        mycpf = mycpf + '/';
+        document.getElementById(campo).value = mycpf;
+    }
+	  if (mycpf.length == 15) {
+        mycpf = mycpf + '-';
+        document.getElementById(campo).value = mycpf;
+    }
+    if (mycpf.length == 18) {
+    }
+}
+
+</script>
+<? if (dirname($_SERVER['PHP_SELF']) == "/"){$bar = "";}else{$bar = "/";} ?>
+
+
+<body>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%"><img src="<? echo DIR_IMAGES; ?>/ind_relatorio_consulta_cliente.gif"></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#68C668"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+  </tr>
+</table>
+<br>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td class="titulospverdec">Pesquisar:</td>
+  </tr>
+  <tr>
+    <td class="tdspconteudoverdec"><table width="100%"  border="0" cellpadding="2" cellspacing="2">
+      <form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&menu_not=1&Action=pesquisa"; ?>" method="post" name="pesqcheque" target="ilist">
+        <tr>
+          <td colspan="2" align="left"><table  border="0" cellspacing="2" cellpadding="2">
+            <tr>
+              <td valign="top">COD<br>
+                  <input name="codcli_pesq" type="text" class="campo3" id="codcli_pesq" size="14" maxlength="13"></td>
+              <td valign="top">CLIENTE<br>
+                  <input name="nomecliente_pesq" type="text" class="campo3" id="nomecliente_pesq" size="15"></td>
+              <td rowspan="2" valign="top"><table  border="0" cellspacing="2" cellpadding="2">
+                  <tr>
+                    <td align="center" valign="middle"><input name="tipocliente_pesq" type="radio" value="F" checked></td>
+                    <td>CPF<br>
+                        <input id="cpf_pesq" name="cpf_pesq" type="text" class="campo3" size="16" maxlength="14" onKeyUp="mascara_cpf(this.form, 'cpf_pesq', this.value)"></td>
+                  </tr>
+                  <tr>
+                    <td align="center" valign="middle"><input name="tipocliente_pesq" type="radio" value="J"></td>
+                    <td>CNPJ<br>
+                        <input id="cnpj_pesq" name="cnpj_pesq" type="text" class="campo3" size="21" maxlength="18" onKeyUp="mascara_cnpj(this.form, 'cnpj_pesq', this.value)"></td>
+                  </tr>
+              </table></td>
+              <td rowspan="2" valign="middle"><input name="Action" type="hidden" id="Action" value="pesquisa">
+                  <input name="Submit" type="submit" class="botao3" value="Pesquisar"></td>
+            </tr>
+            <tr>
+              <td colspan="2" valign="top">&nbsp;</td>
+            </tr>
+            <input name="codemppesq" type="hidden" class="botao3" value="<? echo"$codemppesq" ?>">
+            <input name="hist" type="hidden" class="botao3" value="<? echo"$hist" ?>">
+          </table></td>
+          </tr>
+      </form>
+      
+        <tr>
+          <td colspan="2"><fieldset class="tdspconteudoverdec">
+            <legend class="titulospverdec">Clientes</legend>
+            <iframe src="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&menu_not=1"; ?>" name="ilist" width="100%" marginwidth="0" height="150" marginheight="0" scrolling="yes" frameborder="0"></iframe></fieldset></td>
+        </tr>
+        <tr>
+          <td width="60%" valign="top"><fieldset class="tdspconteudoverdec">
+          <legend class="titulospverdec">Pedidos </legend>
+          <iframe src="<? echo"$PHP_SELF?pg=$pg&pg_ped=2&menu_not=1"; ?>" name="iped" width="100%" marginwidth="0" height="150" marginheight="0" scrolling="yes" frameborder="0"></iframe>
+          </fieldset></td>
+          <td width="40%" valign="top"><fieldset class="tdspconteudoverdec">
+          <legend class="titulospverdec">Avalia&ccedil;&atilde;o de Cr&eacute;dito (&uacute;ltimos 12 meses) </legend>
+          <iframe src="<? echo"$PHP_SELF?pg=$pg&pg_ped=4&menu_not=1"; ?>" name="ipedlimite" width="100%" marginwidth="0" height="150" marginheight="0" scrolling="yes" frameborder="0"></iframe>
+          </fieldset></td>
+        </tr>
+		<tr>
+          <td colspan="2"><fieldset class="tdspconteudoverdec">
+            <legend class="titulospverdec">Detalhes do Pedido </legend>
+            <iframe src="<? echo"$PHP_SELF?pg=$pg&pg_ped=3&menu_not=1"; ?>" name="idescr" width="100%" marginwidth="0" height="350" marginheight="0" scrolling="yes" frameborder="0"></iframe></fieldset></td>
+        </tr>
+     
+    </table></td>
+  </tr>
+</table>
+</body>
+</html>

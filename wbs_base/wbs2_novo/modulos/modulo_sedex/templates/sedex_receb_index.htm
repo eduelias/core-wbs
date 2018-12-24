@@ -1,0 +1,66 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<script language="javascript">
+function PostaCEP(form)
+{
+	document.form.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=5&"; ?>Action=cep_revendas&menu_not=1';
+	document.form.target = 'irevenda';
+	document.form.submit();
+
+	//document.form.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=99&menu_not=1"; ?>';
+	//document.form.target = 'irevenda';
+	//document.form.submit();
+
+	document.form.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=2&menu_not=1"; ?>';
+	document.form.target = 'ireceb';
+	document.form.submit();
+}
+</script>
+</head>
+
+<body>
+<?
+$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light);
+?>
+<br>
+<table  border="0" cellspacing="2" cellpadding="2">
+  <tr>
+    <td><? $db->botao(MOD_COR, "Listar Sedex", "", "pg=$pg&pg_ped=100", "", ""); ?></td>
+    <td><? $db->botao(MOD_COR, "Receber Sedex", "", "pg=$pg&pg_ped=1", "", ""); ?></td>
+    <td><? $db->botao(MOD_COR, "Enviar Sedex", "", "pg=$pg&pg_ped=3", "", ""); ?></td>
+  </tr>
+</table>
+<br>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" class="titulo_superior2">
+  <tr>
+    <td>Recebimento Sedex</td>
+  </tr>
+</table>
+<table width="100%"  border="0" cellpadding="2" cellspacing="0" class="generalTable defaultBlackText">
+  <form method="post" name="form" target="irevenda" onSubmit="PostaCEP(form)">
+    <tr style="background-color: #FFFFFF; cursor: pointer;">
+      <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">CEP</td>
+      <td width="90" class="noramlTableCell"><input name="frmCEP" type="text" id="frmCEP" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"' size="9" maxlength="8" class="campo_linha"></td>
+      <td width="1" class="noramlTableCell"><input name="Submit" type="submit" class="botao_cor" value="Ok"></td>
+      <td class="noramlTableCell">&nbsp;</td>
+    </tr>
+  </form>
+</table>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="6" height="6"></td>
+  </tr>
+</table>
+<iframe src="<? //echo"$PHP_SELF?pg=$pg&pg_ped=5&menu_not=1"; ?>" name="irevenda" width="100%" marginwidth="0" height="30" marginheight="0" scrolling="auto" frameborder="0"></iframe>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="6" height="6"></td>
+  </tr>
+</table>
+<iframe src="<? //echo"$PHP_SELF?pg=$pg&pg_ped=2&menu_not=1"; ?>" name="ireceb" width="100%" marginwidth="0" height="330" marginheight="0" scrolling="auto" frameborder="0"></iframe>
+</body>
+</html>

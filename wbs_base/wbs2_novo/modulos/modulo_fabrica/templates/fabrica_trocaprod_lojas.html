@@ -1,0 +1,42 @@
+<html>
+<head>  
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<?
+$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light);
+$var_parametro = "&pg_ped=1";
+$db->voltar(MOD_COR, $pg, $var_parametro);
+?>
+<br>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Pesquisa</legend>
+<table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+  <form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=100&menu_not=1"; ?>" method="post" name="pesquisa" target="iped">
+    <tr>
+      <td width="76%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+      <td width="13%" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+      <td width="11%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="generalGreyBorderBottomTableHeaderCell"><strong>No S&Eacute;RIE ANTIGO:</strong>
+        <input name="sn_pesq" type="text" class="campo_linha" id="sn_pesq" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"' size="40"></td>
+      <td class="noramlTableCell"><input type="submit" name="Submit2" value="Pesquisar" class="botao_cor"></td>
+      <td align="left" class="noramlTableCell"><input name="limpar" type="reset" class="botao_cor" id="limpar" value="Limpar"></td>
+    </tr>
+  </form>
+</table>
+</fieldset>
+<br>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Detalhes</legend>
+	<iframe src="<? echo "$PHP_SELF?pg=$pg&pg_ped=100&menu_not=1"; ?>" name="iped" width="100%" marginwidth="0" height="600" marginheight="0" scrolling="auto" frameborder="0"></iframe>
+</fieldset>
+<fieldset class="campo_fieldset">
+</fieldset>
+</body>
+</html>

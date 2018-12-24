@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Untitled Document</title>
+<link href="css/padrao.css" rel="stylesheet" type="text/css">
+</head>
+<script language='JavaScript'>
+function sel() {
+	with(document.form1) {
+		for(i=0;i<elements.length;i++) {
+			thiselm = elements[i];
+			if(thiselm.name.substring(0,5) == 'ckprd')
+				thiselm.checked = !thiselm.checked
+		}
+	}
+}
+</script>
+<body>
+<table width="100%"  border="0" cellspacing="0" cellpadding="3">
+<form name="form1" method="post"  action="<? echo"$PHP_SELF?Action=insert"; ?>">
+  <tr>
+    <td align="center">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td align="center"><input name="Submit" type="submit" value="Adicionar"></td>
+  </tr>
+  <tr class="titulos_itens">
+    <td align="center">Cod.</td>
+    <td>Produto</td>
+    <td align="center"><input name="ckall" type="checkbox" id="ckall" onclick="sel()" value="checkbox"></td>
+  </tr>
+
+<?
+	for($i = 0; $i < count($array); $i++ ){
+
+if ($xcodcat <> $codcat[$i]){
+?>
+
+  <tr>
+    <td colspan="3" class="titulos_cat2"><? echo"$nomecat[$i]"; ?></td>
+  </tr>
+
+<?
+	}
+$xcodcat = $codcat[$i];
+
+if ($xcodsubcat <> $codsubcat[$i]){
+?>
+
+  <tr>
+    <td colspan="3" class="titulos_subcat2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<? echo"$nomesubcat[$i]"; ?></td>
+  </tr>
+
+<?
+	}
+$xcodsubcat = $codsubcat[$i];
+if ($hist[$i]  == Y){$cor = "#F9EAC6";}else{$cor = "#FFFFFF";}
+?>
+
+  <tr  bgcolor="<? echo"$cor"; ?>">
+    <td align="center"><? echo"$codprod[$i]"; ?></td>
+    <td><span class="nomeprod1"><? echo"$nomeprod[$i]"; ?></span><br>
+	<span class="nomeprod2"><? echo"$descres[$i]"; ?></span></td>
+    <td align="center"><input name="ckprd[<? echo"$i"; ?>]" type="checkbox" id="ckprd" value="OK" <? echo"$chk[$i]";?>>
+<input name="<? echo"codprod[$i]"; ?>" type="hidden" id="ckprd" value="<? echo"$codprod[$i]";?>">
+	</td>
+  </tr>
+
+
+<?
+	}//FOR
+?>
+ <input name="cont" type="hidden" id="cont" value="<? echo"$i"; ?>">
+ <input name="codprodselect" type="hidden" id="ckprd" value="<? echo"$codprodselect"; ?>">
+ <input name="codcatselect" type="hidden" id="ckprd" value="<? echo"$codcatselect"; ?>">
+
+
+</form>
+</table>
+</body>
+</html>

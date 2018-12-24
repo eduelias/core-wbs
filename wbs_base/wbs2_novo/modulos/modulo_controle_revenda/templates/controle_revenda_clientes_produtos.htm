@@ -1,0 +1,125 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<script language="javascript" src="<? echo DIR_JS; ?>/funcoes01.js"></script>
+<script language="javascript">
+function DoIt(form)
+{
+	document.form.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=100&Action=Empresa&empresa=$empresa"; ?>';
+	document.form.target = '_self';
+	document.form.submit();
+}
+</script>
+<style type="text/css">
+<!--
+.block_red {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #EA0000;
+}
+.block_green {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #009900;
+}
+.style1 {
+	color: #FF0000;
+	font-weight: bold;
+}
+.style12 {font-size: 8px; font-weight: bold; font-family: Verdana, Arial, Helvetica, sans-serif; }
+.style22 {font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif; }
+-->
+</style>
+</head>
+
+<body>
+<?
+$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light);
+
+	 $db->connect_wbs();
+     $rs_lista_cli = $db->query_db("SELECT nome, nome_fantasia FROM clientenovo WHERE codcliente = ".$codcliente_pesq,"SQL_NONE","N");
+
+?>
+<br>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Produtos &uacute;ltimos 3 meses : </legend>  
+<table width="60%" border="0">
+  <tr>
+    <td align="center"><table width="100%" border="0" cellpadding="5">
+      <tr>
+        <td colspan="3" align="center" bgcolor="#FFFFFF" class="block_green"><span class="block_green"><? echo $rs_lista_cli->fields['nome_fantasia']; ?></span><br>
+          <span class="style12"><? echo $rs_lista_cli->fields['nome']; ?></span></td>
+        </tr>
+      <tr>
+        <td width="11%" align="center" bgcolor="#FFFFFF" class="style12">COD</td>
+        <td width="68%" align="center" bgcolor="#FFFFFF" class="style12">PRODUTO</td>
+        <td width="21%" align="center" bgcolor="#3333FF"><span class="style12">QTDE</span></td>
+        </tr>
+      <?
+if ($rs_lista)
+{
+	$ix = 0;
+	while (!$rs_lista->EOF)
+	{
+    
+    $db->connect_wbs();
+     $rs_lista_cat = $db->query_db("SELECT nomecat FROM categoria WHERE codcat = ".$rs_lista->fields['codcat'],"SQL_NONE","N");
+     
+ 
+     
+     
+                   
+      ?>
+      <tr class="style22">
+        <td align="center" bgcolor="#FFFFFF" class="style22"  style="color: #FFFFFF; background-color: #999999;"><? echo $rs_lista->fields['codcat']; ?></td>
+        <td align="left" bgcolor="#88A6FF" class="style22"><strong><? echo $rs_lista_cat->fields['nomecat']; ?></strong></td>
+        <td align="center" bgcolor="#88A6FF" class="style22"><strong><strong><strong><strong><? echo $rs_lista->fields['qtde']; ?></strong></strong></strong></strong></td>
+        </tr>
+        
+          <?
+        $db->connect_data();
+
+		$rs_lista_prod = $db->query_db("SELECT codprod, nomeprod,  qtde  FROM distribuicao_produtos WHERE codcliente = '".$codcliente_pesq."' and codcat = '".$rs_lista->fields['codcat']."' ORDER by qtde DESC","SQL_NONE","N");
+        
+       
+if ($rs_lista_prod)
+{
+	$ix = 0;
+	while (!$rs_lista_prod->EOF)
+	{
+        
+     ?>
+      <tr class="style22">
+        <td align="center" bgcolor="#FFFFFF" class="style22"  ><? echo $rs_lista_prod->fields['codprod']; ?></td>
+        <td align="left" bgcolor="#FFFFFF" class="style22"><strong><? echo $rs_lista_prod->fields['nomeprod']; ?></strong></td>
+        <td align="center" bgcolor="#FFFFFF" class="style22"><strong><strong><strong><strong><? echo $rs_lista_prod->fields['qtde']; ?></strong></strong></strong></strong></td>
+      </tr>
+      <?
+	 	$ix++;
+		$rs_lista_prod->MoveNext();
+	}//WHILE
+}
+?>
+      
+      
+      
+      <?
+	 	$ix++;
+		$rs_lista->MoveNext();
+	}//WHILE
+}
+?>
+    </table></td>
+  </tr>
+</table>
+</fieldset>
+<BR>
+</body>
+</html>

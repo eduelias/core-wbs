@@ -1,0 +1,240 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<script language="javascript" src="<? echo DIR_JS; ?>/funcoes01.js"></script></head>
+
+<body>
+<?
+$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light);
+?>
+<br>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Pesquisa</legend>
+<table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+  <form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&Action=Pesquisar"; ?>" name="pesquisa" method="post">
+    <tr>
+      <td width="21%" align="center" class="generalGreyBorderBottomTableHeaderCell">Periodo</td>
+      <td width="28%" align="center" class="generalGreyBorderBottomTableHeaderCell">Projeto</td>
+      <td width="6%" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+      <td width="45%" align="center" class="generalGreyBorderBottomTableHeaderCell"><input name="pg" type="hidden" id="pg" value="<? echo $pg; ?>">
+      <input name="pg_ped" type="hidden" id="pg_ped" value="<? echo $pg_ped; ?>"></td>
+    </tr>
+    <tr>
+      <td class="noramlTableCell"><input name="mes_pesq" type="text" class="campo_linha" id="mes_pesq" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"' size="2" maxlength="2">
+        /
+          <input name="ano_pesq" type="text" class="campo_linha" id="ano_pesq" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"' size="4" maxlength="4"></td>
+      <td class="noramlTableCell"><select name="codproj_pesq">
+<?
+	  if ($rs_projeto) {
+		while (!$rs_projeto->EOF) { 
+	
+		$var_nomeproj_query = $rs_projeto->fields[1];
+		$var_codproj_query = $rs_projeto->fields[0];
+?>
+	  
+        <option value="<? echo $var_codproj_query; ?>"><? echo $var_nomeproj_query; ?></option>
+<?
+		$rs_projeto->MoveNext();
+	}//WHILE
+}
+?>
+		<option value="-1">Escolha ...</option>
+        </select>
+      </td>
+      <td class="noramlTableCell"><input type="submit" name="Submit2" value="Pesquisar" class="botao_cor"></td>
+      <td align="center" class="noramlTableCell">&nbsp;</td>
+    </tr>
+  </form>
+</table>
+</fieldset>
+<table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+  <form name="form" method="post" target="_self" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&Action=Empresa&empresa=$empresa"; ?>">
+    <tr>
+      <td width="3%" rowspan="2" align="center" class="generalGreyBorderBottomTableHeaderCell"><img src="<? echo DIR_IMAGES; ?>/messagebox_warning.png" border="0"></td>
+      <td   width="11%" class="generalGreyBorderBottomTableHeaderCell"><strong>Periodo:</strong></td>
+      <td width="86%" align="right"   class="generalGreyBorderBottomTableHeaderCell"><strong>Projeto Atual:</strong></td>
+    </tr>
+    <tr>
+      <td  bgcolor="<? echo $bg_cor_light; ?>" class="noramlTableCell"><b><? echo "$mes_pesq/$ano_pesq"; ?></b></td>
+      <td align="right"  bgcolor="<? echo $bg_cor_light; ?>" class="noramlTableCell"><b><? echo $rs_projeto_pesq->fields[1]; ?></b></td>
+    </tr>
+  </form>
+</table>
+<p><fieldset class="campo_fieldset">
+</p>
+<legend class="campo_fieldset_legend">Lista</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <form name="lista" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=1"; ?>" method="post">
+    <tr>
+      <td><table  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+        <tr>
+          <td width="3%" align="center" class="generalGreyBorderBottomTableHeaderCell"><img src="<? echo DIR_IMAGES; ?>/legendas/legenda_relatorio_cod.gif" ></td>
+          <td width="9%" align="center" class="generalGreyBorderBottomTableHeaderCell"><img src="<? echo DIR_IMAGES; ?>/legendas/legenda_relatorio_vendedor.gif" ></td>
+          <td width="9%" align="center" class="generalGreyBorderBottomTableHeaderCell"><img src="<? echo DIR_IMAGES; ?>/legendas/legenda_relatorio_venda.gif" ></td>
+          <td width="9%" align="center" class="generalGreyBorderBottomTableHeaderCell"><img src="<? echo DIR_IMAGES; ?>/legendas/legenda_relatorio_rendimento.gif" ></td>
+          <td width="9%" align="center" class="generalGreyBorderBottomTableHeaderCell"><img src="<? echo DIR_IMAGES; ?>/legendas/legenda_relatorio_venda_r.gif" ></td>
+          <td width="9%" align="center" class="generalGreyBorderBottomTableHeaderCell"><img src="<? echo DIR_IMAGES; ?>/legendas/legenda_relatorio_rend_rel.gif" ></td>
+          <td width="6%" align="center" class="generalGreyBorderBottomTableHeaderCell"><img src="<? echo DIR_IMAGES; ?>/legendas/legenda_relatorio_mcv_protegida.gif" ></td>
+          <td width="6%" align="center" class="generalGreyBorderBottomTableHeaderCell"><img src="<? echo DIR_IMAGES; ?>/legendas/legenda_relatorio_mcv_real.gif" ></td>
+          <td width="6%" align="center" class="generalGreyBorderBottomTableHeaderCell"><img src="<? echo DIR_IMAGES; ?>/legendas/legenda_relatorio_drm.gif" ></td>
+		  <td width="4%" align="center" class="generalGreyBorderBottomTableHeaderCell"><img src="<? echo DIR_IMAGES; ?>/legendas/legenda_relatorio_n_ped_total.gif" ></td>
+          <td width="4%" align="center" class="generalGreyBorderBottomTableHeaderCell"><img src="<? echo DIR_IMAGES; ?>/legendas/legenda_relatorio_n_ped_prot.gif" ></td>
+         
+          <td width="4%" align="center" class="generalGreyBorderBottomTableHeaderCell"><img src="<? echo DIR_IMAGES; ?>/legendas/legenda_relatorio_n_orc.gif" ></td>
+          <td width="12%" align="center" class="generalGreyBorderBottomTableHeaderCell"><img src="<? echo DIR_IMAGES; ?>/legendas/legenda_relatorio_efetiv.gif" ></td>
+          <td width="4%" align="center" class="generalGreyBorderBottomTableHeaderCell"><img src="<? echo DIR_IMAGES; ?>/legendas/legenda_relatorio_rent_prot.gif" ></td>
+          <td width="6%" align="center" class="generalGreyBorderBottomTableHeaderCell"><img src="<? echo DIR_IMAGES; ?>/legendas/legenda_relatorio_rent_relativa.gif" ></td>
+        </tr>
+        <?
+
+if ($rs) {
+	while (!$rs->EOF) { 
+	
+	$var_nomevend_query = $rs->fields[1];
+	$var_codvend_query = $rs->fields[0];
+	$var_meta_query = $rs->fields[2];
+		
+	$rs_vendas = $db->query_db("SELECT $cond , SUM(mlb) as mlb_prot, SUM(mlb_real) as mlb_real , COUNT(*) as numped , SUM(if (mlb_real <> mlb, 1, 0)) as numped_prot FROM pedido WHERE codvend='$var_codvend_query' and dataped like '$ano_pesq-$mes_pesq%' and cancel <> 'OK' GROUP by codvend ","SQL_NONE","N");
+	
+	$rs_orc = $db->query_db("SELECT orc.codvend, COUNT( distinct tel)  FROM orc WHERE dataped like '$ano_pesq-$mes_pesq%' and codvend='$var_codvend_query' group by orc.codvend","SQL_NONE","N");
+	
+	
+		if ($rs_vendas) {
+		while (!$rs_vendas->EOF) { 
+		
+		$var_valor_vendas_query = $rs_vendas->fields[0];
+		$var_mlb_prot_query = $rs_vendas->fields[1];				
+		$var_mlb_real_query = $rs_vendas->fields[2];
+		$var_numped_query = $rs_vendas->fields[3];
+		$var_numped_prot_query = $rs_vendas->fields[4];
+		$var_numorc_query = $rs_orc->fields[1];
+		$var_rend_query = ($var_valor_vendas_query / $var_meta_query)*100;
+		$var_ef_prot_query = 1000*($var_mlb_prot_query/$var_valor_vendas_query);				
+		$var_ef_real_query = 1000*($var_mlb_real_query/$var_valor_vendas_query);			
+		$var_drm_query = ($var_ef_prot_query - $var_ef_real_query)/10;
+		$var_valor_vendas_relativas_query = $var_valor_vendas_query * (1-($var_drm_query*10/100));
+		$var_rend_rel_query = ($var_valor_vendas_relativas_query / $var_meta_query)*100;		
+		$var_efetiv_query = ($var_numped_query / $var_numorc_query)*100;
+		$var_rent_prot_query = ($var_ef_prot_query/100)*($var_rend_query/100)*100;
+		$var_rent_real_query = ($var_ef_real_query/100)*($var_rend_rel_query/100)*100;
+?>
+        <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+          <td align="center" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;"><? echo $var_codvend_query; ?></td>
+          <td class="noramlTableCell"><strong><? echo $var_nomevend_query; ?></strong><br>
+            <? echo $var_meta_query; ?></td>
+          <td class="noramlTableCell"><? echo $db->fvalor($var_valor_vendas_query); ?></td>
+          <td align="center" class="noramlTableCell"><? echo $db->fvalor($var_rend_query); ?></td>
+          <td class="noramlTableCell"><? echo $db->fvalor($var_valor_vendas_relativas_query); ?></td>
+          <td align="center" class="noramlTableCell"><? echo $db->fvalor($var_rend_rel_query); ?></td>
+          <td align="center" class="noramlTableCell"><? echo $db->fvalor($var_ef_prot_query); ?></td>
+          <td align="center" class="noramlTableCell"><? echo $db->fvalor($var_ef_real_query); ?></td>
+          <td width="6%" align="center" class="noramlTableCell"><? echo $db->fvalor($var_drm_query); ?></td>
+		  <td align="center" class="noramlTableCell"><? echo $var_numped_query; ?></td>
+          <td align="center" class="noramlTableCell"><? echo $var_numped_prot_query; ?></td>
+          
+          <td align="center" class="noramlTableCell"><? echo $var_numorc_query; ?></td>
+          <td align="center" class="noramlTableCell"><? echo $db->fvalor($var_efetiv_query); ?></td>
+          <td align="center" class="noramlTableCell"><? echo $db->fvalor($var_rent_prot_query); ?></td>
+          <td align="center" class="noramlTableCell"><? echo $db->fvalor($var_rent_real_query); ?></td>
+        </tr>
+        
+        <?
+		
+		$rs_vendas->MoveNext();
+		}//WHILE
+		}
+		if ($var_valor_vendas_query == 0 ){$var_meta_query = 0;}
+		$var_meta_total_query = $var_meta_total_query + $var_meta_query;
+		$var_valor_vendas_total_query = $var_valor_vendas_total_query + $var_valor_vendas_query;
+		$var_mlb_prot_total_query = $var_mlb_prot_total_query + $var_mlb_prot_query;
+		$var_mlb_real_total_query = $var_mlb_real_total_query + $var_mlb_real_query;
+		$var_numped_total_query = $var_numped_total_query + $var_numped_query;
+		$var_numped_prot_total_query = $var_numped_prot_total_query + $var_numped_prot_query;
+		$var_numorc_total_query = $var_numorc_total_query + $var_numorc_query;
+	
+		$var_valor_vendas_query = 0;$var_mlb_prot_query = 0;$var_mlb_real_query =  0;$var_numped_query =  0;$var_numped_prot_query =  0;$var_numorc_query =  0;$var_meta_query = 0;
+		
+				
+	$rs->MoveNext();
+	}//WHILE
+}
+if ($var_valor_vendas_total_query){
+		$var_ef_prot_total_query = 1000*($var_mlb_prot_total_query/$var_valor_vendas_total_query);				
+		$var_ef_real_total_query = 1000*($var_mlb_real_total_query/$var_valor_vendas_total_query);			
+		$var_drm_total_query = ($var_ef_prot_total_query - $var_ef_real_total_query)/10;
+		$var_valor_vendas_relativas_total_query = $var_valor_vendas_total_query * (1-($var_drm_total_query*10/100));
+		$var_rend_total_query = ($var_valor_vendas_total_query / $var_meta_total_query)*100;
+		$var_efetiv_total_query = ($var_numped_total_query / $var_numorc_total_query)*100;
+		$var_rend_rel_total_query = ($var_valor_vendas_relativas_total_query / $var_meta_total_query)*100;		
+		$var_rent_prot_total_query = ($var_ef_prot_total_query/100)*($var_rend_total_query/100)*100;
+		$var_rent_real_total_query = ($var_ef_real_total_query/100)*($var_rend_rel_total_query/100)*100;
+
+}
+?>
+		  <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+          <td align="center" bgcolor="<? echo $bg_cor; ?>" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">&nbsp;</td>
+          <td bgcolor="<? echo $bg_cor; ?>" class="noramlTableCell"><strong>TOTAL</strong></td>
+          <td bgcolor="<? echo $bg_cor; ?>" class="noramlTableCell"><strong><? echo $db->fvalor($var_valor_vendas_total_query); ?></strong></td>
+          <td align="center" bgcolor="<? echo $bg_cor; ?>" class="noramlTableCell"><? echo $db->fvalor($var_rend_total_query); ?></td>
+          <td bgcolor="<? echo $bg_cor; ?>" class="noramlTableCell"><strong><? echo $db->fvalor($var_valor_vendas_relativas_total_query); ?></strong></td>
+          <td align="center" bgcolor="<? echo $bg_cor; ?>" class="noramlTableCell"><? echo $db->fvalor($var_rend_rel_total_query); ?></td>
+          <td align="center" bgcolor="<? echo $bg_cor; ?>" class="noramlTableCell"><strong><? echo $db->fvalor($var_ef_prot_total_query); ?></strong></td>
+          <td align="center" bgcolor="<? echo $bg_cor; ?>" class="noramlTableCell"><strong><? echo $db->fvalor($var_ef_real_total_query); ?></strong></td>
+          <td width="6%" align="center" bgcolor="<? echo $bg_cor; ?>" class="noramlTableCell"><strong><? echo $db->fvalor($var_drm_total_query); ?></strong></td>
+          <td align="center" bgcolor="<? echo $bg_cor; ?>" class="noramlTableCell"><? echo $var_numped_total_query; ?></td>
+          <td align="center" bgcolor="<? echo $bg_cor; ?>" class="noramlTableCell"><? echo $var_numped_prot_total_query; ?></td>
+
+          <td align="center" bgcolor="<? echo $bg_cor; ?>" class="noramlTableCell"><? echo $var_numorc_total_query; ?></td>
+		  <td align="center" bgcolor="<? echo $bg_cor; ?>" class="noramlTableCell"><strong><? echo $db->fvalor($var_efetiv_total_query); ?></strong></td>
+		  <td align="center" bgcolor="<? echo $bg_cor; ?>" class="noramlTableCell"><? echo $db->fvalor($var_rent_prot_total_query); ?></td>
+		  <td align="center" bgcolor="<? echo $bg_cor; ?>" class="noramlTableCell"><? echo $db->fvalor($var_rent_real_total_query); ?></td>
+		  </tr>
+
+      </table>
+	  
+	  
+      <hr size="1" noshade>
+      <table border="0" cellspacing="2" cellpadding="2" class="generalTable defaultBlackText">
+        <tr>
+          <td><img src="<? echo DIR_IMAGES; ?>/arrow_ltr.png" border="0"></td>
+		  <td>&nbsp;</td>
+          <td class="noramlTableCell" style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'><a href="javascript:void(0);" class="link5" onClick="setCheckboxesRange('lista', true, 'id_rows_codmarca', 0, '10'); return false;">Marcar Todos</a></td>
+          <td class="noramlTableCell" style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'><a href="javascript:void(0);" class="link5" onClick="setCheckboxesRange('lista', false, 'id_rows_codmarca', 0, '10'); return false;">Desmarcar Todos</a></td>
+          <td>&nbsp;</td>
+          <td><table width="100%" border="0" cellspacing="0" cellpadding="1">
+            <tr>
+              <td><strong>Com Marcados:</strong> </td>
+            </tr>
+            <tr>
+              <td><select name="Action" class="campo_select" id="Action" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"'>
+                <option value="" selected="selected">Selecione...</option>
+                
+                            </select></td>
+            </tr>
+          </table></td>
+          <td><input name="Submit" type="submit" class="botao_cor" id="Submit" value="OK" onClick="return confirm('Confirma esta ação?')"></td>
+          <td><input name="numRows" type="hidden" id="numRows" value="<? echo $numRows; ?>">
+            <input type="hidden" name="pg" value="<? echo $pg; ?>">
+            <input type="hidden" name="pg_ped" value="<? echo $pg_ped; ?>"></td>
+        </tr>
+      </table>
+          <?
+if ($total_reg <> 0)
+{
+	echo "<hr size='1' noshade>";
+	$html_pg = $paginator->Construir_Links("todos", "sim");
+	$qtd_paginas = $paginator->qtd_paginas;
+	for ($i = 0; $i < $qtd_paginas; $i++)
+	{
+		echo $html_pg[$i];
+	}
+}
+?></td>
+    </tr>
+  </form>
+</table>
+</body>
+</html>

@@ -1,0 +1,114 @@
+/*
++--------------------------------------------------------------
+|  WBS - WEB BUSINESS SYSTEM (versão 2.0)
+|  Grupo Ipasoft
++--------------------------------------------------------------
+|  Copyright © 2005 Grupo Ipasoft. Todos os direitos reservados.
+|  http://www.ipasoft.com.br
+|  ipasoft@ipasoft.com.br
++--------------------------------------------------------------
+|  arquivo:     padrao.css
++--------------------------------------------------------------
+*/
+
+a.linkbotaoespecial {
+	font: bold 11px "Trebuchet MS", Tahoma, Verdana;
+	color: #333333;
+	text-decoration: none;
+}
+a.linkbotaoespecial:hover, a.linkbotaoespecial:focus {
+	font: 11px "Trebuchet MS", Tahoma, Verdana;
+	color: #333333;
+	text-decoration: none;
+}
+
+/*
++--------------------------------------------------------------
+|  LISTAS
++--------------------------------------------------------------
+*/
+.noramlTableCell {
+	border: 1px solid #D4D0C8;
+	padding: 3px;
+}
+.generalTable {
+	border-collapse: collapse;
+}
+.defaultBlackText {
+	font-family: verdana,helvetica,arial;
+	font-size: 11px;
+	font-weight: normal;
+	text-decoration: none;
+	color: black;
+}
+
+/*
++--------------------------------------------------------------
+|  BOTOES
++--------------------------------------------------------------
+*/
+.botao_amarelo {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #000000;
+	background-image: url(../images/fd2coresgold.jpg);
+	background-position: 20px;
+	border: 1px outset #FFCC00;
+	padding-top: 4px;
+	padding-right: 2px;
+	padding-bottom: 4px;
+	padding-left: 2px;
+}
+.botao_vermelho {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #FFFFFF;
+	background-image: url(../images/fd2coresred.jpg);
+	background-position: 20px;
+	border: 1px outset #EA0000;
+	padding-top: 4px;
+	padding-right: 2px;
+	padding-bottom: 4px;
+	padding-left: 2px;
+}
+.botao_azul {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #FFFFFF;
+	background-image: url(../images/fd2coresblue.jpg);
+	background-position: 20px;
+	border: 1px outset #3775CA;
+	padding-top: 4px;
+	padding-right: 2px;
+	padding-bottom: 4px;
+	padding-left: 2px;
+}
+.botao_verde {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #FFFFFF;
+	background-image: url(../images/fd5verdao.jpg);
+	background-position: 20px;
+	border: 1px outset #009900;
+	padding-top: 4px;
+	padding-right: 2px;
+	padding-bottom: 4px;
+	padding-left: 2px;
+}
+.botao_cinza {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #FFFFFF;
+	background-image: url(../images/fd5blackgrey.jpg);
+	background-position: 20px;
+	border: 1px outset #333333;
+	padding-top: 4px;
+	padding-right: 2px;
+	padding-bottom: 4px;
+	padding-left: 2px;
+}

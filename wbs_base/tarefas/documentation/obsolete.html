@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- created with PHP Doc System
+     http://www.alexking.org/software/phpdocsystem/ -->
+<html>
+	<head>
+		<title>Tasks Jr.: Why aren't deleted tasks removed from the database?</title>
+		<link rel="stylesheet" type="text/css" href="default.css" />
+	</head>
+	<body>
+		<div id="header">
+			<a href="index.html">Table of Contents</a>
+			<h1><span>Tasks</span></h1>
+		</div>
+		<div id="content">
+<h1 class="module_title">Why aren't deleted tasks removed from the database?</h1>
+<div class="module_content"><p>When you click the 'Delete' button in tasks, the task is not actually removed from the database - instead it is flagged as having been deleted. There are several reasons why I decided to leave deleted tasks in the database instead of actually removing them. Here are the big ones.</p>
+
+<ol>
+<li><b>Oops</b> - People have a tendency to delete things then say 'oops' and want to get them back again. If tasks are actaully removed from the database you can't get them back without some serious heroic measures.</li>
+<li><b>Spiders/Web Crawlers</b> - This is software designed to run on the web. Not everyone password protects their tasks installation and spiders/web crawlers could come through and delete all of their tasks. I've had this happen on the demo before.</li>
+<li><b>Why not?</b> - Database speed isn't noticably affected by having a couple hundred or thousand extra rows in it. If you have a million+ records let me know if it makes a difference for you.</li>
+<li><b>What do we gain?</b> - I already exclude deleted tasks from the search results and I have introduced the option of hiding deleted tasks in the history list, so if you don't want to see them - you won't (unless you key in the ID of a deleted task into the URL directly).</li>
+</ol>
+
+<p>If you think you have a good argument for changing the way this works - feel free to <a href="http://www.alexking.org/contact/">let me know</a>.</p>
+</div>
+<p id="prev_next"><a href="calendar_open.html">Previous Page</a> | <a href="index.html">Table of Contents</a> | <a href="recurring_tasks.html">Next Page</a></p>
+			<p id="last_modified">Last Modified: February 28, 2005 @ 12:17 pm<br />(<a href="http://www.kingdesign.net/tasks/documentation/obsolete.html">check for an updated version of this page</a>)</p>
+		</div>
+
+		<div id="footer">
+			<a href="http://www.alexking.org/software/phpdocsystem/">PHP Doc System</a> Copyright 2003-2004 &copy; Alex King. All rights reserved.<br />
+		</div>
+	</body>
+</html>

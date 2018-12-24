@@ -1,0 +1,291 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Untitled Document</title>
+<link href="<? echo DIR_CSS; ?>/sistema.css" rel="stylesheet" type="text/css">
+
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+//-->
+
+function printPage()
+{
+    document.getElementById('print').style.visibility = 'hidden';
+	// Do print the page
+    if (typeof(window.print) != 'undefined') {
+        window.print();
+    }
+    document.getElementById('print').style.visibility = '';
+ }
+</script>
+<style type="text/css">
+<!--
+.style2 {color: #FF0000}
+.style4 {color: #FF0000; font-weight: bold; }
+.style5 {
+	font-size: 8px;
+	font-weight: bold;
+}
+.style7 {
+	font-size: 16px;
+	font-weight: bold;
+}
+-->
+</style>
+</head>
+
+<body>
+ <center><input type='button' style='visibility: ; width: 100px; height: 25px' id='print' value='IMPRIMIR' onclick='printPage()'></center>
+<table width="100%" border="0" align="center">
+  <tr>
+    <td valign="top"><table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+         <tr>
+           <td width="79%"><?
+$db->titulador("amarelo", "CHECKLIST TESTE", $bg_cor, $bg_cor_light);
+?></td>
+           <td width="21%" align="right"><span class="style7"><? echo "$codbarra"; ?></span><br>
+             <? echo "$nomevend"; ?>
+           </td>
+         </tr>
+         <tr>
+           <td colspan="2" background="<? echo DIR_IMAGES; ?>/spacer.gif" bgcolor="#D9AD00"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+         </tr>
+       </table>       
+              <table width="100%%"  border="0" cellspacing="1" cellpadding="1">
+           <tr>
+             <td><table width="100%" border="0" cellspacing="0" cellpadding="0" class="generalTable defaultBlackText">
+  <tr>
+    <td bgcolor="#FFFFCC" ><strong><big><big>DADOS DO CLIENTE: </big></big></strong></td>
+    <td bgcolor="#FFFFCC"><strong><big><big>DADOS DO PEDIDO: </big></big></strong></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFCC" ><strong>CLIENTE</strong>: <span class="style5"><? echo $db->format_str("UP", $nomecli_ped); ?></span><strong><br>
+    </strong><strong>CNPJ/CPF:</strong> <span class="style5"><? echo $db->format_str("UP", $doc_ped); ?></span></td>
+    <td bgcolor="#FFFFCC"><strong>PEDIDO:</strong> <span class="style5"><? echo $db->format_str("UP", $codbarraped_ped); ?></span><br>
+      <strong>DATA PED</strong>: <? echo $db->format_str("UP", $dataped_ped); ?></td>
+  </tr>
+  <tr>
+   
+    </tr>
+</table><BR><table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+
+  <tr>
+    <td align="center" bgcolor="#FFFFFF" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+    <td colspan="2" align="left" bgcolor="#FFFFFF" class="noramlTableCell"><strong><big><big>PRODUTO: </big></big></strong><br></td>
+    </tr>
+  <tr bgcolor="#E1E1E1">
+    <td width="10%" align="center" bgcolor="#FFFFFF" class="generalGreyBorderBottomTableHeaderCell">CodProd</td>
+    <td align="center" bgcolor="#FFFFFF" class="generalGreyBorderBottomTableHeaderCell">Nome Produto </td>
+    <td align="center" bgcolor="#FFFFFF" class="generalGreyBorderBottomTableHeaderCell">N&uacute;mero S&eacute;rie</td>
+    </tr>
+ 
+
+  <tr bgcolor="#E1E1E1" style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+    <td align="center" bgcolor="#FFCC33" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;"><span class="style7"><? echo $codprod_pesq ?></span></td>
+    <td bgcolor="#FFCC33" class="noramlTableCell"><span class="style7"><strong><? echo $db->format_str("UP", $nomeprod_pesq); ?></strong></span></td>
+    <td align="center" bgcolor="#FFCC33" class="noramlTableCell"><span class="style7"><? echo $codbarra_pesq ?></span></td>
+    </tr>
+   
+  <tr>
+    <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+    <td align="left" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+    <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+    </tr>
+  
+
+</table></td>
+           </tr>
+      </table>       
+<table width="100%" border="0" cellspacing="1" cellpadding="1">
+           <tr>
+             <td colspan="4" align="center"><strong>TESTE A SEREM REALIZADOS</strong></td>
+           </tr>
+           <tr>
+             <td colspan="4" align="left" valign="top"><strong>APAR&Ecirc;NCIA F&Iacute;SICA ? </strong></td>
+           </tr>
+           <tr>
+             <td colspan="4" align="left" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"> PERFEITO <img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"> ARRANHADO/ DESGASTADO <img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"> AVARIAS (SINAIS DE QUEDA)</td>
+           </tr>
+           <tr>
+             <td colspan="4" align="left" valign="top">OBS: ___________________________________________________________________________________________________</td>
+           </tr>
+           <tr>
+             <td colspan="4" align="left" valign="top"> ________________________________________________________________________________________________________</td>
+           </tr>
+           <tr>
+             <td colspan="4" align="center" valign="top">&nbsp;</td>
+           </tr>
+           <tr>
+             <td colspan="4" align="left" valign="top"><strong>EMBALAGEM E ACESS&Oacute;RIOS ? </strong></td>
+           </tr>
+           <tr>
+             <td colspan="4" align="left" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"> COMPLETO <img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"> INCOMPLETO <img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"> INEXISTENTE</td>
+           </tr>
+           <tr>
+             <td colspan="4" align="left" valign="top">OBS (INDICAR O QUE EST&Aacute; FALTANDO): ___________________________________________________________________</td>
+           </tr>
+           <tr>
+             <td colspan="4" align="left" valign="top"> ________________________________________________________________________________________________________</td>
+           </tr>
+           <tr>
+             <td colspan="4" align="center" valign="top">&nbsp;</td>
+           </tr>
+           <tr>
+             <td colspan="4" align="left" valign="top"><strong>O PRODUTO LIGA ? </strong></td>
+           </tr>
+           <tr>
+             <td colspan="4" align="left" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"> SIM <img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"> N&Atilde;O <img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"> N&Atilde;O TESTADO</td>
+           </tr>
+           <tr>
+             <td colspan="4" align="center" valign="top">&nbsp;</td>
+           </tr>
+           <tr>
+             <td colspan="4" align="left" valign="top"><strong>TESTE ESPECIFICOS DO DEFEITO RELATADO PELO CLIENTE ? </strong></td>
+           </tr>
+           <tr>
+             <td colspan="4" align="left" valign="top">_________________________________________________________________________________________________________</td>
+           </tr>
+           <tr>
+             <td colspan="4" align="left" valign="top"> _________________________________________________________________________________________________________</td>
+           </tr>
+           <tr>
+             <td colspan="4" align="left" valign="top">_________________________________________________________________________________________________________</td>
+           </tr>
+           <tr>
+             <td colspan="4" align="left" valign="top"> _________________________________________________________________________________________________________</td>
+           </tr>
+           <tr>
+             <td colspan="4" align="left" valign="top"> _________________________________________________________________________________________________________</td>
+           </tr>
+           <tr>
+             <td colspan="4" align="center" valign="top">&nbsp;</td>
+           </tr>
+           <tr>
+             <td colspan="4" align="left" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"> DEFEITO COMPROVADO <img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"> DEFEITO N&Atilde;O ENCONTRADO <img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"> SOLUCIONADO</td>
+           </tr>
+           <tr>
+             <td colspan="4" align="center" valign="top">&nbsp;</td>
+           </tr>
+           <tr>
+             <td colspan="4" align="left" valign="top">COMO O PROBLEMA FOI SOLUCIONADO? __________________________________________________________________</td>
+           </tr>
+           <tr>
+             <td colspan="4" align="left" valign="top"> _________________________________________________________________________________________________________</td>
+           </tr>
+           <tr>
+             <td colspan="4" align="left" valign="top"> _________________________________________________________________________________________________________</td>
+           </tr>
+           <tr>
+             <td colspan="4" align="center" valign="top">&nbsp;</td>
+           </tr>
+           <tr>
+             <td align="center"><span class="style5">SIM</span></td>
+             <td align="center"><span class="style5"> N&Atilde;O</span></td>
+             <td><span class="style5">N/A</span></td>
+             <td>&nbsp;</td>
+           </tr>
+           <tr>
+             <td width="15" align="center" valign="top">&nbsp;</td>
+             <td width="18" align="center" valign="top">&nbsp;</td>
+             <td width="17" align="center" valign="top">&nbsp;</td>
+             <td width="993">&nbsp;</td>
+           </tr>
+           <tr>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td width="18" align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td>CABO DE ALIMENTA&Ccedil;&Atilde;O FUNCIONA?</td>
+           </tr>
+           <tr>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td width="18" align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td>FONTE DE ALIMENTA&Ccedil;&Atilde;O FUNCIONA?</td>
+           </tr>
+           <tr>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td width="18" align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td>FONE DE OUVIDO FUNCIONA?</td>
+           </tr>
+           <tr>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td width="18" align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td>TRANSFER&Ecirc;NCIA DE DADOS FUNCIONA?</td>
+           </tr>
+           <tr>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td width="18" align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td>PILHA/BATERIA FUNCIONA?</td>
+           </tr>
+           <tr>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td align="center" valign="top"><img src="<? echo DIR_IMAGES; ?>/quadrado.gif" width="15" height="14"></td>
+             <td>FUS&Iacute;VEL QUEIMADO?</td>
+           </tr>
+           <tr>
+             <td colspan="4" align="center" valign="top">&nbsp;</td>
+           </tr>
+           <tr>
+             <td colspan="4" align="left" valign="top"><strong>MOTIVO SUBSTITUI&Ccedil;&Atilde;O ? </strong></td>
+           </tr>
+           <tr>
+             <td colspan="4" align="left" valign="top">_________________________________________________________________________________________________________</td>
+           </tr>
+           <tr>
+             <td colspan="4" align="left" valign="top"> _________________________________________________________________________________________________________</td>
+           </tr>
+           <tr>
+             <td colspan="4" align="left" valign="top">_________________________________________________________________________________________________________</td>
+           </tr>
+           <tr>
+             <td colspan="4" align="left" valign="top"> _________________________________________________________________________________________________________</td>
+           </tr>
+           <tr>
+             <td colspan="4" align="center" valign="top">&nbsp;</td>
+           </tr>
+           <tr>
+             <td colspan="4" align="center" valign="top">&nbsp;</td>
+           </tr>
+           <tr>
+             <td colspan="4" align="left" valign="top"><strong>RESPONS&Aacute;VEL PELO TESTE: ______________________________________________</strong></td>
+           </tr>
+           <tr>
+             <td colspan="4" align="center" valign="top">&nbsp;</td>
+           </tr>
+           <tr>
+             <td colspan="4" align="left" valign="top"><strong>RESPONS&Aacute;VEL PELA TROCA: ______________________________________________</strong></td>
+           </tr>
+           <tr>
+             <td colspan="4" align="center" valign="top">&nbsp;</td>
+           </tr>
+           <tr>
+             <td colspan="4" align="center" valign="top"><br>
+      DATA:____/____/______<br>
+      <br></td>
+           </tr>
+           <tr>
+             <td colspan="4" align="center" valign="top">__________________________________________<br>
+             <span class="style5">ASSINATURA DO CLIENTE OU PESSOA AUTORIZADA </span></td>
+           </tr>
+           <tr>
+             <td colspan="4" align="center" valign="top">&nbsp;</td>
+           </tr>
+           <tr>
+             <td colspan="4" align="center" valign="top">&nbsp;</td>
+           </tr>
+      </table>       
+    </td>
+  </tr>
+ 
+
+</table>
+
+</body>
+</html>

@@ -1,0 +1,214 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<script type="text/JavaScript">
+<!--
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+//-->
+</script>
+<style type="text/css">
+<!--
+a.linkespecial191 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	color: #333333;
+	text-transform: uppercase;
+	text-decoration: none;
+}
+-->
+</style>
+</head>
+
+<body>
+<?
+$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light);
+$var_parametro = "&pg_ped=1";
+$db->voltar(MOD_COR, $pg, $var_parametro);
+?>
+<br>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" class="titulo_superior">
+  <tr>
+    <td>Lista de Produtos </td>
+  </tr>
+</table>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" class="tabela_conteudo">
+  <tr>
+    <td><iframe src="<? echo "$PHP_SELF?pg=$pg&pg_ped=500&menu_not=1"; ?>" name="iprodutoadc" marginwidth="0" marginheight="0" frameborder="0" height="200" scrolling="auto" width="100%"></iframe></td>
+  </tr>
+</table>
+<br>
+ <table width="100%"  border="0" cellpadding="0" cellspacing="0" class="titulo_superior">
+   <tr>
+     <td>Pesquisa</td>
+   </tr>
+ </table>
+ <table width="100%"  border="0" cellpadding="2" cellspacing="0" class="generalTable defaultBlackText">
+   <form action="<? echo "$PHP_SELF?pg=$pg&pg_ped=5&Action=Pesquisar"; ?>" method="post" name="pesquisa">
+     <tr style="background-color: #FFFFFF; cursor: pointer;">
+       <td width="10%" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;"><strong>Cod.</strong></td>
+       <td width="40%" class="noramlTableCell"><input name="codprodpesq" type="text" class="campo_linha" id="codprodpesq" size="8"></td>
+       <td width="10%" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;"><strong>Produto</strong></td>
+       <td width="40%" class="noramlTableCell"><input name="nomprodpesq" type="text" class="campo_linha" id="nomprodpesq"></td>
+     </tr>
+
+     <tr>
+       <td colspan="4" align="right"><input name="Submit" type="submit" class="botao_cor" value="Pesquisar"></td>
+     </tr>
+   </form>
+ </table>
+ <br>
+ <table width="100%"  border="0" align="center" cellpadding="3" cellspacing="0" class="generalTable defaultBlackText">
+   <tr class="titulos_itens">
+     <td align="center">Cod.</td>
+     <td>Produto</td>
+     <td align="center">Gar<br>
+       (M&ecirc;s)</td>
+     <td align="center">Cor</td>
+     <td align="center">Pre&ccedil;o</td>
+     <td align="center">Pos. Est. </td>
+     <td align="center">Plano</td>
+     <td align="center">Qtde</td>
+     <td align="center">&nbsp;</td>
+   </tr>
+   <form action="/wbs/restrito.php?pg=109&pg_ped=8" method="post" name="form3" target="iprodutoadc">
+     <tr class="titulo_superior2">
+       <td colspan="9">IMPRESSORA PE&Ccedil;AS</td>
+     </tr>
+     <tr>
+       <td colspan="9" class="titulo_posterior2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JATO DE TINTA</td>
+     </tr>
+     <tr onMouseOver="this.bgColor='<? echo $bg_cor_light; ?>'" onMouseOut="this.bgColor ='#FFFFFF'" bgcolor="#FFFFFF" class="noramlTableCell">
+       <td align="center">1357</td>
+       <td><span class="nomeprod1"><a class="linkespecial191" href="javascript:void(0);" onClick="MM_openBrWindow('/wbs/restrito.php?pg=109&pg_ped=17&codpedselect=15&codprodselect=1357','Detalhes','scrollbars=yes,width=550,height=400')">CABO DE CABE&Ccedil;A COLORIDO DJ 600 - IMPRESSORA HP JATO DE TINTA</a></span><br>
+           <span class="nomeprod2"></span></td>
+       <td align="center"><span class="nomeprod1">3</span></td>
+       <td align="center"></td>
+       <td align="center" class="nomeprod1">25,00</td>
+       <td align="center" class="nomeprod1"><a class="info" href="#"><img src="wbs2_novo/images/est_pos_no.gif" border = "0"><BR>
+       </a></td>
+       <td align="center" class="nomeprod1"><input type="hidden" name="plano_select[1357]" value="0:0" id = "plano_select[1357]">       </td>
+       <td align="center" class="nomeprod1"><input name="qtde[1357]" type="text" class="campoquant" value="0" size="2" maxlength="2" id = "qtde[1357]"></td>
+       <td align="center" class="nomeprod1"><input name="imageField" type="image" src="wbs2_novo/images/btcarrinhoadd.gif" alt="Adicionar Produto" width="17" height="14" border="0" onClick='doTwo(form3, 7, 1357, 0, 25.00000000, 15) ,1000'></td>
+     </tr>
+     <tr onMouseOver="this.bgColor='<? echo $bg_cor_light; ?>'" onMouseOut="this.bgColor ='#FFFFFF'" bgcolor="#FFFFFF" class="noramlTableCell">
+       <td align="center">1358</td>
+       <td><span class="nomeprod1"><a class="linkespecial191" href="javascript:void(0);" onClick="MM_openBrWindow('/wbs/restrito.php?pg=109&pg_ped=17&codpedselect=15&codprodselect=1358','Detalhes','scrollbars=yes,width=550,height=400')">CABO DE CABE&Ccedil;A PRETO DJ 600 - IMPRESSORA HP JATO DE TINTA</a></span><br>
+           <span class="nomeprod2"></span></td>
+       <td align="center"><span class="nomeprod1">3</span></td>
+       <td align="center"></td>
+       <td align="center" class="nomeprod1">30,00</td>
+       <td align="center" class="nomeprod1"><a class="info" href="#"><img src="wbs2_novo/images/est_pos_no.gif" border = "0"><BR>
+       </a></td>
+       <td align="center" class="nomeprod1"><input type="hidden" name="plano_select[1358]" value="0:0" id = "plano_select[1358]">       </td>
+       <td align="center" class="nomeprod1"><input name="qtde[1358]" type="text" class="campoquant" value="0" size="2" maxlength="2" id = "qtde[1358]"></td>
+       <td align="center" class="nomeprod1"><input name="imageField" type="image" src="wbs2_novo/images/btcarrinhoadd.gif" alt="Adicionar Produto" width="17" height="14" border="0" onClick='doTwo(form3, 7, 1358, 0, 30.00000000, 15) ,1000'></td>
+     </tr>
+     <tr>
+       <td colspan="9" class="titulo_posterior2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LASER</td>
+     </tr>
+     <tr onMouseOver="this.bgColor='<? echo $bg_cor_light; ?>'" onMouseOut="this.bgColor ='#FFFFFF'" bgcolor="#FFFFFF" class="noramlTableCell">
+       <td align="center">1494</td>
+       <td><span class="nomeprod1"><a href="javascript:void(0);" class="linkespecial191" onClick="MM_openBrWindow('/wbs/restrito.php?pg=109&pg_ped=17&codpedselect=15&codprodselect=1494','Detalhes','scrollbars=yes,width=550,height=400')">IMPRESSORA LASER HP LASERJET 1160</a></span><br>
+           <span class="nomeprod2">Q5933A</span></td>
+       <td align="center"><span class="nomeprod1">12</span></td>
+       <td align="center"></td>
+       <td align="center" class="nomeprod1">1.873,00</td>
+       <td align="center" class="nomeprod1"><a class="info" href="#"><img src="wbs2_novo/images/est_pos_no.gif" border = "0"><BR>
+       </a></td>
+       <td align="center" class="nomeprod1"><input type="hidden" name="plano_select[1494]" value="0:0" id = "plano_select[1494]">       </td>
+       <td align="center" class="nomeprod1"><input name="qtde[1494]" type="text" class="campoquant" value="0" size="2" maxlength="2" id = "qtde[1494]"></td>
+       <td align="center" class="nomeprod1"><input name="imageField" type="image" src="wbs2_novo/images/btcarrinhoadd.gif" alt="Adicionar Produto" width="17" height="14" border="0" onClick='doTwo(form3, 7, 1494, 0, 1873.00000000, 15) ,1000'></td>
+     </tr>
+     <tr class="titulo_superior2">
+       <td colspan="9">IMPRESSORAS</td>
+     </tr>
+     <tr>
+       <td colspan="9" class="titulo_posterior2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JATO DE TINTA</td>
+     </tr>
+     <tr onMouseOver="this.bgColor='<? echo $bg_cor_light; ?>'" onMouseOut="this.bgColor ='#FFFFFF'" bgcolor="#FFFFFF" class="noramlTableCell">
+       <td align="center">200</td>
+       <td><span class="nomeprod1"><a href="javascript:void(0);" class="linkespecial191" onClick="MM_openBrWindow('/wbs/restrito.php?pg=109&pg_ped=17&codpedselect=15&codprodselect=200','Detalhes','scrollbars=yes,width=550,height=400')">IMPRESSORA JATO DE TINTA HP 3535</a></span><br>
+           <span class="nomeprod2">cod:C8995A -  10 PPM, USB, 2400X1200</span></td>
+       <td align="center"><span class="nomeprod1">12</span></td>
+       <td align="center"></td>
+       <td align="center" class="nomeprod1">269,00</td>
+       <td align="center" class="nomeprod1"><a class="info" href="#"><img src="wbs2_novo/images/est_pos_ok.gif" border = "0"><BR>
+       </a></td>
+       <td align="center" class="nomeprod1"><input type="hidden" name="plano_select[200]" value="0:0" id = "plano_select[200]">       </td>
+       <td align="center" class="nomeprod1"><input name="qtde[200]" type="text" class="campoquant" value="0" size="2" maxlength="2" id = "qtde[200]"></td>
+       <td align="center" class="nomeprod1"><input name="imageField" type="image" src="wbs2_novo/images/btcarrinhoadd.gif" alt="Adicionar Produto" width="17" height="14" border="0" onClick='doTwo(form3, 54, 200, 0, 269.00000000, 15) ,1000'></td>
+     </tr>
+     <tr onMouseOver="this.bgColor='<? echo $bg_cor_light; ?>'" onMouseOut="this.bgColor ='#FFFFFF'" bgcolor="#FFFFFF" class="noramlTableCell">
+       <td align="center">1285</td>
+       <td><span class="nomeprod1"><a href="javascript:void(0);" class="linkespecial191" onClick="MM_openBrWindow('/wbs/restrito.php?pg=109&pg_ped=17&codpedselect=15&codprodselect=1285','Detalhes','scrollbars=yes,width=550,height=400')">IMPRESSORA JATO DE TINTA HP 3745</a></span><br>
+           <span class="nomeprod2">PN: C9025A</span></td>
+       <td align="center"><span class="nomeprod1">12</span></td>
+       <td align="center"></td>
+       <td align="center" class="nomeprod1">339,00</td>
+       <td align="center" class="nomeprod1"><a class="info" href="#"><img src="wbs2_novo/images/est_pos_ok.gif" border = "0"><BR>
+       </a></td>
+       <td align="center" class="nomeprod1"><input type="hidden" name="plano_select[1285]" value="0:0" id = "plano_select[1285]">       </td>
+       <td align="center" class="nomeprod1"><input name="qtde[1285]" type="text" class="campoquant" value="0" size="2" maxlength="2" id = "qtde[1285]"></td>
+       <td align="center" class="nomeprod1"><input name="imageField" type="image" src="wbs2_novo/images/btcarrinhoadd.gif" alt="Adicionar Produto" width="17" height="14" border="0" onClick='doTwo(form3, 54, 1285, 0, 339.00000000, 15) ,1000'></td>
+     </tr>
+     <tr onMouseOver="this.bgColor='<? echo $bg_cor_light; ?>'" onMouseOut="this.bgColor ='#FFFFFF'" bgcolor="#FFFFFF" class="noramlTableCell">
+       <td align="center">1286</td>
+       <td><span class="nomeprod1"><a href="javascript:void(0);" class="linkespecial191" onClick="MM_openBrWindow('/wbs/restrito.php?pg=109&pg_ped=17&codpedselect=15&codprodselect=1286','Detalhes','scrollbars=yes,width=550,height=400')">IMPRESSORA JATO DE TINTA HP 3845</a></span><br>
+           <span class="nomeprod2">PN: C9037A</span></td>
+       <td align="center"><span class="nomeprod1">12</span></td>
+       <td align="center"></td>
+       <td align="center" class="nomeprod1">453,00</td>
+       <td align="center" class="nomeprod1"><a class="info" href="#"><img src="wbs2_novo/images/est_pos_ok.gif" border = "0"><BR>
+       </a></td>
+       <td align="center" class="nomeprod1"><input type="hidden" name="plano_select[1286]" value="0:0" id = "plano_select[1286]">       </td>
+       <td align="center" class="nomeprod1"><input name="qtde[1286]" type="text" class="campoquant" value="0" size="2" maxlength="2" id = "qtde[1286]"></td>
+       <td align="center" class="nomeprod1"><input name="imageField" type="image" src="wbs2_novo/images/btcarrinhoadd.gif" alt="Adicionar Produto" width="17" height="14" border="0" onClick='doTwo(form3, 54, 1286, 0, 453.00000000, 15) ,1000'></td>
+     </tr>
+     <tr onMouseOver="this.bgColor='<? echo $bg_cor_light; ?>'" onMouseOut="this.bgColor ='#FFFFFF'" bgcolor="#FFFFFF" class="noramlTableCell">
+       <td align="center">1308</td>
+       <td><span class="nomeprod1"><a href="javascript:void(0);" class="linkespecial191" onClick="MM_openBrWindow('/wbs/restrito.php?pg=109&pg_ped=17&codpedselect=15&codprodselect=1308','Detalhes','scrollbars=yes,width=550,height=400')">IMPRESSORA JATO DE TINTA HP 6540</a></span><br>
+           <span class="nomeprod2">substituta da 5650</span></td>
+       <td align="center"><span class="nomeprod1">12</span></td>
+       <td align="center"></td>
+       <td align="center" class="nomeprod1">850,00</td>
+       <td align="center" class="nomeprod1"><a class="info" href="#"><img src="wbs2_novo/images/est_pos_no.gif" border = "0"><BR>
+       </a></td>
+       <td align="center" class="nomeprod1"><input type="hidden" name="plano_select[1308]" value="0:0" id = "plano_select[1308]">       </td>
+       <td align="center" class="nomeprod1"><input name="qtde[1308]" type="text" class="campoquant" value="0" size="2" maxlength="2" id = "qtde[1308]"></td>
+       <td align="center" class="nomeprod1"><input name="imageField" type="image" src="wbs2_novo/images/btcarrinhoadd.gif" alt="Adicionar Produto" width="17" height="14" border="0" onClick='doTwo(form3, 54, 1308, 0, 850.00000000, 15) ,1000'></td>
+     </tr>
+     <tr onMouseOver="this.bgColor='<? echo $bg_cor_light; ?>'" onMouseOut="this.bgColor ='#FFFFFF'" bgcolor="#FFFFFF" class="noramlTableCell">
+       <td align="center">626</td>
+       <td><span class="nomeprod1"><a href="javascript:void(0);" class="linkespecial191" onClick="MM_openBrWindow('/wbs/restrito.php?pg=109&pg_ped=17&codpedselect=15&codprodselect=626','Detalhes','scrollbars=yes,width=550,height=400')">IMPRESSORA JATO DE TINTA HP 9300</a></span><br>
+           <span class="nomeprod2">PN: C8136A</span></td>
+       <td align="center"><span class="nomeprod1">12</span></td>
+       <td align="center"></td>
+       <td align="center" class="nomeprod1">1.798,00</td>
+       <td align="center" class="nomeprod1"><a class="info" href="#"><img src="wbs2_novo/images/est_pos_no.gif" border = "0"><BR>
+       </a></td>
+       <td align="center" class="nomeprod1"><input type="hidden" name="plano_select[626]" value="0:0" id = "plano_select[626]">       </td>
+       <td align="center" class="nomeprod1"><input name="qtde[626]" type="text" class="campoquant" value="0" size="2" maxlength="2" id = "qtde[626]"></td>
+       <td align="center" class="nomeprod1"><input name="imageField" type="image" src="wbs2_novo/images/btcarrinhoadd.gif" alt="Adicionar Produto" width="17" height="14" border="0" onClick='doTwo(form3, 54, 626, 0, 1798.00000000, 15) ,1000'></td>
+     </tr>
+     <tr onMouseOver="this.bgColor='<? echo $bg_cor_light; ?>'" onMouseOut="this.bgColor ='#FFFFFF'" bgcolor="#FFFFFF" class="noramlTableCell">
+       <td align="center">1210</td>
+       <td><span class="nomeprod1"><a href="javascript:void(0);" class="linkespecial191" onClick="MM_openBrWindow('/wbs/restrito.php?pg=109&pg_ped=17&codpedselect=15&codprodselect=1210','Detalhes','scrollbars=yes,width=550,height=400')">IMPRESSORA JATO DE TINTA HP PHOTO SMART 7260</a></span><br>
+           <span class="nomeprod2">9 PPM COLOR / 10 PPM PRETO</span></td>
+       <td align="center"><span class="nomeprod1">12</span></td>
+       <td align="center"></td>
+       <td align="center" class="nomeprod1">610,00</td>
+       <td align="center" class="nomeprod1"><a class="info" href="#"><img src="wbs2_novo/images/est_pos_ok.gif" border = "0"><BR>
+       </a></td>
+       <td align="center" class="nomeprod1"><input type="hidden" name="plano_select[1210]" value="0:0" id = "plano_select[1210]">       </td>
+       <td align="center" class="nomeprod1"><input name="qtde[1210]" type="text" class="campoquant" value="0" size="2" maxlength="2" id = "qtde[1210]"></td>
+       <td align="center" class="nomeprod1"><input name="imageField" type="image" src="wbs2_novo/images/btcarrinhoadd.gif" alt="Adicionar Produto" width="17" height="14" border="0" onClick='doTwo(form3, 54, 1210, 0, 610.00000000, 15) ,1000'></td>
+     </tr>
+   </form>
+ </table>
+</body>
+</html>

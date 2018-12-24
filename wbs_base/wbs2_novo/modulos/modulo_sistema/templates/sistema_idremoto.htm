@@ -1,0 +1,145 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<script language="javascript" src="<? echo DIR_JS; ?>/funcoes01.js"></script>
+</head>
+
+<body>
+<?
+$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light);
+$var_parametro = "&pg_ped=100";
+$db->voltar(MOD_COR, $pg, $var_parametro);
+$db->titulador(MOD_COR, "ID Remoto", $bg_cor, $bg_cor_light);
+?>
+<br />
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Grupos</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <form name="lista" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=500#Grupo"; ?>" method="post">
+    <tr>
+      <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+              <tr>
+                <td align="center" class="generalGreyBorderBottomTableHeaderCell"><a name="Grupo"></a>Grupo</td>
+                <td class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+                <td width="90%" align="center" class="generalGreyBorderBottomTableHeaderCell"><input name="pg" type="hidden" id="pg" value="<? echo $pg; ?>">
+                  <input name="pg_ped" type="hidden" id="pg_ped" value="<? echo $pg_ped; ?>"></td>
+              </tr>
+              <tr>
+                <td class="noramlTableCell"><select name="addgrp" class="campo_select" id="addgrp" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"'>
+                  <option selected value="-1">Escolha...</option>
+                  <?
+if ($rs_listgrp)
+{
+	while (!$rs_listgrp->EOF)
+	{
+?>
+                  <option value="<? echo $rs_listgrp->fields['codgrp']; ?>">[<? echo $rs_listgrp->fields['codgrp']; ?>] <? echo $db->format_str("UP", $rs_listgrp->fields['nomegrp']); ?></option>
+                  <?
+	 	$rs_listgrp->MoveNext();
+	}//WHILE
+	$rs_listgrp->Move(0);
+}
+?>
+                </select>
+                  <input name="Action" type="hidden" id="Action" value="AdicionarGRP"></td>
+                <td class="noramlTableCell"><input type="submit" name="Submit2" value="Adicionar" class="botao_cor"></td>
+                <td align="center" class="noramlTableCell">&nbsp;</td>
+              </tr>
+          </table></td>
+        </tr>
+      </table>
+        <br>
+        <table width="100%"  border="0" cellpadding="2" cellspacing="0" class="generalTable defaultBlackText">
+        <tr>
+          <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell">Cod</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Grupo</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Data</td>
+          </tr>
+        <?
+if ($rs_lista_grps)
+{
+	$ix = 0;
+	while (!$rs_lista_grps->EOF)
+	{
+?>
+        <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+          <td align="center" class="noramlTableCell"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=500&Action=DeletarGRP&codid_select="; ?><? echo $rs_lista_grps->fields[0]; ?>#Grupo"><img src="<? echo DIR_IMAGES; ?>/botoes/group_delete.png" border="0"></a></td>
+          <td align="center" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;"><? echo $rs_lista_grps->fields[1]; ?></td>
+          <td class="noramlTableCell"><strong><? echo $db->format_str("UP", $rs_lista_grps->fields[3]); ?></strong></td>
+          <td align="center" class="noramlTableCell"><? echo $rs_lista_grps->UserTimeStamp($rs_lista_grps->fields[2],'d/m/Y H:i'); ?></td>
+          </tr>
+        <?
+	 	$ix++;
+		$rs_lista_grps->MoveNext();
+	}//WHILE
+}
+?>
+      </table></td>
+    </tr>
+  </form>
+</table>
+</fieldset>
+<br />
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">IPs</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <form name="lista" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=500#Ip"; ?>" method="post">
+    <tr>
+      <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+              <tr>
+                <td align="center" class="generalGreyBorderBottomTableHeaderCell"><a name="Ip"></a>IP</td>
+                <td align="center" class="generalGreyBorderBottomTableHeaderCell">Local</td>
+                <td class="generalGreyBorderBottomTableHeaderCell"><input name="Action" type="hidden" id="Action" value="AdicionarIP"></td>
+                <td width="90%" align="center" class="generalGreyBorderBottomTableHeaderCell"><input name="pg" type="hidden" id="pg" value="<? echo $pg; ?>"><input name="pg_ped" type="hidden" id="pg_ped" value="<? echo $pg_ped; ?>"></td>
+              </tr>
+              <tr>
+                <td class="noramlTableCell"><input name="addip" type="text" class="campo_linha" id="addip" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"' size="20" maxlength="15"></td>
+                <td class="noramlTableCell"><input name="addlocal" type="text" class="campo_linha" id="addlocal" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"' size="20"></td>
+                <td class="noramlTableCell"><input type="submit" name="Submit" value="Adicionar" class="botao_cor"></td>
+                <td align="center" class="noramlTableCell">&nbsp;</td>
+              </tr>
+          </table></td>
+        </tr>
+      </table>
+        <br>
+        <table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+        <tr>
+          <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">IP</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Local</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Data</td>
+          </tr>
+        <?
+if ($rs_lista_ips)
+{
+	$ix = 0;
+	while (!$rs_lista_ips->EOF)
+	{
+?>
+        <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+          <td align="center" class="noramlTableCell"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=500&Action=DeletarIP&codid_select="; ?><? echo $rs_lista_ips->fields['codid']; ?>#Ip"><img src="<? echo DIR_IMAGES; ?>/botoes/computer_delete.png" border="0" title="Editar" alt="Editar"></a></td>
+          <td class="noramlTableCell"><strong><? echo $rs_lista_ips->fields['ip']; ?></strong></td>
+          <td class="noramlTableCell"><? echo $rs_lista_ips->fields['local']; ?></td>
+          <td align="center" class="noramlTableCell"><? echo $rs_lista_ips->UserTimeStamp($rs_lista_ips->fields['datahorainsercao'],'d/m/Y H:i'); ?></td>
+          </tr>
+        <?
+	 	$ix++;
+		$rs_lista_ips->MoveNext();
+	}//WHILE
+}
+?>
+      </table></td>
+    </tr>
+  </form>
+</table>
+</fieldset>
+</body>
+</html>

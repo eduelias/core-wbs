@@ -1,0 +1,540 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="<? echo DIR_CSS; ?>/pesquisa.css" rel="stylesheet" type="text/css">
+<link href="../../../css/pesquisa.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+-->
+</style>
+<script language="javascript">
+function HidePerg4()
+{
+	var sel = document.getElementById("perg4");
+	sel.style.display = 'none';
+}
+function ShowPerg4()
+{
+	var sel = document.getElementById("perg4");
+	sel.style.display = 'block';
+}
+
+function HidePerg9()
+{
+	var se2 = document.getElementById("perg9");
+	se2.style.display = 'none';
+}
+function ShowPerg9()
+{
+	var se2 = document.getElementById("perg9");
+	se2.style.display = 'block';
+}
+
+function HidePerg10()
+{
+	var se3 = document.getElementById("perg10");
+	se3.style.display = 'none';
+}
+function ShowPerg10()
+{
+	var se3 = document.getElementById("perg10");
+	se3.style.display = 'block';
+}
+</script>
+<title></title>
+</head>
+
+<body>
+  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td align="right" class="pesq_script_destaque"><? echo $ncodpedido; ?></td>
+    </tr>
+  </table>
+  <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td colspan="2" class="pesq_script">
+        Bom dia (ou Boa Tarde)!<br>
+        Gostaria de falar com <? echo $tratamento; ?> <span class="pesq_script_destaque"><? echo $nomecliente_view; ?></span>.<br>
+        <table width="100%"  border="0" cellspacing="2" cellpadding="2">
+          <tr valign="top">
+            <td width="50%" class="pesq_requerido"><? echo $tratamento1; ?> <span class="pesq_script_destaque"><? echo $nomecliente_view; ?></span>, aqui quem fala &eacute; [atendente] do departamento de pesquisa e controle de qualidade da Ipasoft. </td>
+            <td width="50%" class="pesq_requerido"><span class="pesq_script_destaque">Caso a pessoa n&atilde;o se encontre:</span><br>Eu sou [atendente] do departamento de pesquisa e controle de qualidade da Ipasoft. Algu&eacute;m que participou da compra do computador encontra-se no momento? </td>
+          </tr>
+        </table>
+        O sr. comprou um equipamento conosco em <span class="pesq_script_destaque"><? echo $dataped_view; ?></span>, e como a sua opini&atilde;o &eacute; muito importante para n&oacute;s, gostar&iacute;amos de fazer algumas perguntas a respeito da sua satisfa&ccedil;&atilde;o, que n&atilde;o tomar&aacute; mais do que tr&ecirc;s minutos. </td>
+      </tr>
+      <tr>
+        <td colspan="2"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+      </tr>
+	<? if($inicio <> "SIM") {?>
+    <tr>
+      <td width="50%" align="right"><table  border="0" cellpadding="2" cellspacing="2">
+	  <? $datahoraatual = gmDate("Y-m-d H:i:s"); ?>
+          <tr>
+            <td><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=4&menu_not=1&Action=Pesquisar&datainicio=$datahoraatual&inicio=SIM&pesqcodped=$pesqcodped"; ?>" class="lkverde4"><strong>Responder Agora </strong></a></td>
+          </tr>
+        </table></td>
+      <td><table  border="0" cellpadding="2" cellspacing="2">
+        <tr>
+          <td><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=4&menu_not=1&Action=Nao&codcliente_pesq=$codcliente_view&codped_pesq=$codped_view"; ?>" class="lkverde3"><strong>N&atilde;o responder Agora </strong></a></td>
+        </tr>
+      </table></td>
+    </tr>
+    <tr>
+      <td colspan="2"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+    </tr>
+	<? } ?>
+  </table>
+<form method="post" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=4&menu_not=1&Action=Gravar"; ?>" name="formulario">
+	  <!-- OOO -->
+	  <? if($inicio == "SIM") { ?>
+	  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td class="pesq_perg"><strong>1 - Este &eacute; o primeiro computador que <? echo $tratamento; ?> adquiriu?
+            <input type="hidden" name="datainicio" value="<? echo $datainicio; ?>">
+			<input type="hidden" name="codcliente_pesq" value="<? echo $codcliente_view; ?>">
+			<input type="hidden" name="codped_pesq" value="<? echo $codped_view; ?>">
+          </strong></td>
+        </tr>
+        <tr>
+          <td><table  border="0" cellpadding="2" cellspacing="2" class="pesq_perg">
+              <tr>
+                <td><input name="resp[1]" type="radio" value="S"></td>
+                <td>Sim</td>
+                <td><input name="resp[1]" type="radio" value="N"></td>
+                <td>N&atilde;o</td>
+              </tr>
+          </table></td>
+        </tr>
+        <tr>
+          <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+        </tr>
+        <tr>
+          <td class="pesq_perg"><strong>2 - Suas expectativas foram satisfeitas com rela&ccedil;&atilde;o ao atendimento do vendedor na hora da compra?</strong></td>
+        </tr>
+        <tr>
+          <td><table  border="0" cellpadding="2" cellspacing="2" class="pesq_perg">
+              <tr>
+                <td><input name="resp[2]" type="radio" value="S"></td>
+                <td>Sim</td>
+                <td><input name="resp[2]" type="radio" value="N"></td>
+                <td>N&atilde;o</td>
+              </tr>
+          </table></td>
+        </tr>
+        <tr>
+          <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+        </tr>
+        <tr>
+          <td class="pesq_perg"><strong>3 - De 0 a 10 qual a nota que <? echo $tratamento; ?> daria para o atendimento do vendedor de forma geral?</strong></td>
+        </tr>
+        <tr>
+          <td><table  border="0" cellpadding="2" cellspacing="2" class="pesq_perg">
+              <tr>
+                <td><input name="resp[3]" type="radio" value="0"></td>
+                <td>0</td>
+                <td><input name="resp[3]" type="radio" value="1"></td>
+                <td>1</td>
+                <td><input name="resp[3]" type="radio" value="2"></td>
+                <td>2</td>
+                <td><input name="resp[3]" type="radio" value="3"></td>
+                <td>3</td>
+                <td><input name="resp[3]" type="radio" value="4"></td>
+                <td>4</td>
+                <td><input name="resp[3]" type="radio" value="5"></td>
+                <td>5</td>
+                <td><input name="resp[3]" type="radio" value="6"></td>
+                <td>6</td>
+                <td><input name="resp[3]" type="radio" value="7"></td>
+                <td>7</td>
+                <td><input name="resp[3]" type="radio" value="8"></td>
+                <td>8</td>
+                <td><input name="resp[3]" type="radio" value="9"></td>
+                <td>9</td>
+                <td><input name="resp[3]" type="radio" value="10"></td>
+                <td>10</td>
+              </tr>
+          </table></td>
+        </tr>
+        <tr>
+          <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+        </tr>
+        <tr>
+          <td class="pesq_perg"><strong>4 - O equipamento foi entregue no prazo combinado?</strong></td>
+        </tr>
+        <tr>
+          <td><table  border="0" cellpadding="2" cellspacing="2" class="pesq_perg">
+              <tr>
+                <td><input name="resp[4]" type="radio" value="S" onClick="HidePerg4();"></td>
+                <td>Sim</td>
+                <td><input name="resp[4]" type="radio" value="N" onClick="ShowPerg4();"></td>
+                <td>N&atilde;o</td>
+              </tr>
+          </table></td>
+        </tr>
+      </table>
+        <div id="perg4" style="display:none">
+          <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><strong>4a - o Sr. foi comunicado para a remarca&ccedil;&atilde;o da entrega?</strong></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><table  border="0" cellpadding="2" cellspacing="2" class="pesq_perg">
+                  <tr>
+                    <td><input name="resp[5]" type="radio" value="S"></td>
+                    <td>Sim</td>
+                    <td><input name="resp[5]" type="radio" value="N"></td>
+                    <td>N&atilde;o</td>
+                  </tr>
+              </table></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><strong>4b - O atraso na entrega lhe causou algum transtorno?</strong></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><table  border="0" cellpadding="2" cellspacing="2" class="pesq_perg">
+                  <tr>
+                    <td><input name="resp[6]" type="radio" value="S"></td>
+                    <td>Sim</td>
+                    <td><input name="resp[6]" type="radio" value="N"></td>
+                    <td>N&atilde;o</td>
+                  </tr>
+              </table></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+          </table>
+        </div>
+        <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td class="pesq_perg"><strong>5 - De 0 a 10 qual a nota que <? echo $tratamento; ?> daria para o atendimento prestador de serviços na hora da entrega?</strong></td>
+          </tr>
+          <tr>
+            <td><table  border="0" cellpadding="2" cellspacing="2" class="pesq_perg">
+                <tr>
+                  <td><input name="resp[7]" type="radio" value="0"></td>
+                  <td>0</td>
+                  <td><input name="resp[7]" type="radio" value="1"></td>
+                  <td>1</td>
+                  <td><input name="resp[7]" type="radio" value="2"></td>
+                  <td>2</td>
+                  <td><input name="resp[7]" type="radio" value="3"></td>
+                  <td>3</td>
+                  <td><input name="resp[7]" type="radio" value="4"></td>
+                  <td>4</td>
+                  <td><input name="resp[7]" type="radio" value="5"></td>
+                  <td>5</td>
+                  <td><input name="resp[7]" type="radio" value="6"></td>
+                  <td>6</td>
+                  <td><input name="resp[7]" type="radio" value="7"></td>
+                  <td>7</td>
+                  <td><input name="resp[7]" type="radio" value="8"></td>
+                  <td>8</td>
+                  <td><input name="resp[7]" type="radio" value="9"></td>
+                  <td>9</td>
+                  <td><input name="resp[7]" type="radio" value="10"></td>
+                  <td>10</td>
+                </tr>
+            </table></td>
+          </tr>
+          <tr>
+            <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+          </tr>
+          <tr>
+            <td class="pesq_perg"><strong>6 - O prestador de serviços que entregou o equipamento executou a instala&ccedil;&atilde;o corretamente?</strong></td>
+          </tr>
+          <tr>
+            <td><table  border="0" cellpadding="2" cellspacing="2" class="pesq_perg">
+                <tr>
+                  <td><input name="resp[8]" type="radio" value="S"></td>
+                  <td>Sim</td>
+                  <td><input name="resp[8]" type="radio" value="N"></td>
+                  <td>N&atilde;o</td>
+                </tr>
+            </table></td>
+          </tr>
+          <tr>
+            <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+          </tr>
+          <tr>
+            <td class="pesq_perg"><strong>7 - Qual a nota <? echo $tratamento; ?> daria para a Ipasoft, de maneira geral?</strong></td>
+          </tr>
+          <tr>
+            <td><table  border="0" cellpadding="2" cellspacing="2" class="pesq_perg">
+                <tr>
+                  <td><input name="resp[9]" type="radio" value="0"></td>
+                  <td>0</td>
+                  <td><input name="resp[9]" type="radio" value="1"></td>
+                  <td>1</td>
+                  <td><input name="resp[9]" type="radio" value="2"></td>
+                  <td>2</td>
+                  <td><input name="resp[9]" type="radio" value="3"></td>
+                  <td>3</td>
+                  <td><input name="resp[9]" type="radio" value="4"></td>
+                  <td>4</td>
+                  <td><input name="resp[9]" type="radio" value="5"></td>
+                  <td>5</td>
+                  <td><input name="resp[9]" type="radio" value="6"></td>
+                  <td>6</td>
+                  <td><input name="resp[9]" type="radio" value="7"></td>
+                  <td>7</td>
+                  <td><input name="resp[9]" type="radio" value="8"></td>
+                  <td>8</td>
+                  <td><input name="resp[9]" type="radio" value="8"></td>
+                  <td>9</td>
+                  <td><input name="resp[9]" type="radio" value="10"></td>
+                  <td>10</td>
+                </tr>
+            </table></td>
+          </tr>
+          <tr>
+            <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+          </tr>
+          <tr>
+            <td class="pesq_perg"><strong>8 - <? echo $tratamento; ?> compraria novamente na Ipasoft ou indicaria algu&eacute;m para comprar?</strong></td>
+          </tr>
+          <tr>
+            <td><table  border="0" cellpadding="2" cellspacing="2" class="pesq_perg">
+                <tr>
+                  <td><input name="resp[10]" type="radio" value="S"></td>
+                  <td>Sim</td>
+                  <td><input name="resp[10]" type="radio" value="N"></td>
+                  <td>N&atilde;o</td>
+                </tr>
+            </table></td>
+          </tr>
+          <tr>
+            <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+          </tr>
+          <tr>
+            <td class="pesq_perg"><strong>9 - <? echo $tratamento; ?> utilizou o Servi&ccedil;o de Atendimento ao Consumidor Ipasoft (SACI)?</strong></td>
+          </tr>
+          <tr>
+            <td><table  border="0" cellpadding="2" cellspacing="2" class="pesq_perg">
+                <tr>
+                  <td><input name="resp[11]" type="radio" value="S" onClick="ShowPerg9();"></td>
+                  <td>Sim</td>
+                  <td><input name="resp[11]" type="radio" value="N" onClick="HidePerg9();"></td>
+                  <td>N&atilde;o</td>
+                </tr>
+            </table></td>
+          </tr>
+        </table>
+        <div id="perg9" style="display:none">
+          <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><strong>9a - <? echo $tratamento; ?> foi bem orientado(a)?</strong></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><table  border="0" cellpadding="2" cellspacing="2" class="pesq_perg">
+                  <tr>
+                    <td><input name="resp[12]" type="radio" value="S"></td>
+                    <td>Sim</td>
+                    <td><input name="resp[12]" type="radio" value="N"></td>
+                    <td>N&atilde;o</td>
+                  </tr>
+              </table></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><strong>9b - Seu problema foi soluciondo?</strong></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><table  border="0" cellpadding="2" cellspacing="2" class="pesq_perg">
+                  <tr>
+                    <td><input name="resp[13]" type="radio" value="S"></td>
+                    <td>Sim</td>
+                    <td><input name="resp[13]" type="radio" value="N"></td>
+                    <td>N&atilde;o</td>
+                  </tr>
+              </table></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><strong>9c - De 0 a 10 qual a nota que <? echo $tratamento; ?> daria para o SACI?</strong></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><table  border="0" cellpadding="2" cellspacing="2" class="pesq_perg">
+                  <tr>
+                    <td><input name="resp[14]" type="radio" value="0"></td>
+                    <td>0</td>
+                    <td><input name="resp[14]" type="radio" value="1"></td>
+                    <td>1</td>
+                    <td><input name="resp[14]" type="radio" value="2"></td>
+                    <td>2</td>
+                    <td><input name="resp[14]" type="radio" value="3"></td>
+                    <td>3</td>
+                    <td><input name="resp[14]" type="radio" value="4"></td>
+                    <td>4</td>
+                    <td><input name="resp[14]" type="radio" value="5"></td>
+                    <td>5</td>
+                    <td><input name="resp[14]" type="radio" value="6"></td>
+                    <td>6</td>
+                    <td><input name="resp[14]" type="radio" value="7"></td>
+                    <td>7</td>
+                    <td><input name="resp[14]" type="radio" value="8"></td>
+                    <td>8</td>
+                    <td><input name="resp[14]" type="radio" value="9"></td>
+                    <td>9</td>
+                    <td><input name="resp[14]" type="radio" value="10"></td>
+                    <td>10</td>
+                  </tr>
+              </table></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+          </table>
+        </div>
+        <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td class="pesq_perg"><strong>10 - <? echo $tratamento; ?> necessitou utilizar o Servi&ccedil;o de Garantia?</strong></td>
+          </tr>
+          <tr>
+            <td><table  border="0" cellpadding="2" cellspacing="2" class="pesq_perg">
+                <tr>
+                  <td><input name="resp[15]" type="radio" value="S" onClick="ShowPerg10();"></td>
+                  <td>Sim</td>
+                  <td><input name="resp[15]" type="radio" value="N" onClick="HidePerg10();"></td>
+                  <td>N&atilde;o</td>
+                </tr>
+            </table></td>
+          </tr>
+        </table>
+        <div id="perg10" style="display:none">
+          <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><strong>10a - Seu problema foi soluciondo?</strong></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><table  border="0" cellpadding="2" cellspacing="2" class="pesq_perg">
+                  <tr>
+                    <td><input name="resp[16]" type="radio" value="S"></td>
+                    <td>Sim</td>
+                    <td><input name="resp[16]" type="radio" value="N"></td>
+                    <td>N&atilde;o</td>
+                  </tr>
+              </table></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><strong>10b - De 0 a 10 qual a nota que <? echo $tratamento; ?> daria para o atendimento da garantia?</strong></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><table  border="0" cellpadding="2" cellspacing="2" class="pesq_perg">
+                  <tr>
+                    <td><input name="resp[17]" type="radio" value="0"></td>
+                    <td>0</td>
+                    <td><input name="resp[17]" type="radio" value="1"></td>
+                    <td>1</td>
+                    <td><input name="resp[17]" type="radio" value="2"></td>
+                    <td>2</td>
+                    <td><input name="resp[17]" type="radio" value="3"></td>
+                    <td>3</td>
+                    <td><input name="resp[17]" type="radio" value="4"></td>
+                    <td>4</td>
+                    <td><input name="resp[17]" type="radio" value="5"></td>
+                    <td>5</td>
+                    <td><input name="resp[17]" type="radio" value="6"></td>
+                    <td>6</td>
+                    <td><input name="resp[17]" type="radio" value="7"></td>
+                    <td>7</td>
+                    <td><input name="resp[17]" type="radio" value="8"></td>
+                    <td>8</td>
+                    <td><input name="resp[17]" type="radio" value="9"></td>
+                    <td>9</td>
+                    <td><input name="resp[17]" type="radio" value="10"></td>
+                    <td>10</td>
+                  </tr>
+              </table></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+          </table>
+        </div>
+        <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td class="pesq_perg"><strong>11 - <? echo $tratamento; ?> possui alguma d&uacute;vida, sugest&atilde;o ou reclama&ccedil;&atilde;o a fazer, para que possamos melhorar nossa empresa?</strong></td>
+          </tr>
+          <tr>
+            <td><textarea name="resp[18]" rows="3" class="pesq_input" id="resp[18]" style="width: 95%;"></textarea></td>
+          </tr>
+          <tr>
+            <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+          </tr>
+          <tr>
+            <td class="pesq_perg"><strong>Tipo de Ocorr&ecirc;ncias:</strong></td>
+          </tr>
+          <tr>
+            <td><table  border="0" cellpadding="2" cellspacing="2" class="pesq_perg">
+              <tr>
+                <td><input name="ocorrencia" type="radio" value="0" checked></td>
+                <td><strong>Nenhuma Ocorr&ecirc;ncia </strong></td>
+                <td><input name="ocorrencia" type="radio" value="4"></td>
+                <td><strong>Saci </strong>(relacionado a problemas com o suporte) </td>
+              </tr>
+              <tr>
+                <td><input name="ocorrencia" type="radio" value="1"></td>
+                <td><strong>Produto </strong>(relacionado a problemas com software e defeitos de fabrica&ccedil;&atilde;o)</td>
+                <td><input name="ocorrencia" type="radio" value="5"></td>
+                <td><strong>Geral</strong> (relacionado a mais de um tipo de ocorr&ecirc;ncia ao mesmo tempo ou a nenhuma espec&iacute;fica) </td>
+              </tr>
+              <tr>
+                <td><input name="ocorrencia" type="radio" value="2"></td>
+                <td><strong>Vendas</strong> (relacionado ao atendimento do vendedor)</td>
+                <td><input name="ocorrencia" type="radio" value="6"></td>
+                <td><strong>Manuten&ccedil;&atilde;o</strong> (relacionado a problemas com a assit&ecirc;ncia t&eacute;cnica - infohelp) </td>
+              </tr>
+              <tr>
+                <td><input name="ocorrencia" type="radio" value="3"></td>
+                <td><strong>Entrega</strong> (relacionado ao modo de entrega e instala&ccedil;&atilde;o do equipamento) </td>
+                <td><input name="ocorrencia" type="radio" value="7" ></td>
+                <td><strong>Produ&ccedil;&atilde;o</strong> (relacionado a erros com o pedido: falta de produtos, produtos errados)</td>
+              </tr>
+            </table></td>
+          </tr>
+          <tr>
+            <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+          </tr>
+          <tr>
+            <td class="pesq_script">A Ipasoft agradece a sua aten&ccedil;&atilde;o e caso necessite estamos prontos a atender. Tenha um bom dia! </td>
+          </tr>
+          <tr>
+            <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+          </tr>
+          <tr>
+            <td><input name="Submit" type="submit" class="titulo_superior_verdemug" value="Finalizar Pesquisa"></td>
+          </tr>
+        </table>
+		<? } ?>
+		<!-- 000 -->
+</form>
+</body>
+</html>

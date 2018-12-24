@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- created with PHP Doc System
+     http://www.alexking.org/software/phpdocsystem/ -->
+<html>
+	<head>
+		<title>Tasks Jr.: How can I receive a daily e-mail of my current tasks?</title>
+		<link rel="stylesheet" type="text/css" href="default.css" />
+	</head>
+	<body>
+		<div id="header">
+			<a href="index.html">Table of Contents</a>
+			<h1><span>Tasks</span></h1>
+		</div>
+		<div id="content">
+<h1 class="module_title">How can I receive a daily e-mail of my current tasks?</h1>
+<div class="module_content">
+<p>The email_reminders.php page will send an e-mail to the address specified in <a href="options.html">config.php</a> with your overdue tasks, today's tasks, upcoming tasks and high (and highest) priority tasks.
+
+
+<p>CRON access is required on Mac OS X, Unix, Linux boxes for running scheduled tasks (There is an event scheduler on Windows too, I'm not familier with it). If you do not have CRON access, you may want to check out <a href="http://www.bitfolge.de/?l=en&s=pseudocron">Psuedo-CRON</a> or a similar solution.</p>
+
+
+<p>Using CRON on a UNIX/Linux/Mac OS X server you can set up a CRON job to load the email_reminders.php page at whatever interval you want to receive the email. On windows, I know you can schedule a task to do the same thing - someone tell me how and I'll add it here.</p>
+
+<p>Here is the syntax for 3 ways to hit the page at 3am using CRON.</p>
+
+<p>This way should be most compatible:</p>
+
+<p><pre>0 3 * * * wget -q http://www.example.com/tasks/email_reminders.php</pre></p>
+
+<p>if you are using .htaccess to secure your directory, remember to include your username and password in the URL (yes, this is a potential security risk).</p>
+
+<p><pre>0 3 * * * wget -q http://username:password@www.example.com/tasks/email_reminders.php</pre></p>
+
+<p>This way should work fine as long as you have lynx installed:</p>
+
+<p><pre>0 3 * * * lynx -source http://www.example.com/tasks/email_reminders.php</pre></p>
+
+<p>if you are using .htaccess to secure your directory, remember to include your username and password in the URL (yes, this is a potential security risk).</p>
+
+<p><pre>0 3 * * * lynx -source http://username:password@www.example.com/tasks/email_reminders.php</pre></p>
+
+<p>This is the most secure, but you need to know the actual paths involved:</p>
+
+<p><pre>0 3 * * * /usr/local/bin/php -q /www/www.example.com/tasks/email_reminders.php</pre></p>
+
+</div>
+<p id="prev_next"><a href="sticky.html">Previous Page</a> | <a href="index.html">Table of Contents</a> | <a href="ical_subscribe.html">Next Page</a></p>
+			<p id="last_modified">Last Modified: February 28, 2005 @ 12:17 pm<br />(<a href="http://www.kingdesign.net/tasks/documentation/email_reminders.html">check for an updated version of this page</a>)</p>
+		</div>
+
+		<div id="footer">
+			<a href="http://www.alexking.org/software/phpdocsystem/">PHP Doc System</a> Copyright 2003-2004 &copy; Alex King. All rights reserved.<br />
+		</div>
+	</body>
+</html>

@@ -1,0 +1,304 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+ <meta HTTP-EQUIV = "Refresh" CONTENT = "120; URL = <? echo"$PHP_SELF?pg=$pg&pg_ped=1&Action=pesquisa&empresa=$empresa"; ?>">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<script language="javascript" src="<? echo DIR_JS; ?>/funcoes01.js"></script>
+<script language="javascript">
+function PostaCEP(form)
+{
+	document.form.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=5&"; ?>Action=cep_revendas&menu_not=1';
+	document.form.target = 'irevenda';
+	document.form.submit();
+
+	//document.form.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=99&menu_not=1"; ?>';
+	//document.form.target = 'irevenda';
+	//document.form.submit();
+
+	document.form.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=2&menu_not=1"; ?>';
+	document.form.target = 'ireceb';
+	document.form.submit();
+}
+
+
+function DoIt(form)
+{
+	document.form.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=1&Action=pesquisa&empresa=$empresa"; ?>';
+	document.form.target = '_self';
+	document.form.submit();
+}
+
+</script>
+<style type="text/css">
+<!--
+.style4 {color: #FFFFFF}
+-->
+</style>
+</head>
+
+<body>
+<?
+$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light);
+?>
+<br>
+<br>
+<br>
+
+<table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+  <form name="form" method="post" target="_self" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&Action=pesquisa&empresa=$empresa"; ?>">
+    <tr>
+      <td width="9%" rowspan="2" align="center" class="generalGreyBorderBottomTableHeaderCell"><img src="<? echo DIR_IMAGES; ?>/messagebox_warning.png" border="0"></td>
+      <td   width="35%" class="generalGreyBorderBottomTableHeaderCell"><strong>Empresa:</strong></td>
+      <td   width="22%" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+      <td width="34%" align="right"   class="generalGreyBorderBottomTableHeaderCell"><strong>Empresa Atual:</strong></td>
+    </tr>
+    <tr>
+      <td  bgcolor="<? echo $bg_cor_light; ?>" class="noramlTableCell"><input name="pg" type="hidden" id="pg" value="<? echo $pg; ?>">
+          <input name="pg_ped" type="hidden" id="pg_ped" value="<? echo $pg_ped; ?>">
+          <select name="empresa" class="campo_select" id="empresa" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"' onChange="DoIt(form)">
+            <option selected>Escolha uma empresa ...</option>
+            <?
+if ($rs_empresas)
+{
+	while (!$rs_empresas->EOF)
+	{
+?>
+            <option value="<? echo $rs_empresas->fields['codemp']; ?>"><? echo $db->format_str("UP", $rs_empresas->fields['nome']); ?></option>
+            <?
+	 	$rs_empresas->MoveNext();
+	}//WHILE
+}
+?>
+        </select>        </td>
+      <td  bgcolor="<? echo $bg_cor_light; ?>" class="noramlTableCell"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&Action=pesquisa&empresa=$empresa"; ?>" class="lkverde2" ><strong>ATUALIZAR LISTAGEM</strong></a></td>
+      <td align="right"  bgcolor="<? echo $bg_cor_light; ?>" class="noramlTableCell" style="font-size: 15px;"><b><? echo $rs_empresa->fields['nome']; ?></b></td>
+    </tr>
+  </form>
+</table>
+
+<br>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Lista de Pedidos</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<form name="lista" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=100"; ?>" method="post">
+  <tr>
+    <td><table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+      <tr>
+        <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell style4">........</td>
+        <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+      	<td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+        <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell">COD</td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">CLIENTE</td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">VENDEDOR</td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">DATA PED</td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">DATA PREV </td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">STATUS</td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">DATA<br>
+          SOL NF</td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">CRT</td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">LIB</td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">FAT</td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">CX</td>
+        </tr>
+      <?
+if ($rs_lista)
+{
+	$ix = 0;
+	while (!$rs_lista->EOF)
+	{
+    	#$bgcorlinha="#E5E5E5";
+    	if ($rs_lista->fields['status'] == "AVAL"){$bgcorlinha="#FFCC66";}
+        if ($rs_lista->fields['status'] == "APROV"){$bgcorlinha="#CFFCC7";}
+        if ($rs_lista->fields['status'] == "PECA"){$bgcorlinha="#D6B778";}
+        if ($rs_lista->fields['status'] == "PROD"){$bgcorlinha="#F2E4C4";}
+        if ($rs_lista->fields['status'] == "LIB"){$bgcorlinha="#EDE763";}
+        if ($rs_lista->fields['status'] == "DESP"){$bgcorlinha="#339966";}
+        if ($rs_lista->fields['status'] == "ENTR"){$bgcorlinha="#BFD9F9";}
+        if ($rs_lista->fields['status'] == "REPROV"){$bgcorlinha="#FFFFFF";}
+        if ($rs_lista->fields['status'] == "CANCEL"){$bgcorlinha="#E1AFAA";}
+ 
+        if ($rs_lista->fields['aguard_comp'] == "OK"){$aguard ="AGUARDA<br>COMPENSAÇÃO";}else{$aguard ="";}
+        if ($rs_lista->fields['contrato'] == "NO"){$cor1 ="#FF0000";}else{$cor1="#008000";}
+        if ($rs_lista->fields['contrato'] == "EP"){$cor1 ="#FF6600";}
+        if ($rs_lista->fields['libentr'] == "NO"){$cor2 ="#FF0000";}else{$cor2="#008000";}
+        if ($rs_lista->fields['fat'] == "NO"){$cor3 ="#FF0000";}else{$cor3="#008000";}
+        if ($rs_lista->fields['caixa'] == "NO"){$cor4 ="#FF0000";}else{$cor4="#008000";}
+        if ($rs_lista->fields['modped'] == "OK"){$mod ="MOD";}else{$mod="";}
+        if ($rs_lista->fields['modoentr'] == "MOTOBOY"){$moto ="MOTOBOY";}else{$moto="";}
+        if ($rs_lista->fields['modoentr'] == "RETIRA"){$moto ="MOTOBOY";}else{$moto="";}
+        if ($rs_lista->fields['prontaentr'] == "OK" ){$logo_pronta = "<img src='".DIR_IMAGES."/prontap.png' border='0'>";}else{$logo_pronta="";}
+        
+        $ped_ata = "";
+        if ($rs_lista->fields['modelo_ped'] == "ATA"){$cor7 ="#008000";$ped_ata = "ATACADO";}
+        if ($rs_lista->fields['modelo_ped'] == "DST"){$cor7 ="#008000";$ped_ata = "DISTRIBUIDOR";}
+        if ($rs_lista->fields['modelo_ped'] == "RDST"){$cor7 ="#008000";$ped_ata = "REVENDA DIST";}
+        if ($rs_lista->fields['ped_transf'] == "OK"){$cor7 ="#008000";$ped_ata = "TRANSF";}
+        
+        if ($rs_lista->fields['dataprevent'] <> $rs_lista->fields['dataprevent_old']){$cor45 = "#FF0000";}else{$cor45 = "#000000";}
+    
+    	// MOSTRA IMAGEM NOTA FISCA
+    	 if ($rs_lista->fields['datasol_nf'] == 0 ){
+         	if ($rs_lista->fields['fat'] == 'NO'){
+         		$logo_imp = "";
+            }else{
+            	$logo_imp = "<img src='".DIR_IMAGES."/bthitnv.gif' border='0'>";
+            }
+         }else{
+         	if ($rs_lista->fields['fat'] == 'NO'){
+         		$logo_imp = "<img src='".DIR_IMAGES."/bthitv.gif' border='0'>";
+            }else{
+            	$logo_imp = "<img src='".DIR_IMAGES."/bthitnv.gif' border='0'>";
+            }
+         }
+         
+         $logo_desp = "";
+         // MOSTRA IMAGEM LISTA DESPACHO
+         if ($rs_lista->fields['lista_desp'] == "OK" ){
+         	$logo_desp = "<img src='".DIR_IMAGES."/4.gif' border='0'>";
+         }else{
+         	$logo_desp = "";
+         }
+         	
+          $difmin = $db->func_nminutos($rs_lista->fields['datasol_nf'], $db->datahoraatual());
+          
+        #echo $difmin; 
+        #echo $db->datahoraatual();
+         
+        if ($difmin < 30 ){$img ="<img src='".DIR_IMAGES."/fat_verde.png' border='0'>";} // MAIOR QUE D+3
+        if ($difmin >= 30 and  $difdias <= 60 ){$img ="<img src='".DIR_IMAGES."/fat_amarelo.png' border='0'>";} // AMANHA E D+2
+        if ($difmin > 60 ){$img ="<img src='".DIR_IMAGES."/fat_vermelho.png' border='0'>";}  // HOJE E ATRASADOS
+        
+        
+        // PESSOA FISICA
+        if ($rs_lista->fields['tipocliente'] == 'F'){
+        	
+        	 $rs_nota = $db->query_db("SELECT COUNT(*) FROM pedidonf WHERE modo_nf = 'FA' and codped = '".$rs_lista->fields['codped']."'","SQL_NONE","N");
+             if ($rs_nota->fields[0] > 0){
+             	$tipo_nf = "M1+SR";  // TEM FATURAMENTO ANTECIPADO
+             }else{
+             
+                 if ($rs_lista->fields['codemp_pis'] == $empresa or $rs_lista->fields['codemp_pis'] == 0 ){
+                 
+                    $faixa_cep = substr($rs_lista->fields['cep'], 0, 5);
+                   
+                        if ($faixa_cep >= 36000 and $faixa_cep <= 36099){
+                             
+                             $rs_prod = $db->query_db("SELECT COUNT(*) FROM pedidoprod, produtos WHERE pedidoprod.codprod=produtos.codprod and codcat = 35 and codped = '".$rs_lista->fields['codped']."'","SQL_NONE","N");
+                             if ($rs_prod->fields[0] > 0){
+                                $tipo_nf = "CF+M1"; // NOTEBOOK
+                                
+                             }else{
+                                $tipo_nf = "CF";  // NAO EH NOTEBOOK
+                             }              
+                        }else{
+                            $tipo_nf = "CF+M1";  // FORA DE JUIZ DE FORA
+                        }
+                 }else{
+                    $tipo_nf = "FA";  // FATURAMENTO ANTECIPADO	
+                 }
+             }
+        
+         $verif_ie = "";
+        // PESSOA JURIDICA
+        }else{
+        	
+            if ($rs_lista->fields['ie'] == 'ISENTO' or $rs_lista->fields['ie'] == 'ISENTA'){
+            
+            	$rs_nota = $db->query_db("SELECT COUNT(*) FROM pedidonf WHERE modo_nf = 'FA' and codped = '".$rs_lista->fields['codped']."'","SQL_NONE","N");
+                 if ($rs_nota->fields[0] > 0){
+                    $tipo_nf = "M1+SR";  // TEM FATURAMENTO ANTECIPADO
+                 }else{
+                 	  if ($rs_lista->fields['codemp_pis'] == $empresa or $rs_lista->fields['codemp_pis'] == 0){
+                   		 $tipo_nf = "CF+M1";  
+                      }else{
+                      	 $tipo_nf = "FA";  
+                      }
+                 }    	
+            }else{	
+       			 $tipo_nf = "M1";  // POSSUI INSCRICAO                
+            }
+            
+            $verif_ie = "Conferir INSCRIÇÃO ESTADUAL da Pessoa Juridica";
+        }
+        
+         // VERIFICA MD5 ENDERECO DE ENTREGA COM ENDERECO CLIENTE
+         $endereco = $rs_lista->fields['endereco'].";".$rs_lista->fields['numero'].";".$rs_lista->fields['complemento'].";".$rs_lista->fields['cep'].";".$rs_lista->fields['bairro'].";".$rs_lista->fields['cidade'].";".$rs_lista->fields['estado'].";";
+         $md5_endereco = $prod->geraMD5($endereco);    		
+         $md5_endereco_entrega = $prod->geraMD5($rs_lista->fields['endentrega']);      
+         if ( $md5_endereco != $md5_endereco_entrega){if ($rs_lista->fields['modoentr'] != 'RETIRA' and $rs_lista->fields['modelo_ped'] != 'DST'){$dif_end ="CONFERIR O ENDEREÇO DE ENTREGA E VERIFICAR A NECESSIDADE DE EMISSAO DE NOTA FISCAL DE REMESSA ORDEM";}else{$dif_end = "";}}else{$dif_end ="";}
+         
+          // VERIFICA PARCELA DE BOLETA
+          $rs_fat = $db->query_db("SELECT COUNT(*) as fat FROM pedidoparcelas, formapg WHERE tipoparc ='FT' and pedidoparcelas.tipo = formapg.opcaixa and codped = '".$rs_lista->fields['codped']."'","SQL_NONE","N");
+          if ($rs_fat->fields[0] > 0) {$descfat="FAT";}else{$descfat="";}
+          
+          //COR EMPRESA
+          $rs_cor = $db->query_db("SELECT cor FROM empresa WHERE codemp = '".$rs_lista->fields['codemp_pis']."'","SQL_NONE","N");
+          if ($rs_cor->fields[0]){$bgcoremp = $rs_cor->fields[0];}else{$bgcoremp = '#FFFFFF';}
+          
+          $rs_cupom = $db->query_db("SELECT nf FROM pedidonf WHERE modo_nf = 'CF' and codped = '".$rs_lista->fields['codped']."'","SQL_NONE","N");
+          
+        
+        
+?>
+      <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+        <td align="center" class="noramlTableCell" style="color: #000000; background-color: <? echo $bgcoremp;?>;"> <?
+
+	
+         if ($rs_cupom)
+{
+ 
+	$ix = 0;
+	while (!$rs_cupom->EOF)
+	{
+    if ($rs_cupom->fields[0]){
+    	echo "<img src='".DIR_IMAGES."/idea.png' border='0'><BR><BR>";
+    	echo "<b>CF:</b> (".$rs_cupom->fields[0].")";
+    }
+    	$ix++;
+		$rs_cupom->MoveNext();
+	}//WHILE
+}
+         
+?>         </td>
+         <td align="center" class="noramlTableCell"><strong><? echo $tipo_nf; ?></strong>
+       
+         </td>
+         <td align="center" class="noramlTableCell"><? echo $img; ?></td>
+   
+     
+        <td align="center" class="noramlTableCell" style="color: #000000; background-color: <? echo $bgcorlinha;?>;"><a href="<? echo"$PHP_SELF?pg=24&pg_ped=2&codped=".$rs_lista->fields['codped']."&codch_pesq=".$rs->fields['codch']."&Action=update"; ?>" class="lkverde2" target="ifpg"><strong><? echo $rs_lista->fields['codbarra']; ?></strong></a><br><? echo $aguard; ?><br><? echo $descfat; ?></td>
+        <td class="noramlTableCell" style="color: #000000; background-color: <? echo $bgcorlinha;?>;"><strong><? echo $rs_lista->fields['nomecli']; ?></strong></td>
+        <td align="center" class="noramlTableCell" style="color: #000000; background-color: <? echo $bgcorlinha;?>;"><? echo $rs_lista->fields['nomevend']; ?><span style="color: <?echo $cor7;?>";><BR><? echo $ped_ata; ?></span></td>
+        <td class="noramlTableCell" style="color: #000000; background-color: <? echo $bgcorlinha;?>;"><? echo $rs_lista->UserTimeStamp($rs_lista->fields['dataped'],'d/m/Y H:i'); ?></td>
+        <td align="center" class="noramlTableCell" style="color: #000000; background-color: <? echo $bgcorlinha;?>;"><span style="color: <?echo $cor45;?>";><? echo $rs_lista->UserTimeStamp($rs_lista->fields['dataprevent'],'d/m/Y '); ?></span><? echo $rs_lista->fields['modoentr'];?></td>
+        <td align="center" class="noramlTableCell" style="color: #000000; background-color: <? echo $bgcorlinha;?>;"><strong><? echo $rs_lista->fields['status']; ?></strong><br><? echo $mod; ?><br><? echo $logo_pronta; ?></td>
+        <td align="center" class="noramlTableCell" style="color: #FF0000; background-color: <? echo $bgcorlinha;?>;"><strong><? echo $rs_lista->UserTimeStamp($rs_lista->fields['datasol_nf'],'d/m/Y H:i'); ?></strong></td>
+        <td align="center" class="noramlTableCell" style="color: <? echo $cor1;?>; background-color: <? echo $bgcorlinha;?>;"><strong><? echo$rs_lista->fields['contrato']; ?></strong></td>
+        <td align="center" class="noramlTableCell" style="color: <? echo $cor2;?>; background-color: <? echo $bgcorlinha;?>;"><strong><? echo $rs_lista->fields['libentr']; ?></strong></td>
+        <td align="center" class="noramlTableCell" style="color: <? echo $cor3;?>; background-color: <? echo $bgcorlinha;?>;"><strong><? echo $rs_lista->fields['fat']; ?></strong></td>
+        <td align="center" class="noramlTableCell" style="color: <? echo $cor4;?>; background-color: <? echo $bgcorlinha;?>;"><strong><? echo $rs_lista->fields['caixa']; ?></strong></td>
+         </tr>
+      <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+        <td align="center" class="noramlTableCell">&nbsp;</td>
+        <td align="center" class="noramlTableCell">&nbsp;</td>
+        <td align="center" class="noramlTableCell">&nbsp;</td>
+        <td align="center" class="noramlTableCell" style="color: #000000; ">&nbsp;</td>
+        <td colspan="10" class="noramlTableCell" style="color: #FF0000; "><? echo $dif_end; ?><br>
+          <strong><? echo $verif_ie; ?></strong></td>
+        </tr>
+      <?
+	 	$ix++;
+		$rs_lista->MoveNext();
+	}//WHILE
+}
+?>
+    </table>
+      <hr size="1" noshade></td>
+  </tr>
+</form>
+</table>
+</fieldset>
+</body>
+</html>

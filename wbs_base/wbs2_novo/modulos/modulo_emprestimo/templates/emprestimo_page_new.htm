@@ -1,0 +1,113 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<script language="javascript" src="<? echo DIR_JS; ?>/funcoes01.js"></script>
+<script language="javascript">
+
+function DoIt(form)
+{
+	document.form.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=1&Action=pesquisa&empresa=$empresa"; ?>';
+	document.form.target = '_self';
+	document.form.submit();
+}
+</script>
+</head>
+
+<body>
+<?
+$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light);
+?>
+<br>
+<br>
+<table  border="0" cellspacing="2" cellpadding="2">
+  <tr>
+  	<td><? $db->botao(MOD_COR, "Lista de Empréstimos", "", "pg=$pg&pg_ped=", "", ""); ?></td>
+	<td><? $db->botao(MOD_COR, "Emprestar Produtos", "", "pg=$pg&pg_ped=2", "", ""); ?></td>
+    <td><? $db->botao(MOD_COR, "Devolver Produtos", "", "pg=$pg&pg_ped=3", "", ""); ?></td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<br>
+
+<table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+  <form name="form" method="post" target="_self" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&Action=pesquisa&empresa=$empresa"; ?>">
+    <tr>
+      <td rowspan="2" align="center" class="generalGreyBorderBottomTableHeaderCell"><img src="<? echo DIR_IMAGES; ?>/messagebox_warning.png" border="0"></td>
+      <td   width="70%" class="generalGreyBorderBottomTableHeaderCell"><strong>Empresa :</strong></td>
+      <td align="right"   class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+    </tr>
+    <tr>
+      <td  bgcolor="<? echo $bg_cor_light; ?>" class="noramlTableCell"><input name="pg" type="hidden" id="pg" value="<? echo $pg; ?>">
+          <input name="pg_ped" type="hidden" id="pg_ped" value="<? echo $pg_ped; ?>">
+		  
+         </td>
+      <td align="right"  bgcolor="<? echo $bg_cor_light; ?>" class="noramlTableCell"><b><? echo $rs_empresa->fields['nome']; ?></b></td>
+    </tr>
+  </form>
+</table>
+<br>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Lista de Emprestimos </legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<form name="lista" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=100"; ?>" method="post">
+  <tr>
+    <td><table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+      <tr>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+      </tr>
+      <tr>
+        <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+        <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell">Cod </td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">Produto</td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">Codbarra</td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell"><p>Data Emp </p>          </td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">Resp Est </td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">Resp Vend </td>
+      </tr>
+      <?
+if ($rs_emprestimo)
+{
+	while (!$rs_emprestimo->EOF)
+	{
+	
+	    $rs_prod = $db->query_db("SELECT nomeprod FROM produtos WHERE codprod = '".$rs_emprestimo->fields['codprod']."'" ,"SQL_NONE","N");
+		 $rs_login_est = $db->query_db("SELECT nome FROM vendedor WHERE codvend = '". $rs_emprestimo->fields['login_est']."'" ,"SQL_NONE","N");
+		  $rs_login_vend = $db->query_db("SELECT nome FROM vendedor WHERE codvend = '". $rs_emprestimo->fields['login_vend']."'" ,"SQL_NONE","N");
+        
+?>
+      <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+        <td align="center" class="noramlTableCell"><input name="rows_codsedex[<? echo $i; ?>]" type="checkbox" id="id_rows_codsedex<? echo $i; ?>" value="<? echo $rs_lista->fields['codsedex']; ?>"></td>
+        <td align="center" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;"><? echo $rs_emprestimo->fields['codprod'] ?></td>
+        <td class="noramlTableCell"><? echo $rs_prod->fields['nomeprod'] ?></td>
+        <td align="center" class="noramlTableCell"><strong><? echo $rs_emprestimo->fields['codbarra'] ?></td>
+        <td align="center" class="noramlTableCell"><? echo $rs_emprestimo->fields['dataemprestimo'] ?></td>
+        <td align="center" class="noramlTableCell"><strong><? echo  $rs_login_est->fields['nome'] ?></strong></td>
+        <td align="center" class="noramlTableCell"><strong><? echo  $rs_login_vend->fields['nome'] ?></strong></td>
+      </tr>
+        <?
+	 	$rs_emprestimo->MoveNext();
+	}//WHILE
+}
+?>
+    </table>
+      <hr size="1" noshade>
+      <p>
+    
+        <br>
+      </p>
+      </td>
+  </tr>
+</form>
+</table>
+</fieldset>
+</body>
+</html>

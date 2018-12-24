@@ -1,0 +1,355 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="wbs2/css/sistema.css" rel="stylesheet" type="text/css">
+<link href="../css/sistema.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" type="text/JavaScript">
+<!--
+<!--
+
+//-->
+function doTwo(form3, codcat, codprod, codcj, preco, codped, ordem)
+{
+var campo = "qtde"+codprod;
+
+var qtde= document.getElementById("qtde["+codprod+"]").value;
+
+document.form3.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=8&"; ?>Action=adiciona&codprodselect='+ codprod +'&codcatselect='+codcat+'&codcjselect='+codcj+'&precoselect='+preco+'&codpedselect='+codped+'&qtdeselect='+qtde+'&ordemselect='+ordem+'';
+document.form3.target = 'iprodutoadc';
+document.form3.submit();
+
+document.form3.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=6&"; ?>codprodselect='+ codprod +'&codcatselect='+codcat+'&codcjselect='+codcj+'&precoselect='+preco+'&codpedselect='+codped+'&ordemselect='+ordem+'';
+document.form3.target = 'icarrinho';
+document.form3.submit();
+
+}
+//-->
+
+var NameArray2 = new Array();
+var ValueArray2 = new Array();
+
+<?
+	for($i = 1; $i <= count($array_pesq); $i++ ){
+?>
+NameArray2[<? echo"$i"; ?>] = new Array(<? echo"$nomesubcat_pesq[$i]"; ?>);
+ValueArray2[<? echo"$i"; ?>] = new Array(<? echo"$codsubcat_pesq[$i]"; ?>);
+<?
+	}//FOR
+?>
+
+function changePesq(){
+ // Obtain the first dimension position of the currently selected theaterRegion
+ //
+
+  var cjIX = document.forms["pesq"].cjPesq.selectedIndex;
+
+  if (cjIX > 0){
+   // set the length of the new multi-option
+   //
+
+   	 // CALCULA O NUMERO DE LINHAS DO FOR
+    document.forms["pesq"].elements["pesqSelect"].options.length = NameArray2[cjIX].length +1;
+
+    // LINHA INICIAL DO MENU SELECT
+    document.forms["pesq"].elements["pesqSelect"].options[0].text = "=> Selecione a Subcategoria";
+    document.forms["pesq"].elements["pesqSelect"].options[0].value = "";
+
+    for (var j=0; j < NameArray2[cjIX].length; j++)
+    {
+      document.forms["pesq"].elements["pesqSelect"].options[j+1].text = NameArray2[cjIX][j];
+      document.forms["pesq"].elements["pesqSelect"].options[j+1].value = ValueArray2[cjIX][j];
+    }
+  }
+  else
+  {
+   // User has reselected the blank 'region' option
+   //
+    document.forms["pesq"].elements["pesqSelect"].options.length = 2;
+    document.forms["pesq"].elements["pesqSelect"].options[0].text = "Selecione a Subcategoria";
+    document.forms["pesq"].elements["pesqSelect"].options[0].value = "";
+    document.forms["pesq"].elements["pesqSelect"].options[1].text = "Selecione a Categoria primeiro";
+    document.forms["pesq"].elements["pesqSelect"].options[1].value = "";
+  }
+}//-->
+
+function verifyzip(form1, codped)
+	{
+	document.form1.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=16&"; ?>Action=pesq_cep&codpedselect='+codped+'#entrega';
+	document.form1.target = '';
+	document.form1.submit();
+	}
+	
+function ShowCep()
+	{
+	open('http://www.correios.com.br/servicos/cep/cep_default.cfm','ShowCep','location=no,resize=no, width=730,height=400,left=18,top=18,maximized=0,scrollbars=1');
+	}
+	
+function ajustqtde(form ,element) {
+
+	if (element.value > 100){
+		return 100;
+	}else{
+		return element.value;
+	}
+	if (element.value == '' || element.value == 0){
+		return 0;
+	}
+}
+
+
+var duplaSubmissao = 0;
+
+function Envia(tipo)
+{
+  if (duplaSubmissao > 0)
+  {
+    alert("Por favor, aguarde. Proposta já enviada ao sistema.");
+    return false;
+  }
+
+if (document.form1.cep.value == "")
+       {
+ 	 alert("Por favor, preencha corretamente o Cep");
+         document.form1.cep.focus();
+         return false;
+       }
+if (document.form1.enderecoentr.value == "")
+       {
+ 	 alert("Por favor, preencha corretamente o Endereço");
+         document.form1.enderecoentr.focus();
+         return false;
+       }
+if (document.form1.numentr.value == "")
+       {
+ 	 alert("Por favor, preencha corretamente o Numero");
+         document.form1.numentr.focus();
+         return false;
+       }
+if (document.form1.bairroentr.value == "")
+       {
+ 	 alert("Por favor, preencha corretamente o Bairro");
+         document.form1.bairroentr.focus();
+         return false;
+       }
+if (document.form1.cidadeentr.value == "")
+       {
+ 	 alert("Por favor, preencha corretamente o Cidade");
+         document.form1.cidadeentr.focus();
+         return false;
+       }
+ if (document.form1.dentr.value == "" || document.form1.mentr.value == "" || document.form1.aentr.value == "")
+       {
+ 	 alert("Por favor, informe dia, mês e ano de Previsao de Entrega");
+         document.form1.dentr.focus();
+         return false;
+       }
+
+	 if (tipo == 0){
+        document.form1.submit();
+        }
+
+ duplaSubmissao++;
+
+  return true;
+}
+
+function EndCliente()
+{
+    // Variáveis
+    var xyzcep;
+    var xyzendereco;
+    var xyznumero;
+    var xyzcompl;
+    var xyzbairro;
+    var xyzcidade;
+    var xyzestado;
+
+    // Armazena
+    xyzcep = "<? echo "$abccep"; ?>"
+    xyzendereco = "<? echo "$abcendereco"; ?>";
+    xyznumero = "<? echo "$abcnumero"; ?>";
+    xyzcompl = "<? echo "$abccomplemento"; ?>";
+    xyzbairro = "<? echo "$abcbairro"; ?>";
+    xyzcidade = "<? echo "$abccidade"; ?>";
+    xyzestado = "<? echo "$abcestado"; ?>";
+
+    if (form1.endcli.checked)
+    {
+        // Copia
+        document.getElementById("cep").value = xyzcep;
+        document.getElementById("enderecoentr").value = xyzendereco;
+        document.getElementById("numentr").value = xyznumero;
+        document.getElementById("complementoentr").value = xyzcompl;
+        document.getElementById("bairroentr").value = xyzbairro;
+        document.getElementById("cidadeentr").value = xyzcidade;
+        document.getElementById("estadoentr").value = xyzestado;
+    } else {
+        document.getElementById("cep").value = "";
+        document.getElementById("enderecoentr").value = "";
+        document.getElementById("numentr").value = "";
+        document.getElementById("complementoentr").value = "";
+        document.getElementById("bairroentr").value = "";
+        document.getElementById("cidadeentr").value = "";
+        document.getElementById("estadoentr").value = "";
+    }
+}
+//-->
+</script>
+</head>
+
+<body>
+<table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><img src="wbs2/images/produtosadicionais.gif" width="255" height="40"></td>
+  </tr>
+  <tr>
+    <td background="wbs2/images/spacer.gif" bgcolor="#D9AD00"><img src="wbs2/images/spacer.gif" width="1" height="1"></td>
+  </tr>
+</table>
+<br>
+<table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0" class="tblistpecasadicionais3">
+  <tr>
+    <td><iframe src="modped_iproduto_list.htm" name="iformpg" width="100%" marginwidth="0" height="200" marginheight="0" scrolling="yes" frameborder="0"></iframe></td>
+  </tr>
+</table>
+<br>
+<table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0" class="tblistpecasadicionais3">
+  <tr>
+    <td><iframe src="modped_iproduto_mod.htm" name="ivalor" width="100%" marginwidth="0" height="200" marginheight="0" scrolling="yes" frameborder="0"></iframe></td>
+  </tr>
+</table>
+<br>
+<table width="100%"  border="0" align="center" cellpadding="3" cellspacing="0">
+  <tr>
+    <td width="33%"><a href="<? echo "$PHP_SELF?pg=$pg&pg_ped=2&codpedselect=$codpedselect"; ?>"><img src="wbs2/images/btvoltarcarrinhoyellow.gif" width="91" height="30" border="0"></a></td>
+    <td>&nbsp;</td>
+    <td width="34%" align="right"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=5&Action=grava&codpedselect=$codpedselect&placaSelect=$placaSelect"; ?>"><img src="wbs2/images/btguardarcarrinho.gif" width="98" height="30" border="0"></a></td>
+  </tr>
+</table>
+<br>
+<a name="pesq"></a>
+<table width="100%"  border="0" cellspacing="2" cellpadding="2">
+  <tr>
+    <td align="right">&nbsp;</td>
+    <td><input name="endcli" type="checkbox" id="endcli" value="checkbox" OnClick="javascript:EndCliente(this.form);">
+        <strong>ENTREGAR NO ENDERE&Ccedil;O DO CLIENTE</strong></td>
+  </tr>
+  <tr>
+    <td width="40%" align="right"><img src="wbs2/images/preenchecep.gif" width="221" height="22"></td>
+    <td><input name="cep" type="text" class="cmp1" id="cep" size="9" maxlength="8" value ="<? echo"$cep"; ?>" onBlur ="verifyzip(form1, <? echo"$codpedselect"; ?>);">
+      (Ex. 99999999) <a href="javascript:ShowCep();">N&atilde;o sabe o seu CEP?
+      Consulte aqui</a> <br>
+      <span class="vermelhonegrito">
+      <?
+ if ($erro) {
+  echo "$erro";
+  }
+  ?>
+    </span></td>
+  </tr>
+  <tr>
+    <td width="40%" align="right" valign="top"><img src="wbs2/images/cadastro_requerido.gif" width="13" height="11">Endere&ccedil;o:</td>
+    <td><input name="enderecoentr" type="text" class="cmp1" id="enderecoentr" value = "<?=$res['logradouro']?> <?=$res['endereco']?>" size="30">
+        <img src="wbs2/images/cadastro_requerido.gif" width="13" height="11">N&uacute;mero:
+        <input name="numentr" type="text" class="cmp1" id="numentr" value="<?=$numentr?>" size="5" maxlength="10">
+        <strong><br>
+      Aten&ccedil;&atilde;o:</strong> Exclua o n&uacute;mero do campo "Endere&ccedil;o ",
+      se for o caso, e coloque-o no campo "N&uacute;mero". </td>
+  </tr>
+  <tr>
+    <td width="40%" align="right">Complemento:</td>
+    <td><input name="complementoentr" type="text" class="cmp1" id="complementoentr" value="<?=$complementoentr?>" size="30">
+      (Ex. apto. 1234) </td>
+  </tr>
+  <tr>
+    <td width="40%" align="right"><img src="wbs2/images/cadastro_requerido.gif" width="13" height="11">Bairro:</td>
+    <td><input name="bairroentr" id="bairroentr" type="text" class="cmp1"  value ="<?=$res['bairro']?>"></td>
+  </tr>
+  <tr>
+    <td width="40%" align="right"><img src="wbs2/images/cadastro_requerido.gif" width="13" height="11">Cidade:</td>
+    <td><input name="cidadeentr" type="text" class="cmp1"  value ="<?=$res['cidade']?>" id="cidadeentr"></td>
+  </tr>
+  <tr>
+    <td width="40%" align="right"><img src="wbs2/images/cadastro_requerido.gif" width="13" height="11">Estado:</td>
+    <td><select name="estadoentr" class="cmp1" id="estadoentr">
+        <option value="<?=$res['uf']?>" selected="selected">
+        <?=$res['uf']?>
+        </option>
+        <option value="AL">AL</option>
+        <option value="AC">AC</option>
+        <option value="AP">AP</option>
+        <option value="AM">AM</option>
+        <option value="BA">BA</option>
+        <option value="CE">CE</option>
+        <option value="DF">DF</option>
+        <option value="ES">ES</option>
+        <option value="GO">GO</option>
+        <option value="MA">MA</option>
+        <option value="MT">MT</option>
+        <option value="MS">MS</option>
+        <option value="MG">MG</option>
+        <option value="PA">PA</option>
+        <option value="PB">PB</option>
+        <option value="PR">PR</option>
+        <option value="PE">PE</option>
+        <option value="PI">PI</option>
+        <option value="RJ">RJ</option>
+        <option value="RN">RN</option>
+        <option value="RS">RS</option>
+        <option value="RO">RO</option>
+        <option value="RR">RR</option>
+        <option value="SC">SC</option>
+        <option value="SP">SP</option>
+        <option value="SE">SE</option>
+        <option value="TO">TO</option>
+    </select></td>
+  </tr>
+  <tr>
+    <td width="40%" align="right">Ref. Entrega: </td>
+    <td><input name="refentr" type="text" class="cmp1" id="refentr" value="<? echo "$refentr"; ?>" size="50">
+        <br>
+      (Ex: travessa na altura do n&ordm; 4600 da Av. Celso Garcia.) </td>
+  </tr>
+  <tr>
+    <td width="40%" height="22" align="right"><img src="wbs2/images/cadastro_requerido.gif" width="13" height="11">Previs&atilde;o
+      de Entrega: </td>
+    <td><input name="dentr" type="text" class="cmp1" id="dentr" value="<? echo"$dentr"; ?>" size="2" maxlength="2">
+      /
+        <input name="mentr" type="text" class="cmp1" id="mentr" value="<? echo"$mentr"; ?>" size="2" maxlength="2">
+      /
+      <input name="aentr" type="text" class="cmp1" id="aentr" value="<? echo"$aentr"; ?>" size="4" maxlength="4">
+&nbsp;&nbsp;
+      <input name="hprevm" type="checkbox" id="hprevm" value="MANHA">
+      MANH&Atilde;
+      <input name="hprevt" type="checkbox" id="hprevt" value="TARDE">
+      TARDE</td>
+  </tr>
+  <tr>
+    <td align="right"><img src="wbs2/images/cadastro_requerido.gif" width="13" height="11">Modo
+      Entrega </td>
+    <td><input name="modoentr" type="radio" value="RETIRA">
+      RETIRA
+        <input name="modoentr" type="radio" value="ENTREGA" checked>
+      ENTREGA (TRANSPORTADORA)
+      <? if ($tipovend <> "R"){ ?>
+      <input name="modoentr" type="radio" value="MOTOBOY">
+      MOTOBOY
+      <? }?></td>
+  </tr>
+  <tr>
+    <td align="right">Obs.: Entrega</td>
+    <td><textarea name="obsentr" cols="50" rows="2" class="cmp1" id="obsentr"><? echo"$obsentr"; ?></textarea></td>
+  </tr>
+  <tr>
+    <td align="right">Obs.: Montagem </td>
+    <td><textarea name="obsmont" cols="50" rows="2" class="cmp1" id="obsmont"><? echo"$obsmont"; ?></textarea></td>
+  </tr>
+  <tr>
+    <td align="right">Obs.: Financeiro </td>
+    <td><textarea name="obsfin" cols="50" rows="2" class="cmp1" id="obsfin"><? echo"$obsfin"; ?></textarea></td>
+  </tr>
+</table>
+<br>
+</body>
+</html>

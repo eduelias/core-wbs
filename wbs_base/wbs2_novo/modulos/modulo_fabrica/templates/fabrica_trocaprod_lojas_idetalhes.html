@@ -1,0 +1,241 @@
+<html>
+<head>  
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+.style4 {font-size: x-small; font-weight: bold; }
+.style5 {font-size: x-small}
+.style7 {font-size: 18px}
+.style11 {
+	font-size: 18px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+}
+.style12 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #FF0000;
+	font-weight: bold;
+	font-size: 18px;
+}
+.style13 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #0000FF;
+	font-size: 18px;
+	font-weight: bold;
+}
+.style14 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #006600;
+	font-weight: bold;
+	font-size: 18px;
+}
+.style18 {color: #FF6600; font-size: 18px; font-weight: bold; font-family: Verdana, Arial, Helvetica, sans-serif; }
+.style20 {font-size: 14px; font-weight: bold; font-family: Verdana, Arial, Helvetica, sans-serif; }
+.style28 {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px; }
+.style33 {font-size: 12px; font-weight: bold; font-family: Verdana, Arial, Helvetica, sans-serif; }
+-->
+</style></head>
+
+<body>
+ 
+
+<p>
+  <?if ($rs_prod->_numOfRows <> 0 and $troca_efetuada == 0){?>
+  <br>
+</p>
+<table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+<form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=100&menu_not=1"; ?>" method="post" name="pesquisa" target="iped">
+  <tr>
+    <td align="center" bgcolor="#FFFFFF" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+    <td colspan="3" align="left" bgcolor="#FFFFFF" class="noramlTableCell"><strong><big><big>PRODUTO: </big></big></strong><br></td>
+    </tr>
+  <tr bgcolor="#E1E1E1">
+    <td width="10%" align="center" bgcolor="#FFFFFF" class="generalGreyBorderBottomTableHeaderCell">CodProd</td>
+    <td width="65%" align="center" bgcolor="#FFFFFF" class="generalGreyBorderBottomTableHeaderCell">Nome Produto </td>
+    <td width="25%" align="center" bgcolor="#FFFFFF" class="generalGreyBorderBottomTableHeaderCell">N&uacute;mero S&eacute;rie</td>
+    <td width="25%" align="center" bgcolor="#FFFFFF" class="generalGreyBorderBottomTableHeaderCell">Garantia<br>
+      (m&ecirc;s)</td>
+  </tr>
+ 
+
+  <tr bgcolor="#E1E1E1" style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+    <td align="center" bgcolor="#FFCC33" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;"><span class="style7"><? echo $codprod_pesq ?></span></td>
+    <td bgcolor="#FFCC33" class="noramlTableCell"><span class="style7"><strong><? echo $db->format_str("UP", $nomeprod_pesq); ?></strong></span></td>
+    <td align="center" bgcolor="#FFCC33" class="noramlTableCell"><span class="style7"><? echo $codbarra_pesq ?></span></td>
+    <td align="center" bgcolor="#FFCC33" class="noramlTableCell"><span class="style7"><? echo $rs_garantia->fields[0]; ?></span></td>
+  </tr>
+     <?
+ if ($idop_sn_pesq){
+ 
+ ?>
+   <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+   <td align="center" bgcolor="#FFFFCC" class="noramlTableCell" style="color: #FFFFFF; background-color: #FFFFFF;"></td>
+   <td bgcolor="#FFFFCC" class="noramlTableCell"> <strong>MICRO: </strong><? echo $codprod_pesqm ?> - <? echo $db->format_str("UP", $nomeprod_pesqm); ?>   </td>
+   <td align="center" bgcolor="#FFFFCC" class="noramlTableCell"><? echo $sn_pesqm ?></td>
+   <td align="center" bgcolor="#FFFFCC" class="noramlTableCell">&nbsp;</td>
+   </tr>
+    <?
+ }
+ 
+ ?>
+  <tr>
+    <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+    <td align="left" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+    <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+    <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+  </tr>
+ 
+      <?
+      $rs_pedido->Move(0);
+      if ($rs_pedido)
+			{
+				
+				while (!$rs_pedido->EOF)
+				{
+					
+				$numnf_ped = $rs_pedido->fields[0];
+				$datanf_ped = $rs_pedido->fields[1];
+				$valornf_ped = $rs_pedido->fields[2];
+				$modonf_ped = $rs_pedido->fields[3];
+				$codemp_ped = $rs_pedido->fields[4];
+				$nomecli_ped = $rs_pedido->fields[5];
+                $codbarraped_ped = $rs_pedido->fields[6];
+                $dataped_ped = $rs_pedido->fields[7];
+				$doc_ped = $rs_pedido->fields[8];
+                $gar_ped = $rs_pedido->fields[9];
+                $gar1_ped = $rs_pedido->fields[10];
+                $venc_gar = $rs_pedido->fields[11];
+				if ($venc_gar == ""){$gar_ped = 0;}
+				#echo "garantia = ". $gar_ped;
+				
+      
+      ?>
+     
+      <?
+      $rs_pedido->MoveNext();
+				}//WHILE
+			}
+        
+      ?>
+    </table>      </td>
+    </tr>
+
+  <?
+ 
+ 
+ ?>
+</form>
+</table>
+<br>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="33%" class="style11">STATUS GARANTIA:</td>
+    <td width="67%"><? if($gar_ped == 0){if ($venc_gar == ""){?> <span class="style14 ">PRODUTO NÃO ENTREGUE - <? echo $venc_gar;?></span> <?}else{?> <span class="style12 style7">PRODUTO FORA DA GARANTIA - <? echo $venc_gar;?></span> <?}}else{?><span class="style13">PRODUTO EM GARANTIA - <? echo $venc_gar;?></span><?}?></td>
+  </tr>
+</table>
+<br>
+ <?
+ if ($gar_ped == 1 or $codgrp_vend == 2 or $codgrp_vend == 22){
+ 
+ ?>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="33%" class="style11">FORMA GARANTIA:</td>
+    <td width="67%">
+    <? switch ($tipo_garantia) {
+
+    case "A":
+       ?><span class="style18">TIPO A </span><br><span class="style20">Trocar na Loja</span>
+<?
+        break;
+    
+    case "B":
+    	 ?><span class="style18">TIPO B</span><br><?
+    	if ($gar1_ped == 1){
+		 ?><span class="style20">Trocar na Loja somente se o produto estiver MORTO, senão encaminhar para a ASSISTÊNCIA TÉCNICA IPASOFT</span><?
+         }else{
+          ?><span class="style20">Encaminhar para a ASSISTÊNCIA TÉCNICA IPASOFT</span><?
+         }
+		break;
+   
+    case "C":
+        ?><span class="style18">TIPO C</span><br><?
+    	if ($gar1_ped == 1){
+		 ?><span class="style20">Trocar na Loja somente se o produto estiver MORTO, senão encaminhar para a ASSISTÊNCIA TÉCNICA do FABRICANTE</span><?
+         }else{
+          ?><span class="style20">Encaminhar para a ASSISTÊNCIA TÉCNICA do FABRICANTE</span><?
+         }
+		break;
+    case "D":
+       ?><span class="style18">TIPO D</span><br><span class="style20">Encaminhar para a ASSISTÊNCIA TÉCNICA IPASOFT</span><?
+		break;
+    case "E":
+       ?><span class="style18">TIPO E</span><br><span class="style20">Encaminhar para a ASSISTÊNCIA TÉCNICA do FABRICANTE</span><?
+		break;
+     case "X":
+       ?><span class="style18">TIPO X</span><br><span class="style20">Produto NÃO CLASSIFICADO</span><?
+		break;
+}
+?>      </td>
+  </tr>
+</table> 
+<?
+ if ($tipo_garantia == "A" or (($tipo_garantia == "B" OR $tipo_garantia == "C") AND $gar1_ped == 1) or $codgrp_vend == 2 or $codgrp_vend == 22 or $codgrp_vend == 64 or $codgrp_vend == 20 or $codgrp_vend == 4 or $codgrp_vend == 74){
+ 
+ ?>
+   <br>
+<table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+  <form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=100&menu_not=1"; ?>" method="post" name="pesquisa" target="iped">
+  <tr bgcolor="#E1E1E1">
+    <td width="10%" align="center" bgcolor="#FFFFFF" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+    <td align="center" bgcolor="#FFFFFF" class="generalGreyBorderBottomTableHeaderCell">N&uacute;mero S&eacute;rie Produto Novo</td>
+    </tr>
+  <tr bgcolor="#E1E1E1" style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+    <td align="center" bgcolor="#FFCC33" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">&nbsp;</td>
+    <td align="center" bgcolor="#FFCC33" class="noramlTableCell"><span class="style7">
+      <input type="text" name="cb_novo" id="cb_novo">
+      <input type="submit" name="button" id="button" value="Enviar">
+      <input name="sn_pesq" type="hidden" id="sn_pesq" value="<? echo $_POST['sn_pesq'];?>">
+    </span></td>
+    </tr>
+  </form>
+</table>
+<br>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    
+    <td width="100%" align="center"><? if($troca_rejeitada == 1){?> <span class="style12 style7">NÚMERO DE SÉRIE NÃO EXISTE<BR> 
+    OU NÃO PODE SER TROCADO</span><?}?></td>
+  </tr>
+</table>
+<p>
+  <? 
+  }// ESTOQUE
+  }//GARANTIA
+  
+  }else{?>
+  <BR>
+  <BR>
+  <BR>
+</p>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="100%" class="style11" align="center">ATENÇÃO:<BR>
+   <? if($troca_efetuada == 1){?> <span class="style14 ">TROCA EFETUADA COM SUCESSO</span><?}else{?> <span class="style14 ">NÚMERO DE SÉRIE NÃO CONSTA EM NENHUM PEDIDO<br>
+    OU N&Atilde;O EXISTE NO SISTEMA</span><?}?></td>
+   
+  </tr>
+</table>
+  <?}?>
+</p>
+</body>
+</html>

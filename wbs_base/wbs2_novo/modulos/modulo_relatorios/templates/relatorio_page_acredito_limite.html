@@ -1,0 +1,285 @@
+
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../../../css/saci.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/saci.css" rel="stylesheet" type="text/css">
+
+<title></title>
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+.style5 {font-size: 10px; font-weight: bold; }
+.style6 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #009933;
+}
+-->
+</style>
+ 
+</head>
+
+<body>
+<table width="100%" border="0">
+  <tr>
+    <td class="limite" >&nbsp;</td>
+    <td class="limite" ><span class="style5">PR&Oacute;PRIO</span></td>
+    <td class="limite" ><span class="style5">AVALISTA</span></td>
+    <td class="limite" ><span class="style5">TOTAL</span></td>
+  </tr>
+  <tr>
+    <td class="limite" >&nbsp;</td>
+    <td class="limite" >&nbsp;</td>
+    <td class="limite" >&nbsp;</td>
+    <td class="limite" >&nbsp;</td>
+  </tr>
+  <tr bgcolor="#66CC66">
+    <td width="60%" class="limite" ><strong>TOTAL COMPRADO: </strong></td>
+    <td class="limite" >R$ 
+      <?  echo $db->fvalor($valorcar_total); ?>    </td>
+    <td class="limite" >R$
+      <?  echo $db->fvalor($valoracar_total); ?>    </td>
+    <td class="limite" ><strong>R$
+      <?  echo $db->fvalor($valorcar_total + $valoracar_total); ?>
+    </strong></td>
+  </tr>  
+  <tr bgcolor="#66CC66">
+    <td width="60%" class="limite" ><strong>TOTAL PAGO: </strong></td>
+    <td class="limite" >R$ <? echo $db->fvalor($valorcar_pg); ?></td>
+    <td class="limite" >R$ <? echo $db->fvalor($valoracar_pg); ?></td>
+    <td class="limite" ><strong>R$ <? echo $db->fvalor($valorcar_pg + $valoracar_pg); ?></strong></td>
+  </tr>
+  <tr>
+    <td width="60%" class="limite_atraso" ><strong>TOTAL EM ATRASO:</strong></td>
+    <td class="limite_atraso" >R$ <? echo $db->fvalor($valorcar_dv); ?></td>
+    <td class="limite_atraso" >R$ <? echo $db->fvalor($valoracar_dv); ?></td>
+    <td class="limite_atraso" ><strong>R$ <? echo $db->fvalor($valorcar_dv + $valoracar_dv); ?></strong></td>
+  </tr>
+  <tr>
+    <td width="60%" class="limite_av" ><strong>TOTAL A VENCER:</strong></td>
+    <td class="limite_av" >R$ <? echo $db->fvalor($valorcar_av); ?></td>
+    <td class="limite_av" >R$ <? echo $db->fvalor($valoracar_av); ?></td>
+    <td class="limite_av" ><strong>R$ <? echo $db->fvalor($valorcar_av + $valoracar_av); ?></strong></td>
+  </tr>
+  <tr>
+    <td class="limite_atraso" ><strong>TOTAL EM ATRASO ACORDO:</strong></td>
+    <td class="limite_atraso" >R$ <? echo $db->fvalor($valorcar_dv_acor); ?></td>
+    <td class="limite_atraso" >&nbsp;</td>
+    <td class="limite_atraso" ><strong>R$ <? echo $db->fvalor($valorcar_dv_acor); ?></strong></td>
+  </tr>
+  <tr>
+    <td class="limite_av" ><strong>TOTAL A VENCER ACORDO:</strong></td>
+    <td class="limite_av" >R$ <? echo $db->fvalor($valorcar_av_acor); ?></td>
+    <td class="limite_av" >&nbsp;</td>
+    <td class="limite_av" ><strong>R$ <? echo $db->fvalor($valorcar_av_acor); ?></strong></td>
+  </tr>
+  <tr bgcolor="#FFCC66">
+    <td class="limite"><strong>TOTAL A RECEBER:</strong></td>
+    <td class="limite">R$ <strong><? echo $db->fvalor($valorcar_dv + $valorcar_av + $valorcar_dv_acor + $valorcar_av_acor); ?></strong></td>
+    <td class="limite">R$ <? echo $db->fvalor($valoracar_dv + $valoracar_av); ?></td>
+    <td class="limite"><strong>R$ <? echo $db->fvalor($valorcar_dv + $valorcar_av + $valorcar_dv_acor + $valorcar_av_acor + $valoracar_dv + $valoracar_av); ?></strong></td>
+  </tr>
+  <tr>
+    <td class="limite"><strong>LIMITE CREDITO:</strong></td>
+    <td class="limite">&nbsp;</td>
+    <td class="limite">&nbsp;</td>
+    <td class="limite">R$ <? echo $db->fvalor($limite); ?></td>
+  </tr>
+   <tr bgcolor="#B6C6FC">
+    <td width="60%" class="limite"><strong>SALDO DISPONIVEL PARA COMPRAS:</strong></td>
+    <td class="limite">&nbsp;</td>
+    <td class="limite">&nbsp;</td>
+    <td class="limite"><strong>R$ <? echo $db->fvalor($limite - ($valorcar_dv + $valorcar_av + $valorcar_dv_acor + $valorcar_av_acor + $valoracar_dv + $valoracar_av)); ?></strong></td>
+  </tr>
+</table>
+<p align="center"><strong><span class="style6">PONTUALIDADE DE PAGAMENTO<br>
+  <br>
+</span></strong>
+
+<table width="100%" border="1" cellspacing="0" cellpadding="2">
+  <tr>
+    <td width="25%" class="limite">&nbsp;</td>
+    <td width="10%" class="limite"><div align="center"><strong>QTDE</strong></div></td>
+    <td width="8%" class="limite"><div align="center"><strong>%</strong></div></td>
+    <td width="27%" class="limite"><div align="center"><strong>VALOR</strong></div></td>
+    <td width="7%" class="limite"><div align="center"><strong>%</strong></div></td>
+    <td width="23%" rowspan="6" bgcolor="#CCFFCC" class="limite"><div align="center"><strong>TITULOS PR&Oacute;PRIOS</strong><br>
+      (4 &uacute;ltimos meses)<br>
+    </div></td>
+  </tr>
+  <tr>
+    <td class="limite"><strong>Em dia ( 0 a 3 dias)</strong></td>
+    <td class="limite">
+      <div align="center">
+        <?  echo $per0a3; ?>
+      </div></td>
+    <td class="limite">
+      <div align="center">
+        <?  if($per_total<>0){echo $db->fvalor(($per0a3/$per_total)*100);} ?>
+      </div></td>
+    <td class="limite"><div align="center">
+      <?  echo $db->fvalor($val0a3); ?>
+    </div></td>
+    <td class="limite"><div align="center">
+      <?   if($val_total<>0){echo $db->fvalor(($val0a3/$val_total)*100);} ?>
+    </div></td>
+  </tr>
+  <tr>
+   <td class="limite"><strong>4 a 14 dias</strong></td>
+    <td class="limite"><div align="center">
+      <?  echo $per4a14; ?>
+    </div></td>
+    <td class="limite"><div align="center">
+      <?  if($per_total<>0){echo $db->fvalor(($per4a14/$per_total)*100);} ?>
+    </div></td>
+    <td class="limite"><div align="center">
+      <?  echo $db->fvalor($val4a14); ?>
+    </div></td>
+    <td class="limite"><div align="center">
+      <?  if($val_total<>0){echo $db->fvalor(($val4a14/$val_total)*100);} ?>
+    </div></td>
+  </tr>
+  <tr>
+    <td class="limite"><strong>15 a 30 dias</strong></td>
+    <td class="limite"><div align="center">
+      <?  echo $per14a30; ?>
+    </div></td>
+    <td class="limite"><div align="center">
+      <?  if($per_total<>0){echo $db->fvalor(($per14a30/$per_total)*100);} ?>
+    </div></td>
+    <td class="limite"><div align="center">
+      <?  echo $db->fvalor($val14a30); ?>
+    </div></td>
+    <td class="limite"><div align="center">
+      <?  if($val_total<>0){echo $db->fvalor(($val14a30/$val_total)*100);} ?>
+    </div></td>
+  </tr>
+  <tr>
+   <td class="limite"><strong>Acima de 30 dias</strong></td>
+    <td class="limite"><div align="center">
+      <?  echo $per30; ?>
+    </div></td>
+    <td class="limite"><div align="center">
+      <?  if($per_total<>0){echo $db->fvalor(($per30/$per_total)*100);} ?>
+    </div></td>
+    <td class="limite"><div align="center">
+      <?  echo $db->fvalor($val30); ?>
+    </div></td>
+    <td class="limite"><div align="center">
+      <?  if($val_total<>0){echo $db->fvalor(($val30/$val_total)*100);} ?>
+    </div></td>
+  </tr>
+  <tr>
+    <td class="limite"><strong>TOTAL</strong></td>
+    <td class="limite"><div align="center">
+      <?  echo $per_total; ?>
+    </div></td>
+    <td class="limite"><div align="center">
+      <?  if($per_total<>0){echo $db->fvalor(($per_total/$per_total)*100);} ?>
+    </div></td>
+    <td class="limite"><div align="center">
+      <?  echo $db->fvalor($val_total); ?>
+    </div></td>
+    <td class="limite"><div align="center">
+      <?  if($val_total<>0){echo $db->fvalor(($val_total/$val_total)*100);} ?>
+    </div></td>
+  </tr>
+</table>
+
+
+<table width="100%" border="1" cellspacing="0" cellpadding="2">
+  <tr>
+    <td width="25%" class="limite">&nbsp;</td>
+    <td width="10%" class="limite"><div align="center"><strong>QTDE</strong></div></td>
+    <td width="8%" class="limite"><div align="center"><strong>%</strong></div></td>
+    <td width="27%" class="limite"><div align="center"><strong>VALOR</strong></div></td>
+    <td width="7%" class="limite"><div align="center"><strong>%</strong></div></td>
+    <td width="23%" rowspan="6" bgcolor="#FFFFCC" class="limite"><div align="center"><strong>AVALISTA</strong><br>
+    (4 &uacute;ltimos meses)</div></td>
+  </tr>
+  <tr>
+    <td class="limite"><strong>Em dia ( 0 a 3 dias)</strong></td>
+    <td class="limite"><div align="center">
+        <?  echo $aper0a3; ?>
+    </div></td>
+    <td class="limite"><div align="center">
+        <?  if($aper_total<>0){echo $db->fvalor(($aper0a3/$aper_total)*100);} ?>
+    </div></td>
+    <td class="limite"><div align="center">
+        <?  echo $db->fvalor($aval0a3); ?>
+    </div></td>
+    <td class="limite"><div align="center">
+        <?  if($aval_total<>0){echo $db->fvalor(($aval0a3/$aval_total)*100);} ?>
+    </div></td>
+  </tr>
+  <tr>
+    <td class="limite"><strong>4 a 14 dias</strong></td>
+    <td class="limite"><div align="center">
+        <?  echo $aper4a14; ?>
+    </div></td>
+    <td class="limite"><div align="center">
+        <?  if($aper_total<>0){echo $db->fvalor(($aper4a14/$aper_total)*100);} ?>
+    </div></td>
+    <td class="limite"><div align="center">
+        <?  echo $db->fvalor($aval4a14); ?>
+    </div></td>
+    <td class="limite"><div align="center">
+        <?   if($aval_total<>0){echo $db->fvalor(($aval4a14/$aval_total)*100);} ?>
+    </div></td>
+  </tr>
+  <tr>
+    <td class="limite"><strong>15 a 30 dias</strong></td>
+    <td class="limite"><div align="center">
+        <?  echo $aper14a30; ?>
+    </div></td>
+    <td class="limite"><div align="center">
+        <?  if($aper_total<>0){echo $db->fvalor(($aper14a30/$aper_total)*100);} ?>
+    </div></td>
+    <td class="limite"><div align="center">
+        <?  echo $db->fvalor($aval14a30); ?>
+    </div></td>
+    <td class="limite"><div align="center">
+        <?   if($aval_total<>0){echo $db->fvalor(($aval14a30/$aval_total)*100);} ?>
+    </div></td>
+  </tr>
+  <tr>
+    <td class="limite"><strong>Acima de 30 dias</strong></td>
+    <td class="limite"><div align="center">
+        <?  echo $aper30; ?>
+    </div></td>
+    <td class="limite"><div align="center">
+        <?  if($aper_total<>0){echo $db->fvalor(($aper30/$aper_total)*100);} ?>
+    </div></td>
+    <td class="limite"><div align="center">
+        <?  echo $db->fvalor($aval30); ?>
+    </div></td>
+    <td class="limite"><div align="center">
+        <?   if($aval_total<>0){echo $db->fvalor(($aval30/$aval_total)*100);} ?>
+    </div></td>
+  </tr>
+  <tr>
+    <td class="limite"><strong>TOTAL</strong></td>
+    <td class="limite"><div align="center">
+        <?  echo $aper_total; ?>
+    </div></td>
+    <td class="limite"><div align="center">
+        <?  if($aper_total<>0){echo $db->fvalor(($aper_total/$aper_total)*100);} ?>
+    </div></td>
+    <td class="limite"><div align="center">
+        <?  echo $db->fvalor($aval_total); ?>
+    </div></td>
+    <td class="limite"><div align="center">
+        <?   if($aval_total<>0){echo $db->fvalor(($aval_total/$aval_total)*100);} ?>
+    </div></td>
+  </tr>
+</table>
+<p>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="<? echo DIR_CSS; ?>/saci.css" rel="stylesheet" type="text/css">
+<title></title>
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+-->
+</style></head>
+
+<body>
+<table width="100%"  border="0" cellpadding="1" cellspacing="1">
+  <? for($i = 0; $i < count($arrayx); $i++ ){ ?>
+  <tr>
+    <td rowspan="2" align="center" valign="middle" class="sacitd2"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=5&menu_not=1&pesqcodcliente=$codcliente_view[$i]&Action=Pesquisar"; ?>" class="lkverde2" target="icodbarra"><? echo "$codcliente_view[$i]"; ?></a></td>
+    <td class="sacitd2"><strong><? echo "$nomecliente_view[$i]"; ?></strong></td>
+    <td class="sacitd2"><? echo "$doccliente_view[$i]"; ?></td>
+    <td class="sacitd2">(<? echo "$dddtel1_view[$i]"; ?>) <? echo "$tel1_view[$i]"; ?></td>
+  </tr>
+  <tr>
+    <td colspan="3" class="sacitd2"><? echo "$endereco_view[$i]"; ?>, <? echo "$numero_view[$i]"; ?> <? echo "$complemento_view[$i]"; ?> - <? echo "$bairro_view[$i]"; ?> CEP: <? echo "$cep_view[$i]"; ?> - <? echo "$cidade_view[$i]"; ?> - <? echo "$uf_view[$i]"; ?></td>
+  </tr>
+  <? }//FOR ?>
+</table>
+</body>
+</html>

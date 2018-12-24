@@ -1,0 +1,28 @@
+a.info{
+    position:relative;
+    color:#000;
+    padding-right: 0px;
+    padding-left: 0;
+    text-decoration:none;
+    cursor:help;
+    border-bottom :1px dashed #b2b2b2;
+    z-index:5;
+}
+a.info:hover{background-color:#fff;z-index:20; text-decoration:none;}
+a.info span{display: none}
+a.info:hover span{
+    display:block;
+    position:absolute;
+    top:20px; left:-100px; width:200px;
+    font-size:11px;
+    padding: 5px;
+    border:1px solid #000;
+    background-color:#FFFFFF; color:#000;
+    text-align: center;
+    cursor:help;
+    z-index:20;
+}
+
+<a class="info" href="#">Browser<span>Programm
+zum Betrachten von Internetseiten. Andere Browser sind z.B. der
+Internet Explorer von Microsoft, Opera oder der Netscape Navigator.</span></a>

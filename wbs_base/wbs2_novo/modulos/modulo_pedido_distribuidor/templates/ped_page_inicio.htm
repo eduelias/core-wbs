@@ -1,0 +1,188 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/sistema.css" rel="stylesheet" type="text/css">
+<script language='JavaScript'>
+
+function EscolheTipo(tipo)
+{
+
+	if (tipo == 1){//CPF
+		document.getElementById("AlertDoc").innerHTML = "CPF: <INPUT name='frmDOC'  id ='frmDOC' onKeyUp=\"mascara_cpf(this.form, 'frmDOC', this.value)\" size=16 maxlength=14 >  <input type='hidden' name='tipo_cli' id='tipo_cli' value='F'> <input type='button' name='button' id='button' value='Pesquisar' onClick=\"verifyCliente(this.form, frmDOC.value, tipo_cli.value)\">  ";   
+	}else{//CNPJ
+		document.getElementById("AlertDoc").innerHTML = "CNPJ: <INPUT name='frmDOC' id='frmDOC' onKeyUp=\"mascara_cnpj(this.form, 'frmDOC', this.value)\"  size=21 maxlength=18 >  <input type='hidden' name='tipo_cli' id='tipo_cli' value='J'> <input type='button' name='button' id='button' value='Pesquisar' onClick=\"verifyCliente(this.form, frmDOC.value, tipo_cli.value)\">   "; 
+	}
+}
+
+
+
+function mascara_cnpj(form, campo, cnpj)
+{
+	var mycpf = '';
+    mycpf = mycpf + cnpj;
+    if (mycpf.length == 2) {
+        mycpf = mycpf + '.';
+        document.getElementById(campo).value = mycpf;
+    }
+    if (mycpf.length == 6) {
+        mycpf = mycpf + '.';
+        document.getElementById(campo).value = mycpf;
+    }
+    if (mycpf.length == 10) {
+        mycpf = mycpf + '/';
+        document.getElementById(campo).value = mycpf;
+    }
+	  if (mycpf.length == 15) {
+        mycpf = mycpf + '-';
+        document.getElementById(campo).value = mycpf;
+    }
+    if (mycpf.length == 18) {
+    }
+}
+
+
+function mascara_cpf(form,campo, cpf)
+{
+	var mycpf = '';
+    mycpf = mycpf + cpf;
+    if (mycpf.length == 3) {
+        mycpf = mycpf + '.';
+        document.getElementById(campo).value = mycpf;
+    }
+    if (mycpf.length == 7) {
+        mycpf = mycpf + '.';
+        document.getElementById(campo).value = mycpf;
+    }
+    if (mycpf.length == 11) {
+        mycpf = mycpf + '-';
+        document.getElementById(campo).value = mycpf;
+    }
+    if (mycpf.length == 14) {
+    }
+}
+
+function verifyCliente(form, frmDOC, tipo_cli)
+{
+	document.form.action = '<? echo"$PHP_SELF?pg=$pg&"; ?>frmDOC='+frmDOC+'&tipo_cli='+tipo_cli+'';
+	document.form.target = '';
+	document.form.submit();
+}
+
+</script>
+</head>
+
+
+
+<body>
+<table width="400"  border="0" align="center" cellpadding="3" cellspacing="0">
+<form action="<? echo "$PHP_SELF?pg=$pg&Action=start"; ?>" method="post" name="form">
+<?
+if ($var_allemp == "Y" or $id_session <> "") {
+if ($var_allemp == "Y") {
+?>
+  <tr class="titulos_itens">
+    <td align="center"><img src="<? echo DIR_IMAGES; ?>/empresaint.gif" width="49" height="48"></td>
+    <td>Selecione a Empresa:</td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><select name="var_codemp">
+<?
+for ($i = 0; $i < count($arrayemp); $i++) {
+
+
+if ($var_tipo <> 'R' and $var_codgrp <> 21 and $var_codgrp <> 62 and $var_codgrp <> 42 and $var_codgrp <> 13 and $var_codgrp <> 56 and $var_codgrp <> 54 and $var_codgrp <> 32){
+
+?>
+	<option value="<? echo "$codemp[$i]"; ?>"><? echo "$nomeemp[$i]"; ?></option>
+<?
+}else{
+	if ($var_tipo <> 'R'){
+		if ($codemp[$i] <> 14){
+		?>
+			<option value="<? echo "$codemp[$i]"; ?>"><? echo "$nomeemp[$i]"; ?></option>
+		<?
+		}
+	}else{
+		if ($codemp[$i] == 1 or $codemp[$i] == 15 or $codemp[$i] == 14 or $codemp[$i] == 20){
+		?>
+			<option value="<? echo "$codemp[$i]"; ?>"><? echo "$nomeemp[$i]"; ?></option>
+		<?
+		}
+	}//IF REVENDAS
+	
+}//GRUPOS
+}//FOR
+?>
+    </select></td>
+  </tr>
+  <tr>
+    <td colspan="2"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="5" height="5"></td>
+  </tr>
+<?
+}
+
+
+?>
+  <tr class="titulos_subcat0">
+    <td align="center"><img src="<? echo DIR_IMAGES; ?>/carrinhocheio.gif" width="49" height="48"></td>
+    <td>Selecione o Cliente</td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><input name="ck" type="radio" value="OK" onClick="EscolheTipo(1);">
+      Fisica
+      <input name="ck" type="radio" value="NO"  onClick="EscolheTipo(0);">
+      Juridica
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><div id = "AlertDoc" style="color:#FF0000"> </div></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><table width="100%" border="0">
+  <tr class="titulos_subcat0">
+    <td width="73%" align="center"><strong>CLIENTE</strong></td>
+    <td width="27%" align="center"><strong>RESP.</strong></td>
+  </tr>
+  <?
+if ($codcliente_cli){
+?>
+  <tr>
+    <td align="center"><b><? echo $nome_cli; ?></b><br><? echo $frmDOC; ?><br><? echo $cidade_cli; ?> - <? echo $estado_cli; ?></td>
+    <td align="center"><b><? echo $logincad_cli; ?></b></td>
+  </tr>
+<?
+}else{
+?>  
+  <tr>
+    <td align="center" colspan="2"><b>Cliente não Encontrado!</b></td>
+   
+  </tr>
+<?
+}
+?>  
+</table>
+</td>
+  </tr>
+  <tr>
+    <td colspan="2"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="5" height="5"></td>
+  </tr>
+<?
+if ($codcliente_cli){
+?>
+ <tr>
+    <td colspan="2" align="center">O VENDEDOR deste pedido passar&aacute; a ser o RESPONS&Aacute;VEL do cliente acima. Deseja continuar? 
+      <input name="codvend_cli" type="hidden" id="codvend_cli" value="<? echo $codvend_cli; ?>">
+        <input name="codcliente_cli" type="hidden" id="codcliente_cli" value="<? echo $codcliente_cli; ?>"></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><input name="imageField" type="image" src="<? echo DIR_IMAGES; ?>/btcontinuar.gif" width="90" height="25" border="0"></td>
+  </tr>
+<?
+}
+}
+?>
+</form>
+</table>
+</body>
+</html>

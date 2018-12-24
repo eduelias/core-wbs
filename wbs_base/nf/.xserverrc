@@ -1,0 +1,20 @@
+# en:
+# This disables tcp listening by X Server
+# by passing -nolisten tcp to X
+# If you want that feature (to share your display in
+# a network for example), comment/remove it.
+#
+# pt_BR:
+# A linha abaixo desabilita conexões remotas ao servidor
+# X. (note que remotas aqui inclui 127.0.0.1 - localhost)
+# através de uma porta TCP.
+# Se você pretende compartilhar seu display com máquinas
+# remotas (em sua rede local por exemplo), comente ou
+# remova a linha abaixo.
+
+X_FLAGS="-nolisten tcp"
+
+
+# en: don't remove this line!
+# pt_BR: Não remova essa linha!
+exec /usr/X11R6/bin/X "$@" $X_FLAGS

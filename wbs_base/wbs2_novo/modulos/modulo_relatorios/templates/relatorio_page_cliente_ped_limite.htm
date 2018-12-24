@@ -1,0 +1,70 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../../../css/saci.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/saci.css" rel="stylesheet" type="text/css">
+
+<title></title>
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+-->
+</style>
+
+</head>
+
+<body>
+<table width="100%" border="0">
+  <tr>
+    <td width="60%" class="limite" ><strong>TOTAL COMPRADO: </strong></td>
+    <td width="40%" class="limite" ><strong>R$ <?  if ($valor_tipo){echo $db->fvalor(array_sum($valor_tipo));} ?></strong></td>
+  </tr>
+  <?
+  if ($valor_tipo){
+  foreach ($valor_tipo as $tipo => $valor) {
+  if ($tipo == '02.00') {$valord = $valor;}
+  $total =$total+$valor;
+  
+  $rs_tipo = $db->query_db("SELECT descricao FROM formapg WHERE opcaixa = '$tipo'","SQL_NONE","N");
+  
+  ?>
+  <tr>
+    <td width="60%" class="pedido" ><? echo substr($rs_tipo->fields['descricao'],0,20); ?></td>
+    <td width="40%" class="pedido" >R$ <? echo $db->fvalor($valor); ?></td>
+  </tr>
+  <?
+  }
+  }
+  ?>
+  <tr>
+    <td width="60%" class="limite" ><strong>TOTAL PAGO: </strong></td>
+    <td width="40%" class="limite" ><strong>R$ <? echo $db->fvalor($valorch_pg + $valord + $valorcar_pg); ?></strong></td>
+  </tr>
+  <tr>
+    <td width="60%" class="limite_atraso" ><strong>TOTAL EM ATRASO:</strong></td>
+    <td width="40%" class="limite_atraso" ><strong>R$ <? echo $db->fvalor($valorch_codv + $valorch_sf + $valorcar_dv); ?></strong></td>
+  </tr>
+  <tr>
+    <td width="60%" class="limite_av" ><strong>TOTAL A VENCER:</strong></td>
+    <td width="40%" class="limite_av" ><strong>R$ <? echo $db->fvalor($valorch_coav + $valorcar_av); ?></strong></td>
+  </tr>
+  <tr>
+    <td width="60%" class="limite" ><strong>CHEQUES &Uacute;LTIMOS 7 DIAS:</strong></td>
+    <td width="40%" class="limite">R$ <? echo $db->fvalor($valorch_7); ?></td>
+  </tr>
+  <tr>
+    <td width="60%" class="limite"><strong>LIMITE CREDITO:</strong></td>
+    <td width="40%" class="limite">R$ <? echo $rs->fields['dataentrega']; ?></td>
+  </tr>
+   <tr>
+    <td width="60%" class="limite_atraso" ><strong>No CHEQUES SEM FUNDO:</strong></td>
+    <td width="40%" class="limite_atraso" ><b><? echo $valorch_sft; ?></b></td>
+  </tr>
+</table>
+</body>
+</html>

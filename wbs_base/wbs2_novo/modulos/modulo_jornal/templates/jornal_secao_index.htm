@@ -1,0 +1,71 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/azul_padrao.css" rel="stylesheet" type="text/css">
+<link href="../../../css/azul_padrao.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<? $db->titulador("azul", "Edicao Jornal", $bg_cor, $bg_cor_light); ?>
+<br>
+<table  border="0" cellspacing="2" cellpadding="2">
+  <tr>
+    <td><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=3"; ?>"><img src="<? echo DIR_IMAGES; ?>/bt_inserir_secao.gif" border="0"></a></td>
+    <td><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=2"; ?>"><img src="<? echo DIR_IMAGES; ?>/bt_inserir_noticia.gif" border="0"></a></td>
+    <td><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=1"; ?>"><img src="<? echo DIR_IMAGES; ?>/bt_listar_noticias.gif" border="0"></a></td>
+  </tr>
+</table>
+<br>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><fieldset class="tabela_conteudo">
+      <legend class="titulo_superior">Se&ccedil;&otilde;es</legend>
+      <table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+        <tr>
+          <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell">Cod</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Nome</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Descri&ccedil;&atilde;o</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Habilit.</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Qtde Not.</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Data Cri.</td>
+          <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+        </tr>
+<?
+if ($rs_secao) {
+	while (!$rs_secao->EOF) {
+		$rs_qtde_not = $db->conn->Execute("SELECT count(*) AS qtde_not FROM jornal_noticia WHERE codsecao = '" . $rs_secao->fields['codsecao'] . "'");
+?>
+        <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="#E8EFF9"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+          <td align="center" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;"><? echo $rs_secao->fields['codsecao']; ?></td>
+          <td class="noramlTableCell"><strong><? echo $rs_secao->fields['nome']; ?></strong></td>
+          <td class="noramlTableCell"><i><? echo $rs_secao->fields['descricao']; ?></i></td>
+          <td align="center" class="noramlTableCell"><? echo $rs_secao->fields['habilitado']; ?></td>
+          <td align="center" class="noramlTableCell"><? echo $rs_qtde_not->fields['qtde_not']; ?></td>
+          <td class="noramlTableCell"><? echo $rs_secao->UserTimeStamp($rs_secao->fields['datahoraadd'],'d/m/Y H:i:s'); ?></td>
+          <td class="noramlTableCell"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=5&codsecao_select=" . $rs_secao->fields['codsecao'] . ""; ?>"><img src="<? echo DIR_IMAGES; ?>/botaosp_edit.png" border="0"></a></td>
+          <td class="noramlTableCell"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&Action=HistSecao&codsecao_select=" . $rs_secao->fields['codsecao'] . ""; ?>" onClick="return confirm('Colocar em histórico (Desabilitar) a seção <? echo $rs_secao->fields['nome']; ?>?')"><img src="<? echo DIR_IMAGES; ?>/botaosp_hist.png" border="0"></a></td>
+        </tr>
+<?
+		$rs_secao->MoveNext();
+	} //WHILE
+}
+?>
+      </table>
+<?
+if ($total_reg <> 0)
+{
+	echo "<hr size='1' noshade>";
+	$html_pg = $paginator->Construir_Links("todos", "sim");
+	$qtd_paginas = $paginator->qtd_paginas;
+	for ($i = 0; $i < $qtd_paginas; $i++)
+	{
+		echo $html_pg[$i];
+	}
+}
+?>
+    </fieldset></td>
+  </tr>
+</table>
+</body>
+</html>

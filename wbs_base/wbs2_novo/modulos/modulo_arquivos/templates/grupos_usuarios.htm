@@ -1,0 +1,119 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<script language="javascript" src="<? echo DIR_JS; ?>/funcoes01.js"></script>
+</head>
+
+<body>
+<?
+$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light);
+$db->voltar(MOD_COR, $pg, "&pg_ped=200");
+?>
+<br>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" class="titulo_superior2">
+  <tr>
+    <td>Editar Arquivos do Grupo </td>
+  </tr>
+</table>
+<table width="100%"  border="0" cellpadding="2" cellspacing="0" class="generalTable defaultBlackText">
+  <tr style="background-color: #FFFFFF; cursor: pointer;">
+    <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">CodGRP </td>
+    <td class="noramlTableCell"><? echo $rs_grupo->fields['codgrp']; ?></td>
+  </tr>
+  <tr style="background-color: #FFFFFF; cursor: pointer;">
+    <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Grupo </td>
+    <td class="noramlTableCell"><strong><? echo $rs_grupo->fields['nomegrp']; ?></strong></td>
+  </tr>
+  <tr style="background-color: #FFFFFF; cursor: pointer;">
+    <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">OBS </td>
+    <td class="noramlTableCell"><? echo $rs_grupo->fields['obs']; ?></td>
+  </tr>
+</table>
+<br>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Lista de Usu&aacute;rios </legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <form name="lista" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=203"; ?>" method="post">
+    <tr>
+      <td><table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+        <tr>
+          <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell">Cod</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Login</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Nome</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">DOC</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Empresa</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Bloq</td>
+          </tr>
+        <?
+if ($rs_lista)
+{
+	$ix = 0;
+	while (!$rs_lista->EOF)
+	{
+?>
+        <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+          <td align="center" class="noramlTableCell"><input name="rows_codlista[<? echo $ix; ?>]" type="checkbox" id="id_rows_codlista<? echo $ix; ?>" value="<? echo $rs_lista->fields['codvend']; ?>"></td>
+          <td align="center" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;"><? echo $rs_lista->fields['codvend']; ?></td>
+          <td class="noramlTableCell"><strong><? echo $rs_lista->fields['login']; ?></strong></td>
+          <td class="noramlTableCell">
+		  <? echo $rs_lista->fields['nome']; ?>		  </td>
+          <td align="center" class="noramlTableCell"><? echo $rs_lista->fields['doc']; ?></td>
+          <td align="center" class="noramlTableCell"><strong>
+            <? $rs_empresa_show = $db->query_db("SELECT nome FROM empresa WHERE codemp = '".$rs_lista->fields['codemp']."'","SQL_NONE","N"); echo $rs_empresa_show->fields['nome']; ?>
+          </strong></td>
+          <td align="center" class="noramlTableCell"><?
+if($rs_lista->fields['block'] == "Y")
+{
+  	echo "<img src=".DIR_IMAGES."/legendas/legenda_sim.gif border=0>";
+}
+else
+{
+  	echo "<img src=".DIR_IMAGES."/legendas/legenda_nao.gif border=0>";
+}
+?></td>
+          </tr>
+        <?
+	 	$ix++;
+		$rs_lista->MoveNext();
+	}//WHILE
+}
+?>
+      </table>
+          <hr size="1" noshade>
+          <table border="0" cellspacing="2" cellpadding="2" class="generalTable defaultBlackText">
+            <tr>
+              <td><img src="<? echo DIR_IMAGES; ?>/arrow_ltr.png" border="0"></td>
+              <td>&nbsp;</td>
+              <td class="noramlTableCell" style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'><a href="javascript:void(0);" class="link5" onClick="setCheckboxesRange('lista', true, 'id_rows_codlista', 0, '<? echo $numRows; ?>'); return false;">Marcar Todos</a></td>
+              <td class="noramlTableCell" style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'><a href="javascript:void(0);" class="link5" onClick="setCheckboxesRange('lista', false, 'id_rows_codlista', 0, '<? echo $numRows; ?>'); return false;">Desmarcar Todos</a></td>
+              <td>&nbsp;</td>
+              <td><table width="100%" border="0" cellspacing="0" cellpadding="1">
+                  <tr>
+                    <td><strong>Com Marcados:</strong> </td>
+                  </tr>
+                  <tr>
+                    <td><select name="Action" class="campo_select" id="Action" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"'>
+                        <option value="" selected="selected">Selecione...</option>
+                        <option value="Desbloquear">Desbloquear</option>
+						<option value="Bloquear">Bloquear</option>
+                    </select></td>
+                  </tr>
+              </table></td>
+              <td><input name="Submit" type="submit" class="botao_cor" id="Submit" value="OK" onClick="return confirm('Confirma esta a&ccedil;&atilde;o?')"></td>
+              <td><input type="hidden" name="numRows" id="numRows" value="<? echo $numRows; ?>">
+                  <input type="hidden" name="pg" id="pg" value="<? echo $pg; ?>">
+                  <input type="hidden" name="pg_ped" id="pg_ped" value="<? echo $pg_ped; ?>">
+                  <input name="codgrp_select" type="hidden" id="codgrp_select" value="<? echo $rs_grupo->fields['codgrp']; ?>"></td>
+            </tr>
+          </table>
+	  </td>
+    </tr>
+  </form>
+</table>
+</fieldset>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/securitykey.css" rel="stylesheet" type="text/css">
+<script language="javascript" src="<? echo DIR_JS; ?>/funcoes01.js"></script>
+<script language="javascript" src="<? echo DIR_JS; ?>/securitykey.js"></script>
+<script language="javascript" src="<? echo DIR_AJAX; ?>/tw-sack.js"></script>
+<script language="javascript" src="<? echo DIR_AJAX_MODULO; ?>/ajax/autoriza.js"></script>
+<script language="JavaScript">
+var okPressed = false;
+
+function addPwdChar(i)
+{
+	if (document.autoriza.senhatoken.value.length < 4)
+		{
+			document.autoriza.senhatoken.value+= i;
+			
+			if(QualNavegador() == "NE") document.autoriza.senhatoken.focus();
+			else sendCursor(document.autoriza.senhatoken);
+			
+			//if(document.autoriza.senhatoken.value.length == 4) sendFocoCod(document.autoriza.senhatoken);
+		}
+		else
+		{
+			alert("Sr(a), a senha deve ser de no máximo 4 dígitos.");
+			//sendFocoCod(document.autoriza.senhatoken);
+		}
+}
+
+//manda cursor para o final da string
+function sendCursor(campo)
+{						
+	var oTextRange = campo.createTextRange();
+	oTextRange.move("character", campo.value.length);
+	oTextRange.select();				
+}					
+				    
+</script>
+<style type="text/css">
+<!--
+#autoriza_no {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	color: #FF4040;
+	background-color: #FFFFFF;
+	margin: 0px;
+	display: block;
+	padding: 3px;
+}
+#autoriza_ok {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	color: #00CC00;
+	background-color: #FFFFFF;
+	margin: 0px;
+	display: block;
+	padding: 3px;
+}
+#fim {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	font-weight: normal;
+	color: #FFFFFF;
+	background-color: #666666;
+	padding-top: 3px;
+	padding-right: 10px;
+	padding-bottom: 3px;
+	padding-left: 10px;
+	margin: 0px;
+	display: block;
+}
+#retorno_ajax {
+	margin-top: 5px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+}
+-->
+</style>
+</head>
+
+<body>
+<? //$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light); ?>
+<!--
+<br>
+<table  border="0" cellspacing="2" cellpadding="2">
+  <tr>
+	<td><? $db->botao(MOD_COR, "Testar Verificação", "", "pg=$pg&pg_ped=100", "", ""); ?></td>
+    <td><? $db->botao(MOD_COR, "Tabela de Senhas", "", "pg=$pg&pg_ped=200", "", ""); ?></td>
+  </tr>
+</table>
+<br>
+-->
+<div align="center">
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="vs_verifica">
+<form action="" name="autoriza" method="post">
+<!--<form action="<? echo "$PHP_SELF?pg=$pg&pg_ped=101"; ?>" name="autoriza" method="post">-->
+<?
+$chaves = range(1, 50);
+srand((float)microtime()*1000000);
+shuffle($chaves);
+
+$chaves_pos = range(0, 49);
+srand((float)microtime()*1000000);
+shuffle($chaves_pos);
+
+?>
+  <tr>
+    <td><? $db->titulador("azul", "Verificacao de Seguranca", $bg_cor_sk, $bg_cor_light_sk); ?>
+      <table border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td class="vs_numero"><? $numerotoken = $chaves[$chaves_pos[10]]; if (strlen($chaves[$chaves_pos[10]]) <2) { echo "0".$chaves[$chaves_pos[10]]; } else { echo $chaves[$chaves_pos[10]]; } ?></td>
+            </tr>
+          </table>
+            </td>
+          <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td><table width="100%" border="0" cellspacing="1" cellpadding="1">
+                    <tr>
+                      <td><strong>Para finalizar esta opera&ccedil;&atilde;o &eacute; necess&aacute;rio que:</strong></td>
+                    </tr>
+                    <tr>
+                      <td>1&deg; Verifique em sua tabela de senhas, a senha correspondente ao n&uacute;mero &agrave; esquerda.</td>
+                    </tr>
+                    <tr>
+                      <td>2&deg; Utilize os bot&otilde;es abaixo para informar a senha correspondente.</td>
+                    </tr>
+                </table></td>
+              </tr>
+              <tr>
+                <td><table border="0" cellspacing="1" cellpadding="0">
+                    <tr>
+                      <?
+$numeros = range(0, 9);
+srand((float)microtime()*1000000);
+shuffle($numeros);
+
+$k = 0;
+$g = 1;
+
+for ($i = 1; $i <= 5; $i++)
+{
+?>
+                      <td><input name="b<? echo $i; ?>" type="button" class="vs_botao_numero" id="b<? echo $i; ?>" value="<? echo $numeros[$k]." ou ".$numeros[$g]; ?>" onClick="javascript:addPwdChar(<? echo $i; ?>)" onDblClick="javascript:addPwdChar(<? echo $i; ?>)" /></td>
+                      <?
+$keycode .= $numeros[$k].":".$numeros[$g].":";
+$k = $k + 2;
+$g = $g + 2;
+
+}
+$token = base64_encode($keycode."#".$numerotoken."#".$codvend."#".$pg."#".$pg_ped);
+?>
+                     
+                      <td><input name="token_array" type="hidden" id="token_array" value="<? echo $token; ?>"></td>
+                      <td><input name="senhatoken" type="password" class="vs_senha" id="senhatoken" onFocus="SetarEvento(this,4,'ALERTSENHA');" size="4" maxlength="4" /></td>
+                      <td>&nbsp;</td>
+					  <td><input name="Submit" type="submit" class="vs_botao_ok" id="Button" value="OK" onClick="Autoriza('<? echo "$PHP_SELF"; ?>', '<? echo "pg=".$pg."&pg_ped=102"; ?>'); return false;" onDblClick="return false;"></td>
+                      <td><input name="Reset" type="reset" class="vs_botao_limpar" value="Limpar"></td>
+                    </tr>
+                </table></td>
+              </tr>
+              <tr>
+                <td><div id="retorno_ajax"><strong>Status:</strong> Aguardando Usuário...</div></td>
+              </tr>
+          </table></td>
+        </tr>
+      </table></td>
+  </tr>
+</form>
+</table>
+</div>
+</body>
+</html>

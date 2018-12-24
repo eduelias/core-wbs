@@ -1,0 +1,268 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<script language="javascript" src="<? echo DIR_JS; ?>/funcoes01.js"></script></head>
+
+<body>
+<?
+$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light);
+?>
+<br>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Pesquisa</legend>
+<table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+  <form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&Action=Pesquisar"; ?>" name="pesquisa" method="post">
+    <tr>
+      <td width="21%" align="center" class="generalGreyBorderBottomTableHeaderCell">Periodo</td>
+      <td width="28%" align="center" class="generalGreyBorderBottomTableHeaderCell">Projeto</td>
+      <td width="6%" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+      <td width="45%" align="center" class="generalGreyBorderBottomTableHeaderCell"><input name="pg" type="hidden" id="pg" value="<? echo $pg; ?>">
+      <input name="pg_ped" type="hidden" id="pg_ped" value="<? echo $pg_ped; ?>"></td>
+    </tr>
+    <tr>
+      <td class="noramlTableCell"><input name="mes_pesq" type="text" class="campo_linha" id="mes_pesq" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"' size="2" maxlength="2">
+        /
+          <input name="ano_pesq" type="text" class="campo_linha" id="ano_pesq" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"' size="4" maxlength="4"></td>
+      <td class="noramlTableCell"><select name="codproj_pesq">
+<?
+	  if ($rs_projeto) {
+		while (!$rs_projeto->EOF) { 
+	
+		$var_nomeproj_query = $rs_projeto->fields[1];
+		$var_codproj_query = $rs_projeto->fields[0];
+?>
+	  
+        <option value="<? echo $var_codproj_query; ?>"><? echo $var_nomeproj_query; ?></option>
+<?
+		$rs_projeto->MoveNext();
+	}//WHILE
+}
+?>
+		<option value="-1">Escolha ...</option>
+        </select>
+      </td>
+      <td class="noramlTableCell"><input type="submit" name="Submit2" value="Pesquisar" class="botao_cor"></td>
+      <td align="center" class="noramlTableCell">&nbsp;</td>
+    </tr>
+  </form>
+</table>
+</fieldset>
+<table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+  <form name="form" method="post" target="_self" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&Action=Empresa&empresa=$empresa"; ?>">
+    <tr>
+      <td width="3%" rowspan="2" align="center" class="generalGreyBorderBottomTableHeaderCell"><img src="<? echo DIR_IMAGES; ?>/messagebox_warning.png" border="0"></td>
+      <td   width="11%" class="generalGreyBorderBottomTableHeaderCell"><strong>Periodo:</strong></td>
+      <td width="86%" align="right"   class="generalGreyBorderBottomTableHeaderCell"><strong>Projeto Atual:</strong></td>
+    </tr>
+    <tr>
+      <td  bgcolor="<? echo $bg_cor_light; ?>" class="noramlTableCell"><b><? echo "$mes_pesq/$ano_pesq"; ?></b></td>
+      <td align="right"  bgcolor="<? echo $bg_cor_light; ?>" class="noramlTableCell"><b><? echo $rs_projeto_pesq->fields[1]; ?></b></td>
+    </tr>
+  </form>
+</table>
+<p><fieldset class="campo_fieldset">
+</p>
+<legend class="campo_fieldset_legend">Lista</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <form name="lista" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=1"; ?>" method="post">
+    <tr>
+      <td><table  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+        <tr>
+          <td width="3%" align="center" class="generalGreyBorderBottomTableHeaderCell">COD</td>
+          <td width="9%" align="center" class="generalGreyBorderBottomTableHeaderCell">VENDEDOR<br>
+            META</td>
+          <td width="9%" align="center" class="generalGreyBorderBottomTableHeaderCell">VENDAS<br></td>
+          <td width="9%" align="center" class="generalGreyBorderBottomTableHeaderCell">MCV<br>
+            REAL<br>
+            (%)</td>
+          <td width="9%" align="center" class="generalGreyBorderBottomTableHeaderCell">IP<br>
+            IND</td>
+          <td width="6%" align="center" class="generalGreyBorderBottomTableHeaderCell">META<br>
+            FINANCEIRA<br>
+            UNIDADE</td>
+          <td width="4%" align="center" class="generalGreyBorderBottomTableHeaderCell">IP<br>
+            UNIDADE</td>
+          <td width="6%" align="center" class="generalGreyBorderBottomTableHeaderCell">META<br>
+            FINANCEIRA<br>
+            GERAL</td>
+          <td width="9%" align="center" class="generalGreyBorderBottomTableHeaderCell">PEX</td>
+          <td width="4%" align="center" class="generalGreyBorderBottomTableHeaderCell">AVI</td>
+         
+          <td width="12%" align="center" class="generalGreyBorderBottomTableHeaderCell">VI</td>
+          <td width="4%" align="center" class="generalGreyBorderBottomTableHeaderCell">VII</td>
+          <td width="6%" align="center" class="generalGreyBorderBottomTableHeaderCell">RV</td>
+        </tr>
+        <?
+
+if ($rs) {
+	while (!$rs->EOF) { 
+	
+    if ($codproj_pesq == 23){ $var_pex = 0.87;}
+   	if ($codproj_pesq == 25){ $var_pex = 1;}
+   	if ($codproj_pesq == 27){ $var_pex = 0.87;}
+    $var_avi = 0.8;
+    $var_uv2 = 1400;
+	$var_nomevend_query = $rs->fields[1];
+	$var_codvend_query = $rs->fields[0];
+	$var_meta_query = $rs->fields[2]; 
+    $var_codgrp_query = $rs->fields[3];   
+    $rs_meta_projeto = $db->query_db("SELECT SUM(meta) FROM vendedor WHERE vendedor.codproj='$codproj_pesq' and block <> 'Y' and (codgrp = 13 or codgrp = 56)  ","SQL_NONE","N");
+    $var_meta_projeto_query = $rs_meta_projeto->fields[0];
+    $rs_meta_empresa = $db->query_db("SELECT SUM(meta) FROM vendedor WHERE (codproj = '23' or codproj = '25' or codproj = '27') and block <> 'Y' and (codgrp = 13 or codgrp = 56)  ","SQL_NONE","N");
+    $var_meta_empresa_query = $rs_meta_empresa->fields[0];     
+		
+	$rs_vendas = $db->query_db("SELECT $cond , SUM(mlb) as mlb_prot, SUM(mlb_real) as mlb_real , COUNT(*) as numped , SUM(if (mlb_real <> mlb, 1, 0)) as numped_prot FROM pedido WHERE codvend='$var_codvend_query' and dataped like '$ano_pesq-$mes_pesq%' and cancel <> 'OK' GROUP by codvend ","SQL_NONE","N");
+	
+	$rs_venda_projeto = $db->query_db("SELECT $cond, SUM(mlb_real) as mlb_real  FROM pedido WHERE codproj = '$codproj_pesq' and dataped like '$ano_pesq-$mes_pesq%' and cancel <> 'OK' group by pedido.codproj","SQL_NONE","N");
+
+	
+    $rs_venda_empresa = $db->query_db("SELECT $cond  FROM pedido WHERE (codproj = '23' or codproj = '25' or codproj = '27') and dataped like '$ano_pesq-$mes_pesq%' and cancel <> 'OK' ","SQL_NONE","N");
+    
+    
+		if ($rs_vendas) {
+		while (!$rs_vendas->EOF) { 
+		
+		$var_valor_vendas_query = $rs_vendas->fields[0];
+        $var_mlb_real_query = $rs_vendas->fields[2];
+		$var_valor_vendas_projeto_query = $rs_venda_projeto->fields[0];	
+        $var_mlb_projeto_query = $rs_venda_projeto->fields[1];	
+               
+        $var_valor_vendas_empresa_query = $rs_venda_empresa->fields[0];			
+		
+		$var_ef_projeto_query = 1000*($var_mlb_projeto_query/$var_valor_vendas_projeto_query);				
+		$var_ef_real_query = 1000*($var_mlb_real_query/$var_valor_vendas_query); 
+             		
+        $var_ip_query = (100-$var_ef_real_query)/10;
+            if ($var_ip_query <= 2){$ip_query = 0.8;} 
+            if ($var_ip_query > 2.01 and $var_ip_query <= 4){$ip_query = 0.6;} 
+            if ($var_ip_query > 4.01 and $var_ip_query <= 6){$ip_query = 0.4;} 
+            if ($var_ip_query > 6.01 and $var_ip_query <= 8){$ip_query = 0.2;} 
+            if ($var_ip_query > 8.01){$ip_query = 0.05;} 
+        $var_ip_projeto_query = (100- $var_ef_projeto_query)/10;
+            if ($var_ip_projeto_query <= 2){$ip_proj_query = 0.8;} 
+            if ($var_ip_projeto_query > 2.01 and $var_ip_projeto_query <= 4){$ip_proj_query = 0.6;} 
+            if ($var_ip_projeto_query > 4.01 and $var_ip_projeto_query <= 6){$ip_proj_query = 0.4;} 
+            if ($var_ip_projeto_query > 6.01 and $var_ip_projeto_query <= 8){$ip_proj_query = 0.2;} 
+            if ($var_ip_projeto_query > 8.01){$ip_proj_query = 0.05;} 
+            
+            
+          if ($var_codgrp_query == 56){ 
+          	// GERENTE
+            
+            $var_if = 2.5;
+            $var_cmi = $var_valor_vendas_projeto_query/$var_meta_projeto_query;
+            $var_cmig = $var_valor_vendas_empresa_query/$var_meta_empresa_query;
+            $var_prev_i = $var_valor_vendas_query * 0.01 + ($var_valor_vendas_projeto_query - $var_valor_vendas_query) * 0.003 ;
+            $var_prev_ii = $var_pex* 100 + $var_avi * 100 + $ip_proj_query * 900 + $var_cmi*200 + $var_cmig * 100;
+            
+            if ($var_cmi < 0.78){$var_rv = ($var_prev_i * $var_if); $var_prev_ii = 0;}
+			if ($var_cmi >= 0.78 & $var_cmi < 1){$var_rv = ($var_prev_i + ($var_prev_ii*$var_if)) ;}
+		
+            
+            }else{  
+            // VENDEDOR
+            
+            $var_if = 1;
+            $var_cmi = $var_valor_vendas_query/$var_meta_query;
+            $var_cmig =  $var_cmig = $var_valor_vendas_empresa_query/$var_meta_empresa_query;
+            $var_prev_i = $var_valor_vendas_query * 0.01  ;
+            $var_prev_ii = $var_pex* 100 + $var_avi * 100 + $ip_query * 900 + $var_cmi*200 + $var_cmig * 100;
+            
+            if ($var_cmi < 0.85){$var_rv = ($var_prev_i * $var_if); $var_prev_ii = 0;}
+			if ($var_cmi >= 0.85 & $var_cmi < 1){$var_rv = ($var_prev_i + ($var_prev_ii*$var_if)) ;}
+			
+            }
+            
+            if ($var_cmi >= 1 & $var_cmi < 1.1){$var_rv = ($var_prev_i + ($var_prev_ii*$var_if))*1.05 ;}
+			if ($var_cmi >= 1.1 & $var_cmi <= 1.3){$var_rv = ($var_prev_i + ($var_prev_ii*$var_if))*1.1 ;}
+			if ($var_cmi > 1.3 & $var_cmi <= 1.5){$var_rv = ($var_prev_i + ($var_prev_ii*$var_if))*1.15 ;}
+			if ($var_cmi > 1.5 & $var_cmi <= 1.7){$var_rv = ($var_prev_i + ($var_prev_ii*$var_if))*1.20;}
+			if ($var_cmi > 1.7 & $var_cmi <= 1.9){$var_rv = ($var_prev_i + ($var_prev_ii*$var_if))*1.25 ;}
+			if ($var_cmi > 1.9){$var_rv = ($var_prev_i + ($var_prev_ii*$var_if))*1.3 ;} 
+              	
+		
+?>
+        <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+          <td align="center" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;"><? echo $var_codvend_query; ?></td>
+          <td class="noramlTableCell"><strong><? echo $var_nomevend_query; ?></strong><br>
+            <? echo $var_meta_query; ?></td>
+          <td class="noramlTableCell"><? echo $db->fvalor($var_valor_vendas_query); ?></td>
+          <td align="center" class="noramlTableCell"><? echo $db->fvalor($var_ef_real_query); ?></td>
+          <td align="center" class="noramlTableCell"><? echo $db->fvalor($ip_query); ?></td>
+          <td width="6%" align="center" class="noramlTableCell"><? echo $db->fvalor($var_valor_vendas_projeto_query); ?><br>
+            <b> <? echo $db->fvalor($var_meta_projeto_query); ?></b></td>
+          <td align="center" class="noramlTableCell"><? echo $db->fvalor($ip_proj_query); ?></td>
+          <td align="center" class="noramlTableCell"><? echo $db->fvalor($var_valor_vendas_empresa_query); ?><br>
+            <b> <? echo $db->fvalor($var_meta_empresa_query); ?></b></td>
+          <td align="center" class="noramlTableCell"><? echo $db->fvalor($var_pex); ?></td>
+          <td align="center" class="noramlTableCell"><? echo  $db->fvalor($var_avi); ?></td>
+          
+          <td align="center" class="noramlTableCell"><? echo $db->fvalor($var_prev_i); ?></td>
+          <td align="center" class="noramlTableCell"><? echo $db->fvalor($var_prev_ii); ?></td>
+          <td align="center" class="noramlTableCell"><b><? echo $db->fvalor($var_rv); ?></b></td>
+        </tr>
+        
+        <?
+		
+		$rs_vendas->MoveNext();
+		}//WHILE
+		}
+		if ($var_valor_vendas_query == 0 ){$var_meta_query = 0;}
+		
+		$var_valor_vendas_query = 0;$var_mlb_prot_query = 0;$var_mlb_real_query =  0;$var_numped_query =  0;$var_numped_prot_query =  0;$var_numorc_query =  0;$var_meta_query = 0;
+		
+				
+	$rs->MoveNext();
+	}//WHILE
+}
+
+?>
+	
+
+      </table>
+        <table border="0" cellspacing="2" cellpadding="2" class="generalTable defaultBlackText">
+          <tr>
+          <td><img src="<? echo DIR_IMAGES; ?>/arrow_ltr.png" border="0"></td>
+		  <td>&nbsp;</td>
+          <td class="noramlTableCell" style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'><a href="javascript:void(0);" class="link5" onClick="setCheckboxesRange('lista', true, 'id_rows_codmarca', 0, '10'); return false;">Marcar Todos</a></td>
+          <td class="noramlTableCell" style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'><a href="javascript:void(0);" class="link5" onClick="setCheckboxesRange('lista', false, 'id_rows_codmarca', 0, '10'); return false;">Desmarcar </a>
+            <hr size="1" noshade>
+            <a href="javascript:void(0);" class="link5" onClick="setCheckboxesRange('lista', false, 'id_rows_codmarca', 0, '10'); return false;">Todos</a></td>
+          <td>&nbsp;</td>
+          <td><table width="100%" border="0" cellspacing="0" cellpadding="1">
+            <tr>
+              <td><strong>Com Marcados:</strong> </td>
+            </tr>
+            <tr>
+              <td><select name="Action" class="campo_select" id="Action" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"'>
+                <option value="" selected="selected">Selecione...</option>
+                
+                            </select></td>
+            </tr>
+          </table></td>
+          <td><input name="Submit" type="submit" class="botao_cor" id="Submit" value="OK" onClick="return confirm('Confirma esta ação?')"></td>
+          <td><input name="numRows" type="hidden" id="numRows" value="<? echo $numRows; ?>">
+            <input type="hidden" name="pg" value="<? echo $pg; ?>">
+            <input type="hidden" name="pg_ped" value="<? echo $pg_ped; ?>"></td>
+        </tr>
+      </table>
+          <?
+if ($total_reg <> 0)
+{
+	echo "<hr size='1' noshade>";
+	$html_pg = $paginator->Construir_Links("todos", "sim");
+	$qtd_paginas = $paginator->qtd_paginas;
+	for ($i = 0; $i < $qtd_paginas; $i++)
+	{
+		echo $html_pg[$i];
+	}
+}
+?></td>
+    </tr>
+  </form>
+</table>
+</body>
+</html>

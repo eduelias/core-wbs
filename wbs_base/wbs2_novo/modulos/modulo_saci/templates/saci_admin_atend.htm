@@ -1,0 +1,244 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/saci.css" rel="stylesheet" type="text/css">
+</head>
+<script language="javascript" type="text/javascript">
+var NameArray = new Array();
+var ValueArray = new Array();
+
+<? for($i = 0; $i < count($arrayx); $i++ ){ ?>
+NameArray[<? echo"$cat_id[$i]"; ?>] = new Array(<? echo"$x_subcat_titulo[$i]"; ?>);
+ValueArray[<? echo"$cat_id[$i]"; ?>] = new Array(<? echo"$x_subcat_subid[$i]"; ?>);
+<? }//FOR ?>
+
+function changeOptions(){
+// Obtain the first dimension position of the currently selected theaterRegionvar
+cjIX = document.forms["atendimento"].motivocat.value;
+  
+  if (cjIX > 0){
+   // set the length of the new multi-option
+   //
+
+   	 // CALCULA O NUMERO DE LINHAS DO FOR
+    document.forms["atendimento"].elements["motivosubcat"].options.length = NameArray[cjIX].length +1;
+
+    // LINHA INICIAL DO MENU SELECT
+    document.forms["atendimento"].elements["motivosubcat"].options[0].text = "=> Selecione a Subcategoria";
+    document.forms["atendimento"].elements["motivosubcat"].options[0].value = "";
+
+    for (var j=0; j < NameArray[cjIX].length; j++)
+    {
+      document.forms["atendimento"].elements["motivosubcat"].options[j+1].text = NameArray[cjIX][j];
+      document.forms["atendimento"].elements["motivosubcat"].options[j+1].value = ValueArray[cjIX][j];
+    }
+   
+  }
+  else
+  {
+   // User has reselected the blank 'region' option
+   //
+    document.forms["atendimento"].elements["motivosubcat"].options.length = 2;
+    document.forms["atendimento"].elements["motivosubcat"].options[0].text = "Selecione a Subcategoria...";
+    document.forms["atendimento"].elements["motivosubcat"].options[0].value = "";
+    document.forms["atendimento"].elements["motivosubcat"].options[1].text = "Selecione a Categoria primeiro...";
+    document.forms["atendimento"].elements["motivosubcat"].options[1].value = "";
+  }
+}
+</script>
+<? if (dirname($_SERVER['PHP_SELF']) == "/"){$bar = "";}else{$bar = "/";} ?>
+<script language=JavaScript>
+function VerAgenda()
+{
+	window.open('<? echo "http://" . $_SERVER['HTTP_HOST']. dirname($_SERVER['PHP_SELF']). $bar. "restrito.php?pg=$pg&pg_ped=4&menu_not=1"; ?>','popup_view','width=450, height=400, scrollbars=yes, resizable=no');
+}
+function VerificaData()
+{
+	var dia = document.getElementById("diaagenda").value; 
+	var mes = document.getElementById("mesagenda").value;
+	var ano = document.getElementById("anoagenda").value;
+	var date2 = new Date(ano, mes-1, dia);
+	var now = new Date();
+	var diff = date2.getTime() - now.getTime()
+	var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+	if (days < -1){
+		alert("Data Agenda inferior a data atual");
+        document.form1.dentr.focus();
+        return false;
+	}
+}
+</script>
+
+<body>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%"><img src="<? echo DIR_IMAGES; ?>/saci_admin.gif" width="190" height="40"></td>
+    <td><div align="right"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=1"; ?>"><img src="<? echo DIR_IMAGES; ?>/bt_voltar_green.gif" border="0"></a></div></td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#68C668"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+  </tr>
+</table>
+<br>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td class="titulospverdec">Criar Atendimento </td>
+  </tr>
+  <tr>
+    <td class="tdspconteudoverdec"><table width="100%"  border="0" cellpadding="2" cellspacing="2">
+      <form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=6&menu_not=1&Action=Pesquisar"; ?>" method="post" name="pesqcli" target="icliente">
+        <tr>
+          <td width="15%" align="right"><strong>Nome:</strong></td>
+          <td><input name="pesqnomecliente" type="text" class="saci_input2" id="pesqnomecliente" value="<? echo $pesqnomecliente; ?>" size="15">
+            <input name="Button" type="submit" class="saci_input" value="Procurar"></td>
+        </tr>
+      </form>
+      <form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&Action=Gravar"; ?>" method="post" name="atendimento">
+        <tr>
+          <td colspan="2"><fieldset class="tdspconteudoverdec">
+            <legend class="titulospverdec">Clientes</legend><iframe src="<? echo"$PHP_SELF?pg=$pg&pg_ped=6&menu_not=1"; ?>" name="icliente" width="100%" marginwidth="0" height="150" marginheight="0" scrolling="auto" frameborder="0"></iframe></fieldset></td>
+        </tr>
+        <tr>
+          <td colspan="2"><fieldset class="tdspconteudoverdec">
+            <legend class="titulospverdec">Pedidos</legend><iframe src="<? echo"$PHP_SELF?pg=$pg&pg_ped=5&menu_not=1"; ?>" name="icodbarra" width="100%" marginwidth="0" height="100" marginheight="0" scrolling="auto" frameborder="0"></iframe></fieldset></td>
+        </tr>
+        <tr>
+          <td colspan="2"><fieldset class="tdspconteudoverdec">
+            <legend class="titulospverdec">Produtos do Pedido</legend>
+            <iframe src="<? //echo"$PHP_SELF?pg=$pg&pg_ped=7&menu_not=1"; ?>" name="idados" width="100%" marginwidth="0" height="250" marginheight="0" scrolling="auto" frameborder="0"></iframe></fieldset></td>
+        </tr>
+        <tr>
+          <td colspan="2">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="right"><strong>Cod. Cliente: </strong></td>
+          <td><input name="pesqcodcliente2" type="text" class="saci_input2" id="pesqcodcliente2" size="10" maxlength="5"></td>
+        </tr>
+        <tr>
+          <td align="right"><strong>Cod. Pedido:</strong></td>
+          <td><input name="codped" type="text" class="saci_input2" id="codped" size="14" maxlength="13">              </td>
+        </tr>
+        <tr>
+          <td align="right"><strong>Nome Contato:</strong></td>
+          <td><input name="contato" type="text" class="saci_input2" id="contato" size="20"></td>
+        </tr>
+        <tr>
+          <td align="right"><strong>Telefone:</strong></td>
+          <td>(
+              <input name="dddtel" type="text" class="saci_input2" id="dddtel" size="2" maxlength="2">
+              )
+              <input name="tel" type="text" class="saci_input2" id="tel" size="8" maxlength="8"></td>
+        </tr>
+        <tr>
+          <td align="right"><strong>Motivo:</strong></td>
+          <td><select name="motivocat" class="saci_input3" id="motivocat" onChange="changeOptions();">
+              <option value="" selected>Selecione um Motivo...</option>
+              <? for($i = 0; $i < count($arrayx); $i++ ){ ?>
+              <option value="<? echo"$cat_id[$i]"; ?>"><? echo"$cat_titulo[$i]"; ?></option>
+              <? }//FOR ?>
+          </select></td>
+        </tr>
+        <tr>
+          <td align="right">&nbsp;</td>
+          <td><select name="motivosubcat" class="saci_input3" id="motivosubcat">
+              <option value="" selected>Selecione a Subcategoria...</option>
+              <option value="">Selecione a Categoria primeiro...</option>
+          </select></td>
+        </tr>
+        <tr>
+          <td align="right"></td>
+          <td><a href="javascript:void(0);" class="lkverde2" onClick="VerAgenda();">Ver Agenda</a></td>
+        </tr>
+        <tr>
+          <td align="right"><strong>Data Agenda</strong></td>
+          <td><input name="diaagenda" type="text" class="saci_input2" size="2" maxlength="2" id="diaagenda">
+            /
+              <input name="mesagenda" type="text" class="saci_input2" size="2" maxlength="2" id="mesagenda">
+              /
+              <input name="anoagenda" type="text" class="saci_input2" size="4" maxlength="4" id="anoagenda" onBlur="VerificaData();"></td>
+        </tr>
+        <tr>
+          <td align="right" valign="top"><strong>Hora Agenda </strong></td>
+          <td><select name="hragenda" class="saci_input3">
+              <option value="00:00:00">Selecione se necess&aacute;rio</option>
+              <option value="09:30:00">9:30</option>
+              <option value="11:00:00">11:00 (Extra)</option>
+              <option value="14:00:00">14:00</option>
+              <option value="15:00:00">15:00</option>
+              <option value="16:00:00">16:00</option>
+              <option value="17:00:00">17:00</option>
+            </select></td>
+        </tr>
+        <tr>
+          <td align="right" valign="top"><strong>OBS:</strong></td>
+          <td><textarea name="obs" cols="60" rows="5" class="saci_input3"></textarea></td>
+        </tr>
+        <tr>
+          <td align="right" valign="top"><strong>Solu&ccedil;&atilde;o:</strong></td>
+          <td><textarea name="solucao" cols="60" rows="5" class="saci_input3"></textarea></td>
+        </tr>
+        <tr>
+          <td align="right" valign="top"><strong>Retorno Atend.: </strong></td>
+          <td><select name="retorno" class="saci_input3" id="retorno">
+            <option value="0">Selecione se necess&aacute;rio</option>
+			  <option value="30">30 minutos</option>
+              <option value="60">1 hora</option>
+              <option value="180">3 horas</option>
+              <option value="1440">24 horas</option>
+            </select></td>
+        </tr>
+        <tr>
+          <td align="right" valign="top"><strong>Status Solu&ccedil;&atilde;o: </strong></td>
+          <td><table  border="0" cellspacing="1" cellpadding="1">
+              <tr>
+                <td><input name="solucaostatus" type="radio" value="OK"></td>
+                <td>Solucionado</td>
+              </tr>
+              <tr>
+                <td><input name="solucaostatus" type="radio" value="NO" checked></td>
+                <td>N&atilde;o Solucionado</td>
+              </tr>
+          </table></td>
+        </tr>
+        <tr>
+          <td align="right"><strong>Status:</strong></td>
+          <td><select name="status" class="saci_input3">
+              <option value="0">Aberto</option>
+              <option value="1">Fechado</option>
+              <option value="2">Cancelado Cliente</option>
+              <option value="3">Cancelado Operador</option>
+          </select></td>
+        </tr>
+        <tr>
+          <td align="right" valign="top"><strong>Humor Cliente: </strong></td>
+          <td><table  border="0" cellspacing="1" cellpadding="1">
+            <tr>
+              <td><input name="humor" type="radio" value="0"></td>
+              <td><img src="wbs2/emoticons/icon_biggrin.gif" width="15" height="15"></td>
+              <td>Satisfeito </td>
+            </tr>
+            <tr>
+              <td><input name="humor" type="radio" value="1" checked></td>
+              <td><img src="wbs2/emoticons/icon_neutral.gif" width="15" height="15"></td>
+              <td>Normal</td>
+            </tr>
+            <tr>
+              <td><input name="humor" type="radio" value="2"></td>
+              <td><img src="wbs2/emoticons/icon_mad.gif" width="15" height="15"></td>
+              <td>Insatisfeito</td>
+            </tr>
+          </table></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td><input name="Submit" type="submit" class="saci_input" value="Salvar">
+              <input name="Reset" type="reset" class="saci_input" value="Cancelar"></td>
+        </tr>
+      </form>
+    </table></td>
+  </tr>
+</table>
+</body>
+</html>

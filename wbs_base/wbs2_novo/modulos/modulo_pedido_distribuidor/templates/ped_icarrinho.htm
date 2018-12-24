@@ -1,0 +1,110 @@
+<?php
+
+
+#echo("cat=$codcatselect - $codprodselect[$codcatselect] - $codcjselect - $Action - $codtipocjselect");
+if ($codcjselect == -11){$img_titulo = "smkitazul.gif";}else{$img_titulo = "smmicroazul.gif";}
+
+?>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>icarrinho</title>
+<link href="<? echo DIR_CSS; ?>/sistema.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+//-->
+
+function mostraMicro()
+{
+var config_micro;
+config_micro = "<table width='100%' border='0' cellspacing='1' cellpadding='1' align='center'>";
+config_micro += "<tr><td colspan='3'><b><? echo"$nomeprod_cj"; ?></b></td></tr>";
+<?
+	for($i = 0; $i < count($arrayx); $i++ ){
+?>
+config_micro += " <tr><td width='10%' align='center'><? echo"$codprod_micro[$i]"; ?></td><td width='79%'><? echo"$nomeprod_micro[$i]"; ?></td><td width='10%' align='center'><? echo"$qtde[$i]"; ?></td></tr>";
+<?
+	}//FOR
+?>
+config_micro += "</table>";
+document.getElementById("micro").value = config_micro;
+
+}
+</script>
+</head>
+
+<body onload = "mostraMicro();">
+<table width="100%"  border="0" cellspacing="0" cellpadding="3">
+  <tr valign="top">
+    <td width="50%">
+	<?
+	if ($codcjselect <> 0){
+	?>
+	<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="49" height="53" rowspan="4"><img name="smlogoazul" src="<? echo DIR_IMAGES; ?>/smlogoazul.gif" width="49" height="53" border="0" alt=""></td>
+          <td width="360" background="<? echo DIR_IMAGES; ?>/smtopoazul.gif"><img name="smtopoazul" src="<? echo DIR_IMAGES; ?>/smtopoazul.gif" width="128" height="7" border="0" alt=""></td>
+          <td width="27" height="53" rowspan="4"><img name="smlateralazul" src="<? echo DIR_IMAGES; ?>/smlateralazul.gif" width="27" height="53" border="0" alt=""></td>
+          <td width="3"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" alt="" name="undefined_3" width="1" height="7" border="0"></td>
+        </tr>
+        <tr>
+          <td><img name="smmicroazul" src="<? echo DIR_IMAGES; ?>/<? echo $img_titulo ?>" width="128" height="17" border="0" alt=""></td>
+          <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" alt="" name="undefined_3" width="1" height="17" border="0"></td>
+        </tr>
+        <tr>
+          <td><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="50%"><strong><?php echo $itens_micro; ?> item(s)</strong></td>
+              <td width="50%"><strong>R$ <?php echo $soma_microf; ?></strong></td>
+            </tr>
+          </table></td>
+          <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" alt="" name="undefined_3" width="1" height="21" border="0"></td>
+        </tr>
+        <tr>
+          <td background="<? echo DIR_IMAGES; ?>/smrodapeazul.gif"><img name="smrodapeazul" src="<? echo DIR_IMAGES; ?>/smrodapeazul.gif" width="128" height="8" border="0" alt=""></td>
+          <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" alt="" name="undefined_3" width="1" height="8" border="0"></td>
+        </tr>
+    </table>   
+	<?
+	}
+	?>
+    </td>
+    <td width="50%"><table border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="49" height="53" rowspan="4"><img src="<? echo DIR_IMAGES; ?>/sclogo.gif" alt="" name="sclogo" width="49" height="53" border="0" usemap="#sclogoMap" href="start_ped_page_carrinhp.php?codpedselect=$codpedselect"></td>
+        <td height="7" background="<? echo DIR_IMAGES; ?>/sctopo.gif"><img name="sctopo" src="<? echo DIR_IMAGES; ?>/sctopo.gif" width="128" height="7" border="0" alt=""></td>
+        <td width="27" height="53" rowspan="4"><img name="sclateral" src="<? echo DIR_IMAGES; ?>/sclateral.gif" width="27" height="53" border="0" alt=""></td>
+        <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" alt="" name="undefined_2" width="1" height="7" border="0"></td>
+      </tr>
+      <tr>
+        <td height="17"><img name="sccarrinho" src="<? echo DIR_IMAGES; ?>/sccarrinho.gif" width="128" height="17" border="0" alt=""></td>
+        <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" alt="" name="undefined_2" width="1" height="17" border="0"></td>
+      </tr>
+      <tr>
+        <td height="21" align="left"><table width="230"  border="0" align="left" cellpadding="0" cellspacing="0">
+          <tr>
+            <td width="50%" align="left"><strong><?php echo $itens_carrinho; ?> item(s)</strong></td>
+            <td width="50%" align="left"><strong>R$ <?php echo $soma_carrinhof; ?></strong></td>
+          </tr>
+        </table></td>
+        <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" alt="" name="undefined_2" width="1" height="21" border="0"></td>
+      </tr>
+      <tr>
+        <td height="8" background="<? echo DIR_IMAGES; ?>/scrodape.gif"><img name="scrodape" src="<? echo DIR_IMAGES; ?>/scrodape.gif" width="128" height="8" border="0" alt=""></td>
+        <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" alt="" name="undefined_2" width="1" height="8" border="0"></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+<map name="sclogoMap">
+  <area shape="circle" coords="23,26,20" href="<? echo "$PHP_SELF?pg=$pg&pg_ped=2&codpedselect=$codpedselect"; ?>" target="_parent" alt="Carrinho">
+</map>
+<form name = "form3" >
+<input name="micro" type="hidden" value ="" class="campoquant1" id = "micro">
+</form>
+
+</body>
+</html>

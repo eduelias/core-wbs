@@ -1,0 +1,193 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<script language="javascript" src="<? echo DIR_JS; ?>/funcoes01.js"></script>
+<script language="javascript">
+function DoIt(form)
+{
+	document.form.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=100&Action=Empresa&empresa=$empresa"; ?>';
+	document.form.target = '_self';
+	document.form.submit();
+}
+</script>
+<style type="text/css">
+<!--
+.block_red {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #EA0000;
+}
+.block_green {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #009900;
+}
+-->
+</style>
+</head>
+
+<body>
+<?
+$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light);
+?>
+<br>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Pesquisa</legend>
+<table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+<form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=100&Action=Pesquisar"; ?>" name="pesquisa" method="post">
+  <tr>
+    <td align="center" class="generalGreyBorderBottomTableHeaderCell">Login</td>
+    <td class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+    <td width="70%" align="center" class="generalGreyBorderBottomTableHeaderCell"><input name="pg" type="hidden" id="pg" value="<? echo $pg; ?>">
+      <input name="pg_ped" type="hidden" id="pg_ped" value="<? echo $pg_ped; ?>">
+      <input name="empresa" type="hidden" id="empresa" value="<? echo $rs_empresa->fields['codemp']; ?>">
+      <input name="Action" type="hidden" id="Action" value="Pesquisar"></td>
+  </tr>
+  <tr>
+    <td class="noramlTableCell"><input name="revendapesq" type="text" class="campo_linha" id="revendapesq" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"' size="20"></td>
+    <td class="noramlTableCell"><input type="submit" name="Submit2" value="Pesquisar" class="botao_cor"></td>
+    <td align="center" class="noramlTableCell">&nbsp;</td>
+  </tr>
+</form>
+</table>
+</fieldset>
+<br>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Revendas</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <form name="lista" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=100"; ?>" method="post">
+    <tr>
+      <td><table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+        <tr>
+          <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell">Cod</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Login</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">DOC</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Nome/E-mail/Tel</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Cidade/UF/CEP</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Bloq</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Malote</td>
+        </tr>
+        <?
+if ($rs_lista)
+{
+	$ix = 0;
+	while (!$rs_lista->EOF)
+	{
+    
+    if ($rs_lista->fields['tipocliente'] == 'F'){$doc = "cpf = '".$rs_lista->fields['doc']."'";}else{$doc = "cnpj = '".$rs_lista->fields['doc']."'";}
+    
+    $rs_lista1 = $db->query_db("SELECT clientenovo.nome AS nome, cidade, estado, email, cep, dddtel1, tel1, dddtel2, tel2 FROM clientenovo WHERE $doc  ","SQL_NONE","N");
+    
+?>
+        <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+          <td align="center" class="noramlTableCell"><input name="rows_codlista[<? echo $ix; ?>]" type="checkbox" id="id_rows_codlista<? echo $ix; ?>" value="<? echo $rs_lista->fields['codlogin']; ?>"></td>
+          <td align="center" class="noramlTableCell"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=200&codrevenda_select="; ?><? echo $rs_lista->fields['codlogin']; ?>"><img src="<? echo DIR_BOTOES; ?>/layout_edit.png" border="0"></a></td>
+          <td align="center" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;"><? echo $rs_lista->fields['codlogin']; ?></td>
+          <td class="noramlTableCell"><strong><? echo $rs_lista->fields['login']; ?></strong></td>
+          <td align="center" class="noramlTableCell"><? echo $rs_lista->fields['doc']; ?></td>
+          <td class="noramlTableCell"><table width="100%" border="0" cellspacing="1" cellpadding="1">
+              <tr>
+                <td><strong><? echo $rs_lista->fields['nome']; ?></strong></td>
+              </tr>
+              <tr>
+                <td><? echo $rs_lista1->fields['email']; ?></td>
+              </tr>
+              <tr>
+                <td>(<? echo $rs_lista1->fields['dddtel1']; ?>) <? echo $rs_lista1->fields['tel1']; ?> / (<? echo $rs_lista1->fields['dddtel2']; ?>) <? echo $rs_lista1->fields['tel2']; ?></td>
+              </tr>
+            </table></td>
+          <td class="noramlTableCell"><table width="100%" border="0" cellspacing="1" cellpadding="1">
+              <tr>
+                <td><? echo $rs_lista1->fields['cidade']; ?>/<? echo $rs_lista1->fields['estado']; ?> </td>
+              </tr>
+              <tr>
+                <td><? echo $rs_lista1->fields['cep']; ?></td>
+              </tr>
+            </table></td>
+          <td align="center" class="noramlTableCell"><?
+if($rs_lista->fields['block'] == "N")
+{
+	//echo "<span class='block_green'>N&Atilde;O</span>";
+	echo "<img src=".DIR_IMAGES."/legendas/legenda_nao.gif border=0>";
+}
+else
+{
+	//echo "<span class='block_red'>SIM</span>";
+	echo "<img src=".DIR_IMAGES."/legendas/legenda_sim.gif border=0>";
+}
+?></td>
+          <td align="center" class="noramlTableCell"><?
+if($rs_lista->fields['malote'] == "N")
+{
+	//echo "<span class='block_green'>N&Atilde;O</span>";
+	echo "<img src=".DIR_IMAGES."/legendas/legenda_nao.gif border=0>";
+}
+else
+{
+	//echo "<span class='block_red'>SIM</span>";
+	echo "<img src=".DIR_IMAGES."/legendas/legenda_sim.gif border=0>";
+}
+?></td>
+        </tr>
+        <?
+	 	$ix++;
+		$rs_lista->MoveNext();
+	}//WHILE
+}
+?>
+      </table>
+          <hr size="1" noshade>
+          <table border="0" cellspacing="2" cellpadding="2" class="generalTable defaultBlackText">
+            <tr>
+              <td><img src="<? echo DIR_IMAGES; ?>/arrow_ltr.png" border="0"></td>
+              <td>&nbsp;</td>
+              <td class="noramlTableCell" style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'><a href="javascript:void(0);" class="link5" onClick="setCheckboxesRange('lista', true, 'id_rows_codlista', 0, '10'); return false;">Marcar Todos</a></td>
+              <td class="noramlTableCell" style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'><a href="javascript:void(0);" class="link5" onClick="setCheckboxesRange('lista', false, 'id_rows_codlista', 0, '10'); return false;">Desmarcar Todos</a></td>
+              <td>&nbsp;</td>
+              <td><table width="100%" border="0" cellspacing="0" cellpadding="1">
+                  <tr>
+                    <td><strong>Com Marcados:</strong> </td>
+                  </tr>
+                  <tr>
+                    <td><select name="Action" class="campo_select" id="Action" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"'>
+                        <option value="" selected="selected">Selecione...</option>
+                        <option value="Bloquear">Bloquear</option>
+						<option value="Desbloquear">Desbloquear</option>
+						<option value="NaoMalote">Não liberar Malote</option>
+						<option value="SimMalote">Liberar Malote</option>
+                                        </select></td>
+                  </tr>
+              </table></td>
+              <td><input name="Submit" type="submit" class="botao_cor" id="Submit" value="OK" onClick="return confirm('Confirma esta a&ccedil;&atilde;o?')"></td>
+              <td><input name="numRows" type="hidden" id="numRows" value="<? echo $numRows; ?>">
+                  <input name="pg" type="hidden" id="pg" value="<? echo $pg; ?>">
+                  <input name="pg_ped" type="hidden" id="pg_ped" value="<? echo $pg_ped; ?>"></td>
+            </tr>
+          </table>
+        <?
+if ($total_reg <> 0)
+{
+	echo "<hr size='1' noshade>";
+	$html_pg = $paginator->Construir_Links("todos", "sim");
+	$qtd_paginas = $paginator->qtd_paginas;
+	for ($i = 0; $i < $qtd_paginas; $i++)
+	{
+		echo $html_pg[$i];
+	}
+}
+?></td>
+    </tr>
+  </form>
+</table>
+</fieldset>
+</body>
+</html>

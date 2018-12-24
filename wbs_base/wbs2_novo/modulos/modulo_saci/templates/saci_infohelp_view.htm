@@ -1,0 +1,136 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/saci.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%"><img src="<? echo DIR_IMAGES; ?>/saci_infohelp.gif" width="190" height="40"></td>
+    <td><div align="right"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=1"; ?>"><img src="<? echo DIR_IMAGES; ?>/bt_voltar_green.gif" border="0"></a></div></td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#68C668"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+  </tr>
+</table>
+<br>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td class="titulospverdec">Vizualizar Atendimento </td>
+  </tr>
+  <tr>
+    <td class="tdspconteudoverdec"><table width="100%"  border="0" cellpadding="2" cellspacing="2">
+      <form action="" method="post">
+        <tr>
+          <td colspan="2"><table  border="0" align="right" cellpadding="2" cellspacing="2">
+            <tr>
+              <td><strong>Cod. Atend.: </strong></td>
+              <td class="saci_codatend"><? echo "$codatendselect"; ?></td>
+            </tr>
+          </table></td>
+          </tr>
+        <tr>
+          <td width="15%"><strong>Cod. Cliente</strong></td>
+          <td><span class="saci_campo_view"><strong><? echo "$codcliente_view"; ?></strong></span></td>
+        </tr>
+        <tr>
+          <td colspan="2"><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                <td width="10%" class="saci_tbl_dados1"><strong>Nome</strong></td>
+                <td class="saci_tbl_dados1"><? echo "$nomecliente_view"; ?></td>
+              </tr>
+              <tr>
+                <td class="saci_tbl_dados1"><strong>CPF/CNPJ</strong></td>
+                <td class="saci_tbl_dados1"><? echo "$doccliente"; ?></td>
+              </tr>
+              <tr>
+                <td class="saci_tbl_dados1"><strong>Endere&ccedil;o</strong></td>
+                <td class="saci_tbl_dados1"><? echo "$endereco_view"; ?>, <? echo "$numero_view"; ?> <? echo "$complemento_view"; ?> - <? echo "$bairro_view"; ?> - <? echo "$cep_view"; ?></td>
+              </tr>
+              <tr>
+                <td class="saci_tbl_dados1"><strong>Telefone</strong></td>
+                <td class="saci_tbl_dados1">(<? echo "$dddtel1_view"; ?>) <? echo "$tel1_view"; ?></td>
+              </tr>
+          </table></td>
+        </tr>
+        <tr>
+          <td><strong>Cod. Pedido</strong></td>
+          <td><a href="" class="lkverde2"><? echo "$codbarraped_view"; ?></a></td>
+        </tr>
+        <tr>
+          <td><strong>Nome Contato</strong></td>
+          <td><span class="saci_campo_view"><? echo "$contato_view"; ?></span></td>
+        </tr>
+        <tr>
+          <td><strong>Telefone</strong></td>
+          <td><span class="saci_campo_view">(<? echo "$dddtel_view"; ?>) <? echo "$tel_view"; ?></span></td>
+        </tr>
+        <tr>
+          <td valign="top"><strong>Motivo</strong></td>
+          <td><span class="saci_campo_view"><strong><? echo "$titulocat_view"; ?></strong></span></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td><span class="saci_campo_view"><strong><? echo "$titulosubcat_view"; ?></strong></span></td>
+        </tr>
+        <tr>
+          <td><strong>Data Agenda </strong></td>
+          <td><span class="saci_campo_view"><? echo "$frmdata_atend"; ?></span></td>
+        </tr>
+        <tr>
+          <td><strong>Hora Agenda </strong></td>
+          <td><span class="saci_campo_view"><? echo "$hratend_view"; ?></span></td>
+        </tr>
+        <tr>
+          <td><strong>Tipo</strong></td>
+          <td><span class="saci_campo_view"><? echo "$tipointext2_view"; ?></span></td>
+        </tr>
+        <tr>
+          <td valign="top"><strong>OBS</strong></td>
+          <td><span class="saci_campo_view"><? echo "$obs_view"; ?></span></td>
+        </tr>
+        <tr>
+          <td valign="top"><strong>Solu&ccedil;&atilde;o</strong></td>
+          <td><span class="saci_campo_view"><? echo "$solucao_view"; ?></span></td>
+        </tr>
+        <tr>
+          <td><strong>Status Solu&ccedil;&atilde;o </strong></td>
+          <td><span class="saci_campo_view"><? echo "$solucaostatus2_view"; ?></span></td>
+        </tr>
+        <tr>
+          <td><strong>Status</strong></td>
+          <td><span class="saci_campo_view"><? echo "$status2_view"; ?></span></td>
+        </tr>
+      </form>
+    </table></td>
+  </tr>
+</table>
+<br>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td class="titulospverdec">Status</td>
+  </tr>
+  <tr>
+    <td class="tdspconteudoverdec"><table width="100%"  border="0" cellspacing="2" cellpadding="1">
+        <tr>
+          <td class="sacitd1">ID</td>
+          <td class="sacitd1">STATUS</td>
+          <td class="sacitd1">DATA HORA </td>
+          <td class="sacitd1">RESPONS&Aacute;VEL</td>
+        </tr>
+        <? for($i = 0; $i < count($array6); $i++ ){ ?>
+        <tr>
+          <td class="sacitd2"><? echo "$codstatus_view[$i]"; ?></td>
+          <td class="sacitd2"><? echo "$statusstatus2_view[$i]"; ?></td>
+          <td class="sacitd2"><? echo "$dthrstatus_view[$i]"; ?></td>
+          <td class="sacitd2"><? echo "$loginstatus_view[$i]"; ?></td>
+        </tr>
+        <? }//FOR ?>
+    </table></td>
+  </tr>
+</table>
+</body>
+</html>

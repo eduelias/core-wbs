@@ -1,0 +1,241 @@
+body, p, li, span, div, td, a {
+	font-family: verdana, tahoma, arial, helvetica, sans-serif;
+	font-size: 11px;
+}
+body {
+	margin: 0px;
+}
+li {
+	padding-bottom: 5px;
+}
+#banner {
+	background: #ffc;
+	border: 1px solid #ccc;
+	margin: 10px 20px 0 20px;
+	padding: 5px;
+}
+#contact {
+	color: #000;
+	font-family: verdana, tahoma, arial, helvetica, sans-serif;
+	padding: 15px 2px 2px 20px;
+}
+#content, #content_home {
+	position: relative;
+}
+#content h2 {
+	font-size: 14px;
+	margin: 0;
+	padding: 15px 0 10px 20px;
+}
+#content_home div.toc h2 {
+	margin: 0;
+	padding: 15px 0 10px 30px;
+}
+#content h3 {
+	border-bottom: 1px solid #ccc;
+	color: #666;
+	font-size: 12px;
+	margin: 0 0 5px 0;
+	padding: 10px 0 2px 0;
+	width: 80%;
+}
+#content h4 {
+	color: #999;
+	font-size: 12px;
+	margin: 0 0 5px 0;
+	padding: 10px 0 2px 0;
+	width: 80%;
+}
+#content p, #content ul {
+	width: 80%;
+}
+#content dl {
+	width: 80%;
+}
+#content dt {
+	font-weight: bold;
+	margin: 0 0 4px 0;
+	padding: 0;
+}
+#content dd {
+	margin: 0 0 15px 10px;
+	padding: 0;
+}
+#content dd p {
+	margin: 0 0 5px 0;
+	padding: 0;
+}
+#content p img.icon, #content li img.icon {
+	margin-right: 5px;
+	vertical-align: middle;
+}
+#content .module_content p, #content .module_content ul {
+	width: 95%;
+}
+#footer {
+	border-top: 1px solid #ccc;
+	clear: both;
+	color: #ccc;
+	font-family: verdana, tahoma, arial, helvetica, sans-serif;
+	font-size: 9px;
+	padding: 7px;
+}
+#footer a {
+	color: #ccc;
+	font-family: verdana, tahoma, arial, helvetica, sans-serif;
+	font-size: 9px;
+}
+#header {
+	background: #999;
+	border-bottom: 1px solid #ccc;
+	font-family: verdana, tahoma, arial, helvetica, sans-serif;
+	font-size: 12px;
+	padding: 2px;
+}
+#header h1 {
+	background: url(images/h1.gif) no-repeat;
+	display: block;
+	height: 45px;
+	margin: 0;
+	padding: 0;
+	width: 200px;
+}
+#header h1 span {
+	visibility: hidden;
+}
+#header a, #header a:link, #header a:visited {
+	color: #fff;
+	float: right;
+	font-family: verdana, tahoma, arial, helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	margin: 15px 20px 0 0;
+}
+.keyboard {
+	background: #f8f8f8;
+	padding: 3px;
+}
+#content #last_modified, #content_home #last_modified {
+	clear: both;
+	color: #666;
+	font-family: verdana, tahoma, arial, helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	margin: 20px 20px 15px 20px;
+	text-align: right;
+	width: 90%;
+}
+#content #last_modified a {
+	font-family: verdana, tahoma, arial, helvetica, sans-serif;
+	font-size: 10px;
+}
+#content #prev_next {
+	clear: both;
+	font-family: verdana, tahoma, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	margin: 20px 20px 0 20px;
+	text-align: center;
+	width: 90%;
+}
+.message {
+	background: #ffc;
+	border: 1px solid #ccc;
+	font-family: verdana, tahoma, arial, helvetica, sans-serif;
+	font-size: 11px;
+	margin: 7px 7px 0 7px;
+	padding: 3px;
+}
+.module_title {
+	color: #333;
+	font-family: verdana, tahoma, arial, helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	margin: 15px 20px 5px 20px;
+}
+.module_content {
+	font-family: verdana, tahoma, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	margin: 0px 100px 15px 30px;
+}
+#related_links {
+	clear: right;
+	float: left;
+	width: 25%;
+}
+#related_links h2 {
+	font-family: verdana, tahoma, arial, helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	margin: 20px 0 5px 0;
+	padding: 0;
+}
+#related_links ul {
+	margin: 0;
+	padding: 0 0 0 20px;
+}
+.toc, .category {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+#content .toc li h3, #content_home .toc li h3 {
+	color: #333;
+	font-family: verdana, tahoma, arial, helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	margin: 0;
+	padding: 5px 2px 2px 20px;
+}
+#content .toc li, #content_home .toc li {
+	border-bottom: 1px solid #ccc;
+	margin: 0 30px 5px 30px;
+}
+#content .toc li ul li, #content_home .toc li ul li {
+	border: 0;
+	float: left;
+	margin: 0;
+	width: 45%;
+}
+.category li {
+	color: #000;
+	font-family: verdana, tahoma, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	padding: 3px;
+	padding-left: 30px;
+}
+.category li p {
+	color: #000;
+	font-family: verdana, tahoma, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	padding: 0 2px 2px 50px;
+}
+.toc_title {
+	color: #000;
+	font-family: verdana, tahoma, arial, helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 15px 2px 2px 20px;
+}
+.value {
+	background: #cfc;
+	padding: 2px;
+}
+div.with_links {
+	float: left;
+	width: 70%;
+}
+div.welcome {
+	float: left;
+	margin: 0 0 0 80px;
+}
+div.welcome img {
+	border: 1px solid #ccc;
+}
+div.toc {
+	float: left;
+	margin: 0 0 0 30px;
+}

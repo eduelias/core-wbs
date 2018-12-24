@@ -1,0 +1,61 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/securitykey.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<?
+$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light);
+?>
+<br>
+<table  border="0" cellspacing="2" cellpadding="2">
+  <tr>
+	<td><? $db->botao(MOD_COR, "Testar Verificação", "", "pg=$pg&pg_ped=100", "", ""); ?></td>
+    <td><? $db->botao(MOD_COR, "Tabela de Senhas", "", "pg=$pg&pg_ped=200", "", ""); ?></td>
+  </tr>
+</table>
+<br>
+<table border="0" cellpadding="0" cellspacing="1" class="tabela">
+  <tr>
+    <td colspan="10" class="titulo1">WBS - TABELA DE SENHAS</td>
+  </tr>
+  <tr>
+    <td colspan="10" class="titulo2"><table border="0" cellspacing="2" cellpadding="1">
+      <tr>
+        <td><strong><? echo $login; ?></strong></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+    </table></td>
+  </tr>
+<? for($i = 1; $i <= 10; $i++) { ?>
+  <tr align="center">
+    <td bgcolor="#FFCC00" class="linhas"><strong>
+      <? $a = $i; echo $a; ?>
+    </strong></td>
+    <td class="linhas"><? echo gera_codigo($id_vend, $seed, $i); ?></td>
+    <td bgcolor="#FFCC00" class="linhas"><strong>
+      <? $b = $i + 10; echo $b; ?>
+    </strong></td>
+    <td class="linhas"><? echo gera_codigo($id_vend, $seed, $i+10); ?></td>
+    <td bgcolor="#FFCC00" class="linhas"><strong>
+      <? $c = $i + 20; echo $c; ?>
+    </strong></td>
+    <td class="linhas"><? echo gera_codigo($id_vend, $seed, $i+20); ?></td>
+    <td bgcolor="#FFCC00" class="linhas"><strong>
+      <? $d = $i + 30; echo $d; ?>
+    </strong></td>
+    <td class="linhas"><? echo gera_codigo($id_vend, $seed, $i+30); ?></td>
+    <td bgcolor="#FFCC00" class="linhas"><strong>
+      <? $e = $i + 40; echo $e; ?>
+    </strong></td>
+    <td class="linhas"><? echo gera_codigo($id_vend, $seed, $i+40); ?></td>
+  </tr>
+<? } ?>
+</table>
+</body>
+</html>

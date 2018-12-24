@@ -1,0 +1,52 @@
+.vot_titulo {
+	font-weight: bold;
+	text-transform: uppercase;
+	background-image: url(../images/fd2coresmarron.jpg);
+	background-position: 20px;
+	padding-top: 3px;
+	padding-right: 10px;
+	padding-bottom: 3px;
+	padding-left: 10px;
+	font-family: "Trebuchet MS", Tahoma, Verdana, Arial;
+	font-size: 11px;
+}
+.vot_lista {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	padding: 2px;
+	border: 1px solid #BCA770;
+}
+.vot_lista2 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	padding: 4px 2px;
+	border-bottom: 1px solid #D4D0C8;
+	text-transform: uppercase;
+}
+.vot_votou {
+	color: #D5C8A4;
+	font-weight: bold;
+	font-family: "Trebuchet MS", Tahoma, Verdana, Arial;
+	font-size: 24px;
+}
+.vot_votou2 {
+	color: #D5C8A4;
+	font-weight: bold;
+	font-family: "Trebuchet MS", Tahoma, Verdana, Arial;
+	font-size: 14px;
+	border: 1px dashed #D5C8A4;
+	padding: 4px;
+}
+.vot_botao {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	color: #63542E;
+	background-color: #D5C8A4;
+	padding: 4px;
+	font-size: 11px;
+	background-image: url(../images/fd2coresmarron.jpg);
+	background-position: 20px;
+	border: 1px solid #D5C8A5;
+}

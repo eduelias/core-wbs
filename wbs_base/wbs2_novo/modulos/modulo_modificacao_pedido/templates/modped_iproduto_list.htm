@@ -1,0 +1,217 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Produtos Adicionais do Micro</title>
+<link href="wbs2/css/sistema.css" rel="stylesheet" type="text/css">
+<link href="../css/sistema.css" rel="stylesheet" type="text/css">
+</head>
+<script language='JavaScript'>
+function sel() {
+	with(document.form1) {
+		for(i=0;i<elements.length;i++) {
+			thiselm = elements[i];
+			if(thiselm.name.substring(0,5) == 'ckprd')
+				thiselm.checked = !thiselm.checked
+		}
+	}
+}
+
+function delemsg(codped, codcj) {
+
+document.form1.action = '<? echo "$PHP_SELF?pg=$pg&pg_ped=8&"; ?>Action=delete&codcjselect='+codcj+'&codpedselect='+codped+'';
+document.form1.target = '';
+document.form1.submit();
+
+document.form1.action = '<? echo "$PHP_SELF?pg=$pg&pg_ped=6&"; ?>&codcjselect='+codcj+'&codpedselect='+codped+'';
+document.form1.target = 'icarrinho';
+document.form1.submit();
+
+}
+</script>
+
+<body>
+<table width="100%"  border="0" align="center" cellpadding="3" cellspacing="0">
+    <tr class="titulos_itens">
+      <td align="center">&nbsp;</td>
+      <td align="center">Cod.</td>
+      <td>Produto</td>
+      <td align="center">Cor</td>
+      <td align="center">Qtde.</td>
+      <td align="center">Pos.<br>
+        Est. </td>
+      <td align="center">Pre&ccedil;o <br>
+        (R$) </td>
+      <td align="center">&nbsp;</td>
+      <td align="center"><a href="javascript:delemsg(<? echo"$codpedselect"; ?>, <? echo"$codcjselect"; ?>)"><img src="wbs2/images/bteliminar.png" alt="Excluir Selecionados" width="16" height="16" border="0"></a></td>
+    </tr>
+    <?
+
+
+for ($i = 0; $i < count($arrayx); $i++)
+{
+
+//ESTOQUE
+
+if ($est[$i] > 0){$img="wbs2/images/est_pos_ok.gif";}
+if (($est[$i] == 0 OR $est[$i] < 0) and $qtde_oc[$i] > 0){$img="wbs2/images/note_icon.gif";$oc=$qtde_oc[$i];}
+if (($est[$i] == 0 OR $est[$i] < 0) and $qtde_oc[$i] <= 0){$img="wbs2/images/est_pos_no.gif";}
+
+
+	if ($xtipoprod <> $tipoprod[$i])
+	{
+		if ($tipoprod[$i] == 'CJ')
+		{
+			$titulocat = "Microcomputadores";
+		}
+		else
+		{
+			$titulocat = "Produtos Adicionais";
+		}
+?>
+    <tr class="titulos_cat3">
+      <td colspan="7"><? echo "$titulocat"; ?></td>
+      <td align="right">&nbsp;</td>
+      <td align="right"><a href=""><img src="wbs2/images/topo0.gif" width="40" height="15" border="0"></a></td>
+    </tr>
+    <?
+	}
+	$xtipoprod = $tipoprod[$i];
+
+	if ($xtipocj <> $tipocj[$i] and $tipoprod[$i] == 'CJ')
+	{
+		$tipocj_n = $tipocj[$i];
+		$placaSelectU = $placaSelect_alter[$tipocj[$i]];
+		
+?>
+    <tr class="titulos_subcat3">
+      <td>&nbsp;</td>
+      <td colspan="4">Configura&ccedil;&atilde;o <? echo "$tipocj[$i]"; ?><br>
+      <? echo "$nomeprodcj[$i]"; ?></td>
+      <td>&nbsp;</td>
+      <td align="right">&nbsp;</td>
+      <td align="center">&nbsp;</td>
+      <td align="center"><input name="ckall" type="checkbox" id="ckall" onclick="sel()" value="checkbox"></td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td align="right" class="titulos_itens">&nbsp;</td>
+      <td align="right" class="titulos_itens">SUBTOTAL</td>
+      <td align="center"><input name="valor_acj[<? echo "$codprodcj[$i]"; ?>][<? echo "$tipocj[$i]"; ?>]" type="hidden" value="<? echo "$subtotalf[$tipocj_n]"; ?>"><? echo "$subtotalf[$tipocj_n]"; ?></td>
+      <td align="center">&nbsp;</td>
+      <td align="center">&nbsp;</td>
+    </tr>
+    <?
+	}
+	$xtipocj = $tipocj[$i];
+	if ($prod_lib[$i]==1){ $risc = "style='text-decoration: line-through;'";}else{$risc = "";}
+	if ($tipoprod[$i] == 'CJ')
+	{
+?>
+    <tr onmouseover="this.bgColor='#FFDBB7'" onmouseout="this.bgColor ='#FFFFFF'" bgcolor="#FFFFFF">
+      <td align="center">&nbsp;</td>
+      <td align="center"><? echo "$codprod[$i]"; ?></td>
+      <td><span class="nomeprod1"><span <? echo "$risc"; ?>> <? echo "$nomeprod[$i]"; ?> </span>
+            <div id="foralinha" align = "center" style="visibility: <? if ($prod_lib[$i]==1){ echo"visible";}else{echo"hidden";}?>; background-color: #FFCC00; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 9px; color: #000000; padding: 3px; font-weight: bold; text-transform: uppercase; position: absolute">INCOMPAT&Iacute;VEL</div>
+        </span><br>
+        <span class="nomeprod2"><? echo "$descres[$i]"; ?></span></td>
+      <td><?
+if ($mostra_cor[$i] <> "1") {
+echo "
+<table  border='0' align='center' cellpadding='2' cellspacing='2'>
+  <tr>
+    <td><table  border='0' cellpadding='0' cellspacing='0' bgcolor='$cor1_prod[$i]'>
+      <tr>
+        <td style='$borda_cor1[$i]'><img src='wbs2/images/fcor.gif' width='10' height='10'></td>
+      </tr>
+    </table></td>
+    <td><table  border='0' cellpadding='0' cellspacing='0' bgcolor='$cor2_prod[$i]'>
+      <tr>
+        <td style='$borda_cor2[$i]'><img src='wbs2/images/fcor.gif' width='10' height='10'></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+";
+}
+?></td>
+      <td align="center"><? echo "$qtde[$i]"; ?></td>
+      <td align="center"><img src="<? echo"$img"; ?>"><BR>
+          <? echo"$oc"; ?></td>
+      <td align="center"><span class="nomeprod1"><? echo "$pputf[$i]"; ?></span></td>
+      <td align="center"><img src="est_novo.gif" width="24" height="11"></td>
+      <td align="center"><input name="ckall" type="checkbox" id="ckall" onclick="sel()" value="checkbox"></td>
+    </tr>
+    <?
+	}
+	else
+	{
+?>
+    <tr onmouseover="this.bgColor='#FFDBB7'" onmouseout="this.bgColor ='#FFFFFF'" bgcolor="#FFFFFF">
+      <td align="center">&nbsp;</td>
+      <td align="center"><? echo "$codprod[$i]"; ?></td>
+      <td><span class="nomeprod1"><span <? echo "$risc"; ?>><? echo "$nomeprod[$i]"; ?></span>
+            <div id="foralinha" align = "center" style="visibility: <? if ($prod_lib[$i]==1){ echo"visible";}else{echo"hidden";}?>; background-color: #FFCC00; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 9px; color: #000000; padding: 3px; font-weight: bold; text-transform: uppercase; position: absolute">INCOMPAT&Iacute;VEL</div>
+        </span><br>
+        <span class="nomeprod2"><? echo "$descres[$i]"; ?></span></td>
+      <td><?
+if ($mostra_cor[$i] <> "1") {
+echo "
+<table  border='0' align='center' cellpadding='2' cellspacing='2'>
+  <tr>
+    <td><table  border='0' cellpadding='0' cellspacing='0' bgcolor='$cor1_prod[$i]'>
+      <tr>
+        <td style='$borda_cor1[$i]'><img src='wbs2/images/fcor.gif' width='10' height='10'></td>
+      </tr>
+    </table></td>
+    <td><table  border='0' cellpadding='0' cellspacing='0' bgcolor='$cor2_prod[$i]'>
+      <tr>
+        <td style='$borda_cor2[$i]'><img src='wbs2/images/fcor.gif' width='10' height='10'></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+";
+}
+?></td>
+      <td align="center"><? echo "$qtde[$i]"; ?></td>
+      <td align="center"><img src="<? echo"$img"; ?>"><BR>
+          <? echo"$oc"; ?></td>
+      <td align="center"><input name="valor_aum[<? echo "$codprodcj[$i]"; ?>][<? echo "$tipocj[$i]"; ?>][<? echo "$codprod[$i]"; ?>]" type="hidden" value="<? echo "$pput[$i]"; ?>"><? echo "$pputf[$i]"; ?>          </td>
+      <td align="center"><img src="est_novo.gif" width="24" height="11"></td>
+      <td align="center"><input name="ckall" type="checkbox" id="ckall" onclick="sel()" value="checkbox"></td>
+    </tr>
+    <?
+	}
+$img = "";
+$oc = "";
+$erro_fora_lista = $erro_fora_lista + $prod_lib[$i];
+} // For
+?>
+    <tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td align="center">&nbsp;</td>
+      <td align="center">&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td class="total2">&nbsp;</td>
+      <td class="total2">TOTAL</td>
+      <td align="center"><span class="total1"><? echo "$totalf"; ?></span></td>
+      <td align="center" class="total1">&nbsp;</td>
+      <td align="center" class="total1">&nbsp;</td>
+    </tr>
+</table>
+</body>
+</html>

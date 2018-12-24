@@ -1,0 +1,35 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<script language="javascript" src="<? echo DIR_JS; ?>/funcoes01.js"></script>
+</head>
+
+<body>
+<?
+$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light);
+$var_parametro = "&pg_ped=3";
+$db->voltar(MOD_COR, $pg, $var_parametro);
+?>
+<br>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" class="titulo_superior2">
+  <tr>
+    <td>Editar Laudo </td>
+  </tr>
+</table>
+<table width="100%"  border="0" cellpadding="2" cellspacing="0" class="generalTable defaultBlackText">
+  <form method="post" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=3&Action=Editar&codlaudo_select=$codlaudo_select"; ?>" name="edita">
+    <tr style="background-color: #FFFFFF; cursor: pointer;">
+      <td width="80" align="right" valign="top" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Descri&ccedil;&atilde;o</td>
+      <td class="noramlTableCell"><textarea name="descricao" rows="3" class="campo_caixa" id="descricao" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"'><? echo $rs_linha->fields['descricao']; ?></textarea></td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td><input name="Submit" type="submit" class="botao_cor" value="Alterar"></td>
+    </tr>
+  </form>
+</table>
+</body>
+</html>

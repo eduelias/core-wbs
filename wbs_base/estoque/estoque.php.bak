@@ -1,0 +1,33 @@
+<?php
+
+require("../classprod.php" );
+
+$codempselect = 1;
+
+// INICIO DA CLASSE
+$prod = new operacao();
+
+		#echo("cb=$codped");
+
+			// LISTA OS REGISTROS DE ACORDO COM O ACRESCIMO DEFINIDO
+		$prod->listProdSum("codprod, nomeprod", "produtos", "unidade not like 'CJ' and hist <> 'Y'", $array, $array_campo, $parm );
+ 
+ 
+		for($i = 0; $i < count($array); $i++ ){
+			
+			$prod->mostraProd( $array, $array_campo, $i );
+			
+			$codprod = $prod->showcampo0();
+			$nomeprod = $prod->showcampo1();
+			
+
+			// CALCULA TODO O ESTOQUE POR EMPRESAS
+
+			$prod->listProdSum("COUNT(*)*(SUM(qtde)-SUM(reserva)) as estoque", "estoque" , "codprod = $codprod and codemp = $codempselect", $array991, $array_campo991, "" );
+			$prod->mostraProd( $array991, $array_campo991, 0 );
+			$estoque = $prod->showcampo0();
+
+
+	echo("$erro");
+
+?>

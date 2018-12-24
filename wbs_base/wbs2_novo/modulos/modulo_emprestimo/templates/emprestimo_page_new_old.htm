@@ -1,0 +1,101 @@
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Untitled Document</title>
+<link href="<? echo DIR_CSS; ?>/sistema.css" rel="stylesheet" type="text/css">
+
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+//-->
+</script>
+</head>
+
+<body>
+
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td valign="top"><table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td><img src="<? echo DIR_IMAGES; ?>/controle_de_vitrine.gif"></td>
+      </tr>
+      <tr>
+        <td background="<? echo DIR_IMAGES; ?>/spacer.gif" bgcolor="#CDDADC"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+      </tr>
+    </table>
+      <br>
+      <table  border="0" cellspacing="2" cellpadding="5">
+        <tr>
+          <td width="50%" align="center"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=2&Action=#pesq"; ?>"><img src="<? echo DIR_IMAGES; ?>/bt_transv.gif" width="106" height="31" border="0"></a></td>
+          <td width="50%" align="center"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=3&Action=#pesq"; ?>"><img src="<? echo DIR_IMAGES; ?>/bt_retirav.gif" width="96" height="31" border="0"></a></td>
+        </tr>
+      </table>      
+      	    <form method="post" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=&Action=criar_vitrine#pesq"; ?>" name="pesq" >
+      <table width="100%"  border="0" cellspacing="2" cellpadding="5">
+        <tr>
+          <td colspan="3" class="titulos_padrao">CRIAR VITRINE </td>
+        </tr>
+        <tr>
+          <td>
+            EMPRESA:<br><select name="codemp_select" class="campoquant1" id="codemp_select" >
+              <?
+	for($i = 0; $i < count($array_pesq1); $i++ ){
+
+?>
+              <option value="<? echo"$codemp_pesq1[$i]"; ?>"><? echo"$nomeemp_pesq1[$i]"; ?></option>
+              <?
+	}//FOR
+?>
+              <option selected value = "">Escolha a Empresa</option>
+            </select>
+         </td>
+          <td>            NOME VITRINE: <br>
+          <input name="nome_vitrine" type="text" id="nome_vitrine" size="50"></td>
+          <td><input name="imageField" type="image" src="images/btokazul.gif" width="25" height="25" border="0"></td>
+        </tr>
+      </table>   
+	  	
+	    </form>  
+		 <table width="100%"  border="0" cellspacing="2" cellpadding="5">
+           <tr>
+             <td width="100%" class="titulos_padrao">LISTA DE VITRINES</td>
+           </tr>
+         </table>		 
+		 <table width="100%"  border="0" align="center" cellpadding="3" cellspacing="0">
+           <tr class="titulos_itens">
+             <td width="40" align="center">COD.</td>
+             <td width="50%">VITRINE</td>
+             <td width="50%">EMPRESA</td>
+             <td align="center">HIST</td>
+             <td width="15" align="center">&nbsp;</td>
+             <td width="15" align="center">&nbsp;</td>
+             <td width="15" align="center">&nbsp;</td>
+           </tr>
+           <?
+	for($i = 0; $i < count($array_pesq); $i++ ){
+?>
+           <tr onmouseover="this.bgColor='#FFDBB7'" onmouseout="this.bgColor ='#FFFFFF'" bgcolor="#FFFFFF">
+             <td align="center"><b><? echo"$codvitrine_pesq[$i]"; ?></b><br>                 </td>
+             <td><span class="nomeprod1"><? echo"$nomevitrine_pesq[$i]"; ?></span><br>
+             </td>
+             <td><span class="nomeprod1"><? echo"$nomeemp_pesq[$i]"; ?></span></td>
+             <td align="center"><? echo"$hist_pesq[$i]"; ?></td>
+             <td align="center"><a href="javascript:void(0);" onClick="MM_openBrWindow('<? echo "$PHP_SELF?pg=$pg&pg_ped=4&menu_not=1&cjSelect=$codemp_pesq[$i]&placaSelect=$codvitrine_pesq[$i]"; ?>','telacheia','status=yes,scrollbars=yes,width=600,height=400')"><img src="<? echo DIR_IMAGES; ?>/btview_v.gif" width="15" height="15" border="0"></a></td>
+             <td align="center" class="nomeprod1"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=&Action=lib_vitrine&codvitrine_select=$codvitrine_pesq[$i]#pesq"; ?>"><img src="<? echo DIR_IMAGES; ?>/bthitnv.gif" width="15" height="15" border="0"></a></td>
+             <td align="center" class="nomeprod1"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=&Action=hist_vitrine&codvitrine_select=$codvitrine_pesq[$i]#pesq"; ?>"><img src="<? echo DIR_IMAGES; ?>/bthitv.gif" width="15" height="15" border="0"></a></td>
+           </tr>
+           <?
+	}//FOR
+?>
+      </table></td>
+  </tr>
+  <tr>
+    <td valign="top">&nbsp;</td>
+  </tr>
+
+</table>
+</body>
+</html>

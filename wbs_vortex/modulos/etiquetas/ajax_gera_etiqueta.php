@@ -45,11 +45,9 @@
 	
 	function quebralinha ($string,$max,$char = ' '){
 		
-		//Apontador 
 		$i = 0;
-		
-		//Linha impressa
 		$linha = 0;
+		$acc = 0;
 		
 		$string = limpaacentos($string);
 		
@@ -57,7 +55,11 @@
 		
 		while ($i <= count($aux)) {
 			
+			//echo strlen($st).' < '.$max.'<br>';
+			
 			if ((strlen($st)+strlen($aux[$i])) <= $max) { 
+			
+				$acc += strlen($aux[$i]);
 				
 				$st .= $aux[$i].' ';
 				
@@ -70,11 +72,18 @@
 				$st = '';
 				
 				$linha++;
-
+				
+				$acc = 0;
 			}		
+			
+			//echo strlen($st).' < '.$max.'<br>';
+			
+			//echo $max.' - '.$teste.' - '.$acc.' - '.strlen($aux[$i]).' - '.$i.' - '.$st.'<br>';
 			
 			$i++;
 		}
+		
+		//$linha++;
 		
 		$retorno[$linha] = strtoupper($st);	
 			

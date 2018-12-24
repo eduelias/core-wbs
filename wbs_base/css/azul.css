@@ -1,0 +1,312 @@
+/*
++--------------------------------------------------------------
+|  WBS - WEB BUSINESS SYSTEM (versão 2.0)
+|  Grupo Ipasoft
++--------------------------------------------------------------
+|  Copyright © 2005 Grupo Ipasoft. Todos os direitos reservados.
+|  http://www.ipasoft.com.br
+|  ipasoft@ipasoft.com.br
++--------------------------------------------------------------
+|  arquivo:     azul.css
++--------------------------------------------------------------
+*/
+
+/*
++--------------------------------------------------------------
+|  LINKS
++--------------------------------------------------------------
+*/
+
+a.link1 {
+	font: 11px verdana, sans-serif;
+	color: #3775CA;
+	padding: 3px;
+	outline: none;
+	text-decoration: none;
+	border: 1px solid #FFFFFF;
+}
+a.link1:hover, a.link1:focus {
+	background-color: #3775CA;
+	color: #FFFFFF;
+	text-decoration: none;
+	border: 1px solid #3775CA;
+}
+a.link2 {
+	font: 11px verdana, sans-serif;
+	color: #FFFFFF;
+	padding: 3px;
+	outline: none;
+	text-decoration: none;
+	background-color: #3775CA;
+	border: 1px solid #3775CA;
+}
+a.link2:hover, a.link2:focus {
+	background-color: #FFFFFF;
+	color: #3775CA;
+	text-decoration: none;
+	border: 1px solid #3775CA;
+}
+a.link3 {
+	font: 11px verdana, sans-serif;
+	color: #3775CA;
+	padding: 3px;
+	outline: none;
+	text-decoration: none;
+}
+a.link3:hover, a.link3:focus {
+	color: #3775CA;
+	text-decoration: underline;
+}
+a.link4 {
+	font: 11px verdana, sans-serif;
+	color: #3775CA;
+	padding: 3px;
+	outline: none;
+	text-decoration: none;
+	background-color: #FFFFFF;
+	border: 1px solid #FFFFFF;
+}
+a.link4:hover, a.link4:focus {
+	color: #3775CA;
+	text-decoration: none;
+	border-bottom: 1px solid #3775CA;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-left-style: solid;
+	border-top-color: #FFFFFF;
+	border-right-color: #FFFFFF;
+	border-left-color: #FFFFFF;
+}
+a.link5, a.link5:hover, a.link5:focus {
+	font: 11px verdana, sans-serif;
+	color: #3775CA;
+	text-decoration: none;
+}
+
+/*
++--------------------------------------------------------------
+|  FORMULARIOS
++--------------------------------------------------------------
+*/
+.botao_cor {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #FFFFFF;
+	background-image: url(../images/fd2coresblue.jpg);
+	background-position: 20px;
+	border: 1px outset #3775CA;
+	padding-top: 4px;
+	padding-right: 2px;
+	padding-bottom: 4px;
+	padding-left: 2px;
+}
+.campo_linha {
+	color: #333333;
+	border: 1px inset #3775CA;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	padding: 2px;
+}
+.campo_caixa {
+	color: #333333;
+	border: 1px inset #3775CA;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	padding: 2px;
+	width: 100%;
+}
+.campo_select {
+	color: #333333;
+	border: 1px solid #3775CA;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+.campo_fieldset {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	border: 1px inset #3775CA;
+}
+.campo_fieldset_legend {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	background-color: #3775CA;
+	color: #FFFFFF;
+	font-size: 11px;
+	font-weight: bold;
+	padding: 4px;
+	border: 1px outset #3775CA;
+	background-image: url(../images/fd2coresblue.jpg);
+	background-position: 20px;
+}
+
+/*
++--------------------------------------------------------------
+|  LISTAS
++--------------------------------------------------------------
+*/
+.generalGreyBorderBottomTableHeaderCell {
+	border-bottom: 1px solid #D4D0C8;
+	border-top: 1px solid #D4D0C8;
+	font-family: verdana, helvetica, arial;
+	font-size: 11px;
+	/*font-size:8.5pt;*/
+	font-weight: bold;
+	text-decoration: none;
+	color: #3775CA;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+/*
++--------------------------------------------------------------
+|  OUTROS
++--------------------------------------------------------------
+*/
+.titulo_superior {
+	font-weight: bold;
+	text-transform: uppercase;
+	background-image: url(../images/fd4azul_padrao.jpg);
+	background-position: 20px;
+	padding-top: 3px;
+	padding-right: 10px;
+	padding-bottom: 3px;
+	padding-left: 10px;
+	font-family: "Trebuchet MS", Tahoma, Verdana, Arial;
+	font-size: 11px;
+	color: #FFFFFF;
+	background-color: #3775CA;
+	border: 1px solid #3775CA;
+}
+.titulo_superior2 {
+	font-family: "Trebuchet MS", Tahoma, Verdana, Arial;
+	background-color: #3775CA;
+	color: #FFFFFF;
+	font-size: 11px;
+	font-weight: bold;
+	text-transform: uppercase;
+	padding-top: 3px;
+	padding-right: 10px;
+	padding-bottom: 3px;
+	padding-left: 10px;
+	border: 1px outset #3775CA;
+	background-image: url(../images/fd2coresblue.jpg);
+	background-position: 20px;
+}
+.titulo_posterior {
+	font-weight: bold;
+	text-transform: uppercase;
+	padding-top: 3px;
+	padding-right: 10px;
+	padding-bottom: 3px;
+	padding-left: 2px;
+	font-family: "Trebuchet MS", Tahoma, Verdana, Arial;
+	font-size: 11px;
+	color: #3775CA;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+	border-bottom-color: #3775CA;
+}
+.titulo_posterior2 {
+	font-weight: bold;
+	text-transform: uppercase;
+	padding-top: 3px;
+	padding-right: 10px;
+	padding-bottom: 3px;
+	padding-left: 2px;
+	font-family: "Trebuchet MS", Tahoma, Verdana, Arial;
+	font-size: 11px;
+	color: #3775CA;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #666666;
+}
+.tabela_conteudo {
+	padding: 4px;
+	border: 1px solid #3775CA;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+/* ABAS */
+#abas {
+	padding: 5px;
+	background-color: #FFFFFF;
+}
+#conteudo {
+	padding: 5px;
+	background-color: #FFFFFF;
+}
+ul#abas {
+	font: bold 11px verdana, arial, sans-serif;
+	list-style-type: none;
+	padding-bottom: 24px;
+	border-bottom: 1px solid #397BCF;
+	margin: 0;
+}
+ul#abas li {
+	float: left;
+	background-color: #397BCF;
+	margin: 2px 2px 0 2px;
+	border: 1px solid #397BCF;
+}
+div#aba1 ul#abas li.aba1, div#aba2 ul#abas li.aba2, div#aba3 ul#abas li.aba3, div#aba4 ul#abas li.aba4, div#aba5 ul#abas li.aba5 {
+	border-bottom: 1px solid #fff;
+	background-color: #fff;
+}
+div#aba1 ul#abas li.aba1 a, div#aba2 ul#abas li.aba2 a, div#aba3 ul#abas li.aba3 a, div#aba4 ul#abas li.aba4 a, div#aba5 ul#abas li.aba5 a {
+	color: #000;
+}
+ul#abas li.aba {
+	margin-right:3px;
+	text-align:center;
+	float:left;
+	cursor:pointer;
+	background-position: 20px;
+	color: #FFFFFF;
+	font-weight: bold;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 0;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #397BCF;
+	border-right-color: #397BCF;
+	border-bottom-color: #397BCF;
+	border-left-color: #397BCF;
+	padding-top: 4px;
+	padding-right: 2px;
+	padding-bottom: 4px;
+	padding-left: 2px;
+	background-image: url(../images/fd2coresblue.jpg);
+}
+ul#abas li.aba_selecionada {
+	margin-right:3px;
+	text-align:center;
+	float:left;
+	cursor:pointer;
+	background-position: 20px;
+	color: #3879CD;
+	font-weight: bold;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #397BCF;
+	border-right-color: #397BCF;
+	border-bottom-color: #FFFFFF;
+	border-left-color: #397BCF;
+	padding-top: 4px;
+	padding-right: 2px;
+	padding-bottom: 4px;
+	padding-left: 2px;
+	background-color: #FFFFFF;
+}

@@ -22,6 +22,5 @@
 </script>
 
 <?
-	#include('modulos/rma_fornecedor/tab_pesquisa.php')
-	include('modulos/rma_fornecedor/index3.php');
+	include('modulos/rma_fornecedor/tab_pesquisa.php')
 ?>

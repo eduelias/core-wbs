@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/usados.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><img src="<? echo DIR_IMAGES; ?>/produtos_usados_admin_ind.gif"></td>
+  </tr>
+  <tr>
+    <td bgcolor="#666699"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+  </tr>
+</table>
+<br>
+
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="titulo_especial">Editar Produto</td>
+    <td width="100" align="center"><a href="<? echo "$PHP_SELF?pg=$pg&pg_ped=1"; ?>"><img src="<? echo DIR_IMAGES; ?>/btvoltarcinza.gif" width="83" height="20" border="0"></a></td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#666699"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+  </tr>
+  <tr>
+    <td colspan="2"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="10" height="10"></td>
+  </tr>
+</table>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <form action="<? echo "$PHP_SELF?pg=$pg&pg_ped=1&Action=Editar"; ?>" method="post" name="add_prod" enctype="multipart/form-data">
+    <tr>
+      <td class="label_campo1">Nome Produto </td>
+    </tr>
+    <tr>
+      <td><input name="nome_novo" type="text" class="input3" id="nome_novo" value="<? echo $nomeprod_list; ?>" size="40" maxlength="60">
+      <input name="codusadoselect" type="hidden" id="codusadoselect" value="<? echo $codusado_list; ?>"></td>
+    </tr>
+    <tr>
+      <td class="label_campo1">Descri&ccedil;&atilde;o do Produto </td>
+    </tr>
+    <tr>
+      <td><textarea name="descricao_novo" cols="80" rows="5" class="input3" id="descricao_novo" onKeyDown="liberaEnter();"><? echo $descricaoprod_list; ?></textarea></td>
+    </tr>
+    <tr>
+      <td class="label_campo1">Pre&ccedil;o Produto </td>
+    </tr>
+    <tr>
+      <td><input name="ppu_novo" type="text" class="input3" id="ppu_novo" value="<? echo $ppuprod_list; ?>" size="10" maxlength="10"></td>
+    </tr>
+  <tr>
+    <td class="label_campo1">Imagem do Produto </td>
+  </tr>
+  <tr>
+    <td><input name="form_data" type="file" class="input3" size="30"></td>
+  </tr>
+    <tr>
+      <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="10" height="10"></td>
+    </tr>
+    <tr>
+      <td><input name="Submit" type="submit" class="input2" value="Salvar Alterações"></td>
+    </tr>
+  </form>
+</table>
+</body>
+</html>

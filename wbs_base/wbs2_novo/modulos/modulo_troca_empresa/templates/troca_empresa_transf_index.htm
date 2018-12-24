@@ -1,0 +1,62 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<?
+$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light);
+?>
+<br>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" class="titulo_superior2">
+  <tr>
+    <td>Atual</td>
+  </tr>
+</table>
+<table width="100%"  border="0" cellpadding="2" cellspacing="0" class="generalTable defaultBlackText">
+    <tr style="background-color: #FFFFFF; cursor: pointer;">
+      <td width="160" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Empresa </td>
+      <td class="noramlTableCell"><? echo $db->format_str("UP", $rs_emp1->fields['nome']); ?></td>
+    </tr>
+    <tr style="background-color: #FFFFFF; cursor: pointer;">
+      <td width="160" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Empresa Destino </td>
+      <td class="noramlTableCell"><? echo $db->format_str("UP", $rs_emp2->fields['nome']); ?></td>
+    </tr>
+</table>
+<br>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" class="titulo_superior2">
+  <tr>
+    <td>Trocar</td>
+  </tr>
+</table>
+<table width="100%"  border="0" cellpadding="2" cellspacing="0" class="generalTable defaultBlackText">
+  <form method="post" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&Action=Troca"; ?>" name="troca">
+    <tr style="background-color: #FFFFFF; cursor: pointer;">
+      <td width="60" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Para </td>
+      <td class="noramlTableCell"><select name="codemp_transf_select" class="campo_select" id="codemp_transf_select" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"'>
+        <option selected>Escolha...</option>
+<?
+if ($rs_lib)
+{
+	while (!$rs_lib->EOF)
+	{
+?>
+        <option value="<? echo $rs_lib->fields['codemp']; ?>"><? echo $db->format_str("UP", $rs_lib->fields['nome']); ?></option>
+<?
+	 	$rs_lib->MoveNext();
+	}//WHILE
+}
+?>
+      </select></td>
+    </tr>
+    <tr style="background-color: #FFFFFF; cursor: pointer;">
+      <td width="60" align="right" class="noramlTableCell">&nbsp;</td>
+      <td class="noramlTableCell"><input name="Submit" type="submit" class="botao_cor" value="OK"></td>
+    </tr>
+  </form>
+</table>
+</body>
+</html>

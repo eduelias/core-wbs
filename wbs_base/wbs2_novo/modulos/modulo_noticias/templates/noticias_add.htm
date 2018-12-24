@@ -1,0 +1,148 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+//echo("<strong>S</strong>[$sucesso] <strong>PG</strong>[$pg] <strong>PG_PED</strong>[$pg_ped] <strong>ACTION</strong>[$Action]");
+/*
+if ($sucesso == 1)
+{
+	if (dirname($_SERVER['PHP_SELF']) == "/"){$bar = "";}else{$bar = "/";}
+	echo "<meta http-equiv='refresh' content='0;URL=http://" . $_SERVER['HTTP_HOST']. dirname($_SERVER['PHP_SELF']). $bar. "restrito.php?pg=$pg&pg_ped=1&tiposucesso=add'>";
+	exit();
+}
+*/
+?>
+<title></title>
+<link href="<? echo DIR_CSS; ?>/abc.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="<? echo DIR_SISTEMA; ?>/editor/fckeditor.js"></script>
+
+<script type="text/javascript">
+      window.onload = function()
+      {
+        var oFCKeditor = new FCKeditor( 'frmconteudo' ) ;
+		oFCKeditor.BasePath = "<? echo DIR_SISTEMA; ?>/editor/" ;
+		oFCKeditor.Height = 500 ; // 400 pixels
+        oFCKeditor.ReplaceTextarea() ;
+      }
+</script>
+</head>
+
+<body>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td colspan="2"><img src="<? echo DIR_IMAGES; ?>/noticiasinternasadm.gif" width="255" height="40"></td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#666666"><img src="spacer.gif" width="1" height="1"></td>
+  </tr>
+  <tr>
+    <td colspan="2"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="10" height="10"></td>
+  </tr>
+  <tr>
+    <td class="abc5">Inserir Nova Not&iacute;cia </td>
+    <td width="10%" class="abc5"><a href="<? echo "$PHP_SELF?pg=$pg&pg_ped=1"; ?>"><img src="<? echo DIR_IMAGES; ?>/btvoltarcinza.gif" border="0"></a></td>
+  </tr>
+  <tr>
+    <td colspan="2"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="10" height="10"></td>
+  </tr>
+</table>
+<table width="100%"  border="0" align="center" cellpadding="1" cellspacing="2">
+<form action="<? echo "$PHP_SELF?pg=$pg&pg_ped=1&Action=Gravar"; ?>" method="post" name="form">
+  <tr>
+    <td class="abc1">grupo</td>
+    <td class="abc1">tipo</td>
+    <td class="abc1">status</td>
+    <td class="abc1">Prioridade</td>
+  </tr>
+  <tr valign="top" class="abc3">
+    <td><!-- <select name="frmgrupo" class="abc3" id="frmgrupo">
+        <option value="-1">Todos</option>
+<?	for($i = 0; $i < count($arrayx); $i++ ){ ?>
+		<option value="<? echo"$codgrp_list[$i]"; ?>"><? echo"$nomegrp_list[$i]"; ?></option>
+<? }//FOR ?>
+    </select> -->
+      <input name="frmgrupo" type="text" class="abc3" id="frmgrupo"> 
+      EX: :56:7:8: </td>
+    <td><select name="frmtipo" class="abc3" id="frmtipo">
+      <option value="0">Not&iacute;cia</option>
+      <option value="1">Procedimento</option>
+      <option value="2">Promo&ccedil;&atilde;o</option>
+	 </select>
+	 <BR> Página Inicial:
+	 <select name="frmpg_ini" class="abc3" id="frmpg_ini">
+	  <option value="0">0</option>
+      <option value="1">1</option>
+    </select>
+	 </td>
+    <td><select name="frmstatus" class="abc3" id="frmstatus">
+	  <option value="HAB">Habilitado</option>
+      <option value="HISt">Hist&oacute;rico</option>
+    </select></td>
+    <td><select name="frmprioridade" class="abc3" id="frmprioridade">
+      <option value="0">Nenhuma</option>
+      <option value="1">Baixa</option>
+      <option value="2">M&eacute;dia</option>
+      <option value="3">Alta</option>
+    </select></td>
+  </tr>
+  <tr>
+    <td colspan="2" class="abc1">t&iacute;tulo</td>
+    <td colspan="2" class="abc1">data/hora in&iacute;cio </td>
+    </tr>
+  <tr valign="top">
+    <td colspan="2"><textarea name="frmtitulo" rows="2" class="abc3" id="frmtitulo" style="width: 100%;"></textarea></td>
+    <td colspan="2"><table  border="0" cellspacing="1" cellpadding="1">
+      <tr>
+        <td><input name="frmdatainiciodd" type="text" class="abc3" id="frmdatainiciodd" size="2" maxlength="2" value="<? echo date("d"); ?>"></td>
+        <td>/</td>
+        <td><input name="frmdatainiciomm" type="text" class="abc3" id="frmdatainiciomm" size="2" maxlength="2" value="<? echo date("m"); ?>"></td>
+        <td>/</td>
+        <td><input name="frmdatainicioaaaa" type="text" class="abc3" id="frmdatainicioaaaa" size="4" maxlength="4" value="<? echo date("Y"); ?>"></td>
+        <td>-</td>
+        <td><input name="frmdatainiciohh" type="text" class="abc3" id="frmdatainiciohh" size="2" maxlength="2" value="<? echo date("h"); ?>"></td>
+        <td>:</td>
+        <td><input name="frmdatainiciomin" type="text" class="abc3" id="frmdatainiciomin" size="2" maxlength="2" value="<? echo date("i"); ?>"></td>
+        <td>:</td>
+        <td><input name="frmdatainicioss" type="text" class="abc3" id="frmdatainicioss" size="2" maxlength="2" value="<? echo date("s"); ?>"></td>
+      </tr>
+    </table></td>
+    </tr>
+  <tr>
+    <td colspan="2" class="abc1">sub-t&iacute;tulo</td>
+    <td colspan="2" class="abc1">data/hora termino </td>
+    </tr>
+  <tr>
+    <td colspan="2"><textarea name="frmsubtitulo" rows="2" class="abc3" id="frmsubtitulo" style="width: 100%;"></textarea></td>
+    <td colspan="2" valign="top"><table  border="0" cellspacing="1" cellpadding="1">
+      <tr>
+        <td><input name="frmdatafimdd" type="text" class="abc3" id="frmdatafimdd" size="2" maxlength="2" value="<? echo date("d"); ?>"></td>
+        <td>/</td>
+        <td><input name="frmdatafimmm" type="text" class="abc3" id="frmdatafimmm" size="2" maxlength="2" value="<? $mesmaisum = date("m") + 01; echo $mesmaisum; ?>"></td>
+        <td>/</td>
+        <td><input name="frmdatafimaaaa" type="text" class="abc3" id="frmdatafimaaaa" size="4" maxlength="4" value="<? echo date("Y"); ?>"></td>
+        <td>-</td>
+        <td><input name="frmdatafimhh" type="text" class="abc3" id="frmdatafimhh" size="2" maxlength="2" value="00"></td>
+        <td>:</td>
+        <td><input name="frmdatafimmin" type="text" class="abc3" id="frmdatafimmin" size="2" maxlength="2" value="00"></td>
+        <td>:</td>
+        <td><input name="frmdatafimss" type="text" class="abc3" id="frmdatafimss" size="2" maxlength="2" value="00"></td>
+      </tr>
+    </table></td>
+    </tr>
+  <tr>
+    <td colspan="4" class="abc1">conte&uacute;do</td>
+    </tr>
+  <tr>
+    <td colspan="4"><!--<textarea name="frmconteudo" rows="6" class="abc3" id="frmconteudo" style="width: 100%;"></textarea>-->
+	<textarea id="frmconteudo" name="frmconteudo"></textarea></td>
+    </tr>
+  <tr>
+    <td><input name="Submit" type="submit" class="abc1" value="Incluir">
+        <input name="Reset" type="reset" class="abc1" value="Limpar"></td>
+    <td>&nbsp;</td>
+    <td colspan="2">&nbsp;</td>
+    </tr>
+</form>
+</table>
+</body>
+</html>

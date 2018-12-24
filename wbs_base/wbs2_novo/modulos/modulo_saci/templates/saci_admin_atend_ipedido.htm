@@ -1,0 +1,161 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+-->
+</style></head>
+
+<body>
+<table width="100%" border="0" cellspacing="2" cellpadding="2">
+  <tr>
+    <td><span style="font-size:14px; font-weight:bold; font-family:Verdana, Arial, Helvetica, sans-serif"><? echo $rs_dados1->fields['nome']; ?></span></td>
+    <td align="right"><span style="font-size:16px; font-weight:bold; font-family:Verdana, Arial, Helvetica, sans-serif"><? echo $rs_dados1->fields['codbarra']; ?></span></td>
+  </tr>
+</table>
+<br>
+<!--LIST-INI-->
+<table width="100%"  border="0" cellpadding="2" cellspacing="0" class="generalTable defaultBlackText">
+            <tr>
+              <td width="5%" align="center" class="generalGreyBorderBottomTableHeaderCell">Cod</td>
+              <td width="60%" align="center" class="generalGreyBorderBottomTableHeaderCell">Produto</td>
+              <td width="5%" align="center" class="generalGreyBorderBottomTableHeaderCell">Qtde</td>
+              <td width="10%" align="center" class="generalGreyBorderBottomTableHeaderCell">CodBarra </td>
+              <td width="5%" align="center" class="generalGreyBorderBottomTableHeaderCell">Garantia</td>
+            </tr>
+<?
+ if ($rs) {
+		while (!$rs->EOF) { 
+		
+	if ($xtipoprod <> $rs->fields['tipoprod'])
+	{
+		if ($rs->fields['tipoprod'] == 'CJ')
+		{
+			$titulocat = "Microcomputadores";
+		}
+		else
+		{
+			$titulocat = "Produtos";
+		}
+?>
+            <tr>
+              <td colspan="5" class="generalGreyBorderBottomTableHeaderCell"><? echo "$titulocat"; ?></td>
+            </tr>
+<?
+	}
+	$xtipoprod = $rs->fields['tipoprod'];
+
+	if ($xtipocj <> $rs->fields['tipocj'] and $rs->fields['tipoprod'] == 'CJ')
+	{
+		$tipocj_n = $rs->fields['tipocj'];
+?>
+            <tr>
+              <td align="center" class="generalGreyBorderBottomTableHeaderCell"><? echo $rs->fields['tipocj']; ?></td>
+              <td colspan="4" class="generalGreyBorderBottomTableHeaderCell"><? echo $nomeprodcj[$tipocj_n]; ?></td>
+		    </tr>
+<?
+	}
+	$xtipocj = $rs->fields['tipocj'];
+	if ($rs->fields['tipoprod']== 'CJ')
+	{
+?>
+            <tr>
+              <td align="center" class="noramlTableCell"><? echo $rs->fields['codprod']; ?></td>
+              <td class="noramlTableCell"><? echo $rs->fields['nomeprod']; ?><br><i><? echo $rs->fields['descres']; ?></i></td>
+              <td align="center" class="noramlTableCell"><? echo $rs->fields['qtde']; ?></td>
+              <td align="center" class="noramlTableCell">
+<?
+$db->connect_wbs();
+//$db->$conn->debug = true;
+$rs_codbarra = $db->query_db("SELECT codbarra FROM codbarra WHERE codcb = '".$rs->fields['codcb']."'","SQL_NONE","N");
+$codbarra_view = $rs_codbarra->fields['codbarra'];
+echo $codbarra_view;
+$db->disconnect();
+?>				</td>
+              <td align="center" class="noramlTableCell"><strong>
+              <? if($rs->fields['gar_cj1'] == 0) { $rs->fields['gar_cj1'] = 12; }
+			  
+			  $db->connect_wbs();
+			  
+			  //$db->$conn->debug = true;
+			  
+			  $rs_dts = $db->query_db("SELECT datastatus FROM pedidostatus WHERE codped = '$codped_select' AND statusped LIKE '%FAT%'","SQL_NONE","N");
+			  $datastatus_view = $rs_dts->fields['datastatus'];
+			  
+			  $rs_dtg = $db->query_db("SELECT '$datastatus_view' + INTERVAL ".$rs->fields['gar_cj1']." MONTH","SQL_NONE","N");
+			  $datagar_view = $rs_dtg->fields[0];
+			  
+			  if ($datagar_view > $db->datahoraatual())
+			  { $xi = $xi + 1; }
+			  else
+			  { $xi = $xi + 0; }
+			  
+			  //echo $datagar_view;
+			  echo $rs_dtg->UserTimeStamp($datagar_view,'d/m/Y');
+			  
+			  $db->disconnect();
+			  ?>
+              </strong></td>
+            </tr>
+<?
+	}
+	else
+	{
+?>
+            <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+              <td align="center" class="noramlTableCell"><? echo $rs->fields['codprod']; ?></td>
+              <td class="noramlTableCell"><? echo $rs->fields['nomeprod']; ?><br><i><? echo $rs->fields['descres']; ?></i></td>
+              <td align="center" class="noramlTableCell"><? echo $rs->fields['qtde']; ?></td>
+              <td align="center" class="noramlTableCell">
+<?
+$db->connect_wbs();
+//$db->$conn->debug = true;
+$rs_codbarra = $db->query_db("SELECT codbarra FROM codbarra WHERE codcb = '".$rs->fields['codcb']."'","SQL_NONE","N");
+$codbarra_view = $rs_codbarra->fields['codbarra'];
+echo $codbarra_view;
+$db->disconnect();
+?>			  </td>
+              <td align="center" class="noramlTableCell"><strong>
+              <? if($rs->fields['gar_cj1'] == 0) { $rs->fields['gar_cj1'] = 12; }
+			  
+			  $db->connect_wbs();
+			  
+			  //$db->$conn->debug = true;
+			  
+			  $rs_dts = $db->query_db("SELECT datastatus FROM pedidostatus WHERE codped = '$codped_select' AND statusped LIKE '%FAT%'","SQL_NONE","N");
+			  $datastatus_view = $rs_dts->fields['datastatus'];
+			  
+			  $rs_dtg = $db->query_db("SELECT '$datastatus_view' + INTERVAL ".$rs->fields['gar_cj1']." MONTH","SQL_NONE","N");
+			  $datagar_view = $rs_dtg->fields[0];
+
+			  if ($datagar_view > $db->datahoraatual())
+			  { $xi = $xi + 1; }
+			  else
+			  { $xi = $xi + 0; }
+
+			  //echo $datagar_view;
+			  echo $rs_dtg->UserTimeStamp($datagar_view,'d/m/Y');
+			  
+			  $db->disconnect();
+			  ?>
+              </strong></td>
+            </tr>
+<?
+	}
+ 
+		$rs->MoveNext();
+		}//WHILE
+	}
+?>
+</table>
+</body>
+</html>

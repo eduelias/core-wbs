@@ -1,0 +1,226 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<script language="javascript" src="<? echo DIR_JS; ?>/funcoes01.js"></script>
+<script language="javascript">
+function PostaCEP(form)
+{
+	document.form.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=5&"; ?>Action=cep_revendas&menu_not=1';
+	document.form.target = 'irevenda';
+	document.form.submit();
+
+	//document.form.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=99&menu_not=1"; ?>';
+	//document.form.target = 'irevenda';
+	//document.form.submit();
+
+	document.form.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=2&menu_not=1"; ?>';
+	document.form.target = 'ireceb';
+	document.form.submit();
+}
+
+
+function DoIt(form)
+{
+	document.form.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=1&Action=pesquisa&empresa=$empresa"; ?>';
+	document.form.target = '_self';
+	document.form.submit();
+}
+
+</script>
+<style type="text/css">
+<!--
+.style3 {font-size: 9px; font-family: Verdana, Arial, Helvetica, sans-serif; }
+-->
+</style>
+</head>
+
+<body>
+<br>
+<br>
+
+<table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+  <form name="form" method="post" target="_self" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&Action=pesquisa&empresa=$empresa"; ?>">
+    <tr>
+      <td rowspan="2" align="center" class="generalGreyBorderBottomTableHeaderCell"><img src="<? echo DIR_IMAGES; ?>/messagebox_warning.png" border="0"></td>
+      <td   width="70%" class="generalGreyBorderBottomTableHeaderCell"><strong>Data Emissão:</strong></td>
+      <td align="right"   class="generalGreyBorderBottomTableHeaderCell"><strong>Empresa Atual:</strong></td>
+    </tr>
+    <tr>
+      <td  bgcolor="<? echo $bg_cor_light; ?>" class="noramlTableCell"><strong><? echo $rs_lista->UserTimeStamp($db->datahoraatual(),'d/m/Y H:i:s');?>
+        </strong></td>
+      <td align="right"  bgcolor="<? echo $bg_cor_light; ?>" class="noramlTableCell"><b><? echo $rs_empresa->fields['nome']; ?></b></td>
+    </tr>
+  </form>
+</table>
+
+<br>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Lista Despacho</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <form name="lista" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=100"; ?>" method="post">
+    <tr>
+      <td><table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+        <tr>
+          <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="3%" align="center" class="generalGreyBorderBottomTableHeaderCell">Cod</td>
+          <td width="22%" align="center" class="generalGreyBorderBottomTableHeaderCell">Cliente</td>
+          <td width="41%" align="center" class="generalGreyBorderBottomTableHeaderCell">ENDERECO</td>
+          <td width="8%" align="center" class="generalGreyBorderBottomTableHeaderCell">ENDERECO<br>
+            ENTREGA</td>
+          <td width="9%" align="center" class="generalGreyBorderBottomTableHeaderCell">TEL</td>
+          <td width="10%" align="center" class="generalGreyBorderBottomTableHeaderCell">NOTA <br>
+            FISCAL</td>
+          <td width="3%" align="center" class="generalGreyBorderBottomTableHeaderCell">VOL</td>
+          <td width="3%" align="center" class="generalGreyBorderBottomTableHeaderCell">ORD</td>
+        </tr>
+        <?
+if ($rs_lista)
+{
+	$ix = 0;
+	while (!$rs_lista->EOF)
+	{
+    	$bgcorlinha="#FFFFFF";
+    	#if ($rs_lista->fields['status'] == "AVAL"){$bgcorlinha="#FFCC66";}
+        #if ($rs_lista->fields['status'] == "APROV"){$bgcorlinha="#CFFCC7";}
+        #if ($rs_lista->fields['status'] == "PECA"){$bgcorlinha="#D6B778";}
+        #if ($rs_lista->fields['status'] == "PROD"){$bgcorlinha="#F2E4C4";}
+        #if ($rs_lista->fields['status'] == "LIB"){$bgcorlinha="#EDE763";}
+        #if ($rs_lista->fields['status'] == "DESP"){$bgcorlinha="#339966";}
+        #if ($rs_lista->fields['status'] == "ENTR"){$bgcorlinha="#BFD9F9";}
+        #if ($rs_lista->fields['status'] == "REPROV"){$bgcorlinha="#FFFFFF";}
+        #if ($rs_lista->fields['status'] == "CANCEL"){$bgcorlinha="#E1AFAA";}
+ 
+        if ($rs_lista->fields['aguard_comp'] == "OK"){$aguard ="AGUARDA<br>COMPENSAÇÃO";}else{$aguard ="";}
+        if ($rs_lista->fields['contrato'] == "NO"){$cor1 ="#FF0000";}else{$cor1="#008000";}
+        if ($rs_lista->fields['contrato'] == "EP"){$cor1 ="#FF6600";}
+        if ($rs_lista->fields['libentr'] == "NO"){$cor2 ="#FF0000";}else{$cor2="#008000";}
+        if ($rs_lista->fields['fat'] == "NO"){$cor3 ="#FF0000";}else{$cor3="#008000";}
+        if ($rs_lista->fields['caixa'] == "NO"){$cor4 ="#FF0000";}else{$cor4="#008000";}
+        if ($rs_lista->fields['modped'] == "OK"){$mod ="MOD";}else{$mod="";}
+        if ($rs_lista->fields['modoentr'] == "MOTOBOY"){$moto ="MOTOBOY";}else{$moto="";}
+        if ($rs_lista->fields['modoentr'] == "RETIRA"){$moto ="MOTOBOY";}else{$moto="";}
+        if ($rs_lista->fields['prontaentr'] == "OK" ){$logo_pronta = "<img src='".DIR_IMAGES."/prontap.png' border='0'>";}else{$logo_pronta="";}
+        
+        $ped_ata = "";
+        if ($rs_lista->fields['modelo_ped'] == "ATA"){$cor7 ="#008000";$ped_ata = "ATACADO";}
+        if ($rs_lista->fields['modelo_ped'] == "DST"){$cor7 ="#008000";$ped_ata = "DISTRIBUIDOR";}
+        if ($rs_lista->fields['modelo_ped'] == "RDST"){$cor7 ="#008000";$ped_ata = "REVENDA DIST";}
+        if ($rs_lista->fields['ped_transf'] == "OK"){$cor7 ="#008000";$ped_ata = "TRANSF";}
+        
+        if ($rs_lista->fields['dataprevent'] <> $rs_lista->fields['dataprevent_old']){$cor45 = "#FF0000";}else{$cor45 = "#000000";}
+    
+    	// MOSTRA IMAGEM NOTA FISCA
+    	 if ($rs_lista->fields['datasol_nf'] == 0 ){
+         	if ($rs_lista->fields['fat'] == 'NO'){
+         		$logo_imp = "";
+            }else{
+            	$logo_imp = "<img src='".DIR_IMAGES."/bthitnv.gif' border='0'>";
+            }
+         }else{
+         	if ($rs_lista->fields['fat'] == 'NO'){
+         		$logo_imp = "<img src='".DIR_IMAGES."/bthitv.gif' border='0'>";
+            }else{
+            	$logo_imp = "<img src='".DIR_IMAGES."/bthitnv.gif' border='0'>";
+            }
+         }
+         
+         $logo_desp = "";
+         // MOSTRA IMAGEM LISTA DESPACHO
+         if ($rs_lista->fields['lista_desp'] == "OK" ){
+         	$logo_desp = "<img src='".DIR_IMAGES."/4.gif' border='0'>";
+         }else{
+         	$logo_desp = "";
+         }
+         
+         $endereco = $rs_lista->fields['endereco'].";".$rs_lista->fields['numero'].";".$rs_lista->fields['complemento'].";".$rs_lista->fields['cep'].";".$rs_lista->fields['bairro'].";".$rs_lista->fields['cidade'].";".$rs_lista->fields['estado'].";";
+         $md5_endereco = $prod->geraMD5($endereco);    		
+         $md5_endereco_entrega = $prod->geraMD5($rs_lista->fields['endentrega']);  
+         
+          if ( $md5_endereco == $md5_endereco_entrega){$rs_lista->fields['endentrega'] ="O MESMO";}
+         
+                 
+         $rs_nota = $db->query_db("SELECT nf, datanf FROM pedidonf WHERE codped = '".$rs_lista->fields['codped']."'","SQL_NONE","N")
+    
+?>
+        <tr style="background-color: #FFFFFF; cursor: pointer;" onMouseOver='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onMouseOut='this.style.backgroundColor="#FFFFFF"'>
+          <td align="center" class="noramlTableCell">&nbsp;</td>
+          <td align="center" class="noramlTableCell" style="color: #000000; background-color: <? echo $bgcorlinha;?>;"><? echo $rs_lista->fields['codbarra']; ?></td>
+          <td class="noramlTableCell" style="color: #000000; background-color: <? echo $bgcorlinha;?>;"><strong><? echo $rs_lista->fields['nomecli']; ?></strong></td>
+          <td align="left" class="noramlTableCell" style="color: #000000; background-color: <? echo $bgcorlinha;?>;"><? echo $endereco; ?></td>
+          <td class="noramlTableCell" style="color: #000000; background-color: <? echo $bgcorlinha;?>;"><span style="color: <? echo $cor10;?>;"><? echo $rs_lista->fields['endentrega']; ?><br>
+            <span class="style3"><strong>REFER&Ecirc;NCIA:</strong> <? echo $rs_lista->fields['refentrega']; ?></span></span></td>
+          <td align="center" class="noramlTableCell" style="color: #000000; background-color: <? echo $bgcorlinha;?>;"><span class="sacitd2 style1">(<? echo $rs_lista->fields['dddtel1']; ?>)<? echo $rs_lista->fields['tel1']; ?></span></td>
+          <td align="center" class="noramlTableCell" style="color: #000000; background-color: <? echo $bgcorlinha;?>;"><strong>
+          
+          <?
+          if ($rs_nota)
+            {
+                $ix = 0;
+                while (!$rs_nota->EOF)
+                {
+         
+          echo $rs_nota->fields['nf']."<BR>".$rs_nota->fields['datanf']."<BR>"; 
+                  
+                 $rs_nota->MoveNext();
+            }//WHILE
+        }
+          
+          ?>
+                    
+          </strong></td>
+          <td align="center" class="noramlTableCell" style="color: #000000; background-color: <? echo $bgcorlinha;?>;">&nbsp;</td>
+          <td align="center" class="noramlTableCell" >&nbsp;</td>
+        </tr>
+        <?
+	 	$ix++;
+		$rs_lista->MoveNext();
+	}//WHILE
+}
+?>
+      </table>
+      <hr size="1" noshade>
+          <table border="0" cellspacing="2" cellpadding="2" class="generalTable defaultBlackText">
+            <tr>
+              <td><img src="<? echo DIR_IMAGES; ?>/arrow_ltr.png" border="0"></td>
+              <td>&nbsp;</td>
+              <td><br></td>
+              <td><table width="100%" border="0" cellspacing="0" cellpadding="1">
+                  <tr>
+                    <td><strong>Executar Despacho:</strong> </td>
+                  </tr>
+                  <tr>
+                    <td><select name="codtrasnp" class="campo_select" id="empresa" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"' >
+                        <option value = -1 selected>Escolha Transportadora...</option>
+                        <?
+if ($rs_transp)
+{
+	while (!$rs_transp->EOF)
+	{
+?>
+                        <option value="<? echo $rs_transp->fields['codtransp']; ?>"><? echo $db->format_str("UP", $rs_transp->fields['nome']); ?></option>
+                        <?
+	 	$rs_transp->MoveNext();
+	}//WHILE
+}
+?>
+                    </select></td>
+                  </tr>
+              </table></td>
+              <td><input name="Submit" type="submit" class="botao_cor" id="Submit" value="OK" onClick="return confirm('Confirma esta ação?')"></td>
+              <td><input name="numRows" type="hidden" id="numRows" value="<? echo $numRows; ?>">
+                  <input type="hidden" name="pg" value="<? echo $pg; ?>">
+                  <input type="hidden" name="pg_ped" value="<? echo $pg_ped; ?>">
+                  <input type="hidden" name="Action" value="acao_1">
+                  <input type="hidden" name="empresa" value="<? echo $empresa; ?>">
+              </td>
+            </tr>
+        </table></td>
+    </tr>
+  </form>
+</table>
+</fieldset>
+</body>
+</html>

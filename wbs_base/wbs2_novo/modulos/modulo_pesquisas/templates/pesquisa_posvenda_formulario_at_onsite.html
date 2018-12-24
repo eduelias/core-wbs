@@ -1,0 +1,350 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="<? echo DIR_CSS; ?>/pesquisa.css" rel="stylesheet" type="text/css">
+<link href="../../../css/pesquisa.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+-->
+</style>
+<script language="javascript">
+function HidePerg1()
+{
+	var sel = document.getElementById("perg1");
+	sel.style.display = 'none';
+}
+function ShowPerg1()
+{
+	var sel = document.getElementById("perg1");
+	sel.style.display = 'block';
+}
+function HidePerg1a()
+{
+	var se2 = document.getElementById("perg1a");
+	se2.style.display = 'none';
+}
+function ShowPerg1a()
+{
+	var se2 = document.getElementById("perg1a");
+	se2.style.display = 'block';
+}
+function HidePerg1b()
+{
+	var se3 = document.getElementById("perg1b");
+	se3.style.display = 'none';
+}
+function ShowPerg1b()
+{
+	var se3 = document.getElementById("perg1b");
+	se3.style.display = 'block';
+}
+function HidePerg2()
+{
+	var se2 = document.getElementById("perg2");
+	se2.style.display = 'none';
+}
+function ShowPerg2()
+{
+	var se2 = document.getElementById("perg2");
+	se2.style.display = 'block';
+}
+
+
+</script>
+<title></title>
+</head>
+
+<body>
+  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td align="right" class="pesq_script_destaque"><? echo $ncodpedido; ?></td>
+    </tr>
+  </table>
+  <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td colspan="2" class="pesq_script">
+        Bom dia (ou Boa Tarde)!<br>
+        Gostaria de falar com <? echo $tratamento; ?> <span class="pesq_script_destaque"><? echo $nomecliente_view; ?> </span>. <span class="pesq_requerido">(CONTATO: <? echo $contato; ?>)</span><br>
+        <table width="100%"  border="0" cellspacing="2" cellpadding="2">
+          <tr valign="top">
+            <td width="50%" class="pesq_requerido"><? echo $tratamento1; ?> <span class="pesq_script_destaque"><? echo $nomecliente_view; ?></span>, aqui quem fala &eacute; [atendente] do departamento de pesquisa e controle de qualidade da Ipasoft. </td>
+            <td width="50%" class="pesq_requerido"><span class="pesq_script_destaque">Caso a pessoa n&atilde;o se encontre:</span><br>
+            Eu sou [atendente] do departamento de pesquisa e controle de qualidade da Ipasoft. Algu&eacute;m que participou do atendimento do servi&ccedil;o de garantia ONSITE encontra-se no momento? </td>
+          </tr>
+        </table>
+        O sr. utilizou o servi&ccedil;o de garantia ONSITE conosco em <span class="pesq_script_destaque"><? echo $dataped_view; ?></span>, e como a sua opini&atilde;o &eacute; muito importante para n&oacute;s, gostar&iacute;amos de fazer algumas perguntas a respeito da sua satisfa&ccedil;&atilde;o, que n&atilde;o tomar&aacute; mais do que tr&ecirc;s minutos. </td>
+      </tr>
+      <tr>
+        <td colspan="2"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+      </tr>
+	<? if($inicio <> "SIM") {?>
+    <tr>
+      <td width="50%" align="right"><table  border="0" cellpadding="2" cellspacing="2">
+	  <? $datahoraatual = gmDate("Y-m-d H:i:s"); ?>
+          <tr>
+            <td><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=4&menu_not=1&Action=Pesquisar&datainicio=$datahoraatual&inicio=SIM&codos_at_pesq=$codos_at_pesq"; ?>" class="lkverde3"><strong>Responder Agora </strong></a></td>
+          </tr>
+        </table></td>
+      <td><table  border="0" cellpadding="2" cellspacing="2">
+        <tr>
+          <td><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=4&menu_not=1&Action=Nao&codcliente_pesq=$codcliente_view&codos_at_pesq=$codos_at_pesq"; ?>" class="lkverde4"><strong>N&atilde;o responder PESQUISA </strong></a></td>
+        </tr>
+      </table></td>
+    </tr>
+    <tr>
+      <td colspan="2"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+    </tr>
+	<? } ?>
+  </table>
+<form method="post" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=4&menu_not=1&Action=Gravar"; ?>" name="formulario">
+	  <!-- OOO -->
+	  <? if($inicio == "SIM") { ?>
+	  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td class="pesq_perg"><strong>1 - Consta no nosso sistema que  <? echo $tratamento; ?> solicitou a garantia ONSITE (<? echo $tipo_atend; ?>) e gostar&iacute;amos da confirma&ccedil;&atilde;o desse servi&ccedil;o. <? echo $tratamento; ?> confirma esse atendimento?
+              <input type="hidden" name="datainicio" value="<? echo $datainicio; ?>">
+			<input type="hidden" name="codcliente_pesq" value="<? echo $codcliente_view; ?>">
+			<input type="hidden" name="codos_at_pesq" value="<? echo $codos_at_pesq; ?>">
+          </strong></td>
+        </tr>
+        <tr>
+          <td><table  border="0" cellpadding="2" cellspacing="2" class="pesq_perg">
+              <tr>
+                <td><input name="resp[27]" type="radio" value="S" onClick="ShowPerg1();"></td>
+                <td>Sim</td>
+                <td><input name="resp[27]" type="radio" value="N" onClick="HidePerg1();"></td>
+                <td>N&atilde;o</td>
+              </tr>
+          </table></td>
+        </tr>
+  </table>
+		 <div id="perg1" style="display:none">
+		 <? if ($atend_tel_view > 0){ ?>
+          <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><strong>TELEFONE 1a  - O problema foi resolvido? </strong></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><table  border="0" cellpadding="2" cellspacing="2" class="pesq_perg">
+                  <tr>
+                <td><input name="resp[28]" type="radio" value="S" onClick="HidePerg1a();"></td>
+                <td>Sim</td>
+                <td><input name="resp[28]" type="radio" value="N" onClick="ShowPerg1a();"></td>
+                <td>N&atilde;o</td>
+              </tr>
+              </table></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+            
+           </table></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+          </table>
+		
+		   <div id="perg1a" style="display:none">
+          <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td class="pesq_requerido2"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido2"><strong>TELEFONE 1b - Relato do Cliente: </strong></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido2"><table width="100%"  border="0" cellpadding="2" cellspacing="2" class="pesq_perg">
+                  <tr>
+                    <td><textarea name="resp[29]" rows="3" class="pesq_input" id="resp[29]" style="width: 95%;"></textarea></td>
+                  </tr>
+              </table></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido2"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+            
+             </table></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+          </table>
+        </div>
+		  <? }else{ ?>
+		 <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><strong>RESID&Ecirc;NCIA 1a  - Com rela&ccedil;&atilde;o ao prazo para o atendimento, esse: </strong></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><table  border="0" cellpadding="2" cellspacing="2" class="pesq_perg">
+                   <tr>
+                    <td><input name="resp[30]" type="radio" value="SE" ></td>
+                    <td>Superou suas Expectativas </td>
+                    <td><input name="resp[30]" type="radio" value="E" ></td>
+                    <td>Atendeu suas Expectativas </td>
+                    <td><input name="resp[30]" type="radio" value="N" ></td>
+                    <td>N&atilde;o atendeu </td>
+                   
+                  </tr>
+              </table></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+            
+           </table></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+			
+          </table>
+		  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><strong>RESID&Ecirc;NCIA 1b  - O problema foi resolvido? </strong></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><table  border="0" cellpadding="2" cellspacing="2" class="pesq_perg">
+                  <tr>
+                <td><input name="resp[31]" type="radio" value="S" onClick="HidePerg1b();"></td>
+                <td>Sim</td>
+                <td><input name="resp[31]" type="radio" value="N" onClick="ShowPerg1b();"></td>
+                <td>N&atilde;o</td>
+              </tr>
+              </table></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+            
+           </table></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+			
+          </table>
+		   <div id="perg1b" style="display:none">
+          <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td class="pesq_requerido2"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido2"><strong>RESID&Ecirc;NCIA 1c - Relato do Cliente: </strong></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido2"><table width="100%"  border="0" cellpadding="2" cellspacing="2" class="pesq_perg">
+                  <tr>
+                    <td><textarea name="resp[32]" rows="3" class="pesq_input" id="resp[32]" style="width: 95%;"></textarea></td>
+                  </tr>
+              </table></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido2"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+            
+             </table></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+          </table>
+        </div>
+		<? } ?>
+        </div>
+		  
+		 <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td class="pesq_perg"><strong>2 - Em rela&ccedil;&atilde;o ao atendimento de garantia ONSITE, qual o seu nivel de satisfa&ccedil;&atilde;o?
+            
+          </strong></td>
+        </tr>
+        <tr>
+          <td><table  border="0" cellpadding="2" cellspacing="2" class="pesq_perg">
+               <tr>
+                    <td><input name="resp[33]" type="radio" value="TS" onClick="HidePerg2();"></td>
+                    <td>Totalmente Satisfeito </td>
+                    <td><input name="resp[33]" type="radio" value="S" onClick="HidePerg2();"></td>
+                    <td>Satisfeito</td>
+                    <td><input name="resp[33]" type="radio" value="PS" onClick="ShowPerg2();"></td>
+                    <td>Parcialmente Satisfeito </td>
+                    <td><input name="resp[33]" type="radio" value="I" onClick="ShowPerg2();"></td>
+                    <td>Insatisfeito</td>
+                  </tr>
+          </table></td>
+        </tr>
+		 </table>
+		 <div id="perg2" style="display:none">
+          <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><strong>2a - Qual o motivo ? </strong></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><table width="100%"  border="0" cellpadding="2" cellspacing="2" class="pesq_perg">
+                  <tr>
+                    <td><textarea name="resp[34]" rows="3" class="pesq_input" id="resp[34]" style="width: 95%;"></textarea></td>
+                  </tr>
+				
+              </table></td>
+            </tr>
+			    
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+            
+           </table></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+          </table>
+        </div>
+		
+        <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td class="pesq_perg"><strong>3 - <? echo $tratamento; ?> possui alguma  sugest&atilde;o  a fazer, para que possamos melhorar nossa empresa?</strong></td>
+          </tr>
+          <tr>
+            <td><textarea name="resp[35]" rows="3" class="pesq_input" id="resp[35]" style="width: 95%;"></textarea></td>
+          </tr>
+          <tr>
+            <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+          </tr>
+          <tr>
+            <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+          </tr>
+          <tr>
+            <td class="pesq_script">A Ipasoft agradece a sua aten&ccedil;&atilde;o e caso necessite estamos prontos a atender. Tenha um bom dia! </td>
+          </tr>
+          <tr>
+            <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+          </tr>
+          <tr>
+            <td><input name="Submit" type="submit" class="titulo_superior_verdemug" value="Finalizar Pesquisa"></td>
+          </tr>
+        </table>
+		<? } ?>
+		<!-- 000 -->
+</form>
+</body>
+</html>

@@ -1,0 +1,335 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<script language="javascript" src="<? echo DIR_JS; ?>/funcoes01.js"></script>
+<script language='JavaScript' src = "<? echo DIR_JS; ?>/util.js"></script>
+<title></title>
+<script language="JavaScript" type="text/JavaScript">
+var NameArray2 = new Array();
+var ValueArray2 = new Array();
+
+<?
+	for($i = 0; $i < count($array_pesq); $i++ ){
+	$u = $i+1;
+?>
+NameArray2[<? echo"$u"; ?>] = new Array(<? echo"$nomesubcat_pesq[$i]"; ?>);
+ValueArray2[<? echo"$u"; ?>] = new Array(<? echo"$codsubcat_pesq[$i]"; ?>);
+<?
+	}//FOR
+?>
+
+function changePesq()
+{
+
+  var cjIX = document.forms["pesquisa"].cjPesq.selectedIndex;
+
+  if (cjIX > 0){
+
+   	// CALCULA O NUMERO DE LINHAS DO FOR
+    document.forms["pesquisa"].elements["pesqSelect"].options.length = NameArray2[cjIX].length +1;
+
+    // LINHA INICIAL DO MENU SELECT
+    document.forms["pesquisa"].elements["pesqSelect"].options[0].text = "=> Selecione a Subcategoria";
+    document.forms["pesquisa"].elements["pesqSelect"].options[0].value = "";
+
+		for (var j=0; j < NameArray2[cjIX].length; j++)
+		{
+			document.forms["pesquisa"].elements["pesqSelect"].options[j+1].text = NameArray2[cjIX][j];
+			document.forms["pesquisa"].elements["pesqSelect"].options[j+1].value = ValueArray2[cjIX][j];
+		}
+  }
+  else
+  {
+    document.forms["pesquisa"].elements["pesqSelect"].options.length = 2;
+    document.forms["pesquisa"].elements["pesqSelect"].options[0].text = "Selecione a Subcategoria";
+    document.forms["pesquisa"].elements["pesqSelect"].options[0].value = "";
+    document.forms["pesquisa"].elements["pesqSelect"].options[1].text = "Selecione a Categoria primeiro";
+    document.forms["pesquisa"].elements["pesqSelect"].options[1].value = "";
+  }
+}
+
+</script></head>
+
+<body>
+<? $db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light); ?>
+<br />
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Pesquisa</legend>
+<form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=100&menu_not=0"; ?>" method="post" name="pesquisa">
+<table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+    <tr>
+      <td align="center" class="generalGreyBorderBottomTableHeaderCell">Cod</td>
+      <td align="center" class="generalGreyBorderBottomTableHeaderCell">Nome</td>
+      <td align="center" class="generalGreyBorderBottomTableHeaderCell">Categoria/Subcategoria</td>
+      <td class="generalGreyBorderBottomTableHeaderCell">Grupo</td>
+      <td class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+      <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+      <td width="70%" align="center" class="generalGreyBorderBottomTableHeaderCell"><input name="Action" type="hidden" id="Action" value="Pesquisar" /></td>
+    </tr>
+    <tr>
+      <td rowspan="2" class="noramlTableCell"><input name="codprodpesq" type="text" class="campo_linha" id="codprodpesq" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"' size="8"></td>
+      <td rowspan="2" class="noramlTableCell"><input name="nomepesq" type="text" class="campo_linha" id="nomepesq" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"' size="20"></td>
+      <td class="noramlTableCell"><select name="cjPesq" class="campo_select" id="cjPesq" onchange="changePesq();">
+	  <option value="-1" selected="selected">Escolha a categoria</option>
+<?
+	for($i = 0; $i < count($array_pesq); $i++ ){
+$u = $i+1;
+?>
+                <option value="<? echo"$u"; ?>"><? echo"$nomecatp[$i]"; ?></option>
+ <?
+	}//FOR
+?>
+            </select></td>
+      <td rowspan="2" class="noramlTableCell"><select name="grupoemp_select" class="campo_select" id="grupoemp_select">
+        <?
+if ($rs_grupoemp)
+{
+	$ix = 0;
+	while (!$rs_grupoemp->EOF)
+	{
+?>
+        <option value="<? echo $rs_grupoemp->fields['codgrupo']; ?>"><? echo $rs_grupoemp->fields['nome']; ?></option>
+        <?
+	 	$ix++;
+		$rs_grupoemp->MoveNext();
+	}//WHILE
+}
+?>
+      </select>
+        <br />
+        <input name="tipo_preco" type="radio" value="V" checked="checked" />
+        Varejo 
+        <input name="tipo_preco" type="radio" value="A" />
+        Atacado<br />
+        <br /></td>
+      <td rowspan="2" class="noramlTableCell"><input type="submit" name="Submit2" value="Pesquisar" class="botao_cor" /></td>
+      <td rowspan="2" align="center" class="noramlTableCell"><input name="limpar" type="reset" class="botao_cor" id="limpar" value="Limpar" /></td>
+      <td rowspan="2" align="center" class="noramlTableCell">&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="noramlTableCell"><select name="pesqSelect" class="campo_select" id="pesqSelect">
+	  <option value="">Escolha a subcategoria</option>
+	  <option value="">Selecione a categoria</option>
+      </select></td>
+    </tr>
+</table>
+</form>
+</fieldset>
+<br />
+<? if ($db->discover_method('Action') == "Pesquisar") { ?>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Produtos</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="40%"><table border="0" cellspacing="2" cellpadding="2" class="defaultBlackText">
+            <tr>
+              <td>pesquisa por:</td>
+              <td><strong><? echo $pesquisafoi; ?></strong></td>
+            </tr>
+          </table></td>
+          <td width="22%" align="center"><div align="center">
+            <table border="0" align="center" cellpadding="2" cellspacing="2" class="defaultBlackText">
+              <tr>
+                <td align="center">tipo:</td>
+                <td><strong><? echo $tipo_preco_pesq; ?></strong></td>
+              </tr>
+            </table>
+          </div></td>
+          <td width="38%"><table border="0" align="right" cellpadding="2" cellspacing="2" class="defaultBlackText">
+            <tr>
+              <td>grupo:</td>
+              <td><strong><? echo $rs_grupoemp_show->fields['nome']; ?></strong></td>
+            </tr>
+          </table></td>
+        </tr>
+      </table>
+        <br />
+		<form name="lista" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=100"; ?>" method="post">
+        <table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+        <tr>
+          <td width="2%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="3%" align="center" class="generalGreyBorderBottomTableHeaderCell">Cod</td>
+          <td width="39%" align="center" class="generalGreyBorderBottomTableHeaderCell">Produto</td>
+          <td width="7%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="7%" align="center" class="generalGreyBorderBottomTableHeaderCell">Pre&ccedil;o<br />
+            UC<br />
+            (R$)</td>
+          <td width="8%" align="center" class="generalGreyBorderBottomTableHeaderCell">CM<br />
+            Atual<br />
+            (R$)</td>
+          <td width="8%" align="center" class="generalGreyBorderBottomTableHeaderCell">CM<br />
+            Proj<br />
+            (R$)</td>
+          <td width="7%" align="center" class="generalGreyBorderBottomTableHeaderCell">Margem<br />
+            (%)</td>
+          <td width="10%" align="center" class="generalGreyBorderBottomTableHeaderCell">Pre&ccedil;o<br />
+            Atual<br />
+            (R$)</td>
+          <td width="8%" align="center" class="generalGreyBorderBottomTableHeaderCell">Pre&ccedil;o<br />
+            Proj<br />
+            (R$)</td>
+          </tr>
+        <?
+if ($rs_lista)
+{
+	$ix = 0;
+	while (!$rs_lista->EOF)
+	{
+	
+
+	//CALCULA QTDE OC
+	$rs_oc = $db->query_db("SELECT SUM(qtdecomp) FROM ocprod, oc, empresa WHERE codprod='".$rs_lista->fields[2]."' AND empresa.codemp = oc.codemp AND codgrupo = '".$db->discover_method('grupoemp_select')."' AND oc.hist <>1 AND oc.codoc = ocprod.codoc AND cb <> 'OK' AND codped_transf =0","SQL_NONE","N");
+	$est_trans = $rs_oc->fields[0]; 
+	$rs_est_trans = $db->query_db("SELECT (SUM(qtde)) as estoque_trans FROM pedido, pedidoprod, empresa WHERE ped_transf = 'OK' AND cb <> 'OK' AND cancel <> 'OK' AND pedido.codped = pedidoprod.codped and codprod='".$rs_lista->fields[2]."'  AND empresa.codemp = pedido.codemp and codgrupo = '".$db->discover_method('grupoemp_select')."'","SQL_NONE","N");
+	$est_trans_ped = $rs_est_trans->fields[0];
+	
+	$estoque_transito = $est_trans + $est_trans_ped;
+		
+	//CALCULA ESTOQUE GRUPO
+	$rs_est = $db->query_db("SELECT SUM(estoque.qtde-estoque.reserva) as est  FROM estoque, empresa WHERE codprod='".$rs_lista->fields[2]."' AND empresa.codemp = estoque.codemp AND codgrupo = '".$db->discover_method('grupoemp_select')."'","SQL_NONE","N");
+	
+	$estoque_atual = $rs_est->fields['est'] + $est_trans_ped;
+	
+	//CALCULA GIRO
+	$rs_giro_time15 = $db->query_db("SELECT DATE_FORMAT(NOW() - INTERVAL 15 DAY, '%Y-%m-%d') as time","SQL_NONE","N");
+	$rs_giro_time15->fields[0];
+	$rs_giro_atual = $db->query_db("SELECT CURDATE() as time","SQL_NONE","N");
+	$rs_giro_atual->fields[0];
+	
+	$rs_giro = $db->query_db("SELECT SUM(qtde) as giro FROM pedidoprod, pedido, empresa WHERE codprod='".$rs_lista->fields[2]."' AND empresa.codemp = pedido.codemp AND codgrupo = '".$db->discover_method('grupoemp_select')."' AND pedidoprod.codped=pedido.codped AND codcb <> '' AND pedido.cancel <>'OK' and pedido.ped_transf <> 'OK'  and dataped >='".$rs_giro_time15->fields[0]."' and dataped <='".$rs_giro_atual->fields[0]."' ","SQL_NONE","N");
+	
+	// PROCURA POR GIRO DOS PLANOS DE CELULAR
+	if ( $rs_lista->fields[0] == 46){
+	$rs_giro_cel = $db->query_db("SELECT SUM(if (codplano = 4 or codplano = 16 or codplano = 17 or codplano = 18,qtde, 0)) as controle, SUM(if (codplano = 5 or codplano = 6 or codplano = 13 or codplano = 14 or codplano = 15 or codplano = 19 ,qtde, 0)) as ideal, SUM(if (codplano = 7 , qtde, 0)) as cartao  FROM pedido, pedidoprod,  empresa WHERE empresa.codemp = pedido.codemp and codgrupo = '".$db->discover_method('grupoemp_select')."' and pedido.codped = pedidoprod.codped and cancel <> 'OK' and pedido.ped_transf <> 'OK' and dataped >='".$rs_giro_time15->fields[0]."' and dataped <='".$rs_giro_atual->fields[0]."' and codprod='".$rs_lista->fields[2]."' group by pedidoprod.codprod","SQL_NONE","N");
+	}
+	
+	if ($tipo_preco == "V"){
+		$k_p = 7;
+		$k_pcj = 8;
+		$k_margem = "mtv";
+	}else{
+		$k_p = 9;
+		$k_pcj = 10;
+		$k_margem = "mta";
+	}
+	
+	$preco_proj = ($db->pcm_proj($rs_lista->fields[2],$db->discover_method('grupoemp_select'),$rs_lista->fields[6])) * (1+$db->fvalor($rs_lista->fields[$k_margem])/100);
+	
+	
+	
+	$var_perc = (($preco_proj/$rs_lista->fields[$k_p]) - 1)*100;
+	$var_perc_cj = (($preco_proj/$rs_lista->fields[$k_pcj]) - 1)*100;
+	
+	if ($var_perc < 0){$img_pos = "flechaverdedown.gif";}
+	if ($var_perc > 0){$img_pos = "flecharojaup.gif";}
+	if (floor(abs($var_perc)) == 0){$img_pos = "flechacinza.gif";$var_perc = abs($var_perc);}
+	if ($var_perc_cj < 0){$img_pos_cj = "flechaverdedown.gif";}
+	if ($var_perc_cj > 0){$img_pos_cj = "flecharojaup.gif";}
+	if (floor(abs($var_perc_cj)) == 0){$img_pos_cj = "flechacinza.gif";$var_perc_cj = abs($var_perc_cj);}
+	
+	
+?>
+        <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor=&quot;<? echo $bg_cor_light; ?>&quot;' onmouseout='this.style.backgroundColor=&quot;#FFFFFF&quot;'>
+          <td align="center" class="noramlTableCell"><input name="rows_cod[<? echo $ix; ?>]" type="checkbox" id="id_rows_cod<? echo $ix; ?>" value="<? echo $rs_lista->fields[2]; ?>" /></td>
+          <td align="center" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;"><? echo $rs_lista->fields[2]; ?></td>
+          <td class="noramlTableCell"><strong><small><? echo $rs_lista->fields['nomeprod']; ?></small></strong></td>
+          <td align="center" class="noramlTableCell"><table border="0" cellspacing="2" cellpadding="1" class="generalTable defaultBlackText">
+            <tr>
+              <td align="center" class="noramlTableCell"><strong><small>E</small></strong></td>
+              <td align="center" class="noramlTableCell"><strong><small>ET</small></strong></td>
+              <td align="center" class="noramlTableCell"><strong>GT</strong></td>
+              </tr>
+            <tr>
+              <td align="center" bgcolor="#CCCCCC" class="noramlTableCell"><? echo $estoque_atual; ?></td>
+              <td align="center" bgcolor="#CCCCCC" class="noramlTableCell"><? echo $estoque_transito; ?></td>
+              <td align="center" bgcolor="#CCCCCC" class="noramlTableCell"><? echo $rs_giro->fields[0]; ?></td>
+              </tr>
+            <tr>
+              <td colspan="3" align="center" class="noramlTableCell">GIRO CEL </td>
+              </tr>
+            <tr>
+              <td align="center" class="noramlTableCell"><strong>CR</strong></td>
+              <td align="center" class="noramlTableCell"><strong>CT</strong></td>
+              <td align="center" class="noramlTableCell"><strong>ID</strong></td>
+            </tr>
+            <tr>
+              <td align="center" class="noramlTableCell"><? echo $rs_giro_cel->fields['cartao']; ?></td>
+              <td align="center" class="noramlTableCell"><? echo $rs_giro_cel->fields['controle']; ?></td>
+              <td align="center" class="noramlTableCell"><? echo $rs_giro_cel->fields['ideal']; ?></td>
+            </tr>
+          </table></td>
+          <td align="center" class="noramlTableCell"><small><? echo $db->fvalor($rs_lista->fields[5]); ?></small><BR /><small><? echo $rs_lista->UserTimeStamp($rs_lista->fields[4],'d/m/Y'); ?></small></td>
+          <td align="center" class="noramlTableCell"><small><? echo $db->fvalor($rs_lista->fields[6]); ?></small></td>
+          <td align="center" class="noramlTableCell"><small><? echo $db->fvalor($db->pcm_proj($rs_lista->fields[2],$db->discover_method('grupoemp_select'),$rs_lista->fields[6])); ?></small></td>
+          <td align="center" class="noramlTableCell"><input name="margem[<? echo $ix; ?>]" type="text" class="campo_linha" id="mar" oonFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"; virgula(this, '', 1)' onBlur='this.style.backgroundColor="#FFFFFF"; virgula(this, 1, '')' onkeypress="if (!(mascara_valor(this))) return false;" size="4" value ="<? echo $db->fvalor($rs_lista->fields[$k_margem]); ?>"/></td>
+          <td align="center" class="noramlTableCell"><table border="0" cellspacing="0" cellpadding="0" class="generalTable defaultBlackText">
+              <tr>
+                <td class="noramlTableCell"><small>UM</small></td>
+                <td class="noramlTableCell"><strong><small><? echo $db->fvalor($rs_lista->fields[$k_p]); ?></small></strong></td>
+              </tr>
+              <tr>
+                <td class="noramlTableCell"><small>CJ</small></td>
+                <td class="noramlTableCell"><strong><small><? echo $db->fvalor($rs_lista->fields[$k_pcj]); ?></small></strong></td>
+              </tr>
+            </table></td>
+          <td align="center" class="noramlTableCell"><table border="0" cellspacing="2" cellpadding="1" class="generalTable defaultBlackText">
+                <tr>
+                  <td class="noramlTableCell"><small>UM</small></td>
+                  <td class="noramlTableCell"><input name="xp[<? echo $ix; ?>]" type="text" class="campo_linha" id="xp[<? echo $ix; ?>]" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"; virgula(this, '', 1)' onBlur='this.style.backgroundColor="#FFFFFF"; virgula(this, 1, '')' onkeypress="if (!(mascara_valor(this))) return false;" size="6" value = "<? echo $db->fvalor($preco_proj); ?> " /></td>
+                  <td class="noramlTableCell"><strong><small><img src="<? echo DIR_IMAGES; ?>/<? echo $img_pos; ?>" /></small></strong></td>
+                  <td class="noramlTableCell"><strong><small><? echo $db->fvalor($var_perc); ?>%</small></strong></td>
+                </tr>
+                <tr>
+                  <td class="noramlTableCell"><small>CJ</small></td>
+                  <td class="noramlTableCell"><input name="xpcj[<? echo $ix; ?>]" type="text" class="campo_linha" id="xpcj[<? echo $ix; ?>]" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"; virgula(this, '', 1)' onBlur='this.style.backgroundColor="#FFFFFF"; virgula(this, 1, '')' onkeypress="if (!(mascara_valor(this))) return false;" size="6" value = "<? echo $db->fvalor($preco_proj); ?> " /></td>
+                  <td class="noramlTableCell"><small><img src="<? echo DIR_IMAGES; ?>/<? echo $img_pos_cj; ?>" /></small></td>
+                  <td class="noramlTableCell"><strong><small><? echo $db->fvalor($var_perc_cj); ?>%</small></strong></td>
+                </tr>
+              </table></td>
+          </tr>
+        <?
+	 	$ix++;
+		$rs_lista->MoveNext();
+	}//WHILE
+}
+?>
+      </table>
+        <hr size="1" noshade="noshade" />
+        <table border="0" cellspacing="2" cellpadding="2" class="generalTable defaultBlackText">
+          <tr>
+            <td><img src="<? echo DIR_IMAGES; ?>/arrow_ltr.png" border="0" /></td>
+            <td>&nbsp;</td>
+            <td class="noramlTableCell" style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor=&quot;<? echo $bg_cor_light; ?>&quot;' onmouseout='this.style.backgroundColor=&quot;#FFFFFF&quot;'><a href="javascript:void(0);" class="link5" onclick="setCheckboxesRange('lista', true, 'id_rows_cod', 0, '<? echo $rs_lista->_numOfRows;?>'); return false;">Marcar Todos</a></td>
+            <td class="noramlTableCell" style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor=&quot;<? echo $bg_cor_light; ?>&quot;' onmouseout='this.style.backgroundColor=&quot;#FFFFFF&quot;'><a href="javascript:void(0);" class="link5" onclick="setCheckboxesRange('lista', false, 'id_rows_cod', 0, '<? echo $rs_lista->_numOfRows;?>'); return false;">Desmarcar Todos</a></td>
+            <td>&nbsp;</td>
+            <td><table width="100%" border="0" cellspacing="0" cellpadding="1">
+                <tr>
+                  <td><strong>Com Marcados:</strong> </td>
+                </tr>
+                <tr>
+                  <td><select name="Action" class="campo_select" id="Action" onfocus='this.style.backgroundColor=&quot;<? echo $bg_cor_light; ?>&quot;' onblur='this.style.backgroundColor=&quot;#FFFFFF&quot;'>
+                      <option value="">Selecione...</option>
+                      <option value="Atualiza_preco">Atualizar Pre&ccedil;os</option>
+					  <option value="Atualiza_margem">Atualizar Margens</option>
+                  </select></td>
+                </tr>
+            </table></td>
+            <td><input name="Submit" type="submit" class="botao_cor" id="Submit" value="OK" onclick="return confirm('Confirma esta a&ccedil;&atilde;o?')" /></td>
+            <td><input name="numRows" type="hidden" id="numRows" value="<? echo $numRows; ?>" />
+                <input type="hidden" name="pg" value="<? echo $pg; ?>" />
+                <input type="hidden" name="pg_ped" value="<? echo $pg_ped; ?>" />
+				<input type="hidden" name="codgrupo_select" value="<? echo $db->discover_method('grupoemp_select'); ?>" />
+				<input type="hidden" name="tipo_preco_select" value="<? echo $tipo_preco; ?>" />
+			</td>
+          </tr>
+        </table></form></td></tr>
+</table>
+</fieldset>
+<? } ?>
+</body>
+</html>

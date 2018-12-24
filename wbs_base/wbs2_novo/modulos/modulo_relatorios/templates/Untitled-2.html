@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1' />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<table width='100%' border='0' cellspacing= '0' cellpadding='0' align='center'>
+  <tr>
+    <td><b><font size='1' face='Verdana, Arial, Helvetica, sans-serif' color='#336699'>ETAPA 
+      I</font><font size='1' face='Verdana, Arial, Helvetica, sans-serif'> - LISTA DE PRODUTOS ADICIONADOS AO PEDIDO</font></td>
+  </tr>
+</table>
+	<form method='POST' action='$PHP_SELF?Action=delete#insert' name='form7'>
+<table border='0' width='100%'  cellspacing='1' cellpadding='2' align='center'>
+  <tr bgcolor='#D6B778'>
+    <td width='5%'>&nbsp;</td>
+	<td width='19%' height='29'><font face='Verdana, Arial, Helvetica, sans-serif' size='1' color='#ffffff'><b>PRODUTOS</b></font></td>
+	<td width='4%' height='29' align='center'><font face='Verdana, Arial, Helvetica, sans-serif' size='1'  color='#ffffff'><b>QTDE</b></font></td>
+	<td width='11%' height='29' align='center'><font face='Verdana, Arial, Helvetica, sans-serif' size='1' color='#ffffff'><b>VALOR<br /> 
+    UNIT&Aacute;RIO </b></font></td>
+	<td width='10%' height='29' align='center'><font face='Verdana, Arial, Helvetica, sans-serif' size='1' color='#ffffff'><b>VALOR <br />
+    TOTAL </b></font></td>
+	<td width='3%' align='center'><font face='Verdana, Arial, Helvetica, sans-serif' size='1' color='#ffffff'><b>ICMS<br />
+(%)</b></font></td>
+	<td width='3%' align='center'><font face='Verdana, Arial, Helvetica, sans-serif' size='1' color='#ffffff'><b>IPI<br />
+(%)</b></font></td>
+	<td width='11%' align='center'><font face='Verdana, Arial, Helvetica, sans-serif' size='1' color='#ffffff'><b>VALOR<br />
+ IPI </b></font></td>
+	<td width='29%' height='29' align='center'>
+	<p align='center'><font face='Verdana, Arial, Helvetica, sans-serif' size='1' color='#ffffff'><b>NF<br>
+	(MÊS)</b></font></td>
+	<td width='4%' height='29' align='center'>
+	<p align='center'><b><font color='#ffffff' size='1' face='Verdana, Arial, Helvetica, sans-serif'>T</font></b><font face='Verdana, Arial, Helvetica, sans-serif' size='1' color='#ffffff'><b>IPO</b></font></td>
+	<td align='center' width='1%' height='29'><b><font color='#FFFFFF' size='1' face='Verdana, Arial, Helvetica, sans-serif'>CB</font></b></td>
+  </tr>
+  
+   <tr bgcolor='#F2E4C4'>
+   <td width='5%' align='center'><font face='Verdana, Arial, Helvetica, sans-serif' size='1'><b>$codprodoc</b></font></td>
+	<td width='19%' height='0'><font face='Verdana, Arial, Helvetica, sans-serif' size='1'>$nomeprod</font></td>
+    <td width='4%' height='0' align='center'><font face='Verdana, Arial, Helvetica, sans-serif' size='1'><b>$qtde</b></font></td>
+	<td width='11%' height='0' align='center'><font face='Verdana, Arial, Helvetica, sans-serif' size='1'>$fpcu</font></td>
+	<td width='10%' height='0' align='center'><font face='Verdana, Arial, Helvetica, sans-serif' size='1'><b>$fput</b></font></td>
+	<td align='center'><font face='Verdana, Arial, Helvetica, sans-serif' size='1'>$icms</font></td>
+	<td align='center'><font face='Verdana, Arial, Helvetica, sans-serif' size='1'>$ipi</font></td>
+	<td align='center'><font face='Verdana, Arial, Helvetica, sans-serif' size='1'>$v_ipif</font></td>
+	<td width='29%' height='0' align='center'><input name='nf[$i]' type='text' id='nf[$i]' value='$nf' size='7' maxlength='6' />
+	  <br>
+	  <input name='dnf[i]' type='text' id='dnf[i]' value='$dnf' size='2' maxlength='2' />
+/
+<input name='mnf[$i]' type='text' id='mnf[$i]' value='$mnf' size='2' maxlength='2' />
+/
+<input name='anf[i]' type='text' id='anf[i]' value='$anf' size='4' maxlength='4' /></td>
+	<td width='4%' height='0' align='center'><font color='#FF0000'><font face='Verdana, Arial, Helvetica, sans-serif' size='1'><strong><font color='#000000'>$tipo_nf</font></strong></font></font></td>
+	<td align='center' width='1%' height='0'>&nbsp;</td>
+  </tr>
+  <tr bgcolor='#FFFFFF'>
+    <td width='5%'>&nbsp;</td>
+	<td width='19%' height='0'><font face='Verdana, Arial, Helvetica, sans-serif' size='1'>
+	</font></td>
+    <td width='4%' height='0' align='center'><font face='Verdana, Arial, Helvetica, sans-serif' size='1'><b></b></font></td>
+	<td width='11%' height='0' align='center'>&nbsp;</td>
+	<td width='10%' height='0' align='center'>&nbsp;</td>
+	<td width='3%' align='center'>&nbsp;</td>
+	<td width='3%' align='center'>&nbsp;</td>
+	<td width='11%' align='center'>&nbsp;</td>
+	<td width='29%' height='0' align='center'>&nbsp;</td>
+	<td width='4%' height='0' align='center'>&nbsp;</td>
+	<td align='center' width='1%' height='0'>	</td>
+  </tr>
+  <tr bgcolor='#FFFFFF'>
+    <td>&nbsp;</td>
+    <td height='0' colspan='8' align='right'><table width='100%' border='0'>
+      <tr>
+        <td align='right'><font face='Verdana, Arial, Helvetica, sans-serif' size='1'><b>VALOR <br>
+          FRETE:</b></font></td>
+        <td><input name='v_frete' type='text' id='v_frete' value='$v_frete' size='10' onkeyPress='if (!(mascara_valor(this))) return false;' onFocus=\'virgula(this, '', 1)\' onBlur=\'virgula(this, 1, '')\' /></td>
+        <td align='right'><font face='Verdana, Arial, Helvetica, sans-serif' size='1'><b>VALOR<br> 
+          SEGURO:</b></font></td>
+        <td><input name='v_seguro' type='text' id='v_seguro' value='$v_seguro' size='10'  onkeyPress='if (!(mascara_valor(this))) return false;' onFocus=\'virgula(this, '', 1)\' onBlur=\'virgula(this, 1, '')\'/></td>
+        <td align='right'><font face='Verdana, Arial, Helvetica, sans-serif' size='1'><b>OUTRAS<br> 
+          DESPESAS :</b></font></td>
+        <td><input name='v_outrasd' type='text' id='v_outrasd' value='$v_outrasd' size='10'  onkeyPress='if (!(mascara_valor(this))) return false;' onFocus=\'virgula(this, '', 1)\' onBlur=\'virgula(this, 1, '')\' /></td>
+        <td align='right'><font face='Verdana, Arial, Helvetica, sans-serif' size='1'><b>VALOR ICMS<br> 
+          SUBST.:</b></font></td>
+        <td><input name='v_icms_subst' type='text' id='v_icms_subst' value='$v_icms_subst' size='10' onkeyPress='if (!(mascara_valor(this))) return false;' onFocus=\'virgula(this, '', 1)\' onBlur=\'virgula(this, 1, '')\' /></td>
+      </tr>
+    </table></td>
+    <td height='0' align='center'>&nbsp;</td>
+    <td align='center' height='0'></td>
+  </tr>
+  <tr bgcolor='#FFFFFF'>
+    <td>&nbsp;</td>
+    <td height='0' align='right'>&nbsp;</td>
+    <td height='0' align='center'>&nbsp;</td>
+    <td height='0' colspan='5' align='center'>&nbsp;</td>
+    <td height='0' align='center'>&nbsp;</td>
+    <td height='0' align='center'>&nbsp;</td>
+    <td align='center' height='0'></td>
+  </tr>
+  <tr bgcolor='#FFFFFF'>
+    <td>&nbsp;</td>
+    <td height='0' align='right' bgcolor='#FFCC66'><font face='Verdana, Arial, Helvetica, sans-serif' size='1'><b>VALOR ICMS:</b></font></td>
+    <td height='0' align='center' bgcolor='#FFCC66'><font face='Verdana, Arial, Helvetica, sans-serif' size='1'>$v_icmstf</font></td>
+    <td height='0' colspan='5' align='right' bgcolor='#FFCC66'><font face='Verdana, Arial, Helvetica, sans-serif' size='2'><b>VALOR TOTAL DOS PRODUTOS:</b></font></td>
+    <td height='0' align='center' bgcolor='#FFCC66'><font face='Verdana, Arial, Helvetica, sans-serif' size='2'>$ptotalf</font></td>
+    <td height='0' colspan='2' align='center'>&nbsp;</td>
+  </tr>
+  <tr bgcolor='#FFFFFF'>
+    <td>&nbsp;</td>
+    <td height='0' align='left' bgcolor='#FFCC66'><font face='Verdana, Arial, Helvetica, sans-serif' size='1'><b>1 - EMITENTE<br>
+2 - DESTINAT&Aacute;RIO </b></font></td>
+    <td height='0' align='center' bgcolor='#FFCC66'><select name='tipo_frete' id='tipo_frete'>
+      <option value='1' selected>1</option>
+      <option value='2'>2</option>
+      <option value='$tipo_frete'>$tipo_frete</option>
+        </select></td>
+    <td height='0' colspan='5' align='right' bgcolor='#FFCC66'><font face='Verdana, Arial, Helvetica, sans-serif' size='2'><b>VALOR TOTAL IPI:</b></font></td>
+    <td height='0' align='center' bgcolor='#FFCC66'><font face='Verdana, Arial, Helvetica, sans-serif' size='2'>$v_ipitf</font></td>
+    <td height='0' colspan='2' align='center'>&nbsp;</td>
+  </tr>
+  <tr bgcolor='#FFFFFF'>
+    <td>&nbsp;</td>
+    <td height='0' bgcolor='#FF9933'>&nbsp;</td>
+    <td height='0' align='center' bgcolor='#FF9933'>&nbsp;</td>
+    <td height='0' colspan='5' align='right' bgcolor='#FF9933'><font face='Verdana, Arial, Helvetica, sans-serif' size='2'><b>VALOR TOTAL DA NOTA:</b></font></td>
+    <td height='0' align='center' bgcolor='#FF9933'><font face='Verdana, Arial, Helvetica, sans-serif' size='2'><strong>$ptotal_notaf</strong></font></td>
+    <td height='0' colspan='2' align='center'>&nbsp;</td>
+  </tr>
+  <tr bgcolor='#FFFFFF'>
+    <td>&nbsp;</td>
+    <td height='0'>&nbsp;</td>
+    <td height='0' align='center'>&nbsp;</td>
+    <td height='0' colspan='5' align='center'>&nbsp;</td>
+    <td height='0' align='center'>&nbsp;</td>
+    <td height='0' align='center'>&nbsp;</td>
+    <td align='center' height='0'></td>
+  </tr>
+  <tr bgcolor='#FFFFFF'>
+    <td>&nbsp;</td>
+    <td height='0' colspan='8'><table width='100%' border='0'>
+      <tr bgcolor='#D6B778'>
+        <td colspan='4' bgcolor='#D6B778'><font face='Verdana, Arial, Helvetica, sans-serif' size='2'><b>FRETE TRANSPOSTADORA:</b></font></td>
+        </tr>
+      <tr bgcolor='#D6B778'>
+        <td align='right' bgcolor='#F2E4C4'><font face='Verdana, Arial, Helvetica, sans-serif' size='1'><b>VALOR FRETE TRANSP:</b></font></td>
+        <td bgcolor='#F2E4C4'><input name='v_frete_transp' type='text' id='v_frete_transp' value='$v_frete_transp' size='10' /></td>
+        <td align='right' bgcolor='#F2E4C4'><font face='Verdana, Arial, Helvetica, sans-serif' size='1'><b>ALIQUOTA ICMS TRANSP  :</b></font></td>
+        <td bgcolor='#F2E4C4'><select name='icms_subst' id='icms_subst'>
+				    <option value='7'>7</option>
+				    <option value='12'>12</option>
+				    <option value='18'>18</option>
+				    <option value='25'>25</option>
+				    <option value='30'>30</option>
+				    <option value='$icms_subst'>$icms_subst</option>
+                                    </select>
+          <b><font size='1' face='Verdana, Arial, Helvetica, sans-serif'> %</font></b></td>
+      </tr>
+    </table></td>
+    <td height='0' align='center'>&nbsp;</td>
+    <td align='center' height='0'></td>
+  </tr>
+</table>
+</body>
+</html>

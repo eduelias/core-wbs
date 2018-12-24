@@ -1,0 +1,157 @@
+<html> 
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/saci.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+<!--
+.style6 {font-size: 12px}
+.style7 {font-family: Verdana, Arial, Helvetica, sans-serif}
+.style8 {
+	font-size: 12px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+}
+-->
+</style>
+</head>
+<script language="javascript" type="text/javascript">
+ 
+function mascara_cpf(form, campo, cpf)
+{
+	var mycpf = '';
+    mycpf = mycpf + cpf;
+    if (mycpf.length == 3) {
+        mycpf = mycpf + '.';
+        document.getElementById(campo).value = mycpf;
+    }
+    if (mycpf.length == 7) {
+        mycpf = mycpf + '.';
+        document.getElementById(campo).value = mycpf;
+    }
+    if (mycpf.length == 11) {
+        mycpf = mycpf + '-';
+        document.getElementById(campo).value = mycpf;
+    }
+    if (mycpf.length == 14) {
+    }
+}
+
+
+function mascara_cnpj(form, campo, cnpj)
+{
+	var mycpf = '';
+    mycpf = mycpf + cnpj;
+    if (mycpf.length == 2) {
+        mycpf = mycpf + '.';
+        document.getElementById(campo).value = mycpf;
+    }
+    if (mycpf.length == 6) {
+        mycpf = mycpf + '.';
+        document.getElementById(campo).value = mycpf;
+    }
+    if (mycpf.length == 10) {
+        mycpf = mycpf + '/';
+        document.getElementById(campo).value = mycpf;
+    }
+	  if (mycpf.length == 15) {
+        mycpf = mycpf + '-';
+        document.getElementById(campo).value = mycpf;
+    }
+    if (mycpf.length == 18) {
+    }
+}
+
+</script>
+<? if (dirname($_SERVER['PHP_SELF']) == "/"){$bar = "";}else{$bar = "/";} ?>
+
+
+<body>
+<?
+$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light);
+?>
+
+<br>
+ <form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&menu_not=1&Action=pesquisa"; ?>" method="post" name="pesqcheque" target="ilist">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td class="titulospverdec">Pesquisar:</td>
+  </tr>
+  <tr>
+    <td class="tdspconteudoverdec"><table width="100%"  border="0" cellpadding="2" cellspacing="2">
+      <tr>
+        <td colspan="2" align="left"><table  border="0" cellspacing="2" cellpadding="2">
+            <tr>
+              <td width="354" valign="top"><table  border="0" cellspacing="2" cellpadding="2">
+                  <tr>
+                    <td width="20" align="center" valign="middle">                      <input name="tipolist" type="radio" value="N" checked>                    </td>
+                    <td width="323"><strong>LISTA DE COBRAN&Ccedil;AS PENDENTES</strong><br></td>
+                  </tr>
+                  <tr>
+                    <td align="center" valign="middle">                      <input name="tipolist" type="radio" value="S">                    </td>
+                    <td><strong>COBRAN&Ccedil;AS NO JUR&Iacute;DICO</strong><br></td>
+                  </tr>
+                  <tr>
+                    <td align="center" valign="middle"><strong>VENDEDOR:</strong> </td>
+                    <td><input name="nomevend_pesq" type="text" id="nomevend_pesq" size="20" maxlength="20"></td>
+                  </tr>
+              </table></td>
+              <td width="146" valign="middle"><input name="Action2" type="hidden" id="Action2" value="pesquisa">
+                  <input name="Submit2" type="submit" class="botao3" value="Pesquisar"></td>
+            </tr>
+            <input name="codemppesq2" type="hidden" class="botao3" value="<? echo"$codemppesq" ?>">
+            <input name="hist2" type="hidden" class="botao3" value="<? echo"$hist" ?>">
+        </table></td>
+      </tr>
+     
+        <tr>
+          <td colspan="2" align="left"><table width="100%" border="0">
+
+
+            <tr>
+              <td width="79%" class="limite_av" >&nbsp;</td>
+              <td width="21%" class="limite_av" >&nbsp;</td>
+            </tr>
+            <tr>
+              <td class="limite_atraso" ><strong class="limite style6 style7">TOTAL PENDENTES:</strong></td>
+              <td class="limite_atraso" ><strong class="limite style6 style7">R$ <? echo $db->fvalor($rs->fields[0]); ?></strong></td>
+            </tr>
+            <tr>
+              <td class="limite_av" ><strong class="limite style6 style7">TOTAL JUR&iacute;DICO:</strong></td>
+              <td class="limite_av" ><strong class="limite style6 style7">R$ <? echo $db->fvalor($rs->fields[1]); ?></strong></td>
+            </tr>
+            <tr>
+              <td class="limite_av" ><strong class="limite_atraso style6 style7">TOTAL PERDIDO:</strong></td>
+              <td class="limite_atraso" ><span class="style8">R$ <? echo $db->fvalor($rs->fields[2]); ?></span></td>
+            </tr>
+            <tr>
+              <td class="limite_av" >&nbsp;</td>
+              <td class="limite_atraso" >&nbsp;</td>
+            </tr>
+          </table></td>
+          </tr>
+      </form>
+      
+        <tr>
+          <td colspan="2"><fieldset class="tdspconteudoverdec">
+            <legend class="titulospverdec">Clientes</legend>
+            <iframe src="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&menu_not=1"; ?>" name="ilist" width="100%" marginwidth="0" height="600" marginheight="0" scrolling="yes" frameborder="0"></iframe></fieldset></td>
+        </tr>
+        <tr>
+         
+          <td width="100%" valign="top"><fieldset class="tdspconteudoverdec">
+          <legend class="titulospverdec">Avalia&ccedil;&atilde;o de Cr&eacute;dito  </legend>
+          <iframe src="<? echo"$PHP_SELF?pg=$pg&pg_ped=4&menu_not=1"; ?>" name="ipedlimite" width="100%" marginwidth="0" height="200" marginheight="0" scrolling="yes" frameborder="0"></iframe>
+          </fieldset></td>
+        </tr>
+		<tr>
+          <td colspan="2"><fieldset class="tdspconteudoverdec">
+            <legend class="titulospverdec">Relação de Títulos em aberto </legend>
+            <iframe src="<? echo"$PHP_SELF?pg=$pg&pg_ped=3&menu_not=1"; ?>" name="idescr" width="100%" marginwidth="0" height="350" marginheight="0" scrolling="yes" frameborder="0"></iframe></fieldset></td>
+        </tr>
+     
+    </table></td>
+  </tr>
+</table>
+</body>
+</html>

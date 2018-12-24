@@ -1,0 +1,260 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="w<? echo DIR_CSS; ?>/sistema.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+<!--
+.style2 {color: #FFFFFF}
+-->
+</style>
+
+<script language='JavaScript'>
+
+function grava() { 
+	document.form2.action = '<? echo"$PHP_SELF?pg=$pg&hist=$hist&codemppesq=$codemppesq&"; ?>Action=pesquisa&gravar=1';
+	document.form2.target = '';
+	document.form2.submit();
+ } 
+
+
+function sel() {
+	with(document.form2) {
+		for(i=0;i<elements.length;i++) {
+			thiselm = elements[i];
+			if(thiselm.name.substring(0,5) == 'ckorc')
+				thiselm.checked = !thiselm.checked
+		}
+	}
+}
+
+</script>
+
+
+</head>
+
+<body>
+
+<table width="100%"  border="0" align="center" cellpadding="2" cellspacing="2">
+  <tr>
+    <td align="center"><table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td><img src="<? echo DIR_IMAGES; ?>/orcamento.gif" width="160" height="40"></td>
+      </tr>
+      <tr>
+        <td background="<? echo DIR_IMAGES; ?>/spacer.gif" bgcolor="#007297"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+      </tr>
+      <tr>
+        <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="5" height="5"></td>
+      </tr>
+    </table>
+<?
+if ($allemp == "Y"){
+
+?>
+            <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><fieldset class="pesq_orc_field">
+            <legend class="pesq_orc_legend">Selecione a empresa:</legend>
+            <table  border="0" cellpadding="2" cellspacing="4">
+            	<form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=0"; ?>" method="POST" name="form1">
+              <tr>
+                <td><select name="codemppesq" class="campo3">
+<?
+	for($i = 1; $i <= count($arrayx); $i++ ){
+
+
+if ($tipovend_padrao <> 'R' and $var_codgrp <> 21 and $var_codgrp <> 62 and $var_codgrp <> 42 and $var_codgrp <> 13 and $var_codgrp <> 56 and $var_codgrp <> 54 and $var_codgrp <> 32){
+
+?>
+	<option value="<? echo "$codemp[$i]"; ?>"><? echo "$nomeemp[$i]"; ?></option>
+<?
+}else{
+	if ($tipovend_padrao <> 'R'){
+		if ($codemp[$i] <> 14 ){
+		?>
+			<option value="<? echo "$codemp[$i]"; ?>"><? echo "$nomeemp[$i]"; ?></option>
+		<?
+		}
+	}else{
+		if ($codemp[$i] == 20){
+		?>
+			<option value="<? echo "$codemp[$i]"; ?>"><? echo "$nomeemp[$i]"; ?></option>
+		<?
+		}
+	}//IF REVENDAS
+	
+}//GRUPOS
+}//FOR
+
+?>
+ 	<option value = "" selected>SELECIONE A EMPRESA</option>
+                </select></td>
+                <td><input name="Submit" type="submit" class="botao3" value="ok"></td>
+              </tr>
+              </form>
+            </table>
+          </fieldset></td>
+        </tr>
+        <tr>
+          <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="5" height="5"></td>
+        </tr>
+      </table>
+<?
+}
+
+?>
+            <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="33%"><table  border="0" align="left" cellpadding="2" cellspacing="2">
+                    <tr>
+                      <td><img src="<? echo DIR_IMAGES; ?>/empresa.gif" width="32" height="32"></td>
+                      <td><strong>EMPRESA ATUAL:</strong><br>
+            <? echo "$nomeempselect" ?></td>
+                    </tr>
+                </table></td>
+                <td width="33%"><table  border="0" align="center" cellpadding="2" cellspacing="2">
+                    <tr>
+                      <td><img src="<? echo DIR_IMAGES; ?>/reload.gif" width="22" height="22"></td>
+                      <td><a href="<? echo "$PHP_SELF?pg=$pg&pg_ped=0&hist=$hist&codemppesq=$codemppesq";?>">ATUALIZAR TABELA</a></td>
+                    </tr>
+                </table></td>
+                <td width="34%">&nbsp;</td>
+              </tr>
+              <tr>
+                <td colspan="3"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="5" height="5"></td>
+              </tr>
+            </table>
+            <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><fieldset class="pesq_orc_field">
+            <legend class="pesq_orc_legend">Pesquisar por: </legend>
+            <table  border="0" cellspacing="4" cellpadding="2">
+			<form action="<? echo"$PHP_SELF?Action=pesquisa&pg=$pg&pg_ped=0"; ?>" method="POST" name="form1">
+              <tr>
+                <td>COD<br>
+                    <input name="codbarrapesq" type="text" class="campo3" id="codbarrapesq" size="14" maxlength="13"></td>
+                <td>CLIENTE<br>
+                    <input name="nomeclientepesq" type="text" class="campo3" id="nomeclientepesq" size="15"></td>
+                <td>VENDEDOR<br>
+                    <input name="nomevendpesq" type="text" class="campo3" id="nomevendpesq" size="15"></td>
+                <td>TELEFONE<br>
+            (
+              <input name="dddtel" type="text" class="campo3" id="dddtel" size="3" maxlength="2">
+            )
+            <input name="tel" type="text" class="campo3" id="tel" size="9" maxlength="8"></td>
+                <td><br>
+                    <input name="Submit" type="submit" class="botao3" value="Pesquisar"></td>
+              </tr>
+              <input name="codemppesq" type="hidden" class="botao3" value="<? echo"$codemppesq" ?>">
+               <input name="hist" type="hidden" class="botao3" value="<? echo"$hist" ?>">
+			  </form>
+            </table>
+          </fieldset></td>
+        </tr>
+        <tr>
+          <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="5" height="5"></td>
+        </tr>
+      </table>
+            <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="50%"><table  border="0" align="center" cellpadding="2" cellspacing="2">
+                    <tr>
+                      <td><?if ($hist <> 1){?><img src="<? echo DIR_IMAGES; ?>/requerido.gif" width="24" height="24"><?}?></td>
+                      <td><img src="<? echo DIR_IMAGES; ?>/orc_em_aberto.gif" width="22" height="22"></td>
+                      <td><strong>OR&Ccedil;AMENTO:</strong><br>
+                        <a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=0&codemppesq=$codemppesq";?>">EM ABERTO</a></td>
+                    </tr>
+                </table></td>
+                <td width="50%"><table  border="0" align="center" cellpadding="2" cellspacing="2">
+                    <tr>
+                      <td><?if ($hist == 1){?><img src="<? echo DIR_IMAGES; ?>/requerido.gif" width="24" height="24"><?}?></td>
+                      <td><img src="<? echo DIR_IMAGES; ?>/orc_hist.gif" width="22" height="22"></td>
+                      <td><strong>OR&Ccedil;AMENTO:</strong><br>            
+                        <a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=0&hist=1&codemppesq=$codemppesq"; ?>">HIST&Oacute;RICO</a></td>
+                    </tr>
+                </table></td>
+              </tr>
+              <tr>
+                <td colspan="2" bgcolor="#007297"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+              </tr>
+              <tr>
+                <td colspan="2"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="5" height="5"></td>
+              </tr>
+            </table>
+            <table width="100%"  border="0" cellspacing="1" cellpadding="2">
+			<form name="form2" method="post" action="" >
+              <tr>
+                <td align="center"><? if ($hist<> 1){?><input type="checkbox" name="checkbox22" value="checkbox" id ="checkbox2" onClick="sel()"><a href='javascript:grava()'><img border='0' src='images/msg_gravar.png' alt='ENVIAR OR&Ccedil;AMENTO PARA HIST&Oacute;RICO' ></a><?}?></td>
+                <td class="orc_titulos">COD</td>
+                <td class="orc_titulos">NOME</td>
+                <td class="orc_titulos">VEND</td>
+                <td class="orc_titulos">DATA</td>
+                <td class="orc_titulos">VALOR<br>
+                (R$)</td>
+                <td class="orc_titulos">STATUS</td>
+                <td class="orc_titulos">VAL</td>
+                <td class="orc_titulos">CONT</td>
+                <td class="orc_titulos">EMAIL<br>
+                  (ENV)</td>
+              </tr>
+          <?
+	for($i = 0; $i < count($array); $i++ ){
+
+	?>
+              <tr>
+                <td align="center" class="orc_cliente"><img src="<? echo DIR_IMAGES; ?>/tab.gif" width="10" height="10"></td>
+                <td colspan="8" class="orc_cliente"> TEL: <? echo "$tel_orc[$i]"?></td>
+                <td align="center" class="orc_cliente">&nbsp;</td>
+              </tr>
+            <?
+	for($k = 0; $k < $sub_array[$i]; $k++ ){
+
+        	$bgcorlinha="#E5E5E5";
+		if ($status[$i][$k] == "NOVO"){$bgcorlinha="#f3f3f3";}
+		if ($status[$i][$k] == "VENDIDO"){$bgcorlinha="#CFFCC7";}
+		#if ($status[$i][$k] == "PENDENCIA"){$bgcorlinha="#F2E4C4";}
+		if ($status[$i][$k] == "HISTORICO"){$bgcorlinha="#BFD9F9";}
+		#if ($status[$i][$k] == "HISTORICO"){$bgcorlinha="#E1AFAA";}
+
+		if ($emailenv[$i][$k] == "NO"){$cor1 ="#FF0000";}else{$cor1="#008000";}
+		$codorc_select =$codorc[$i][$k];
+
+		?>
+              <tr bgcolor="<? echo"$bgcorlinha"; ?>">
+                <td align="center" bgcolor="#FFFFFF"><? if ($hist<> 1){?><input type="checkbox" name="ckorc<? echo"[$k]"?>" value="<? echo "$codorc_select;"?>" ><?}?></td>
+                <td ><? if ($liberar_orc[$i][$k] == 1 ){ ?>
+					<a href ="<? echo"$PHP_SELF?pg=$pg&pg_ped=2&codorcselect=$codorc_select&codemppesq=$codemppesq"; ?>"><? echo $codbarra[$i][$k]?></a>
+					<?}else{ echo $codbarra[$i][$k]; } ?>
+				</td>
+                <td ><strong><? echo $nomecliente[$i][$k] ?></strong></td>
+                <td ><? echo $nomevend[$i][$k]?></td>
+                <td ><? echo $dataorc[$i][$k]?></td>
+                <td ><? echo $vt[$i][$k]?></td>
+                <td align="center" ><strong><? echo $status[$i][$k]?></strong></td>
+                <td align="center" ><? echo $validade[$i][$k]?></td>
+                <td align="center" ><? echo $contador[$i][$k]?></td>
+                <td align="center" ><strong><span style="color:<? echo"$cor1"; ?>"> <? echo $emailenv[$i][$k]?></span></strong></td>
+              </tr>
+             <?
+			 $g++;
+	}//FOR
+	
+}//FOR
+?>
+<input type=hidden name='cont' value='<? echo"$g"?>'>
+</form>
+      </table>
+            <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="5" height="5"></td>
+              </tr>
+              <tr>
+                <td bgcolor="#007297"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+              </tr>
+            </table></td>
+  </tr>
+</table>
+
+</body>
+</html>

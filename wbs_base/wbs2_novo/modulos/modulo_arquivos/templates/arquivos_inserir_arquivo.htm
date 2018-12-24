@@ -1,0 +1,92 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/azul_padrao.css" rel="stylesheet" type="text/css">
+<link href="../../../css/azul_padrao.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><img src="<? echo DIR_IMAGES; ?>/ind_cad_arquivos_grupos.gif"></td>
+    <td width="10%" align="right"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=1"; ?>"><img src="<? echo DIR_IMAGES; ?>/bt_voltar_azul_padrao.gif" border="0"></a></td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#3775CA"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+  </tr>
+</table>
+<br>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" class="titulo_superior">
+  <tr>
+    <td>Cadastro de Arquivos </td>
+  </tr>
+</table>
+<table width="100%"  border="0" cellpadding="2" cellspacing="0" class="generalTable defaultBlackText">
+  <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="#E8EFF9"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+    <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Arquivo</td>
+    <td class="noramlTableCell"><input name="arquivo" type="text" class="input_linha" id="arquivo" maxlength="50"></td>
+  </tr>
+  <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="#E8EFF9"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+    <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Nome</td>
+    <td class="noramlTableCell"><input name="nome" type="text" class="input_linha" id="nome" maxlength="40"></td>
+  </tr>
+  <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="#E8EFF9"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+    <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Descri&ccedil;&atilde;o</td>
+    <td class="noramlTableCell"><input name="descricao" type="text" class="input_linha" id="descricao" maxlength="40"></td>
+  </tr>
+  <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="#E8EFF9"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+    <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Grupo Menu </td>
+    <td class="noramlTableCell"><select name="menugrp" class="input_select" id="menugrp">
+<?
+if ($rs) {
+	while (!$rs->EOF) {
+?>
+	<option value="<? echo $rs->fields['codmenu']; ?>"><? echo $rs->fields['menu']; ?></option>
+<?
+	$rs->MoveNext();
+	} //WHILE
+}
+?>
+    </select></td>
+  </tr>
+  <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="#E8EFF9"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+    <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Vis&iacute;vel</td>
+    <td class="noramlTableCell"><table  border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><input name="visivel" type="radio" value="S"></td>
+        <td>Sim</td>
+        <td><input name="visivel" type="radio" value="N"></td>
+        <td>N&atilde;o</td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="#E8EFF9"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+    <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">M&oacute;dulo</td>
+    <td class="noramlTableCell"><table  border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><input name="modulo" type="radio" value="S"></td>
+        <td>Sim</td>
+        <td><input name="modulo" type="radio" value="N"></td>
+        <td>N&atilde;o</td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="#E8EFF9"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+    <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Habilitado</td>
+    <td class="noramlTableCell"><table  border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><input name="habilitado" type="radio" value="S"></td>
+        <td>Sim</td>
+        <td><input name="habilitado" type="radio" value="N"></td>
+        <td>N&atilde;o</td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><input name="Submit" type="submit" class="titulo_superior" value="Inserir"></td>
+  </tr>
+</table>
+</body>
+</html>

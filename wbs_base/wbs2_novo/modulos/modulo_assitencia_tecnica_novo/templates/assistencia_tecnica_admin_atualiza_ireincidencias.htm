@@ -1,0 +1,47 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+-->
+</style></head>
+
+<body>
+<table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+  <tr>
+    <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+    <td width="10%" align="center" class="generalGreyBorderBottomTableHeaderCell">Cod OS </td>
+    <td align="center" class="generalGreyBorderBottomTableHeaderCell">Data OS In&iacute;cio </td>
+    <td align="center" class="generalGreyBorderBottomTableHeaderCell">Data OS Fim </td>
+    <td align="center" class="generalGreyBorderBottomTableHeaderCell">Status</td>
+  </tr>
+<?
+if ($rs_reincidencias)
+{
+	while (!$rs_reincidencias->EOF)
+	{
+?>
+  <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+    <td align="center" class="noramlTableCell"><a href="<? echo "$PHP_SELF?pg=$pg&pg_ped=106&codos_at_select=".$rs_reincidencias->fields['codos_at'].""; ?>"><img src="<? echo DIR_BOTOES; ?>/page_find.png" border="0" /></a></td>
+    <td align="center" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;"><? echo $rs_reincidencias->fields['codbarra_os_at']; ?></td>
+    <td align="center" class="noramlTableCell"><? echo $rs_reincidencias->UserTimeStamp($rs_reincidencias->fields['dataos_at_ini'],'d/m/Y H:i'); ?></td>
+    <td align="center" class="noramlTableCell"><? if ($rs_reincidencias->fields['dataos_at_fim'] <> "0000-00-00 00:00:00") { echo $rs_reincidencias->UserTimeStamp($rs_reincidencias->fields['dataos_at_fim'],'d/m/Y H:i'); } else { echo "-"; } ?></td>
+    <td align="center" class="noramlTableCell"><strong><? echo $db->format_str("UP", $rs_reincidencias->fields['status']); ?></strong></td>
+  </tr>
+<?
+		$rs_reincidencias->MoveNext();
+	}//WHILE
+}
+?>
+</table>
+</body>
+</html>

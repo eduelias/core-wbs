@@ -1,0 +1,66 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<script language='JavaScript' src = "<? echo DIR_JS; ?>/scripts.js"></script>
+<script language='JavaScript' src = "<? echo DIR_JS; ?>/util.js"></script>
+</head>
+
+<body>
+<?
+$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light);
+$db->voltar(MOD_COR, $pg, "");
+?>
+<br>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" class="titulo_superior2">
+  <tr>
+    <td>Editar Revenda </td>
+  </tr>
+</table>
+<table width="100%"  border="0" cellpadding="2" cellspacing="0" class="generalTable defaultBlackText">
+  <form method="post" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=100&Action=Salvar"; ?>" name="salva">
+    <tr style="background-color: #FFFFFF; cursor: pointer;">
+      <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Login</td>
+      <td class="noramlTableCell"><strong><? echo $rs_revenda_select->fields['nome']; ?>
+        <input name="codrevenda_select" type="hidden" id="codrevenda_select" value="<? echo $_GET['codrevenda_select']; ?>">
+      </strong></td>
+    </tr>
+    <tr style="background-color: #FFFFFF; cursor: pointer;">
+      <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Meta </td>
+      <td class="noramlTableCell">R$
+      <input name="meta" type="text" class="campo_linha" id="meta" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"; virgula(this, "", 1)' onBlur='this.style.backgroundColor="#FFFFFF"; virgula(this, 1, "")' value="<? echo $db->fvalor($rs_revenda_select->fields['meta']); ?>" size="10" maxlength="10" onkeyPress="if (!(mascara_valor(this))) return false;" onChange="valormodific()"></td>
+    </tr>
+    <tr style="background-color: #FFFFFF; cursor: pointer;">
+      <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Malote?</td>
+      <td class="noramlTableCell"><select name="malote" class="campo_select" id="malote" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"'>
+			<option value="<? echo $rs_revenda_select->fields['malote']; ?>" select><? if($rs_revenda_select->fields['malote'] == "S") { echo "SIM"; } else { echo "NÃO"; } ?></option>
+              <option value="S">SIM</option>
+              <option value="N">N&Atilde;O</option>
+            </select></td>
+    </tr>
+    <tr style="background-color: #FFFFFF; cursor: pointer;">
+      <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Bloquear?<br>
+        MSG</td>
+      <td class="noramlTableCell"><table width="100%" border="0" cellspacing="1" cellpadding="1">
+          <tr>
+            <td><select name="bloquear" class="campo_select" id="codrevenda" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"'>
+			<option value="<? echo $rs_revenda_select->fields['block']; ?>" select><? if($rs_revenda_select->fields['block'] == "Y") { echo "SIM"; } else { echo "NÃO"; } ?></option>
+              <option value="Y">SIM</option>
+              <option value="N">N&Atilde;O</option>
+            </select></td>
+          </tr>
+          <tr>
+            <td><input name="msg_block" type="text" class="campo_caixa" id="msg_block" onFocus="this.style.backgroundColor=&quot;<? echo $bg_cor_light; ?>&quot;" onBlur="this.style.backgroundColor=&quot;#FFFFFF&quot;" value="<? echo $rs_revenda_select->fields['msg']; ?>" size="50" maxlength="100"></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr>
+      <td width="80">&nbsp;</td>
+      <td><input name="Submit" type="submit" class="botao_cor" value="Salvar"></td>
+    </tr>
+  </form>
+</table>
+</body>
+</html>

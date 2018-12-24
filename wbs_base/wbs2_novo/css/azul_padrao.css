@@ -1,0 +1,158 @@
+/* CSS Azul Padrão */
+
+a.endereco1 {
+	font: 11px verdana, sans-serif;
+	color: #3775CA;
+	padding: 3px;
+	outline: none;
+	text-decoration: none;
+}
+a.endereco1:hover, a.endereco1:focus {
+	background-color: #3775CA;
+	color: #FFFFFF;
+	text-decoration: none;
+}
+a.endereco2 {
+	font: bold 11px verdana, sans-serif;
+	color: #FFFFFF;
+	padding: 5px;
+	outline: none;
+	text-decoration: none;
+	margin: 0px 0px 0px 5px;
+	background-image: url(../images/fd4azul_padrao.jpg);
+	background-position: 20px;
+	text-transform: capitalize;
+	border: 1px outset #3879CD;
+	background-color: #3879CD;
+}
+a.endereco2:hover, a.endereco2:focus {
+	font: bold 11px verdana, sans-serif;
+	color: #FFFFFF;
+	padding: 5px;
+	outline: none;
+	text-decoration: none;
+	margin: 0px 0px 0px 5px;
+	background-image: url(../images/fd4azul_padrao.jpg);
+	background-position: 20px;
+	text-transform: capitalize;
+	border: 1px outset #3879CD;
+	background-color: #3879CD;
+}
+.titulo_superior {
+	font-weight: bold;
+	text-transform: uppercase;
+	background-image: url(../images/fd4azul_padrao.jpg);
+	background-position: 20px;
+	padding-top: 3px;
+	padding-right: 10px;
+	padding-bottom: 3px;
+	padding-left: 10px;
+	font-family: "Trebuchet MS", Tahoma, Verdana, Arial;
+	font-size: 11px;
+	color: #FFFFFF;
+	background-color: #3775CA;
+	border: 1px solid #3775CA;
+}
+.tabela_conteudo {
+	padding: 4px;
+	border: 1px solid #3775CA;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+.generalTable {
+	border-collapse: collapse;
+}
+.defaultBlackText {
+	font-family: verdana,helvetica,arial;
+	font-size: 11px;
+	font-weight: normal;
+	text-decoration: none;
+	color: black;
+}
+.generalGreyBorderBottomTableHeaderCell {
+	border-bottom: 1px solid #D4D0C8;
+	border-top: 1px solid #D4D0C8;
+	font-family: verdana, helvetica, arial;
+	font-size: 11px;
+	/*font-size:8.5pt;*/
+	font-weight: bold;
+	text-decoration: none;
+	color:#3775CA;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.noramlTableCell {
+	border: 1px solid #D4D0C8;
+	padding: 3px;
+}
+.input_linha {
+	color: #3775CA;
+	padding: 2px;
+	background-color: #FFFFFF;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	border-bottom: 1px solid #666666;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-left-style: solid;
+	border-top-color: #FFFFFF;
+	border-right-color: #FFFFFF;
+	border-left-color: #FFFFFF;
+
+	#width: 100%;
+	width: 100%;
+}
+.input_select {
+	color: #3775CA;
+	padding: 1px;
+	background-color: #FFFFFF;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	border: 1px solid #666666;
+}
+.input_botao {
+	font: bold 11px verdana, sans-serif;
+	color: #FFFFFF;
+	padding: 5px;
+	outline: none;
+	text-decoration: none;
+	margin: 2px;
+	background-image: url(../images/fd4azul_padrao.jpg);
+	background-position: 20px;
+	text-transform: capitalize;
+	border: 1px outset #3879CD;
+	background-color: #3879CD;
+}
+.msg_sucesso {
+	font-weight: bold;
+	color: #009900;
+	background-color: #DFFFDF;
+	padding: 10px;
+	border: 1px solid #009900;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	margin: 5px;
+}
+.msg_erro {
+	font-weight: bold;
+	color: #EA0000;
+	background-color: #FFE1E1;
+	padding: 10px;
+	border: 1px solid #EA0000;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	margin: 5px;
+}
+.msg_azul1 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	color: #3775CA;
+	margin-top: 8px;
+	margin-bottom: 8px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- created with PHP Doc System
+     http://www.alexking.org/software/phpdocsystem/ -->
+<html>
+	<head>
+		<title>Tasks Jr.: PHP iCalendar and 401 (.htaccess) Authentication</title>
+		<link rel="stylesheet" type="text/css" href="default.css" />
+	</head>
+	<body>
+		<div id="header">
+			<a href="index.html">Table of Contents</a>
+			<h1><span>Tasks</span></h1>
+		</div>
+		<div id="content">
+<h1 class="module_title">PHP iCalendar and 401 (.htaccess) Authentication</h1>
+<div class="module_content">
+<p>I get by far the most support questions about trying to view the Tasks Jr. iCalendar in the included PHP iCalendar.
+</p>
+
+<p>I hacked some <a href="http://www.alexking.org/blog/index.php?p=520">401 authentication support into PHP iCalendar</a>, but it doesn&#8217;t work for some people. I think it depends on server config and <a href="http://www.alexking.org/blog/index.php?p=535">PHP version</a>.</p>
+
+<p>One solution is to go into the PHP iCalendar config file and add the Tasks Jr. iCalendar with your username/password to the &#8216;$list_webcals[]&#8217; setting. It should look like this:</p>
+
+<p><pre>$list_webcals[] = 'http://username:password@www.example.com/tasks/ics.php';</pre></p>
+
+<p>After you do this, you then need to open the calendar.php page and uncomment line 13 as noted:</p>
+
+<p><pre>// $URL = $custom->ical_URL."month.php?getdate=".date("Ymd");</pre></p>
+
+<p>to this:</p>
+
+<p><pre>$URL = $custom->ical_URL."month.php?getdate=".date("Ymd");</pre></p>
+
+<p>The &#8216;Tasks Jr. Webcal&#8217; should show up in the drop down of Calendars.</p>
+
+</div>
+<p id="prev_next"><a href="html_toolbar.html">Previous Page</a> | <a href="index.html">Table of Contents</a> | <a href="calendar_window.html">Next Page</a></p>
+			<p id="last_modified">Last Modified: February 28, 2005 @ 1:11 pm<br />(<a href="http://www.kingdesign.net/tasks/documentation/phpical_webcal.html">check for an updated version of this page</a>)</p>
+		</div>
+
+		<div id="footer">
+			<a href="http://www.alexking.org/software/phpdocsystem/">PHP Doc System</a> Copyright 2003-2004 &copy; Alex King. All rights reserved.<br />
+		</div>
+	</body>
+</html>

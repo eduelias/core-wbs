@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Ajusta SEED</title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/securitykey.css" rel="stylesheet" type="text/css">
+<script language="javascript" src="<? echo DIR_JS; ?>/funcoes01.js"></script>
+</head>
+
+<body>
+<?
+$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light);
+$var_parametro = "&pg_ped=100";
+$db->voltar(MOD_COR, $pg, $var_parametro);
+$db->titulador(MOD_COR, "Ajusta SEED", $bg_cor, $bg_cor_light);
+?>
+<br />
+<form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=200&Action=Ajustar"; ?>" method="post" name="lista" id="lista">
+<input name="Submit" type="submit" class="botao_cor" id="Submit" value="Ajustar SEED" />
+</form>
+<br />
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Usu&aacute;rios</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+        <tr>
+          <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell">Cod</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Login</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">SEED</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Bloq</td>
+        </tr>
+        <?
+if ($rs_lista)
+{
+	$ix = 0;
+	while (!$rs_lista->EOF)
+	{
+?>
+        <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor=&quot;<? echo $bg_cor_light; ?>&quot;' onmouseout='this.style.backgroundColor=&quot;#FFFFFF&quot;'>
+          <td align="center" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;"><? echo $rs_lista->fields['codvend']; ?></td>
+          <td class="noramlTableCell"><strong><? echo $rs_lista->fields['nome']; ?></strong></td>
+          <td align="center" class="noramlTableCell"><? echo $rs_lista->fields['seed']; ?></td>
+          <td align="center" class="noramlTableCell"><?
+if($rs_lista->fields['block'] == "Y")
+{
+  	echo "<img src=".DIR_IMAGES."/legendas/legenda_sim_vermelho.gif border=0>";
+}
+else
+{
+  	echo "<img src=".DIR_IMAGES."/legendas/legenda_nao_verde.gif border=0>";
+}
+?></td>
+        </tr>
+        <?
+	 	$ix++;
+		$rs_lista->MoveNext();
+	}//WHILE
+}
+?>
+      </table>
+      </td>
+    </tr>
+</table>
+</fieldset>
+</body>
+</html>

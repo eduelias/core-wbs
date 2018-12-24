@@ -1,0 +1,170 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+.style4 {font-size: x-small; font-weight: bold; }
+.style5 {font-size: x-small}
+-->
+</style></head>
+
+<body>
+ 
+
+<?if ($end <> 1){?>
+<BR>
+<table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+<form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=100&menu_not=1"; ?>" method="post" name="pesquisa" target="iped">
+  <tr>
+    <td align="center" bgcolor="#FFFFCC" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+    <td colspan="2" align="center" bgcolor="#FFFFCC" class="noramlTableCell"><strong><big><big>PRODUTO: </big></big></strong><br></td>
+    </tr>
+  <tr bgcolor="#E1E1E1">
+    <td width="10%" align="center" bgcolor="#FFFFCC" class="generalGreyBorderBottomTableHeaderCell">CodProd</td>
+    <td width="65%" align="center" bgcolor="#FFFFCC" class="generalGreyBorderBottomTableHeaderCell">Nome Produto </td>
+    <td width="25%" align="center" bgcolor="#FFFFCC" class="generalGreyBorderBottomTableHeaderCell">N&uacute;mero S&eacute;rie</td>
+    </tr>
+ 
+
+  <tr bgcolor="#E1E1E1" style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+    <td align="center" bgcolor="#FFFFCC" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;"><? echo $codprod_pesq ?></td>
+    <td bgcolor="#FFFFCC" class="noramlTableCell"><strong><? echo $db->format_str("UP", $nomeprod_pesq); ?><br></strong></td>
+    <td align="center" bgcolor="#FFFFCC" class="noramlTableCell"><? echo $_POST['sn_pesq'] ?></td>
+    </tr>
+  <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+    <td align="center" class="noramlTableCell" >&nbsp;</td>
+    <td class="noramlTableCell">&nbsp;</td>
+    <td align="center" class="noramlTableCell">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+    <td colspan="2" align="left" class="noramlTableCell"><strong><big><big>DADOS DO CLIENTE: </big></big></strong><br></td>
+  </tr>
+  <tr>
+    <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+    <td align="left" ><p><strong>CLIENTE</strong>: <span class="style5"><? echo $db->format_str("UP", $nomecli_ped); ?></span><strong><br>
+      </strong><strong>CNPJ/CPF:</strong> <span class="style5"><? echo $db->format_str("UP", $doc_ped); ?><br>
+      </span><strong>PEDIDO:</strong> <span class="style5"><? echo $db->format_str("UP", $codbarraped_ped); ?></span><br>  
+          <strong>DATA PED</strong>: <span class="style5"><? echo $db->format_str("UP", $dataped_ped); ?></span><strong><br>
+          </strong></p>      </td>
+    <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+  </tr>
+  <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+    <td align="center" class="noramlTableCell" style="color: #FFFFFF; ">&nbsp;</td>
+    <td colspan="2" class="noramlTableCell">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+    <td colspan="2" align="left" class="noramlTableCell"><strong><big><big>DADOS DO FATURAMENTO: </big></big></strong><br></td>
+  </tr>
+  <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+    <td align="center" class="noramlTableCell" style="color: #FFFFFF; ">&nbsp;</td>
+    <td colspan="2" class="noramlTableCell"><table width="100%" border="0" cellpadding="2" cellspacing="2">
+      <tr>
+        <td align="center"><span class="style4">TIPO</span></td>
+        <td align="center"><span class="style4">NF VENDA</span></td>
+        <td align="center"><span class="style4">DATA NF</span></td>
+        <td align="center"><span class="style4">VALOR</span></td>
+      </tr>
+      <?
+      $rs_pedido->Move(0);
+      if ($rs_pedido)
+			{
+				
+				while (!$rs_pedido->EOF)
+				{
+					
+				$numnf_ped = $rs_pedido->fields[0];
+				$datanf_ped = $rs_pedido->fields[1];
+				$valornf_ped = $rs_pedido->fields[2];
+				$modonf_ped = $rs_pedido->fields[3];
+				$codemp_ped = $rs_pedido->fields[4];
+				$nomecli_ped = $rs_pedido->fields[5];
+                $codbarraped_ped = $rs_pedido->fields[6];
+                $dataped_ped = $rs_pedido->fields[7];
+				$doc_ped = $rs_pedido->fields[8];
+      
+      ?>
+      <tr>
+        <td align="center"><span class="style5"><? echo $modonf_ped ?></span></td>
+        <td align="center"><span class="style5"><? echo $numnf_ped ?></span></td>
+        <td align="center"><span class="style5"><? echo $datanf_ped ?></span></td>
+        <td align="center"><span class="style5"> R$ <? echo $valornf_ped ?></span></td>
+      </tr>
+      <?
+      $rs_pedido->MoveNext();
+				}//WHILE
+			}
+            
+       $rs_empresa = $db->query_db("SELECT razaosocial, cgc, endereco, cidade, estado, bairro, cep, ie FROM empresa WHERE codemp ='".$codemp_ped."' ","SQL_NONE","N");	
+       $nomeemp_ped = $rs_empresa->fields[0];
+	   $cnpjemp_ped = $rs_empresa->fields[1];
+       $endereco_ped = $rs_empresa->fields[2];
+       $cidade_ped = $rs_empresa->fields[3];
+       $estado_ped = $rs_empresa->fields[4];
+       $bairro_ped = $rs_empresa->fields[5];
+       $cep_ped = $rs_empresa->fields[6];
+       $ie_ped = $rs_empresa->fields[7];
+           
+      ?>
+    </table>      </td>
+    </tr>
+ <tr>
+   <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+   <td colspan="2" align="left" class="noramlTableCell"><p><strong>EMPRESA:</strong> <span class="style5"><? echo $db->format_str("UP", $nomeemp_ped); ?></span><br>
+     <strong>IE:</strong> <span class="style5"><? echo $db->format_str("UP", $ie_ped); ?></span><br>
+       <strong>CNPJ:</strong> <span class="style5"><? echo $db->format_str("UP", $cnpjemp_ped); ?></span><br>
+         <strong>ENDERECO:</strong> <span class="style5"><? echo $db->format_str("UP", "$endereco_ped - $bairro_ped - $cidade_ped - $estado_ped - $cep_ped"); ?></span><br>
+     </p>     </td>
+ </tr>
+ <tr>
+   <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+   <td align="left" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+   <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+ </tr>
+ <?
+ if ($idop_sn_pesq){
+ 
+ ?>
+ 
+ 
+ <tr>
+   <td align="center" bgcolor="#FFFFCC" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+   <td colspan="2" align="left" bgcolor="#FFFFCC" class="noramlTableCell"><strong><big><big>PRODUTO PERTENCENTE AO MICRO: </big></big></strong><br></td>
+ </tr>
+ <tr>
+   <td align="center" bgcolor="#FFFFCC" class="generalGreyBorderBottomTableHeaderCell">CodProd</td>
+   <td align="center" bgcolor="#FFFFCC" class="generalGreyBorderBottomTableHeaderCell">Nome Produto </td>
+   <td align="center" bgcolor="#FFFFCC" class="generalGreyBorderBottomTableHeaderCell">N&uacute;mero S&eacute;rie</td>
+ </tr>
+ <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+   <td align="center" bgcolor="#FFFFCC" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;"><? echo $codprod_pesqm ?></td>
+   <td bgcolor="#FFFFCC" class="noramlTableCell"><strong><? echo $db->format_str("UP", $nomeprod_pesqm); ?><br>
+   </strong></td>
+   <td align="center" bgcolor="#FFFFCC" class="noramlTableCell"><? echo $sn_pesqm ?></td>
+ </tr>
+  <?
+ }
+ 
+ ?>
+</form>
+</table>
+
+<p>
+<? }?>
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</body>
+</html>

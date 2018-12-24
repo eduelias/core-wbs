@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="<? echo DIR_CSS; ?>/pesquisa.css" rel="stylesheet" type="text/css">
+<link href="../../../css/pesquisa.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+-->
+</style>
+<title></title>
+</head>
+
+<body>
+<table  border="0" cellpadding="2" cellspacing="2" class="pesq_script_destaque">
+  <tr>
+    <td><? echo "$nome"; ?></td>
+  </tr>
+</table>
+<table width="100%"  border="0" cellpadding="1" cellspacing="1">
+  <? for($i = 0; $i < count($arrayx); $i++ ){ ?>
+  <tr>
+    <td class="pesq_td2"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=4&menu_not=1&pesqcodped=$codped_view[$i]&Action=Pesquisar&ncodpedido=$codbarra_view[$i]"; ?>" class="lkverde2" target="iformulario"><? echo "$codbarra_view[$i]"; ?></a></td>
+    <td class="pesq_td2"><? echo "$dataped_view[$i]"; ?></td>
+    <td class="pesq_td2"><? echo "$dataentrega_view[$i]"; ?></td>
+  </tr>
+  <? }//FOR ?>
+</table>
+</body>
+</html>

@@ -1,0 +1,52 @@
+body {
+	font-family: "Trebuchet MS", Tahoma, Verdana, Arial;
+	font-size: 11px;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+.titulogold {
+	background-image: url(../images/fd2coresgold.jpg);
+	font-family: "Trebuchet MS", Tahoma, Verdana, Arial;
+	font-size: 11px;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #000000;
+	background-position: 20px;
+	background-color: #FFAA07;
+	padding: 4px;
+	border: 1px solid #FFAA07;
+}
+.conteudogold {
+	font-family: "Trebuchet MS", Tahoma, Verdana, Arial;
+	color: #000000;
+	background-color: #FFFFFF;
+	padding: 3px;
+	border: 1px solid #FFAA07;
+	font-size: 11px;
+}
+.tituloazulclaro {
+	background-image: url(../images/fdcoresazulclaro.jpg);
+	font-family: "Trebuchet MS", Tahoma, Verdana, Arial;
+	font-size: 11px;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #000000;
+	background-position: 20px;
+	background-color: #89C6E5;
+	padding: 4px;
+	border: 1px solid #89C6E5;
+}
+.conteudoazulclaro {
+	font-family: "Trebuchet MS", Tahoma, Verdana, Arial;
+	color: #000000;
+	background-color: #FFFFFF;
+	padding: 3px;
+	border: 1px solid #89C6E5;
+	font-size: 11px;
+}
+.erro_mysql {
+	background-color: #FFFFFF;
+	font-family: "Trebuchet MS", Tahoma, Verdana;
+	font-size: 10px;
+	color: #EA0000;
+}

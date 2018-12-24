@@ -1,0 +1,54 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+-->
+</style>
+<script language="javascript">
+function FacaA(form)
+{
+	document.form.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=2&cep_select=$frmCEP&"; ?>menu_not=1';
+	document.form.target = 'ireceb';
+	document.form.submit();
+}
+</script>
+
+</head>
+
+<body>
+<table width="100%"  border="0" cellpadding="2" cellspacing="0" class="generalTable defaultBlackText">
+  <form method="post" action="" name="form">
+    <tr style="background-color: #FFFFFF; cursor: pointer;">
+      <td width="80" align="right" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;">Revenda</td>
+      <td class="noramlTableCell">
+<select name="codrevenda" class="campo_select" id="revenda" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"' onChange="FacaA(form)">
+<option selected>Escolha...</option>
+<?
+if ($rs_revendas)
+{
+	while (!$rs_revendas->EOF)
+	{
+?>
+  <option value="<? echo $rs_revendas->fields['codvend']; ?>"><? echo $db->format_str("UP", $rs_revendas->fields['login']); ?> - <? echo $db->format_str("UP", $rs_revendas->fields['nome']); ?></option>
+  <?
+	 	$rs_revendas->MoveNext();
+	}//WHILE
+}
+?>
+</select>
+	  </td>
+    </tr>
+  </form>
+</table>
+</body>
+</html>

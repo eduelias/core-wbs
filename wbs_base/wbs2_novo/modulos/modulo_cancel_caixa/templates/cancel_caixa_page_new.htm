@@ -1,0 +1,103 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<script language="javascript" src="<? echo DIR_JS; ?>/funcoes01.js"></script>
+<script language="javascript">
+
+function DoIt(form)
+{
+	document.form.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=1&Action=pesquisa&empresa=$empresa"; ?>';
+	document.form.target = '_self';
+	document.form.submit();
+}
+</script>
+</head>
+
+<body>
+<?
+$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light);
+?>
+<br>
+<br>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Procedimento de Cancelamento</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<form name="lista" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=100&Action=$Action"; ?>" method="post">
+  <tr>
+    <td><table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+      <tr>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+        </tr>
+      <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+        <td colspan="2" align="center" class="noramlTableCell"><table width="100%" border="0">
+            <tr>
+              <td><strong>CLIENTE:</strong> <? echo $rs_cliente->fields['nome'] ?></td>
+            </tr>
+            <tr>
+              <td><table width="100%" border="0">
+                <tr>
+                  <td><strong>TIPO</strong></td>
+                  <td><strong>DATA VENC </strong></td>
+                  <td><strong>VALOR</strong></td>
+                  <td><strong>BANCO</strong></td>
+                  <td><strong>AGENCIA</strong></td>
+                  <td><strong>CONTA</strong></td>
+                  <td><strong>NUMCHEQ</strong></td>
+                </tr>
+			  <?
+			  if ($rs_ped_parc){			
+	while (!$rs_ped_parc->EOF)
+	{
+	
+	$rs_tipo = $db->query_db("SELECT descricao FROM formapg WHERE opcaixa = '".$rs_ped_parc->fields['tipo']."'" ,"SQL_NONE","N");
+	  	
+	?>
+                <tr>
+                  <td><? echo $rs_tipo->fields['descricao'] ?></td>
+                  <td><? echo $rs_ped_parc->fields['datavenc'] ?></td>
+                  <td><? echo $rs_ped_parc->fields['vp'] ?></td>
+                  <td><? echo $rs_ped_parc->fields['banco'] ?></td>
+                  <td><? echo $rs_ped_parc->fields['agencia'] ?></td>
+                  <td><? echo $rs_ped_parc->fields['conta'] ?></td>
+                  <td><? echo $rs_ped_parc->fields['numcheq'] ?></td>
+                </tr>
+				<?
+					$rs_ped_parc->MoveNext();
+	}
+}?>
+				
+              </table></td>
+            </tr>
+          </table>
+          <br></td>
+        </tr>
+      <tr>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell">Cod Pedido </td>
+        <td align="center" class="generalGreyBorderBottomTableHeaderCell"><p>Status</p></td>
+      </tr>
+     
+      <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+        <td align="center" class="noramlTableCell"><br>
+          <input name="codped_pesq" type="text" id="codped_pesq" value = "<? echo $codped_pesq;?>">
+		  <input name="Submit" type="submit" id="Submit" value="<? echo $acao ?>">		           </td>
+        <td align="center" class="noramlTableCell"><? echo $status ?></td>
+        </tr>
+
+    </table>
+      <hr size="1" noshade>
+      <p>
+    
+        <br>
+      </p>
+      </td>
+  </tr>
+  <input name="empresa" id = "empresa" type="hidden" value="<? echo $empresa; ?>">
+</form>
+</table>
+</fieldset>
+</body>
+</html>

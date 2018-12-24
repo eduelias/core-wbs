@@ -1,0 +1,62 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="<? echo DIR_CSS; ?>/saci.css" rel="stylesheet" type="text/css">
+<link href="../../../css/saci.css" rel="stylesheet" type="text/css">
+<title></title>
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+-->
+</style></head>
+
+<body>
+<br>
+<table width="100%"  border="0" cellpadding="1" cellspacing="1">
+ <tr >
+    <td align="center" class="titulo" valign="middle" ><strong>CODCH</strong></td>
+    <td align="center" class="titulo"><strong>BCO</strong></td>
+    <td align="center" class="titulo"><strong>AG</strong></td>
+    <td align="center" class="titulo"><strong>CONTA</strong></td>
+    <td align="center" class="titulo"><strong>NUMCH</strong></td>
+    <td align="center" class="titulo"><strong>DATA VENC </strong></td>
+    <td align="center" class="titulo"><strong>VALOR</strong></td>
+    <td align="center" class="titulo"><strong>SIT</strong></td>
+    <td align="center" class="titulo"><strong>SF</strong></td>
+    <td colspan="4" align="center" class="titulo"><strong>A&Ccedil;&Otilde;ES</strong></td>
+  </tr>
+  <? if ($rs) {
+		while (!$rs->EOF) { 
+		
+		if ($rs->fields['sf'] == 'OK' and $rs->fields['sf_pg'] == 'NO'){$bgtr_color = "#FEE0DE";}else{$bgtr_color = "#FFFFFF";}
+		
+		?>
+ 
+  <tr bgcolor="<? echo $bgtr_color; ?>">
+    <td height="27" align="center" valign="middle" class="sacitd2"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=2&menu_not=1&codformagrupo_pesq=".$rs->fields['codformagrupo']."&codch_pesq=".$rs->fields['codch']."&Action=pesquisa"; ?>" class="lkverde2" target="ifpg"><strong><? echo $rs->fields['codch']; ?></strong></a></td>
+    <td align="center" class="sacitd2"><strong><? echo $rs->fields['bco']; ?></strong></td>
+    <td align="center" class="sacitd2"><? echo $rs->fields['ag']; ?></td>
+    <td align="center" class="sacitd2"><? echo $rs->fields['cc']; ?></td>
+    <td align="center" class="sacitd2"><strong><? echo $rs->fields['numcheq']; ?></strong></td>
+    <td align="center" class="sacitd2"><? echo $rs->fields['datavenc']; ?></td>
+    <td align="center" class="sacitd2"><strong>R$ <? echo $rs->fields['valor']; ?></strong></td>
+    <td align="center" class="sacitd2"><strong><? echo $rs->fields['posfin']; ?></strong></td>
+    <td align="center" class="sacitd2"><strong><? echo $rs->fields['sf']; if ($rs->fields['sf'] == 'OK'){ echo " (".$rs->fields['sf_pg'].")";} ?></strong></td>
+	 <td align="center" class="sacitd2"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&menu_not=1&bco_pesq=$bco_pesq&numch_pesq=$numch_pesq&sf_pesq=".$rs->fields['sf']."&sfpg_pesq=".$rs->fields['sf_pg']."&codformagrupo_pesq=".$rs->fields['codformagrupo']."&codch_pesq=".$rs->fields['codch']."&Action=sf"; ?> " target="ilist"><img src="<? echo DIR_IMAGES; ?>/note_icon.gif" alt="MARCAR COMO CHEQUE SEM FUNDO" border="0"></a></td>
+       <td align="center" class="sacitd2"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&menu_not=1&bco_pesq=$bco_pesq&numch_pesq=$numch_pesq&sf_pesq=".$rs->fields['sf']."&sfpg_pesq=".$rs->fields['sf_pg']."&codformagrupo_pesq=".$rs->fields['codformagrupo']."&codch_pesq=".$rs->fields['codch']."&Action=ju"; ?>" target="ilist"><img src="<? echo DIR_IMAGES; ?>/bt_juridico.gif" alt="ENVIAR PARA JURIDICO" width="16" height="16" border="0"></a></td>
+    <td align="center" class="sacitd2"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&menu_not=1&bco_pesq=$bco_pesq&numch_pesq=$numch_pesq&sf_pesq=".$rs->fields['sf']."&sfpg_pesq=".$rs->fields['sf_pg']."&codformagrupo_pesq=".$rs->fields['codformagrupo']."&codch_pesq=".$rs->fields['codch']."&Action=sfpg"; ?>" target="ilist"><img src="<? echo DIR_IMAGES; ?>/btminialtvalor.gif" alt="PAGAR CHEQUE SEM FUNDO" width="16" height="16" border="0"></a></td>
+	 <td align="center" class="sacitd2"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&menu_not=1&bco_pesq=$bco_pesq&numch_pesq=$numch_pesq&sf_pesq=".$rs->fields['sf']."&sfpg_pesq=".$rs->fields['sf_pg']."&codformagrupo_pesq=".$rs->fields['codformagrupo']."&codch_pesq=".$rs->fields['codch']."&Action=sf_erase"; ?> " target="ilist"><img src="<? echo DIR_IMAGES; ?>/bthitv.gif" alt="APAGAR CHEQUE SEM FUNDO" width="15" height="15" border="0"></a></td>
+  </tr>
+   <?
+		$rs->MoveNext();
+		}//WHILE
+	}
+?>
+</table>
+</body>
+</html>

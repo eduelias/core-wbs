@@ -1,0 +1,540 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/sistema.css" rel="stylesheet" type="text/css">
+<script language='JavaScript' src = "<? echo DIR_JS; ?>/scripts.js"></script>
+<script language='JavaScript' src = "<? echo DIR_JS; ?>/util.js"></script>
+<script language="javascript" src="<? echo DIR_AJAX; ?>/tw-sack.js"></script>
+
+<script language="javascript">
+function PopupGarantia()
+{
+	window.open('http://wbs.ipasoft.com.br/wbs2/garantiaestendidapopup.php','GarantiaEstendida','width=607, height=635');
+}
+
+function adjust(element)
+{
+	return element.value.replace('.',',');
+}
+
+function readValue()
+{
+
+if (parent.frames["iformapg"].document.getElementById("cond_orc")){
+document.getElementById("cond_orc").value = parent.frames["iformapg"].document.getElementById("cond_orc").value;
+}
+
+}
+
+function verifyzip(form1, codped)
+	{
+	document.form1.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=10&"; ?>Action=pesq_cep&codpedselect='+codped+'#entrega';
+	document.form1.target = '';
+	document.form1.submit();
+	}
+
+function ShowHelp(div, title, desc)
+{
+
+var desc1;
+desc1 = "<table width='100%' border='0' cellspacing='1' cellpadding='1' align='center'>";
+desc1 += "<tr><td align='center'><b>SIMULAÇÃO ORÇAMENTO: </b><br><? echo"$codbarraorc"; ?></td></tr>";
+desc1 += " <tr><td align='center'><? echo"$condicaop"; ?></td></tr>";
+desc1 += "</table>";
+
+
+	div = document.getElementById(div);
+	div.style.display = 'inline';
+	div.style.position = 'absolute';
+	div.style.width = '200';
+	div.style.backgroundColor = 'lightyellow';
+	div.style.border = 'dashed 1px black';
+	div.style.padding = '10px';
+	div.innerHTML = '<div style="padding-left:10; padding-right:5">' + desc1 + '</div>';
+}
+
+function HideHelp(div)
+{
+	div = document.getElementById(div);
+	div.style.display = 'none';
+}
+
+
+function troca() 
+{ 
+ var vgarext_12 = document.getElementById("check_12").value
+ //var vgaros = document.getElementById("vgaros_24_select").value
+ //var vtabela_real = "<? echo $_SESSION['valortabela_real']; ?>"
+ //var vtotal = "<? echo $_SESSION['valortotal'] ; ?>"
+ var vtabela_real = document.getElementById("valortabela_real").value
+ var vtotal = document.getElementById("valortotal").value
+ var vtotalf = FormataMoeda(vtotal)
+ 
+ if (form1.check_12.checked) 
+ { 
+  
+ var vtabela_novo = parseFloat(vtabela_real)+parseFloat(vgarext_12);
+ var vtotal_novo = parseFloat(vtotal)+parseFloat(vgarext_12);
+ 
+ var vtotal_novof = FormataMoeda(vtotal_novo)
+   
+ document.getElementById("valortabela_real").value = vtabela_novo
+ document.getElementById("valortotal").value = vtotal_novo
+ document.getElementById("vtotal").innerHTML = vtotal_novof; 
+ //document.getElementById("check_24").checked=false
+  
+ }else{
+  
+
+	 var vtabela_novo = parseFloat(vtabela_real)-parseFloat(vgarext_12);
+	 var vtotal_novo = parseFloat(vtotal)-parseFloat(vgarext_12);
+ 
+ var vtotal_novof = FormataMoeda(vtotal_novo)
+   
+ document.getElementById("valortabela_real").value = vtabela_novo
+ document.getElementById("valortotal").value = vtotal_novo
+ document.getElementById("vtotal").innerHTML = vtotal_novof; 
+ //document.getElementById("check_24").checked=false
+ }
+} 
+
+function troca1() 
+{ 
+ var vgarext_24 = document.getElementById("check_24").value
+ var vtabela_real = "<? echo"$valortabela_real"; ?>"
+ var vtotal = "<? echo"$valortotal"; ?>"
+ var vtotalf = FormataMoeda(vtotal)
+ 
+ if (form1.check_24.checked) 
+ { 
+ var vtabela_novo = parseFloat(vtabela_real)+parseFloat(vgarext_24);
+ var vtotal_novo = parseFloat(vtotal)+parseFloat(vgarext_24);
+ 
+ var vtotal_novof = FormataMoeda(vtotal_novo)
+  
+ document.getElementById("valortabela_real").value = vtabela_novo
+ document.getElementById("valortotal").value = vtotal_novo
+ document.getElementById("vtotal").innerHTML = vtotal_novof; 
+ document.getElementById("check_12").checked=false
+  
+ }else{
+  
+ document.getElementById("valortabela_real").value = vtabela_real
+ document.getElementById("valortotal").value = vtotal
+ document.getElementById("vtotal").innerHTML = vtotalf; 
+ document.getElementById("check_12").checked=false
+ }
+} 
+
+
+function troca_os(base , param, codped, vonsite_desloc) 
+{ 
+var theURL = base + "";
+ var vgaros = document.getElementById("vgaros_12_select").value
+ var vtabela_real = document.getElementById("valortabela_real").value
+ var vtotal = document.getElementById("valortotal").value
+ var cep = document.getElementById("cep").value
+ var vtotalf = FormataMoeda(vtotal)
+ 
+ if (form1.vgaros_12_select.checked) 
+ { 
+  
+ var vtabela_novo = parseFloat(vtabela_real)+parseFloat(vgaros);
+ var vtotal_novo = parseFloat(vtotal)+parseFloat(vgaros);
+ 
+ var vtotal_novof = FormataMoeda(vtotal_novo)
+   
+ document.getElementById("valortabela_real").value = vtabela_novo
+ document.getElementById("valortotal").value = vtotal_novo
+ document.getElementById("vtotal").innerHTML = vtotal_novof; 
+ //document.getElementById("check_24").checked=false
+ 
+  
+	 doit(theURL, 'lista', param+'&Action=upPed_add&menu_not=1&codped='+codped+'&vonsite_desloc='+vonsite_desloc+'&cep='+cep+'', 'GET', '');
+		ajax.onCompletion = function() {onFinish('msg_return', '');}//ajax
+  
+ }else{
+ 
+ var vtabela_novo = parseFloat(vtabela_real)-parseFloat(vgaros);
+ var vtotal_novo = parseFloat(vtotal)-parseFloat(vgaros);
+ 
+ var vtotal_novof = FormataMoeda(vtotal_novo)
+  
+ document.getElementById("valortabela_real").value = vtabela_novo
+ document.getElementById("valortotal").value = vtotal_novo
+ document.getElementById("vtotal").innerHTML = vtotal_novof;; 
+ //document.getElementById("check_12").checked=false
+ 
+  doit(theURL, 'lista', param+'&Action=upPed_del&menu_not=1&codped='+codped+'&vonsite_desloc='+vonsite_desloc+'&cep='+cep+'', 'GET', '');
+		ajax.onCompletion = function() {onFinish('msg_return', '');}//ajax
+ 
+ }
+} 
+
+
+function doOne(base, param,codpped, codped)
+{
+	
+var theURL = base + "";
+var valorgos= document.getElementById("gos_12["+codpped+"]").value;
+var valorgos24= document.getElementById("gos_24["+codpped+"]").value;
+
+var vgaros12 = document.getElementById("vgaros_12_select").value
+//var vgaros24 = document.getElementById("vgaros_24_select").value
+var vgos_novo =0
+var vgos_novof = 0
+var tipo_ons = 12
+
+
+
+  if (document.getElementById("gos_12["+codpped+"]").checked) 
+ { 
+		if (document.getElementById("gos_24["+codpped+"]").checked) 
+	 { 
+		vgos_novo = parseFloat(vgaros12)-parseFloat(valorgos24)
+		document.getElementById("vgaros_12_select").value = vgos_novo
+		vgos_novof = FormataMoeda(vgos_novo)
+		document.getElementById("vgos_12").innerHTML = vgos_novof; 
+		document.getElementById("gos_24["+codpped+"]").checked=false
+	 }
+				
+		
+		
+	if(vgos_novo){ vgos_novo = parseFloat(vgos_novo)+parseFloat(valorgos)}else{ vgos_novo = parseFloat(vgaros12)+parseFloat(valorgos)}	
+	
+	 //var vgos24_novo = parseFloat(vgaros24)+(parseFloat(valorgos) * 1.5);
+	 
+	 document.getElementById("vgaros_12_select").value = vgos_novo
+ 	 //document.getElementById("vgaros_24_select").value = vgos24_novo
+	 
+	 vgos_novof = FormataMoeda(vgos_novo)
+	 //var vgos24_novof = FormataMoeda(vgos24_novo)
+	 document.getElementById("vgos_12").innerHTML = vgos_novof; 
+ 	 //document.getElementById("vgos_24").innerHTML = vgos24_novof; 
+	 
+	 doit(theURL, 'lista', param+'&Action=Addons&menu_not=1&codpped='+codpped+'&codped='+codped+'&tipo_ons='+tipo_ons+'', 'GET', '');
+		ajax.onCompletion = function() {onFinish('msg_return', '');}//ajax
+	 
+	 
+}else{
+	
+		
+	
+	if(vgos_novo){ vgos_novo = parseFloat(vgos_novo)-parseFloat(valorgos)}else{ vgos_novo = parseFloat(vgaros12)-parseFloat(valorgos)}
+	//var vgos24_novo = parseFloat(vgaros24)-parseFloat(valorgos)* 1.5;
+	document.getElementById("vgaros_12_select").value = vgos_novo
+	//document.getElementById("vgaros_24_select").value = vgos24_novo
+	 
+	vgos_novof = FormataMoeda(vgos_novo)
+	 //var vgos24_novof = FormataMoeda(vgos24_novo)
+	 document.getElementById("vgos_12").innerHTML = vgos_novof; 
+ 	 //document.getElementById("vgos_24").innerHTML = vgos24_novof; 
+	 
+	doit(theURL, 'lista', param+'&Action=Delons&menu_not=1&codpped='+codpped+'&codped='+codped+'&tipo_ons='+tipo_ons+'', 'GET', '');
+		ajax.onCompletion = function() {onFinish('msg_return', '');}//ajax
+}
+
+}
+
+function doOne24(base, param,codpped, codped)
+{
+	
+var theURL = base + "";
+var valorgos= document.getElementById("gos_24["+codpped+"]").value;
+var valorgos12= document.getElementById("gos_12["+codpped+"]").value;
+
+var vgaros12 = document.getElementById("vgaros_12_select").value
+//var vgaros24 = document.getElementById("vgaros_24_select").value
+var vgos_novo = 0
+var vgos_novof = 0
+var tipo_ons = 24
+
+  if (document.getElementById("gos_24["+codpped+"]").checked) 
+ { 
+		if (document.getElementById("gos_12["+codpped+"]").checked) 
+	 { 
+		vgos_novo = parseFloat(vgaros12)-parseFloat(valorgos12)
+		document.getElementById("vgaros_12_select").value = vgos_novo
+		vgos_novof = FormataMoeda(vgos_novo)
+		document.getElementById("vgos_12").innerHTML = vgos_novof; 
+		document.getElementById("gos_12["+codpped+"]").checked=false
+	 }
+				
+	
+		
+	 if(vgos_novo){ vgos_novo = parseFloat(vgos_novo)+parseFloat(valorgos)}else{ vgos_novo = parseFloat(vgaros12)+parseFloat(valorgos)}
+	
+	 //var vgos24_novo = parseFloat(vgaros24)+(parseFloat(valorgos) * 1.5);
+	 
+	 document.getElementById("vgaros_12_select").value = vgos_novo
+ 	 //document.getElementById("vgaros_24_select").value = vgos24_novo
+	 
+	 vgos_novof = FormataMoeda(vgos_novo)
+	 //var vgos24_novof = FormataMoeda(vgos24_novo)
+	 document.getElementById("vgos_12").innerHTML = vgos_novof; 
+ 	 //document.getElementById("vgos_24").innerHTML = vgos24_novof; 
+	 
+	 	doit(theURL, 'lista', param+'&Action=Addons&menu_not=1&codpped='+codpped+'&codped='+codped+'&tipo_ons='+tipo_ons+'', 'GET', '');
+		ajax.onCompletion = function() {onFinish('msg_return', '');}//ajax
+}else{
+	
+		
+	if(vgos_novo){ vgos_novo = parseFloat(vgos_novo)-parseFloat(valorgos)}else{ vgos_novo = parseFloat(vgaros12)-parseFloat(valorgos)}
+	
+	//var vgos24_novo = parseFloat(vgaros24)-parseFloat(valorgos)* 1.5;
+	document.getElementById("vgaros_12_select").value = vgos_novo
+	//document.getElementById("vgaros_24_select").value = vgos24_novo
+	 
+	 vgos_novof = FormataMoeda(vgos_novo)
+	 //var vgos24_novof = FormataMoeda(vgos24_novo)
+	 document.getElementById("vgos_12").innerHTML = vgos_novof; 
+ 	 //document.getElementById("vgos_24").innerHTML = vgos24_novof; 
+	 
+	 doit(theURL, 'lista', param+'&Action=Delons&menu_not=1&codpped='+codpped+'&codped='+codped+'&tipo_ons='+tipo_ons+'', 'GET', '');
+		ajax.onCompletion = function() {onFinish('msg_return', '');}//AJAX
+}
+
+}
+
+function doTwo(base, param, codprodcj, tipocj, codped)
+{
+
+		var theURL = base + "";
+				
+	
+var valorgos= document.getElementById("goscj_12["+codprodcj+"]["+tipocj+"]").value;
+var valorgos24= document.getElementById("goscj_24["+codprodcj+"]["+tipocj+"]").value;
+var vgaros12 = document.getElementById("vgaros_12_select").value
+ //var vgaros24 = document.getElementById("vgaros_24_select").value
+var vgos_novo = 0
+var vgos_novof = 0
+var tipo_ons = 12
+
+  if (document.getElementById("goscj_12["+codprodcj+"]["+tipocj+"]").checked) 
+ { 
+ 
+ 		if (document.getElementById("goscj_24["+codprodcj+"]["+tipocj+"]").checked) 
+	 { 
+		vgos_novo = parseFloat(vgaros12)-parseFloat(valorgos24)
+		document.getElementById("vgaros_12_select").value = vgos_novo
+		vgos_novof = FormataMoeda(vgos_novo)
+		document.getElementById("vgos_12").innerHTML = vgos_novof; 
+		document.getElementById("goscj_24["+codprodcj+"]["+tipocj+"]").checked=false
+	 }
+	
+	
+ 	
+
+	if(vgos_novo){ vgos_novo = parseFloat(vgos_novo)+parseFloat(valorgos)}else{ vgos_novo = parseFloat(vgaros12)+parseFloat(valorgos)}
+	//var vgos24_novo = parseFloat(vgaros24)+parseFloat(valorgos) * 1.5;
+	 
+	 document.getElementById("vgaros_12_select").value = vgos_novo
+	 // document.getElementById("vgaros_24_select").value = vgos24_novo
+	  
+	 vgos_novof = FormataMoeda(vgos_novo)
+	 //var vgos24_novof = FormataMoeda(vgos24_novo)
+	 document.getElementById("vgos_12").innerHTML = vgos_novof; 
+ 	 //document.getElementById("vgos_24").innerHTML = vgos24_novof; 
+	 
+	 	doit(theURL, 'lista', param+'&Action=Addcjons&menu_not=1&codprodcj='+codprodcj+'&tipocj='+tipocj+'&codped='+codped+'&tipo_ons='+tipo_ons+'', 'GET', '');
+		ajax.onCompletion = function() {onFinish('msg_return', '');}//ajax
+	 
+}else{
+
+		
+	
+	if(vgos_novo){ vgos_novo = parseFloat(vgos_novo)-parseFloat(valorgos)}else{ vgos_novo = parseFloat(vgaros12)-parseFloat(valorgos)}
+	//var vgos24_novo = parseFloat(vgaros24)-parseFloat(valorgos)* 1.5;
+	document.getElementById("vgaros_12_select").value = vgos_novo
+	//document.getElementById("vgaros_24_select").value = vgos24_novo
+	 
+	vgos_novof = FormataMoeda(vgos_novo)
+	 //var vgos24_novof = FormataMoeda(vgos24_novo)
+	 document.getElementById("vgos_12").innerHTML = vgos_novof; 
+ 	//document.getElementById("vgos_24").innerHTML = vgos24_novof; 
+	 
+	 doit(theURL, 'lista', param+'&Action=Delcjons&menu_not=1&codprodcj='+codprodcj+'&tipocj='+tipocj+'&codped='+codped+'&tipo_ons='+tipo_ons+'', 'GET', '');
+		ajax.onCompletion = function() {onFinish('msg_return', '');}//ajax
+}
+}
+
+function doTwo24(base, param, codprodcj, tipocj, codped)
+{
+
+		var theURL = base + "";
+				
+	
+var valorgos= document.getElementById("goscj_24["+codprodcj+"]["+tipocj+"]").value;
+var valorgos12= document.getElementById("goscj_12["+codprodcj+"]["+tipocj+"]").value;
+var vgaros12 = document.getElementById("vgaros_12_select").value
+ //var vgaros24 = document.getElementById("vgaros_24_select").value
+var vgos_novo = 0
+var vgos_novof = 0
+var tipo_ons = 24
+
+  if (document.getElementById("goscj_24["+codprodcj+"]["+tipocj+"]").checked) 
+ { 
+ 
+ 		if (document.getElementById("goscj_12["+codprodcj+"]["+tipocj+"]").checked) 
+	 { 
+		vgos_novo = parseFloat(vgaros12)-parseFloat(valorgos12)
+		document.getElementById("vgaros_12_select").value = vgos_novo
+		vgos_novof = FormataMoeda(vgos_novo)
+		document.getElementById("vgos_12").innerHTML = vgos_novof; 
+		document.getElementById("goscj_12["+codprodcj+"]["+tipocj+"]").checked=false
+	 }
+	
+	
+ 	
+
+	if(vgos_novo){ vgos_novo = parseFloat(vgos_novo)+parseFloat(valorgos)}else{ vgos_novo = parseFloat(vgaros12)+parseFloat(valorgos)}
+	//var vgos24_novo = parseFloat(vgaros24)+parseFloat(valorgos) * 1.5;
+	 
+	 document.getElementById("vgaros_12_select").value = vgos_novo
+	 // document.getElementById("vgaros_24_select").value = vgos24_novo
+	  
+	 vgos_novof = FormataMoeda(vgos_novo)
+	 //var vgos24_novof = FormataMoeda(vgos24_novo)
+	 document.getElementById("vgos_12").innerHTML = vgos_novof; 
+ 	 //document.getElementById("vgos_24").innerHTML = vgos24_novof; 
+	 
+	 	doit(theURL, 'lista', param+'&Action=Addcjons&menu_not=1&codprodcj='+codprodcj+'&tipocj='+tipocj+'&codped='+codped+'&tipo_ons='+tipo_ons+'', 'GET', '');
+		ajax.onCompletion = function() {onFinish('msg_return', '');}//ajax
+	 
+}else{
+
+		
+	
+	if(vgos_novo){ vgos_novo = parseFloat(vgos_novo)-parseFloat(valorgos)}else{ vgos_novo = parseFloat(vgaros12)-parseFloat(valorgos)}
+	//var vgos24_novo = parseFloat(vgaros24)-parseFloat(valorgos)* 1.5;
+	document.getElementById("vgaros_12_select").value = vgos_novo
+	//document.getElementById("vgaros_24_select").value = vgos24_novo
+	 
+	vgos_novof = FormataMoeda(vgos_novo)
+	 //var vgos24_novof = FormataMoeda(vgos24_novo)
+	 document.getElementById("vgos_12").innerHTML = vgos_novof; 
+ 	//document.getElementById("vgos_24").innerHTML = vgos24_novof; 
+	 
+	 doit(theURL, 'lista', param+'&Action=Delcjons&menu_not=1&codprodcj='+codprodcj+'&tipocj='+tipocj+'&codped='+codped+'&tipo_ons='+tipo_ons+'', 'GET', '');
+		ajax.onCompletion = function() {onFinish('msg_return', '');}//ajax
+}
+}
+
+
+</script>
+</head>
+<body>
+<div id="lista"></div>
+<table width="750"  border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><table width="100%"  border="0" cellspacing="2" cellpadding="5">
+     
+       <tr>
+        <td ><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td background="<? echo DIR_IMAGES; ?>/formpg_ind_fundo_on.gif"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_1_on.gif" width="112" height="50"></td>
+    <td background="<? echo DIR_IMAGES; ?>/formpg_ind_fundo_on.gif"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_2_on.gif" width="123" height="50"></td>
+    <td background="<? echo DIR_IMAGES; ?>/formpg_ind_fundo_off.gif"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_3_off.gif" width="140" height="50"></td>
+    <td background="<? echo DIR_IMAGES; ?>/formpg_ind_fundo_off.gif"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_4_off.gif"></td>
+    <td background="<? echo DIR_IMAGES; ?>/formpg_ind_fundo_off.gif"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_5_off.gif" width="134" height="50"></td>
+  </tr>
+  <tr>
+    <td colspan="5"><table width="100%"  border="0" cellspacing="2" cellpadding="3">
+        <tr>
+          <td width="165"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_comprar_mais.gif" width="165" height="16"></td>
+          <td width="115"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=2&Action=$Action&Action_alter=$Action_alter&codpedselect=$codpedselect"; ?>"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_alterar_pedido_laranja.gif" width="115" height="16" border = "0"></a></td>
+          <td>&nbsp;</td>
+        </tr>
+    </table></td>
+  </tr>
+</table> </td>
+      </tr>
+	   <tr>
+        <td><table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr>
+            <td width="70%"><img src="<? echo DIR_IMAGES; ?>/simulacaopagamento.gif"></td>
+            <td ><? if ($modped == 1){ ?><a href="#" onMouseOut="HideHelp('d22')" onMouseOver="ShowHelp('d22', 'Perdeu sua senha?', 'Perdeu Playboy, perdeooooooooooo!!!.')"><img src="<? echo DIR_IMAGES; ?>/btversimulacaoanterior.gif" border="0"></a><? }?><BR>
+              <div style="display:none; z-index:1; " id="d22"></div>              </td>
+          </tr>
+          <tr>
+            <td colspan="2" background="<? echo DIR_IMAGES; ?>/spacer.gif" bgcolor="#CEDBDE"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+          </tr>
+        </table></td>
+      </tr>
+	    <tr>
+        <td class="titulos_padrao">Passo 1 </td>
+      </tr>
+	  <tr>
+        <td><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+          <form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=11&Action=$Action&Action_alter=$Action_alter&codpedselect=$codpedselect"; ?>" name= "form1" method="post" target="iformapg" onSubmit = "readValue();" >
+            <tr>
+              <td><table width="100%"  border="0" cellpadding="2" cellspacing="2">
+                  <tr>
+                    <td colspan="2" class="titulos_itens">N&ordm; Parcelas:</td>
+                    <td class="titulos_itens">Valor Total:</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                    <input name="nump" type="hidden" id="nump" value="1">
+                    <select name="tipo_p" class="campoquant1" id ='tipo_p'>
+                      <option value="1" selected>A VISTA</option>
+                      <option value="7">07 DIAS</option>
+                      <option value="14">14 DIAS</option>
+                      <option value="28">28 DIAS</option>
+ <?
+
+	if ($count_10x == 0){$ckd_10x = "disabled";}else{$ckd_10x="";}
+
+?>
+                    </select></td>
+                    <td valign="top">&nbsp;</td>
+                    <td valign="top" class="valorpedido">R$<span id ='vtotal'><? echo"$valortotalf";?></span></td>
+                    <td><table width="100%"  border="0" cellpadding="2" cellspacing="2">
+                      <tr valign="top">
+                        <td>&nbsp;</td>
+                      </tr>
+                    </table></td>
+                    <td rowspan="2" valign="top"><input name="imageField" type="image" src="<? echo DIR_IMAGES; ?>/btsimular.gif" width="81" height="25" border="0" ></td>
+                  </tr>
+                  <tr>
+                    <td colspan="4" valign="top">&nbsp;</td>
+                    </tr>
+              </table></td>
+            </tr>
+            <tr>
+              <td><table  border="0" cellspacing="2" cellpadding="2">
+                  <tr valign="top">
+                    <td> <input name="entrada" type="hidden" value="0" checked id = "entrada"></td>
+                    <td>&nbsp;</td>
+                  </tr>
+              </table></td>
+            </tr>
+            
+        <input name="simula" type="hidden" value ="1" class="campoquant1">
+      <input name="valortabela_real" type="hidden" value ="<? echo"$valortabela_real"; ?>" class="campoquant1" id = "valortabela_real">
+	<input name="valortotal" type="hidden" value ="<? echo"$valortotal"; ?>" class="campoquant1" id ="valortotal">
+		<input name="cond_orc" type="hidden" value ="" class="campoquant1" id = "cond_orc">
+          </form>
+        </table></td>
+      </tr>
+    </table>
+      <br>
+
+      <table width="100%"  border="0" cellspacing="2" cellpadding="5">
+
+        <tr>
+          <td class="titulos_padrao">Passo 2 </td>
+        </tr>
+      <tr>
+          <td><iframe src="<? echo"$PHP_SELF?pg=$pg&pg_ped=11&Action=$Action&Action_alter=$Action_alter&codpedselect=$codpedselect"; ?>" name="iformapg" width="100%" marginwidth="0" height="1500" marginheight="0" scrolling="no" frameborder="0"></iframe></td>
+        </tr>
+      </table>
+
+      </td>
+  </tr>
+</table>
+</body>
+</html>

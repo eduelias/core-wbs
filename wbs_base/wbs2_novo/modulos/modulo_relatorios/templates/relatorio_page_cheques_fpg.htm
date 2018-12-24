@@ -1,0 +1,67 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="<? echo DIR_CSS; ?>/saci.css" rel="stylesheet" type="text/css">
+<link href="../../../css/saci.css" rel="stylesheet" type="text/css">
+<title></title>
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+.style3 {color: #000000; font-weight: bold; }
+-->
+</style>
+
+</head>
+
+<body>
+<br>
+<table width="100%" border="0">
+  <? if ($rs_ped) {
+		while (!$rs_ped->EOF) { ?>
+  <tr class="pedido">
+    <td ><strong>CODPED:</strong> <? echo $rs_ped->fields['codbarra']; ?></td>
+    <td ><strong>CLIENTE:</strong> <? echo $rs_ped->fields['nome']; ?></td>
+    <td ><strong>DATA PED:</strong> <? echo $rs_ped->fields['dataped']; ?></td>
+  </tr>
+   <?
+		$rs_ped->MoveNext();
+		}//WHILE
+	}
+?>
+</table>
+
+<table width="100%"  border="0" cellpadding="1" cellspacing="1">
+ <tr>
+    <td align="center" class="titulo"><span class="style3">OPCAIXA</span></td>
+    <td align="center" class="titulo"><span class="style3">DESCRIÇÃO</span></td>
+    <td align="center" class="titulo"><span class="style3">OBS</span></td>
+    <td align="center" class="titulo"><span class="style3">DATA PG</span></td>
+    <td align="center" class="titulo"><span class="style3">VALOR</span></td>
+  </tr>
+  <? if ($rs) {
+		while (!$rs->EOF) { 
+		
+		  $rs_for = $db->query_db("SELECT nome FROM fornecedor WHERE codfor = '".$rs->fields['codfor']."'","SQL_NONE","N");
+		?>
+ 
+  <tr>
+    <td align="center" class="sacitd2"><strong><? echo $rs->fields['opcaixa']; ?></strong></td>
+    <td class="sacitd2"><strong><? echo $rs->fields['descricao']; ?></strong><br>
+    <? echo $rs_for->fields['nome']; ?><? echo $rs->fields['codfor']; ?></td>
+    <td align="center" class="sacitd2"><? echo $rs->fields['obs']; ?></td>
+    <td align="center" class="sacitd2"><? echo $rs->UserTimeStamp($rs->fields['datapg'],'d-m-Y H:i:s'); ?></td>
+    <td class="sacitd2">R$ <? echo $rs->fields['valordevido']; ?></td>
+  </tr>
+     <?
+		$rs->MoveNext();
+		}//WHILE
+	}
+?>
+</table>
+</body>
+</html>

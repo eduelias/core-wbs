@@ -1,0 +1,1645 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Pessoa F&iacute;sica</title>
+<link href="<? echo DIR_CSS; ?>/sistema.css" rel="stylesheet" type="text/css">
+<script language="javascript" type="text/javascript" src="<? echo DIR_JS; ?>/consiste.js"></script>
+<script language="javascript" type="text/javascript" src="<? echo DIR_JS; ?>/util.js"></script>
+<script language="javascript" type="text/javascript" src="<? echo DIR_JS; ?>/cadastropf.js"></script>
+
+<script language="javascript">
+function finalizaCadastro(block)
+{
+var vAction;
+var cep_cad = document.getElementById('frmCEP').value;
+var cep_ons = '<? echo $cepons; ?>';
+var onsite = '<? echo $onsite; ?>';
+
+if (block == 1){vAction = "Continuar";}else{vAction = "Gravar";}
+
+	if (confirmaCadastro())
+	{
+		if (onsite == 'OK'){
+			if (cep_cad == cep_ons){
+				document.form.action = "<? echo"$PHP_SELF?pg=$pg&pg_ped=12&Action="; ?>"+vAction+"";
+				document.form.target = "_parent";
+				document.form.submit();
+			}else{
+				alert("CEP do cliente DIFERENTE do escolhido na GARANTIA ONSITE.");
+			}
+		}else{
+			document.form.action = "<? echo"$PHP_SELF?pg=$pg&pg_ped=12&Action="; ?>"+vAction+"";
+			document.form.target = "_parent";
+			document.form.submit();
+		}
+	}else{
+		alert("O cadastro apresenta inconsistência. Por favor corrija os campos marcados.");
+	}
+}
+function verifyzip(form, codped, tipo)
+{
+	document.form.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=12&"; ?>Action=CEP&pesq_cep='+tipo+'&codpedselect='+codped+'';
+	document.form.target = '';
+	document.form.submit();
+}
+	
+function ShowCep()
+{
+	open('http://www.correios.com.br/servicos/cep/cep_default.cfm','ShowCep','location=no,resize=no, width=730,height=400,left=18,top=18,maximized=0,scrollbars=1');
+}
+
+function mascara_cpf(form,campo, cpf)
+{
+	var mycpf = '';
+    mycpf = mycpf + cpf;
+    if (mycpf.length == 3) {
+        mycpf = mycpf + '.';
+        document.getElementById(campo).value = mycpf;
+    }
+    if (mycpf.length == 7) {
+        mycpf = mycpf + '.';
+        document.getElementById(campo).value = mycpf;
+    }
+    if (mycpf.length == 11) {
+        mycpf = mycpf + '-';
+        document.getElementById(campo).value = mycpf;
+    }
+    if (mycpf.length == 14) {
+    }
+}
+
+function confere_cpf()
+{
+var retorno = valida_CPF(form.frmCPF.value);
+if (retorno == false){
+alert ("O CPF preenchido é inválido!");
+}
+}
+//-->
+</script>
+
+
+</head>
+
+<body>
+<table width="750"  border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td background="<? echo DIR_IMAGES; ?>/formpg_ind_fundo_on.gif"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_1_on.gif" width="112" height="50"></td>
+    <td background="<? echo DIR_IMAGES; ?>/formpg_ind_fundo_on.gif"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_2_on.gif" width="123" height="50"></td>
+    <td background="<? echo DIR_IMAGES; ?>/formpg_ind_fundo_on.gif"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_3_on.gif" width="140" height="50"></td>
+    <td background="<? echo DIR_IMAGES; ?>/formpg_ind_fundo_off.gif"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_4_off.gif"></td>
+    <td background="<? echo DIR_IMAGES; ?>/formpg_ind_fundo_off.gif"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_5_off.gif" width="134" height="50"></td>
+  </tr>
+  <tr>
+    <td colspan="5"><table width="100%"  border="0" cellspacing="2" cellpadding="3">
+        <tr>
+          <td width="165"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_comprar_mais.gif" width="165" height="16"></td>
+          <td width="115"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_alterar_pedido_laranja.gif" width="115" height="16"></td>
+          <td>&nbsp;</td>
+        </tr>
+    </table></td>
+  </tr>
+</table>
+<FORM action="<? echo "$PHP_SELF?pg=$pg&pg_ped=12&Action=Procurar"; ?>" method="post" name="form" >
+  <TABLE cellSpacing=0 cellPadding=0 width=100% align=center border=0>
+    <TBODY>
+      <TR>
+        <TD vAlign=center width=18 height=23>&nbsp;</TD>
+        <TD vAlign=center height=30><img src="<? echo DIR_IMAGES; ?>/cadastro_pf.gif" width="208" height="20"></TD>
+      </TR>
+      <TR bgColor=#f0f0f0>
+        <TD vAlign=center width=18 height=23>&nbsp;</TD>
+        <TD vAlign=center height=23>Os campos marcados com <IMG height=11 src="<? echo DIR_IMAGES; ?>/cadastro_requerido.gif" width=13 align=absMiddle> s&atilde;o de preenchimento obrigat&oacute;rio.</TD>
+      </TR>
+      <TR>
+        <TD vAlign=center width=18 height=24>&nbsp;</TD>
+        <TD vAlign=center height=24>O preenchimento dos campos n&atilde;o marcados, agiliza a aprova&ccedil;&atilde;o do seu financimento.</TD>
+      </TR>
+    </TBODY>
+  </TABLE>
+  <BR>
+  <TABLE cellSpacing=0 cellPadding=0 width=100% align=center bgColor=#f0f0f0 
+border=0>
+    <TBODY>
+      <TR>
+        <TD width=14 height="30" bgColor=#ffffff>&nbsp;</TD>
+        <TD width=104 bgColor=#ffffff><IMG height=20 
+      src="<? echo DIR_IMAGES; ?>/cadastro_cpf.gif" width=33></TD>
+        <TD colspan="2" vAlign=bottom bgColor=#ffffff><input type="hidden" name="tipogravar" value="<? echo $tipogravar; ?>">
+          <input name="codpedselect" type="hidden" id="codpedselect" value="<? echo "$codpedselect"; ?>">
+          <input name="codcliente" type="hidden" id="codcliente" value="<? echo"$codcliente"; ?>"></TD>
+      </TR>
+      <TR bgColor=#ffffff>
+        <TD width=14 height=20>&nbsp;</TD>
+        <TD height=20 colSpan=3>Digite seu CPF e aperte Procurar. Se j&aacute; houver registro n&atilde;o ser&aacute; nescess&aacute;rio preencher todo o cadastro. </TD>
+      </TR>
+      <TR>
+        <TD width=14 bgColor=#f0f0f0 height=39>&nbsp;</TD>
+        <TD bgColor=#f0f0f0><B><IMG height=11 src="<? echo DIR_IMAGES; ?>/cadastro_requerido.gif" width=13 align=absMiddle> CPF:</B><BR>
+            <INPUT name=frmCPF class="campo3" onKeyUp="mascara_cpf(this.form, 'frmCPF', this.value)" value="<? echo $frmCPF; ?>" size=16 maxlength="14" id ="frmCPF">
+            <input name="frmCPF_pesq" type="hidden" id="frmCPF_pesq" value="<? echo $frmCPF; ?>">
+        </TD>
+        <TD bgColor=#f0f0f0>          <img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="20" height="20">          <input name="Action" type="image" src="<? echo DIR_IMAGES; ?>/btpesquisarazul.gif" value ="Procurar" width="87" height="25" border="0" onclick ="confere_cpf()"></TD>
+        <TD width="450" align="center" bgColor=#f0f0f0><?php
+if ($cpf_nao_existe == "1") {
+echo "
+		<table  border='0' cellpadding='2' cellspacing='2' class='msg_n_cpf_cnpj'>
+          <tr>
+            <td>Cliente não cadastrado. Preencha o formulário abaixo.</td>
+          </tr>
+        </table>
+";
+}
+if ($block_dono == 1) {
+echo "
+		<table  border='0' cellpadding='2' cellspacing='2' class='msg_n_cpf_cnpj'>
+          <tr>
+            <td>Vendedor NÃO É O RESPONSÁVEL pela carteira desse cliente.<BR> Os dados do cadastro não poderão ser alterados.</td>
+          </tr>
+        </table>
+";
+}
+if ($cpf_nao_existe == "2") {
+echo "
+		<table  border='0' cellpadding='2' cellspacing='2' class='msg_n_cpf_cnpj'>
+          <tr>
+            <td>Cliente já cadastrado, clique em pesquisar.</td>
+          </tr>
+        </table>
+";
+}
+if ($xrescredito <> "") {
+echo "
+		<table  border='0' cellpadding='2' cellspacing='2' class='msg_n_cpf_cnpj'>
+          <tr>
+            <td>Cliente possui RESTRIÇÃO DE CRÉDITO</td>
+          </tr>
+        </table>
+";
+}
+?></TD>
+      </TR>
+    </TBODY>
+  </TABLE>
+ 
+  <BR>
+  <TABLE cellSpacing=0 cellPadding=0 width=100% align=center border=0>
+    <TBODY>
+      <TR>
+        <TD width=18 bgColor=#ffffff>&nbsp;</TD>
+        <TD width=364 height=30 bgColor=#ffffff><IMG height=20 
+      src="<? echo DIR_IMAGES; ?>/cadastro_cep.gif" width=35></TD>
+        <TD width=364>&nbsp;</TD>
+        </TR>
+      <TR>
+        <TD width=16 height=20>&nbsp;</TD>
+        <TD colSpan=2 height=20>O Preenchimento dos CEPs preenche automaticamente alguns campos do endere&ccedil;o.</TD>
+        </TR>
+      <TR>
+        <TD width=16 bgColor=#f0f0f0 height=39>&nbsp;</TD>
+        <TD bgColor=#f0f0f0><IMG height=11 src="<? echo DIR_IMAGES; ?>/cadastro_requerido.gif" width=13 align=absMiddle> <B>CEP Residencial:</B><BR>
+            <INPUT name=frmCEP id = frmCEP class="campo3" value="<? echo $frmCEP; ?>" size=9 maxlength="8" onBlur="verifyzip(form, <? echo"$codpedselect"; ?>, 1);"> 
+            (Ex. 99999999)
+<? if ($erro1 <> "") { echo "<br><strong class=vermelhobold11>Erro: $erro1</strong>"; } ?>
+</TD>
+        <TD bgColor=#f0f0f0><B>CEP Comercial:</B><BR>
+            <INPUT name=frmEmpCEP class="campo3" value="<? echo $frmEmpCEP; ?>" size=9 maxlength="8" onBlur="verifyzip(form, <? echo"$codpedselect"; ?>, 2);"> 
+            (Ex. 99999999)
+<? if ($erro2 <> "") { echo "<br><strong class=vermelhobold11>Erro: $erro2</strong>"; } ?>
+</TD>
+        </TR>
+    </TBODY>
+  </TABLE>
+  <BR>
+  <TABLE cellSpacing=0 cellPadding=0 width=100% align=center border=0>
+    <TBODY>
+      <TR>
+        <TD colSpan=5></TD>
+      </TR>
+      <TR>
+        <TD width=18>&nbsp;</TD>
+        <TD width=224 height=30><IMG height=20 
+      src="<? echo DIR_IMAGES; ?>/cadastro_ddcliente.gif" width=122></TD>
+        <TD width=210>&nbsp;</TD>
+        <TD>&nbsp;</TD>
+      </TR>
+      <TR>
+        <TD width=18 bgColor=#f0f0f0 height=39>&nbsp;</TD>
+        <TD bgColor=#f0f0f0 colSpan=2 height=39><B><IMG height=11 src="<? echo DIR_IMAGES; ?>/cadastro_requerido.gif" width=13 align=absMiddle> Nome Completo</B><BR>
+            <INPUT name=frmNome class="campo3" value="<? echo $frmNome; ?>" size=50>
+        </TD>
+        <TD bgColor=#f0f0f0 height=39><B><IMG height=11 src="<? echo DIR_IMAGES; ?>/cadastro_requerido.gif" width=13 align=absMiddle> Sexo:</B><BR>
+            <SELECT name=frmSexo class="campo3">
+              <OPTION value="<? echo $frmSexo; ?>"selected><? echo $frmSexo; ?></OPTION>
+              <OPTION value="M">M</OPTION>
+              <OPTION value="F">F</OPTION>
+          </SELECT>
+        </TD>
+      </TR>
+      <TR>
+        <TD width=18 height=39>&nbsp;</TD>
+        <TD width=224 height=39><B><IMG height=11 src="<? echo DIR_IMAGES; ?>/cadastro_requerido.gif" width=13 align=absMiddle> Nascimento: </B>(dd/mm/aaaa)<BR>
+          <INPUT name="frmNasc" class="campo3" id="frmNasc" value="<? echo $frmNasc; ?>" size=11 
+      maxLength=10 onChange="verificaData(this.form, this.form.frmNasc.name, true)">
+        </TD>
+        <TD width=210 height=39><B>Nacionalidade:</B><BR>
+            <SELECT name=frmNacionalidade class="campo3">
+              <option value="<? echo $frmNacionalidade; ?>"><? echo $frmNacionalidade;
+              ?></option>
+              <OPTION value="BRASILEIRO">BRASILEIRO</OPTION>
+              <option value="ESTRANGEIRO">ESTRANGEIRO</option>
+            </SELECT>
+        </TD>
+        <TD height=39><B> Estado Civil:</B><BR>
+            <SELECT name=frmEstadoCivil class="campo3">
+              <OPTION value="<? echo $frmEstadoCivil; ?>" selected><? echo $frmEstadoCivil; ?></OPTION>
+				<option value="SOLTEIRO">SOLTEIRO</option>
+				<option value="CASADO">CASADO</option>
+				<option value="SEPARADO JUD">SEPARADO JUD.</option>
+				<option value="VIÚVO">VIÚVO</option>
+				<option value="DIVORCIADO">DIVORCIADO</option>
+				<option value="OUTROS">OUTROS</option>
+          </SELECT>
+        </TD>
+      </TR>
+      <TR>
+        <TD width=18 bgColor=#f0f0f0 height=39>&nbsp;</TD>
+        <TD width=224 bgColor=#f0f0f0 height=39><B><IMG height=11 src="<? echo DIR_IMAGES; ?>/cadastro_requerido.gif" width=13 align=absMiddle> Doc. Identidade:</B> (RG/RNE)<BR>
+            <INPUT name=frmRG class="campo3" value="<? echo $frmRG; ?>" 
+      size=15 maxLength=15>
+        </TD>
+        <TD width=210 bgColor=#f0f0f0 height=39><B>Data de Emiss&atilde;o: </B>(dd/mm/aaaa)<BR>
+          <INPUT name=frmRGEmissao class="campo3" id="frmRGEmissao" value="<? echo $frmRGEmissao; ?>" size=11 
+      maxLength=10>
+        </TD>
+        <TD bgColor=#f0f0f0 height=39><B><IMG height=11 src="<? echo DIR_IMAGES; ?>/cadastro_requerido.gif" width=13 align=absMiddle> &Oacute;rgao Emissor:</B><BR>
+            <INPUT name=frmRGEmissor class="campo3" value="<? echo $frmRGEmissor; ?>" size=6>
+        </TD>
+      </TR>
+      <TR>
+        <TD width=18 height=39 rowspan="2">&nbsp;</TD>
+        <TD width=224 height=19 valign="top"><B><IMG height=11 src="<? echo DIR_IMAGES; ?>/cadastro_requerido.gif" width=13 align=absMiddle> Endere&ccedil;o:</B><BR>
+            <INPUT 
+      name=frmEndereco class="campo3" value="<? echo $frmEndereco; ?>" size=30 maxLength=65>
+            <br>            </TD>
+        <TD width=210 height=19 valign="top"><B><IMG height=11 src="<? echo DIR_IMAGES; ?>/cadastro_requerido.gif" width=13 align=absMiddle> N&uacute;mero:</B><BR>
+            <INPUT name=frmNumero class="campo3" value="<? echo $frmNumero; ?>" size=5>        </TD>
+        <TD height=19 valign="top"><B>Complemento:</B><BR>
+            <INPUT 
+      name=frmComplemento class="campo3" value="<? echo $frmComplemento; ?>" size=10>        </TD>
+      </TR>
+      <TR>
+        <TD height=20 colspan="2" valign="top"><strong class="vermelhobold11">Aten&ccedil;&atilde;o: </strong>Exclua o n&uacute;mero do campo <strong>&quot;Endere&ccedil;o</strong>&quot;, se for o caso, e coloque-o no campo <strong>"N&uacute;mero"</strong>. </TD>
+        <TD height=20 valign="top"> <strong class="vermelhobold11">Aten&ccedil;&atilde;o:</strong> Coloque aqui outras informa&ccedil;&otilde;es sobre o endere&ccedil;o (Exemplo: ap. 1234) </TD>
+      </TR>
+      <TR>
+        <TD width=18 bgColor=#f0f0f0 height=39>&nbsp;</TD>
+        <TD width=224 bgColor=#f0f0f0 height=39><B><IMG height=11 src="<? echo DIR_IMAGES; ?>/cadastro_requerido.gif" width=13 align=absMiddle> Bairro:</B><BR>
+            <INPUT 
+      name=frmBairro class="campo3" value="<? echo $frmBairro; ?>" size=30 maxLength=50>
+        </TD>
+        <TD width=210 bgColor=#f0f0f0 height=39><B><IMG height=11 src="<? echo DIR_IMAGES; ?>/cadastro_requerido.gif" width=13 align=absMiddle> Cidade:</B><BR>
+            <INPUT 
+      name=frmCidade class="campo3" value="<? echo $frmCidade; ?>" size=30 maxLength=50>
+        </TD>
+        <TD bgColor=#f0f0f0 height=39><B><IMG height=11 src="<? echo DIR_IMAGES; ?>/cadastro_requerido.gif" width=13 align=absMiddle> Estado:</B><BR>
+            <select name="frmUF" class="campo3">
+    <option value="<? echo $frmUF; ?>" selected="selected"><? echo $frmUF; ?></option>
+    <option value="AL">AL</option>
+    <option value="AC">AC</option>
+    <option value="AP">AP</option>
+    <option value="AM">AM</option>
+    <option value="BA">BA</option>
+    <option value="CE">CE</option>
+    <option value="DF">DF</option>
+    <option value="ES">ES</option>
+    <option value="GO">GO</option>
+    <option value="MA">MA</option>
+    <option value="MT">MT</option>
+    <option value="MS">MS</option>
+    <option value="MG">MG</option>
+    <option value="PA">PA</option>
+    <option value="PB">PB</option>
+    <option value="PR">PR</option>
+    <option value="PE">PE</option>
+    <option value="PI">PI</option>
+    <option value="RJ">RJ</option>
+    <option value="RN">RN</option>
+    <option value="RS">RS</option>
+    <option value="RO">RO</option>
+    <option value="RR">RR</option>
+    <option value="SC">SC</option>
+    <option value="SP">SP</option>
+    <option value="SE">SE</option>
+    <option value="TO">TO</option>
+</select>
+        </TD>
+      </TR>
+      <TR>
+        <TD width=18 height=39>&nbsp;</TD>
+        <TD width=224 height=39><B>Telefone/Ramal:</B><BR>
+            <INPUT name=frmDDD class="campo3" value="<? echo $frmDDD; ?>" size=2 maxLength=2>
+          -
+          <INPUT name=frmTelefone class="campo3" value="<? echo $frmTelefone; ?>" size=9>
+          <INPUT name=frmRamal class="campo3" id="frmRamal" value="<? echo $frmRamal; ?>" size=4>
+        </TD>
+        <TD width=210 height=39><B>Resid&ecirc;ncia:</B><BR>
+            <SELECT name=frmResidencia class="campo3">
+              <OPTION value="<? echo $frmResidencia; ?>" selected><? echo $frmResidencia; ?></OPTION>
+              <OPTION value="ALUGUEL">ALUGUEL</OPTION>
+              <OPTION value="FAMÍLIA">FAMÍLIA</OPTION>
+              <OPTION value="FINANCIADA">FINANCIADA</OPTION>
+              <OPTION value="PRÓPRIA">PRÓPRIA</OPTION>
+          </SELECT>
+        </TD>
+        <TD height=39><B>Residente desde:</B><BR>
+            <SELECT name=frmTempoResidencia class="campo3" id="frmTempoResidencia">
+				<OPTION value="<? echo $frmTempoResidencia; ?>" selected><? echo $frmTempoResidencia; ?></OPTION>
+				<option value='até 1 ano' >até 1 ano</option>
+				<option value='de 1 a 2 anos' >de 1 a 2 anos</option>
+				<option value='de 2 a 5 anos' >de 2 a 5 anos</option>
+				<option value='mais de 5 anos' >mais de 5 anos</option>
+            </SELECT>
+        </TD>
+      </TR>
+      <TR>
+        <TD width=18 bgColor=#f0f0f0 height=39>&nbsp;</TD>
+        <TD width=224 bgColor=#f0f0f0 height=39><strong>Telefone #2:</strong> <br>
+          <INPUT name=frmDDD2 class="campo3" id="frmDDD2" value="<? echo $frmDDD2; ?>" size=2 maxLength=2>
+-
+<INPUT name=frmTelefone2 class="campo3" id="frmTelefone2" value="<? echo $frmTelefone2; ?>" size=9>
+</TD>
+        <TD width=210 bgColor=#f0f0f0 height=39><b>Nome do Pai:</b><br>
+          <input name=frmPai class="campo3" value="<? echo $frmPai; ?>" size=30></TD>
+        <TD bgColor=#f0f0f0 height=39><b>Nome da M&atilde;e:</b><br>
+          <input 
+      name=frmMae class="campo3" value="<? echo $frmMae; ?>" size=30></TD>
+      </TR>
+    </TBODY>
+  </TABLE>
+  <br>
+  <TABLE borderColor=#ebebeb cellSpacing=0 cellPadding=0 width=100% align=center 
+borderColorLight=#666666 border=0>
+    <TBODY>
+      <TR>
+        <TD width=18>&nbsp;</TD>
+        <TD width=224 height=30><IMG height=20 
+      src="<? echo DIR_IMAGES; ?>/cadastro_correspondencia.gif" width=122></TD>
+        <TD width=210>&nbsp;</TD>
+        <TD>&nbsp;</TD>
+      </TR>
+      <TR>
+        <TD width=18 bgColor=#f0f0f0 height=39>&nbsp;</TD>
+        <TD width=224 bgColor=#f0f0f0><B>Endere&ccedil;o para correspond&ecirc;ncia:</B><BR>
+            <SELECT name=frmCorrespondencia class="campo3">
+              <option value="<? echo $frmCorrespondencia; ?>"><? echo $frmCorrespondencia; ?></option>
+              <OPTION value="RESIDENCIAL">RESIDENCIAL</OPTION>
+              <OPTION value="COMERCIAL">COMERCIAL</OPTION>
+            </SELECT>
+        </TD>
+        <TD width=210 bgColor=#f0f0f0><B><IMG height=11 src="<? echo DIR_IMAGES; ?>/cadastro_requerido.gif" width=13 align=absMiddle> Email:</B><BR>
+          <INPUT name=frmEmail class="campo3" value="<? echo $frmEmail; ?>" size=30 maxLength=50>
+        </TD>
+        <TD bgColor=#f0f0f0>&nbsp;</TD>
+      </TR>
+    </TBODY>
+  </TABLE>
+  <br>
+  <TABLE borderColor=#ebebeb cellSpacing=0 cellPadding=0 width=100% align=center 
+borderColorLight=#666666 border=0>
+    <TBODY>
+      <TR>
+        <TD width=18>&nbsp;</TD>
+        <TD width=224 height=30><IMG height=20 
+      src="<? echo DIR_IMAGES; ?>/cadastro_ddconjuge.gif" width=128></TD>
+        <TD width=210>&nbsp;</TD>
+        <TD>&nbsp;</TD>
+      </TR>
+      <TR>
+        <TD width=18 bgColor=#f0f0f0 height=39>&nbsp;</TD>
+        <TD colspan="2" bgColor=#f0f0f0><B>Nome:</B><br>
+          <input name="frmNomeConj" type="text" class="campo3" id="frmNomeConj" value="<? echo $frmNomeConj; ?>" size="60">          
+          <BR>
+        </TD>
+        <TD bgColor=#f0f0f0><B>Nascimento: </B>(dd/mm/aaaa)<BR>
+        <INPUT name=frmNasConj class="campo3" id="frmNasConj" value="<? echo $frmNasConj; ?>" size=11 
+      maxLength=10></TD>
+      </TR>
+      <TR>
+
+        <TD height=39>&nbsp;</TD>
+        <TD><B> CPF:</B><br>
+          <input name="frmCPFConj" type="text" class="campo3" id="frmCPFConj" value="<? echo $frmCPFConj; ?>" size="16"></TD>
+        <TD><B>Doc. Identidade:</B> (RG/RNE)<br>
+          <input name="frmRGConj" type="text" class="campo3" id="frmRGConj" value="<? echo $frmRGConj; ?>" size="15"></TD>
+        <TD><B>Org&atilde;o Emissor:</B><br>
+          <INPUT name=frmRGEmissorConj class="campo3" id="frmRGEmissorConj" value="<? echo $frmRGEmissorConj; ?>" size=6></TD>
+      </TR>
+      <TR>
+        <TD bgColor=#f0f0f0 height=39>&nbsp;</TD>
+        <TD bgColor=#f0f0f0><B>Empresa:</B><br>
+          <input name="frmEmpConj" type="text" class="campo3" id="frmEmpConj" value="<? echo $frmEmpConj; ?>" size="30"></TD>
+        <TD bgColor=#f0f0f0><B>Ocupa&ccedil;&atilde;o:</B><br>
+          <SELECT name=frmOcupConj class="campo3" id="frmOcupConj">
+            <OPTION value="<? echo $frmOcupConj; ?>" selected><? echo $frmOcupConj; ?></OPTION>
+            <OPTION value="EMPRESARIO">EMPRESARIO</OPTION>
+            <OPTION value="ASSALARIADO">ASSALARIADO</OPTION>
+            <OPTION value="AUTONOMO">AUTONOMO</OPTION>
+            <OPTION value="PROFISSIONAL LIBERAL">PROFISSIONAL LIBERAL</OPTION>
+            <OPTION value="APOSENTADO">APOSENTADO</OPTION>
+            <OPTION value="PRODUTOR RURAL">PRODUTOR RURAL</OPTION>
+            <OPTION value="OUTROS">OUTROS</OPTION>
+          </SELECT></TD>
+        <TD bgColor=#f0f0f0><B>Fun&ccedil;&atilde;o:</B><br>
+          <SELECT name=frmFuncConj class="campo3" id="frmFuncConj">
+            <OPTION value="<? echo $frmFuncConj; ?>" selected><? echo $frmFuncConj; ?></OPTION>
+            <OPTION value="ADM EMPRESAS">ADM EMPRESAS</OPTION>
+            <OPTION value="ADVOGADO">ADVOGADO</OPTION>
+            <OPTION value="AEROPORT">AEROPORT</OPTION>
+            <OPTION value="AGENTE ADMIN">AGENTE ADMIN</OPTION>
+            <OPTION value="AG. AUT. INV">AG. AUT. INV</OPTION>
+            <OPTION value="AG COM SAUDE">AG COM SAUDE</OPTION>
+            <OPTION value="AGENTE VIAG">AGENTE VIAG</OPTION>
+            <OPTION value="AGRICULTOR">AGRICULTOR</OPTION>
+            <OPTION value="AGRONOMO">AGRONOMO</OPTION>
+            <OPTION value="AGROPECUARIS">AGROPECUARIS</OPTION>
+            <OPTION value="ALFAIATE">ALFAIATE</OPTION>
+            <OPTION value="ANALISTA SISTEMA">ANALISTA SISTEMA</OPTION>
+            <OPTION value="APOSENTADO">APOSENTADO</OPTION>
+            <OPTION value="ARQUITETO">ARQUITETO</OPTION>
+            <OPTION value="ARQUIVISTA">ARQUIVISTA</OPTION>
+            <OPTION value="ART PLASTICA">ART PLASTICA</OPTION>
+            <OPTION value="ASCENSORISTA">ASCENSORISTA</OPTION>
+            <OPTION value="ASSIS SOCIAL">ASSIS SOCIAL</OPTION>
+            <OPTION value="ASSIST FIN">ASSIST FIN</OPTION>
+            <OPTION value="ASTRONOMO">ASTRONOMO</OPTION>
+            <OPTION value="ATLETA PROF">ATLETA PROF</OPTION>
+            <OPTION value="ATOR">ATOR</OPTION>
+            <OPTION value="ATUARIO">ATUARIO</OPTION>
+            <OPTION value="AUDITOR">AUDITOR</OPTION>
+            <OPTION value="AUTONOMO">AUTONOMO</OPTION>
+            <OPTION value="AUXIL ESCRT">AUXIL ESCRT</OPTION>
+            <OPTION value="AUXIL LABOR">AUXIL LABOR</OPTION>
+            <OPTION value="AUX ENFERMAG">AUX ENFERMAG</OPTION>
+            <OPTION value="AUX PREGAO">AUX PREGAO</OPTION>
+            <OPTION value="AVICULTOR">AVICULTOR</OPTION>
+            <OPTION value="BANCARIO">BANCARIO</OPTION>
+            <OPTION value="BANQUEIRO">BANQUEIRO</OPTION>
+            <OPTION value="BIBLIOTEC">BIBLIOTEC</OPTION>
+            <OPTION value="BIOLOGO">BIOLOGO</OPTION>
+            <OPTION value="BIOMEDICO">BIOMEDICO</OPTION>
+            <OPTION value="BOMBEIRO">BOMBEIRO</OPTION>
+            <OPTION value="BORRACHEIRO">BORRACHEIRO</OPTION>
+            <OPTION value="CABELEIREIRO">CABELEIREIRO</OPTION>
+            <OPTION value="CANTOR/COMPO">CANTOR/COMPO</OPTION>
+            <OPTION value="CAPITALISTA">CAPITALISTA</OPTION>
+            <OPTION value="CITRICULTOR">CITRICULTOR</OPTION>
+            <OPTION value="COBRADOR">COBRADOR</OPTION>
+            <OPTION value="COMANDANTE">COMANDANTE</OPTION>
+            <OPTION value="COMERCIANTE">COMERCIANTE</OPTION>
+            <OPTION value="COMERCIARIO">COMERCIARIO</OPTION>
+            <OPTION value="COMIS BORDO">COMIS BORDO</OPTION>
+            <OPTION value="COMPRADOR">COMPRADOR</OPTION>
+            <OPTION value="COMUNICOLOGO">COMUNICOLOGO</OPTION>
+            <OPTION value="CONSULTOR">CONSULTOR</OPTION>
+            <OPTION value="CONTADOR">CONTADOR</OPTION>
+            <OPTION value="CONT QUALIDA">CONT QUALIDA</OPTION>
+            <OPTION value="CONTROLER">CONTROLER</OPTION>
+            <OPTION value="COREOGRAFO">COREOGRAFO</OPTION>
+            <OPTION value="COR IMOVEIS">COR IMOVEIS</OPTION>
+            <OPTION value="COR.SEGUROS">COR.SEGUROS</OPTION>
+            <OPTION value="COSTUREIRA">COSTUREIRA</OPTION>
+            <OPTION value="COZINHEIRO">COZINHEIRO</OPTION>
+            <OPTION value="DATILOGRAFA">DATILOGRAFA</OPTION>
+            <OPTION value="DECORADOR">DECORADOR</OPTION>
+            <OPTION value="DELEGADO">DELEGADO</OPTION>
+            <OPTION value="DESENH COML">DESENH COML</OPTION>
+            <OPTION value="DESENH INDL">DESENH INDL</OPTION>
+            <OPTION value="DES TECNICO">DES TECNICO</OPTION>
+            <OPTION value="DESPACHANTE">DESPACHANTE</OPTION>
+            <OPTION value="DIPLOMATA">DIPLOMATA</OPTION>
+            <OPTION value="DIR EMPRESAS">DIR EMPRESAS</OPTION>
+            <OPTION value="DIRETOR ENSI">DIRETOR ENSI</OPTION>
+            <OPTION value="DISCOTECARIO">DISCOTECARIO</OPTION>
+            <OPTION value="DO LAR">DO LAR</OPTION>
+            <OPTION value="DOCEIRO">DOCEIRO</OPTION>
+            <OPTION value="ECONOMIARIO">ECONOMIARIO</OPTION>
+            <OPTION value="ECONOMISTA">ECONOMISTA</OPTION>
+            <OPTION value="ELETRICISTA">ELETRICISTA</OPTION>
+            <OPTION value="ELETRICITARI">ELETRICITARI</OPTION>
+            <OPTION value="EMPREG DOM">EMPREG DOM</OPTION>
+            <OPTION value="EMPRESARIO">EMPRESARIO</OPTION>
+            <OPTION value="ENFERMEIRO">ENFERMEIRO</OPTION>
+            <OPTION value="ENGENHEIRO">ENGENHEIRO</OPTION>
+            <OPTION value="ESCREVENTE">ESCREVENTE</OPTION>
+            <OPTION value="ESCRITURARIO">ESCRITURARIO</OPTION>
+            <OPTION value="ESCUL PINTOR">ESCUL PINTOR</OPTION>
+            <OPTION value="ESTAGIARIO">ESTAGIARIO</OPTION>
+            <OPTION value="ESTATISTICO">ESTATISTICO</OPTION>
+            <OPTION value="ESTET MAQUIA">ESTET MAQUIA</OPTION>
+            <OPTION value="ESTILISTA">ESTILISTA</OPTION>
+            <OPTION value="ESTUDANTE">ESTUDANTE</OPTION>
+            <OPTION value="FARMACEUTICO">FARMACEUTICO</OPTION>
+            <OPTION value="FAXINEIRO">FAXINEIRO</OPTION>
+            <OPTION value="FEIRANTE">FEIRANTE</OPTION>
+            <OPTION value="FISCAL">FISCAL</OPTION>
+            <OPTION value="FISICO">FISICO</OPTION>
+            <OPTION value="FISIOTERAP">FISIOTERAP</OPTION>
+            <OPTION value="FLORICULTOR">FLORICULTOR</OPTION>
+            <OPTION value="FOGUISTA">FOGUISTA</OPTION>
+            <OPTION value="FONOAUDIOLOG">FONOAUDIOLOG</OPTION>
+            <OPTION value="FOTOGRAFO">FOTOGRAFO</OPTION>
+            <OPTION value="FRENTISTA">FRENTISTA</OPTION>
+            <OPTION value="FROTISTA">FROTISTA</OPTION>
+            <OPTION value="FUNC PUBLICO">FUNC PUBLICO</OPTION>
+            <OPTION value="LANT PINTOR">LANT PINTOR</OPTION>
+            <OPTION value="GARCON">GARCON</OPTION>
+            <OPTION value="GARIMPEIRO">GARIMPEIRO</OPTION>
+            <OPTION value="GEOGRAFO">GEOGRAFO</OPTION>
+            <OPTION value="GEOLOGO">GEOLOGO</OPTION>
+            <OPTION value="GERENTE">GERENTE</OPTION>
+            <OPTION value="GOVERNANTA">GOVERNANTA</OPTION>
+            <OPTION value="GRAFICO">GRAFICO</OPTION>
+            <OPTION value="INDUSTRIAL">INDUSTRIAL</OPTION>
+            <OPTION value="INDUSTRIARIO">INDUSTRIARIO</OPTION>
+            <OPTION value="INSP ALUNOS">INSP ALUNOS</OPTION>
+            <OPTION value="INSTR CIRURG">INSTR CIRURG</OPTION>
+            <OPTION value="INSTR/ESC LI">INSTR/ESC LI</OPTION>
+            <OPTION value="INVESTIGADOR">INVESTIGADOR</OPTION>
+            <OPTION value="JARDINEIRO">JARDINEIRO</OPTION>
+            <OPTION value="JOALHEIROS">JOALHEIROS</OPTION>
+            <OPTION value="JORNALEIRO">JORNALEIRO</OPTION>
+            <OPTION value="JORNALISTA">JORNALISTA</OPTION>
+            <OPTION value="JUIZ DIREITO">JUIZ DIREITO</OPTION>
+            <OPTION value="LAVRADOR">LAVRADOR</OPTION>
+            <OPTION value="LEILOEIRO">LEILOEIRO</OPTION>
+            <OPTION value="LOCUTOR RAD">LOCUTOR RAD</OPTION>
+            <OPTION value="MAGISTRADO">MAGISTRADO</OPTION>
+            <OPTION value="MANIC PEDIC">MANIC PEDIC</OPTION>
+            <OPTION value="MAQUINISTA">MAQUINISTA</OPTION>
+            <OPTION value="MARCENEIRO">MARCENEIRO</OPTION>
+            <OPTION value="MARINHEIRO">MARINHEIRO</OPTION>
+            <OPTION value="MASSAGISTA">MASSAGISTA</OPTION>
+            <OPTION value="MATEMATICO">MATEMATICO</OPTION>
+            <OPTION value="MECANICO">MECANICO</OPTION>
+            <OPTION value="MEDICO">MEDICO</OPTION>
+            <OPTION value="MENSAGEIRO">MENSAGEIRO</OPTION>
+            <OPTION value="MESTRE/CONTR">MESTRE/CONTR</OPTION>
+            <OPTION value="METALURGICO">METALURGICO</OPTION>
+            <OPTION value="METEREOLOG">METEREOLOG</OPTION>
+            <OPTION value="MILITAR">MILITAR</OPTION>
+            <OPTION value="MIN/DESEM/JU">MIN/DESEM/JU</OPTION>
+            <OPTION value="MODELO MODAS">MODELO MODAS</OPTION>
+            <OPTION value="MOTORISTA">MOTORISTA</OPTION>
+            <OPTION value="MUSEO ARQUEO">MUSEO ARQUEO</OPTION>
+            <OPTION value="MUSICO">MUSICO</OPTION>
+            <OPTION value="CORRET MERC">CORRET MERC</OPTION>
+            <OPTION value="NUTRICIONIST">NUTRICIONIST</OPTION>
+            <OPTION value="DIRE/INTERME">DIRE/INTERME</OPTION>
+            <OPTION value="DIREC/SUPERI">DIREC/SUPERI</OPTION>
+            <OPTION value="ODONTOLOGO">ODONTOLOGO</OPTION>
+            <OPTION value="OPER CAMERA">OPER CAMERA</OPTION>
+            <OPTION value="OPER.PREGAO">OPER.PREGAO</OPTION>
+            <OPTION value="OURIVES">OURIVES</OPTION>
+            <OPTION value="OUTROS">OUTROS</OPTION>
+            <OPTION value="PECUARISTA">PECUARISTA</OPTION>
+            <OPTION value="PEDREIRO">PEDREIRO</OPTION>
+            <OPTION value="PENSIONISTA">PENSIONISTA</OPTION>
+            <OPTION value="PILOTO AERON">PILOTO AERON</OPTION>
+            <OPTION value="PINTOR">PINTOR</OPTION>
+            <OPTION value="PODOLOGO">PODOLOGO</OPTION>
+            <OPTION value="PRES/MIN/GOV">PRES/MIN/GOV</OPTION>
+            <OPTION value="PROCURADOR">PROCURADOR</OPTION>
+            <OPTION value="PROF LETRAS">PROF LETRAS</OPTION>
+            <OPTION value="PROFESSOR">PROFESSOR</OPTION>
+            <OPTION value="PROF ENS MED">PROF ENS MED</OPTION>
+            <OPTION value="PROF EN PROF">PROF EN PROF</OPTION>
+            <OPTION value="PROF EN SUPE">PROF EN SUPE</OPTION>
+            <OPTION value="PROF ED INF">PROF ED INF</OPTION>
+            <OPTION value="PROJETISTA">PROJETISTA</OPTION>
+            <OPTION value="PROP REN ALU">PROP REN ALU</OPTION>
+            <OPTION value="PROP.MICROEM">PROP.MICROEM</OPTION>
+            <OPTION value="PR.PREST SER">PR.PREST SER</OPTION>
+            <OPTION value="PROTETICO">PROTETICO</OPTION>
+            <OPTION value="PSICOLOGO">PSICOLOGO</OPTION>
+            <OPTION value="PUBLICITARIO">PUBLICITARIO</OPTION>
+            <OPTION value="QUIMICO">QUIMICO</OPTION>
+            <OPTION value="RECEPC">RECEPC</OPTION>
+            <OPTION value="REDATOR">REDATOR</OPTION>
+            <OPTION value="RELAC PUBLIC">RELAC PUBLIC</OPTION>
+            <OPTION value="REP COML">REP COML</OPTION>
+            <OPTION value="SACERDOTE">SACERDOTE</OPTION>
+            <OPTION value="SECRETARIA">SECRETARIA</OPTION>
+            <OPTION value="SECURITARIO">SECURITARIO</OPTION>
+            <OPTION value="SENADOR/DEPU">SENADOR/DEPU</OPTION>
+            <OPTION value="SERVID PUBLI">SERVID PUBLI</OPTION>
+            <OPTION value="SERV JUSTICA">SERV JUSTICA</OPTION>
+            <OPTION value="SINDICO">SINDICO</OPTION>
+            <OPTION value="SOCIOLOGO">SOCIOLOGO</OPTION>
+            <OPTION value="SUPERVISOR">SUPERVISOR</OPTION>
+            <OPTION value="TABELIAO">TABELIAO</OPTION>
+            <OPTION value="TAPECEIRO">TAPECEIRO</OPTION>
+            <OPTION value="TAXISTA">TAXISTA</OPTION>
+            <OPTION value="TEC PR DADOS">TEC PR DADOS</OPTION>
+            <OPTION value="TEC SEG TRAB">TEC SEG TRAB</OPTION>
+            <OPTION value="TEC AGRONOM">TEC AGRONOM</OPTION>
+            <OPTION value="TEC BIOLOGIA">TEC BIOLOGIA</OPTION>
+            <OPTION value="TEC CONTABIL">TEC CONTABIL</OPTION>
+            <OPTION value="TEC ELETRIC">TEC ELETRIC</OPTION>
+            <OPTION value="TEC ELETRON">TEC ELETRON</OPTION>
+            <OPTION value="TEC LABORAT">TEC LABORAT</OPTION>
+            <OPTION value="TEC MECANICA">TEC MECANICA</OPTION>
+            <OPTION value="TEC QUIMICA">TEC QUIMICA</OPTION>
+            <OPTION value="TEC RAIO X">TEC RAIO X</OPTION>
+            <OPTION value="TEC TELECOM">TEC TELECOM</OPTION>
+            <OPTION value="TEC ENFERMAG">TEC ENFERMAG</OPTION>
+            <OPTION value="TEC LATICIN">TEC LATICIN</OPTION>
+            <OPTION value="TECNOLOGO">TECNOLOGO</OPTION>
+            <OPTION value="TELEFONISTA">TELEFONISTA</OPTION>
+            <OPTION value="TESOUREIRO">TESOUREIRO</OPTION>
+            <OPTION value="TINTUREIRO">TINTUREIRO</OPTION>
+            <OPTION value="TRAB.CONSTR.">TRAB.CONSTR.</OPTION>
+            <OPTION value="TRAB. PESCA">TRAB. PESCA</OPTION>
+            <OPTION value="TRAB.FLOREST">TRAB.FLOREST</OPTION>
+            <OPTION value="SERV CONTABI">SERV CONTABI</OPTION>
+            <OPTION value="TRAB.SUP ENS">TRAB.SUP ENS</OPTION>
+            <OPTION value="VENDEDOR">VENDEDOR</OPTION>
+            <OPTION value="VETERINARIO">VETERINARIO</OPTION>
+            <OPTION value="VIGILANTE">VIGILANTE</OPTION>
+            <OPTION value="ZELADOR">ZELADOR</OPTION>
+            <OPTION value="ZOOTECNISTA">ZOOTECNISTA</OPTION>
+          </SELECT></TD>
+      </TR>
+      <TR>
+        <TD height=39>&nbsp;</TD>
+        <TD><B>Sal&aacute;rio/Renda:</B><br>
+          <input name="frmRendaConj" type="text" class="campo3" id="frmRendaConj" value="<? echo $frmRendaConj; ?>" size="30"></TD>
+        <TD><B>Telefone:</B><br>
+          <INPUT 
+      name=frmDDDEmpConj class="campo3" id="frmDDDEmpConj" value="<? echo $frmDDDEmpConj; ?>" size=2>
+-
+<INPUT name=frmTelEmpConj class="campo3" id="frmTelEmpConj" value="<? echo $frmTelEmpConj; ?>" size=9 maxlength="8"></TD>
+        <TD><B>Ramal:</B><br>
+          <INPUT name=frmRamalEmpConj class="campo3" id="frmRamalEmpConj" value="<? echo $frmRamalEmpConj; ?>" size=8 maxLength=8></TD>
+      </TR>
+    </TBODY>
+  </TABLE>
+  <BR>
+  <TABLE borderColor=#ebebeb cellSpacing=0 cellPadding=0 width=100% align=center 
+borderColorLight=#666666 border=0>
+    <TBODY>
+      <TR>
+        <TD width=18>&nbsp;</TD>
+        <TD width=224 height=30><IMG height=20 
+      src="<? echo DIR_IMAGES; ?>/cadastro_ddprofissionais.gif" width=135></TD>
+        <TD width=210>&nbsp;</TD>
+        <TD>&nbsp;</TD>
+      </TR>
+      <TR>
+        <TD width=18 bgColor=#f0f0f0 height=39>&nbsp;</TD>
+        <TD width=224 bgColor=#f0f0f0><B>Ocupa&ccedil;&atilde;o:</B><BR>
+            <SELECT name=frmCatProf class="campo3">
+              <OPTION value="<? echo $frmCatProf; ?>" selected><? echo $frmCatProf; ?></OPTION>
+              <OPTION value="EMPRESARIO">EMPRESARIO</OPTION>
+              <OPTION value="ASSALARIADO">ASSALARIADO</OPTION>
+              <OPTION value="AUTONOMO">AUTONOMO</OPTION>
+              <OPTION value="PROFISSIONAL LIBERAL">PROFISSIONAL LIBERAL</OPTION>
+              <OPTION value="APOSENTADO">APOSENTADO</OPTION>
+              <OPTION value="PRODUTOR RURAL">PRODUTOR RURAL</OPTION>
+              <OPTION value="OUTROS">OUTROS</OPTION>
+          </SELECT>
+        </TD>
+        <TD bgColor=#f0f0f0><B>Fun&ccedil;&atilde;o:</B><BR>
+          <SELECT name=frmRamoProf class="campo3">
+              <OPTION value="<? echo $frmRamoProf; ?>" selected><? echo $frmRamoProf; ?></OPTION>
+              <OPTION value="ADM EMPRESAS">ADM EMPRESAS</OPTION>
+              <OPTION value="ADVOGADO">ADVOGADO</OPTION>
+              <OPTION value="AEROPORT">AEROPORT</OPTION>
+              <OPTION value="AGENTE ADMIN">AGENTE ADMIN</OPTION>
+              <OPTION value="AG. AUT. INV">AG. AUT. INV</OPTION>
+              <OPTION value="AG COM SAUDE">AG COM SAUDE</OPTION>
+              <OPTION value="AGENTE VIAG">AGENTE VIAG</OPTION>
+              <OPTION value="AGRICULTOR">AGRICULTOR</OPTION>
+              <OPTION value="AGRONOMO">AGRONOMO</OPTION>
+              <OPTION value="AGROPECUARIS">AGROPECUARIS</OPTION>
+              <OPTION value="ALFAIATE">ALFAIATE</OPTION>
+              <OPTION value="ANALISTA SISTEMA">ANALISTA SISTEMA</OPTION>
+              <OPTION value="APOSENTADO">APOSENTADO</OPTION>
+              <OPTION value="ARQUITETO">ARQUITETO</OPTION>
+              <OPTION value="ARQUIVISTA">ARQUIVISTA</OPTION>
+              <OPTION value="ART PLASTICA">ART PLASTICA</OPTION>
+              <OPTION value="ASCENSORISTA">ASCENSORISTA</OPTION>
+              <OPTION value="ASSIS SOCIAL">ASSIS SOCIAL</OPTION>
+              <OPTION value="ASSIST FIN">ASSIST FIN</OPTION>
+              <OPTION value="ASTRONOMO">ASTRONOMO</OPTION>
+              <OPTION value="ATLETA PROF">ATLETA PROF</OPTION>
+              <OPTION value="ATOR">ATOR</OPTION>
+              <OPTION value="ATUARIO">ATUARIO</OPTION>
+              <OPTION value="AUDITOR">AUDITOR</OPTION>
+              <OPTION value="AUTONOMO">AUTONOMO</OPTION>
+              <OPTION value="AUXIL ESCRT">AUXIL ESCRT</OPTION>
+              <OPTION value="AUXIL LABOR">AUXIL LABOR</OPTION>
+              <OPTION value="AUX ENFERMAG">AUX ENFERMAG</OPTION>
+              <OPTION value="AUX PREGAO">AUX PREGAO</OPTION>
+              <OPTION value="AVICULTOR">AVICULTOR</OPTION>
+              <OPTION value="BANCARIO">BANCARIO</OPTION>
+              <OPTION value="BANQUEIRO">BANQUEIRO</OPTION>
+              <OPTION value="BIBLIOTEC">BIBLIOTEC</OPTION>
+              <OPTION value="BIOLOGO">BIOLOGO</OPTION>
+              <OPTION value="BIOMEDICO">BIOMEDICO</OPTION>
+              <OPTION value="BOMBEIRO">BOMBEIRO</OPTION>
+              <OPTION value="BORRACHEIRO">BORRACHEIRO</OPTION>
+              <OPTION value="CABELEIREIRO">CABELEIREIRO</OPTION>
+              <OPTION value="CANTOR/COMPO">CANTOR/COMPO</OPTION>
+              <OPTION value="CAPITALISTA">CAPITALISTA</OPTION>
+              <OPTION value="CITRICULTOR">CITRICULTOR</OPTION>
+              <OPTION value="COBRADOR">COBRADOR</OPTION>
+              <OPTION value="COMANDANTE">COMANDANTE</OPTION>
+              <OPTION value="COMERCIANTE">COMERCIANTE</OPTION>
+              <OPTION value="COMERCIARIO">COMERCIARIO</OPTION>
+              <OPTION value="COMIS BORDO">COMIS BORDO</OPTION>
+              <OPTION value="COMPRADOR">COMPRADOR</OPTION>
+              <OPTION value="COMUNICOLOGO">COMUNICOLOGO</OPTION>
+              <OPTION value="CONSULTOR">CONSULTOR</OPTION>
+              <OPTION value="CONTADOR">CONTADOR</OPTION>
+              <OPTION value="CONT QUALIDA">CONT QUALIDA</OPTION>
+              <OPTION value="CONTROLER">CONTROLER</OPTION>
+              <OPTION value="COREOGRAFO">COREOGRAFO</OPTION>
+              <OPTION value="COR IMOVEIS">COR IMOVEIS</OPTION>
+              <OPTION value="COR.SEGUROS">COR.SEGUROS</OPTION>
+              <OPTION value="COSTUREIRA">COSTUREIRA</OPTION>
+              <OPTION value="COZINHEIRO">COZINHEIRO</OPTION>
+              <OPTION value="DATILOGRAFA">DATILOGRAFA</OPTION>
+              <OPTION value="DECORADOR">DECORADOR</OPTION>
+              <OPTION value="DELEGADO">DELEGADO</OPTION>
+              <OPTION value="DESENH COML">DESENH COML</OPTION>
+              <OPTION value="DESENH INDL">DESENH INDL</OPTION>
+              <OPTION value="DES TECNICO">DES TECNICO</OPTION>
+              <OPTION value="DESPACHANTE">DESPACHANTE</OPTION>
+              <OPTION value="DIPLOMATA">DIPLOMATA</OPTION>
+              <OPTION value="DIR EMPRESAS">DIR EMPRESAS</OPTION>
+              <OPTION value="DIRETOR ENSI">DIRETOR ENSI</OPTION>
+              <OPTION value="DISCOTECARIO">DISCOTECARIO</OPTION>
+              <OPTION value="DO LAR">DO LAR</OPTION>
+              <OPTION value="DOCEIRO">DOCEIRO</OPTION>
+              <OPTION value="ECONOMIARIO">ECONOMIARIO</OPTION>
+              <OPTION value="ECONOMISTA">ECONOMISTA</OPTION>
+              <OPTION value="ELETRICISTA">ELETRICISTA</OPTION>
+              <OPTION value="ELETRICITARI">ELETRICITARI</OPTION>
+              <OPTION value="EMPREG DOM">EMPREG DOM</OPTION>
+              <OPTION value="EMPRESARIO">EMPRESARIO</OPTION>
+              <OPTION value="ENFERMEIRO">ENFERMEIRO</OPTION>
+              <OPTION value="ENGENHEIRO">ENGENHEIRO</OPTION>
+              <OPTION value="ESCREVENTE">ESCREVENTE</OPTION>
+              <OPTION value="ESCRITURARIO">ESCRITURARIO</OPTION>
+              <OPTION value="ESCUL PINTOR">ESCUL PINTOR</OPTION>
+              <OPTION value="ESTAGIARIO">ESTAGIARIO</OPTION>
+              <OPTION value="ESTATISTICO">ESTATISTICO</OPTION>
+              <OPTION value="ESTET MAQUIA">ESTET MAQUIA</OPTION>
+              <OPTION value="ESTILISTA">ESTILISTA</OPTION>
+              <OPTION value="ESTUDANTE">ESTUDANTE</OPTION>
+              <OPTION value="FARMACEUTICO">FARMACEUTICO</OPTION>
+              <OPTION value="FAXINEIRO">FAXINEIRO</OPTION>
+              <OPTION value="FEIRANTE">FEIRANTE</OPTION>
+              <OPTION value="FISCAL">FISCAL</OPTION>
+              <OPTION value="FISICO">FISICO</OPTION>
+              <OPTION value="FISIOTERAP">FISIOTERAP</OPTION>
+              <OPTION value="FLORICULTOR">FLORICULTOR</OPTION>
+              <OPTION value="FOGUISTA">FOGUISTA</OPTION>
+              <OPTION value="FONOAUDIOLOG">FONOAUDIOLOG</OPTION>
+              <OPTION value="FOTOGRAFO">FOTOGRAFO</OPTION>
+              <OPTION value="FRENTISTA">FRENTISTA</OPTION>
+              <OPTION value="FROTISTA">FROTISTA</OPTION>
+              <OPTION value="FUNC PUBLICO">FUNC PUBLICO</OPTION>
+              <OPTION value="LANT PINTOR">LANT PINTOR</OPTION>
+              <OPTION value="GARCON">GARCON</OPTION>
+              <OPTION value="GARIMPEIRO">GARIMPEIRO</OPTION>
+              <OPTION value="GEOGRAFO">GEOGRAFO</OPTION>
+              <OPTION value="GEOLOGO">GEOLOGO</OPTION>
+              <OPTION value="GERENTE">GERENTE</OPTION>
+              <OPTION value="GOVERNANTA">GOVERNANTA</OPTION>
+              <OPTION value="GRAFICO">GRAFICO</OPTION>
+              <OPTION value="INDUSTRIAL">INDUSTRIAL</OPTION>
+              <OPTION value="INDUSTRIARIO">INDUSTRIARIO</OPTION>
+              <OPTION value="INSP ALUNOS">INSP ALUNOS</OPTION>
+              <OPTION value="INSTR CIRURG">INSTR CIRURG</OPTION>
+              <OPTION value="INSTR/ESC LI">INSTR/ESC LI</OPTION>
+              <OPTION value="INVESTIGADOR">INVESTIGADOR</OPTION>
+              <OPTION value="JARDINEIRO">JARDINEIRO</OPTION>
+              <OPTION value="JOALHEIROS">JOALHEIROS</OPTION>
+              <OPTION value="JORNALEIRO">JORNALEIRO</OPTION>
+              <OPTION value="JORNALISTA">JORNALISTA</OPTION>
+              <OPTION value="JUIZ DIREITO">JUIZ DIREITO</OPTION>
+              <OPTION value="LAVRADOR">LAVRADOR</OPTION>
+              <OPTION value="LEILOEIRO">LEILOEIRO</OPTION>
+              <OPTION value="LOCUTOR RAD">LOCUTOR RAD</OPTION>
+              <OPTION value="MAGISTRADO">MAGISTRADO</OPTION>
+              <OPTION value="MANIC PEDIC">MANIC PEDIC</OPTION>
+              <OPTION value="MAQUINISTA">MAQUINISTA</OPTION>
+              <OPTION value="MARCENEIRO">MARCENEIRO</OPTION>
+              <OPTION value="MARINHEIRO">MARINHEIRO</OPTION>
+              <OPTION value="MASSAGISTA">MASSAGISTA</OPTION>
+              <OPTION value="MATEMATICO">MATEMATICO</OPTION>
+              <OPTION value="MECANICO">MECANICO</OPTION>
+              <OPTION value="MEDICO">MEDICO</OPTION>
+              <OPTION value="MENSAGEIRO">MENSAGEIRO</OPTION>
+              <OPTION value="MESTRE/CONTR">MESTRE/CONTR</OPTION>
+              <OPTION value="METALURGICO">METALURGICO</OPTION>
+              <OPTION value="METEREOLOG">METEREOLOG</OPTION>
+              <OPTION value="MILITAR">MILITAR</OPTION>
+              <OPTION value="MIN/DESEM/JU">MIN/DESEM/JU</OPTION>
+              <OPTION value="MODELO MODAS">MODELO MODAS</OPTION>
+              <OPTION value="MOTORISTA">MOTORISTA</OPTION>
+              <OPTION value="MUSEO ARQUEO">MUSEO ARQUEO</OPTION>
+              <OPTION value="MUSICO">MUSICO</OPTION>
+              <OPTION value="CORRET MERC">CORRET MERC</OPTION>
+              <OPTION value="NUTRICIONIST">NUTRICIONIST</OPTION>
+              <OPTION value="DIRE/INTERME">DIRE/INTERME</OPTION>
+              <OPTION value="DIREC/SUPERI">DIREC/SUPERI</OPTION>
+              <OPTION value="ODONTOLOGO">ODONTOLOGO</OPTION>
+              <OPTION value="OPER CAMERA">OPER CAMERA</OPTION>
+              <OPTION value="OPER.PREGAO">OPER.PREGAO</OPTION>
+              <OPTION value="OURIVES">OURIVES</OPTION>
+              <OPTION value="OUTROS">OUTROS</OPTION>
+              <OPTION value="PECUARISTA">PECUARISTA</OPTION>
+              <OPTION value="PEDREIRO">PEDREIRO</OPTION>
+              <OPTION value="PENSIONISTA">PENSIONISTA</OPTION>
+              <OPTION value="PILOTO AERON">PILOTO AERON</OPTION>
+              <OPTION value="PINTOR">PINTOR</OPTION>
+              <OPTION value="PODOLOGO">PODOLOGO</OPTION>
+              <OPTION value="PRES/MIN/GOV">PRES/MIN/GOV</OPTION>
+              <OPTION value="PROCURADOR">PROCURADOR</OPTION>
+              <OPTION value="PROF LETRAS">PROF LETRAS</OPTION>
+              <OPTION value="PROFESSOR">PROFESSOR</OPTION>
+              <OPTION value="PROF ENS MED">PROF ENS MED</OPTION>
+              <OPTION value="PROF EN PROF">PROF EN PROF</OPTION>
+              <OPTION value="PROF EN SUPE">PROF EN SUPE</OPTION>
+              <OPTION value="PROF ED INF">PROF ED INF</OPTION>
+              <OPTION value="PROJETISTA">PROJETISTA</OPTION>
+              <OPTION value="PROP REN ALU">PROP REN ALU</OPTION>
+              <OPTION value="PROP.MICROEM">PROP.MICROEM</OPTION>
+              <OPTION value="PR.PREST SER">PR.PREST SER</OPTION>
+              <OPTION value="PROTETICO">PROTETICO</OPTION>
+              <OPTION value="PSICOLOGO">PSICOLOGO</OPTION>
+              <OPTION value="PUBLICITARIO">PUBLICITARIO</OPTION>
+              <OPTION value="QUIMICO">QUIMICO</OPTION>
+              <OPTION value="RECEPC">RECEPC</OPTION>
+              <OPTION value="REDATOR">REDATOR</OPTION>
+              <OPTION value="RELAC PUBLIC">RELAC PUBLIC</OPTION>
+              <OPTION value="REP COML">REP COML</OPTION>
+              <OPTION value="SACERDOTE">SACERDOTE</OPTION>
+              <OPTION value="SECRETARIA">SECRETARIA</OPTION>
+              <OPTION value="SECURITARIO">SECURITARIO</OPTION>
+              <OPTION value="SENADOR/DEPU">SENADOR/DEPU</OPTION>
+              <OPTION value="SERVID PUBLI">SERVID PUBLI</OPTION>
+              <OPTION value="SERV JUSTICA">SERV JUSTICA</OPTION>
+              <OPTION value="SINDICO">SINDICO</OPTION>
+              <OPTION value="SOCIOLOGO">SOCIOLOGO</OPTION>
+              <OPTION value="SUPERVISOR">SUPERVISOR</OPTION>
+              <OPTION value="TABELIAO">TABELIAO</OPTION>
+              <OPTION value="TAPECEIRO">TAPECEIRO</OPTION>
+              <OPTION value="TAXISTA">TAXISTA</OPTION>
+              <OPTION value="TEC PR DADOS">TEC PR DADOS</OPTION>
+              <OPTION value="TEC SEG TRAB">TEC SEG TRAB</OPTION>
+              <OPTION value="TEC AGRONOM">TEC AGRONOM</OPTION>
+              <OPTION value="TEC BIOLOGIA">TEC BIOLOGIA</OPTION>
+              <OPTION value="TEC CONTABIL">TEC CONTABIL</OPTION>
+              <OPTION value="TEC ELETRIC">TEC ELETRIC</OPTION>
+              <OPTION value="TEC ELETRON">TEC ELETRON</OPTION>
+              <OPTION value="TEC LABORAT">TEC LABORAT</OPTION>
+              <OPTION value="TEC MECANICA">TEC MECANICA</OPTION>
+              <OPTION value="TEC QUIMICA">TEC QUIMICA</OPTION>
+              <OPTION value="TEC RAIO X">TEC RAIO X</OPTION>
+              <OPTION value="TEC TELECOM">TEC TELECOM</OPTION>
+              <OPTION value="TEC ENFERMAG">TEC ENFERMAG</OPTION>
+              <OPTION value="TEC LATICIN">TEC LATICIN</OPTION>
+              <OPTION value="TECNOLOGO">TECNOLOGO</OPTION>
+              <OPTION value="TELEFONISTA">TELEFONISTA</OPTION>
+              <OPTION value="TESOUREIRO">TESOUREIRO</OPTION>
+              <OPTION value="TINTUREIRO">TINTUREIRO</OPTION>
+              <OPTION value="TRAB.CONSTR.">TRAB.CONSTR.</OPTION>
+              <OPTION value="TRAB. PESCA">TRAB. PESCA</OPTION>
+              <OPTION value="TRAB.FLOREST">TRAB.FLOREST</OPTION>
+              <OPTION value="SERV CONTABI">SERV CONTABI</OPTION>
+              <OPTION value="TRAB.SUP ENS">TRAB.SUP ENS</OPTION>
+              <OPTION value="VENDEDOR">VENDEDOR</OPTION>
+              <OPTION value="VETERINARIO">VETERINARIO</OPTION>
+              <OPTION value="VIGILANTE">VIGILANTE</OPTION>
+              <OPTION value="ZELADOR">ZELADOR</OPTION>
+              <OPTION value="ZOOTECNISTA">ZOOTECNISTA</OPTION>
+          </SELECT>
+        </TD>
+        <TD bgColor=#f0f0f0>&nbsp;</TD>
+      </TR>
+      <TR>
+        <TD width=18 height=39>&nbsp;</TD>
+        <TD width=224><B>Empresa:</B><BR>
+            <INPUT 
+      name=frmEmpNome class="campo3" value="<? echo $frmEmpNome; ?>" size=30>
+        </TD>
+        <TD width=210><B>Tipo de Empresa:</B><BR>
+            <SELECT name=frmEmpTipo class="campo3">
+              <OPTION value="<? echo $frmEmpTipo; ?>" selected><? echo $frmEmpTipo; ?></OPTION>
+              <OPTION value=0>Estatal</OPTION>
+              <OPTION value=3>Governo</OPTION>
+              <OPTION value=2>Multinac.</OPTION>
+              <OPTION value=1>Privada</OPTION>
+          </SELECT>
+        </TD>
+        <TD>&nbsp;</TD>
+      </TR>
+      <TR>
+        <TD width=18 bgColor=#f0f0f0 height=39>&nbsp;</TD>
+        <TD width=224 bgColor=#f0f0f0><B>Tempo de empresa :</B><BR>
+          <select name="frmTrabalhotempo" size='1' class="campo3" width='20'>
+            <option selected value='<? echo $frmTrabalhotempo; ?>' ><? echo $frmTrabalhotempo; ?></option>
+            <option value='de 3 a 6 meses' >de 3 a 6 meses</option>
+            <option value='de 6 a 12 meses' >de 6 a 12 meses</option>
+            <option value='de 1 a 2 anos' >de 1 a 2 anos</option>
+            <option value='de 2 a 3 anos' >de 2 a 3 anos</option>
+            <option value='mais de 3 anos' >mais de 3 anos</option>
+            <option value='de 6 a 12 meses'>de 6 a 12 meses</option>
+        </select></TD>
+        <TD width=210 bgColor=#f0f0f0><B>Sal&aacute;rio/Renda:</B><BR>
+            <INPUT name=frmSalario class="campo3" value="<? echo $frmSalario; ?>" size=30 maxLength=30>
+        </TD>
+        <TD bgColor=#f0f0f0>&nbsp;</TD>
+      </TR>
+      <TR>
+        <TD width=18 height=39>&nbsp;</TD>
+        <TD width=224><B>Endere&ccedil;o da Empresa:</B><BR>
+            <INPUT 
+      name=frmEmpEndereco class="campo3" value="<? echo $frmEmpEndereco; ?>" size=30 maxLength=65>
+        </TD>
+        <TD width=210><B>N&uacute;mero:</B> <BR>
+            <INPUT 
+      name=frmEmpNumero class="campo3" value="<? echo $frmEmpNumero; ?>" size=5 maxLength=10>
+        </TD>
+        <TD><B>Complemento:</B><BR>
+            <INPUT 
+      name=frmEmpComplemento class="campo3" value="<? echo $frmEmpComplemento; ?>" size=10 maxLength=50>
+        </TD>
+      </TR>
+      <TR bgColor=#f0f0f0>
+        <TD width=18 height=39>&nbsp;</TD>
+        <TD width=224><B>Bairro:</B><BR>
+            <INPUT 
+      name=frmEmpBairro class="campo3" value="<? echo $frmEmpBairro; ?>" size=30 maxLength=50>
+        </TD>
+        <TD width=210><B>Cidade:</B><BR>
+            <INPUT 
+      name=frmEmpCidade class="campo3" value="<? echo $frmEmpCidade; ?>" size=30 maxLength=50>
+        </TD>
+        <TD bgColor=#f0f0f0><B>Estado:</B><BR>
+            <select name="frmEmpUF" class="campo3">
+    <option value="<? echo $frmEmpUF; ?>" selected="selected"><? echo $frmEmpUF; ?></option>
+    <option value="AL">AL</option>
+    <option value="AC">AC</option>
+    <option value="AP">AP</option>
+    <option value="AM">AM</option>
+    <option value="BA">BA</option>
+    <option value="CE">CE</option>
+    <option value="DF">DF</option>
+    <option value="ES">ES</option>
+    <option value="GO">GO</option>
+    <option value="MA">MA</option>
+    <option value="MT">MT</option>
+    <option value="MS">MS</option>
+    <option value="MG">MG</option>
+    <option value="PA">PA</option>
+    <option value="PB">PB</option>
+    <option value="PR">PR</option>
+    <option value="PE">PE</option>
+    <option value="PI">PI</option>
+    <option value="RJ">RJ</option>
+    <option value="RN">RN</option>
+    <option value="RS">RS</option>
+    <option value="RO">RO</option>
+    <option value="RR">RR</option>
+    <option value="SC">SC</option>
+    <option value="SP">SP</option>
+    <option value="SE">SE</option>
+    <option value="TO">TO</option>
+</select>
+        </TD>
+      </TR>
+      <TR>
+        <TD width=18 height=39>&nbsp;</TD>
+        <TD width=224><B>Telefone:</B><BR>
+            <INPUT 
+      name=frmEmpDDD class="campo3" value="<? echo $frmEmpDDD; ?>" size=2>
+          -
+          <INPUT name=frmEmpTelefone class="campo3" value="<? echo $frmEmpTelefone; ?>" size=9>
+        </TD>
+        <TD width=210><B>Ramal:</B><BR>
+            <INPUT name=frmEmpRamal class="campo3" value="<? echo $frmEmpRamal; ?>" size=8 maxLength=8>
+        </TD>
+        <TD><B>Informar CNPJ caso seja S&oacute;cio:</B><BR>
+            <INPUT 
+      name=frmEmpCNPJ class="campo3" value="<? echo $frmEmpCNPJ; ?>" size=15 maxLength=14>
+        </TD>
+      </TR>
+    </TBODY>
+  </TABLE>
+  <BR>
+  <TABLE cellSpacing=0 cellPadding=0 width=100% align=center border=0>
+    <TBODY>
+      <TR>
+        <TD width=18>&nbsp;</TD>
+        <TD width=224 height=30><IMG height=20 
+      src="<? echo DIR_IMAGES; ?>/cadastro_refbanc.gif" width=143></TD>
+        <TD width=210>&nbsp;</TD>
+        <TD>&nbsp;</TD>
+      </TR>
+      <TR bgColor=#f0f0f0>
+        <TD width=18 height=39>&nbsp;</TD>
+        <TD width=224><B>N&uacute;mero do Banco:</B><BR>
+            <SELECT name=frmBanco class="campo3" style="WIDTH: 210px">
+              <OPTION value="<? echo $frmBanco; ?>" selected><? echo $frmBanco; ?></OPTION>
+              <OPTION 
+        value="654-BANCO A.J. RENNER S.A.        ">654-BANCO A.J. RENNER S.A.</OPTION>
+              <OPTION 
+        value="061-BANCO ABB SA                  ">061-BANCO ABB SA</OPTION>
+              <OPTION value="246-BANCO ABC BRASIL S.A.         ">246-BANCO ABC BRASIL S.A.</OPTION>
+              <OPTION 
+        value="275-BANCO ABN AMRO REAL S.A.      ">275-BANCO ABN AMRO REAL S.A.</OPTION>
+              <OPTION 
+        value="356-BANCO ABN AMRO S.A.           ">356-BANCO ABN AMRO S.A.</OPTION>
+              <OPTION 
+        value="025-BANCO ALFA S/A                ">025-BANCO ALFA S/A</OPTION>
+              <OPTION value="641-BANCO ALVORADA S.A.           ">641-BANCO ALVORADA S.A.</OPTION>
+              <OPTION 
+        value="621-BANCO APLICAP S.A.            ">621-BANCO APLICAP S.A.</OPTION>
+              <OPTION 
+        value="625-BANCO ARAUCARIA S.A.          ">625-BANCO ARAUCARIA S.A.</OPTION>
+              <OPTION 
+        value="213-BANCO ARBI S.A.               ">213-BANCO ARBI S.A.</OPTION>
+              <OPTION value="201-BANCO AXIAL S.A.              ">201-BANCO AXIAL S.A.</OPTION>
+              <OPTION 
+        value="239-BANCO BANCRED S.A.            ">239-BANCO BANCRED S.A.</OPTION>
+              <OPTION 
+        value="067-BANCO BANEB SA                ">067-BANCO BANEB SA</OPTION>
+              <OPTION value="029-BANCO BANERJ S.A.             ">029-BANCO BANERJ S.A.</OPTION>
+              <OPTION 
+        value="038-BANCO BANESTADO S.A.          ">038-BANCO BANESTADO S.A.</OPTION>
+              <OPTION 
+        value="719-BANCO BANIF PRIMUS S.A.       ">719-BANCO BANIF PRIMUS S.A.</OPTION>
+              <OPTION 
+        value="740-BANCO BARCLAYS S.A.           ">740-BANCO BARCLAYS S.A.</OPTION>
+              <OPTION 
+        value="107-BANCO BBM S.A                 ">107-BANCO BBM S.A</OPTION>
+              <OPTION value="267-BANCO BBM-COM.C.IMOB.CFI S.A. ">267-BANCO BBM-COM.C.IMOB.CFI S.A.</OPTION>
+              <OPTION 
+        value="291-BANCO BCN S.A.                ">291-BANCO BCN S.A.</OPTION>
+              <OPTION value="068-BANCO BEA S.A                 ">068-BANCO BEA S.A</OPTION>
+              <OPTION 
+        value="034-BANCO BEA S.A.                ">034-BANCO BEA S.A.</OPTION>
+              <OPTION value="031-BANCO BEG S.A.                ">031-BANCO BEG S.A.</OPTION>
+              <OPTION 
+        value="048-BANCO BEMGE S.A.              ">048-BANCO BEMGE S.A.</OPTION>
+              <OPTION value="184-BANCO BEMGE S.A.              ">184-BANCO BEMGE S.A.</OPTION>
+              <OPTION 
+        value="346-BANCO BFB _ EM ABSORCAO       ">346-BANCO BFB _ EM ABSORCAO</OPTION>
+              <OPTION 
+        value="739-BANCO BGN S.A.                ">739-BANCO BGN S.A.</OPTION>
+              <OPTION value="096-BANCO BM&amp;F DE SERV. DE LIQUIDA">096-BANCO BM&amp;F DE SERV. DE LIQUIDA</OPTION>
+              <OPTION 
+        value="394-BANCO BMC S.A.                ">394-BANCO BMC S.A.</OPTION>
+              <OPTION value="388-BANCO BMD S.A.                ">388-BANCO BMD S.A.</OPTION>
+              <OPTION 
+        value="318-BANCO BMG S.A.                ">318-BANCO BMG S.A.</OPTION>
+              <OPTION value="116-BANCO BNL DO BRASIL S.A.      ">116-BANCO BNL DO BRASIL S.A.</OPTION>
+              <OPTION 
+        value="752-BANCO BNP PARIBAS BRASIL S.A  ">752-BANCO BNP PARIBAS BRASIL S.A</OPTION>
+              <OPTION 
+        value="248-BANCO BOA VISTA INTERATLANTICO">248-BANCO BOA VISTA INTERATLANTICO</OPTION>
+              <OPTION 
+        value="231-BANCO BOAVISTA INTERATLANTICO ">231-BANCO BOAVISTA INTERATLANTICO</OPTION>
+              <OPTION 
+        value="218-BANCO BONSUCESSO S.A.         ">218-BANCO BONSUCESSO S.A.</OPTION>
+              <OPTION 
+        value="262-BANCO BOREAL S.A.             ">262-BANCO BOREAL S.A.</OPTION>
+              <OPTION 
+        value="237-BANCO BRADESCO S.A.           ">237-BANCO BRADESCO S.A.</OPTION>
+              <OPTION 
+        value="225-BANCO BRASCAN S.A.            ">225-BANCO BRASCAN S.A.</OPTION>
+              <OPTION 
+        value="282-BANCO BRASILEIRO COMERCIAL S.A">282-BANCO BRASILEIRO COMERCIAL S.A</OPTION>
+              <OPTION 
+        value="501-BANCO BRASILEIRO IRAQUIANO S.A">501-BANCO BRASILEIRO IRAQUIANO S.A</OPTION>
+              <OPTION 
+        value="044-BANCO BVA SA                  ">044-BANCO BVA SA</OPTION>
+              <OPTION value="263-BANCO CACIQUE S.A.            ">263-BANCO CACIQUE S.A.</OPTION>
+              <OPTION 
+        value="222-BANCO CALYON BRASIL S/A       ">222-BANCO CALYON BRASIL S/A</OPTION>
+              <OPTION 
+        value="236-BANCO CAMBIAL SA              ">236-BANCO CAMBIAL SA</OPTION>
+              <OPTION value="412-BANCO CAPITAL S.A.            ">412-BANCO CAPITAL S.A.</OPTION>
+              <OPTION 
+        value="040-BANCO CARGILL S.A             ">040-BANCO CARGILL S.A</OPTION>
+              <OPTION 
+        value="266-BANCO CEDULA S.A.             ">266-BANCO CEDULA S.A.</OPTION>
+              <OPTION 
+        value="002-BANCO CENTRAL DO BRASIL       ">002-BANCO CENTRAL DO BRASIL</OPTION>
+              <OPTION 
+        value="221-BANCO CHASE FLEMING S.A.      ">221-BANCO CHASE FLEMING S.A.</OPTION>
+              <OPTION 
+        value="244-BANCO CIDADE S.A.             ">244-BANCO CIDADE S.A.</OPTION>
+              <OPTION 
+        value="745-BANCO CITIBANK S.A.           ">745-BANCO CITIBANK S.A.</OPTION>
+              <OPTION 
+        value="241-BANCO CLASSICO S.A.           ">241-BANCO CLASSICO S.A.</OPTION>
+              <OPTION 
+        value="215-BANCO COMERCIAL E DE INVESTIME">215-BANCO COMERCIAL E DE INVESTIME</OPTION>
+              <OPTION 
+        value="753-BANCO COMERCIAL URUGUAI S.A.  ">753-BANCO COMERCIAL URUGUAI S.A.</OPTION>
+              <OPTION 
+        value="756-BANCO COOPERATIVO DO BRASIL S.">756-BANCO COOPERATIVO DO BRASIL S.</OPTION>
+              <OPTION 
+        value="748-BANCO COOPERATIVO SICREDI S.A.">748-BANCO COOPERATIVO SICREDI S.A.</OPTION>
+              <OPTION 
+        value="721-BANCO CREDIBEL S.A.           ">721-BANCO CREDIBEL S.A.</OPTION>
+              <OPTION 
+        value="505-BANCO CREDIT SUISSE FIRST BOST">505-BANCO CREDIT SUISSE FIRST BOST</OPTION>
+              <OPTION 
+        value="640-BANCO CREDITO METROPOLITANO S/">640-BANCO CREDITO METROPOLITANO S/</OPTION>
+              <OPTION 
+        value="220-BANCO CREFISUL S.A.           ">220-BANCO CREFISUL S.A.</OPTION>
+              <OPTION 
+        value="628-BANCO CRITERIUM S. A.         ">628-BANCO CRITERIUM S. A.</OPTION>
+              <OPTION value="229-BANCO CRUZEIRO DO SUL S.A.    ">229-BANCO CRUZEIRO DO SUL S.A.</OPTION>
+              <OPTION 
+        value="003-BANCO DA AMAZONIA S.A.        ">003-BANCO DA AMAZONIA S.A.</OPTION>
+              <OPTION 
+        value="733-BANCO DAS NACOES S.A.         ">733-BANCO DAS NACOES S.A.</OPTION>
+              <OPTION 
+        value="707-BANCO DAYCOVAL S.A.           ">707-BANCO DAYCOVAL S.A.</OPTION>
+              <OPTION 
+        value="240-BANCO DE CREDITO REAL DE MINAS">240-BANCO DE CREDITO REAL DE MINAS</OPTION>
+              <OPTION 
+        value="300-BANCO DE LA NACION ARGENTINA  ">300-BANCO DE LA NACION ARGENTINA</OPTION>
+              <OPTION 
+        value="495-BANCO DE LA PROVINCIA DE BUENO">495-BANCO DE LA PROVINCIA DE BUENO</OPTION>
+              <OPTION 
+        value="494-BANCO DE LA REPUBLICA ORIENTAL">494-BANCO DE LA REPUBLICA ORIENTAL</OPTION>
+              <OPTION 
+        value="024-BANCO DE PERNAMBUCO S.A.-BANDE">024-BANCO DE PERNAMBUCO S.A.-BANDE</OPTION>
+              <OPTION 
+        value="456-BANCO DE TOKYO MITSUBISHI BRAS">456-BANCO DE TOKYO MITSUBISHI BRAS</OPTION>
+              <OPTION 
+        value="627-BANCO DESTAK S.A.             ">627-BANCO DESTAK S.A.</OPTION>
+              <OPTION 
+        value="214-BANCO DIBENS S.A.             ">214-BANCO DIBENS S.A.</OPTION>
+              <OPTION 
+        value="369-BANCO DIGIBANCO S.A.          ">369-BANCO DIGIBANCO S.A.</OPTION>
+              <OPTION 
+        value="649-BANCO DIMENSAO S.A.           ">649-BANCO DIMENSAO S.A.</OPTION>
+              <OPTION 
+        value="001-BANCO DO BRASIL S.A.          ">001-BANCO DO BRASIL S.A.</OPTION>
+              <OPTION 
+        value="635-BANCO DO ESTADO AMAPA S.A.    ">635-BANCO DO ESTADO AMAPA S.A.</OPTION>
+              <OPTION 
+        value="020-BANCO DO ESTADO DE ALAGOAS S.A">020-BANCO DO ESTADO DE ALAGOAS S.A</OPTION>
+              <OPTION 
+        value="059-BANCO DO ESTADO DE RONDONIA S.">059-BANCO DO ESTADO DE RONDONIA S.</OPTION>
+              <OPTION 
+        value="645-BANCO DO ESTADO DE RORAIMA S.A">645-BANCO DO ESTADO DE RORAIMA S.A</OPTION>
+              <OPTION 
+        value="027-BANCO DO ESTADO DE SANTA CATAR">027-BANCO DO ESTADO DE SANTA CATAR</OPTION>
+              <OPTION 
+        value="033-BANCO DO ESTADO DE SAO PAULO S">033-BANCO DO ESTADO DE SAO PAULO S</OPTION>
+              <OPTION 
+        value="047-BANCO DO ESTADO DE SERGIPE S.A">047-BANCO DO ESTADO DE SERGIPE S.A</OPTION>
+              <OPTION 
+        value="026-BANCO DO ESTADO DO ACRE S.A.  ">026-BANCO DO ESTADO DO ACRE S.A.</OPTION>
+              <OPTION 
+        value="035-BANCO DO ESTADO DO CEARA S.A. ">035-BANCO DO ESTADO DO CEARA S.A.</OPTION>
+              <OPTION 
+        value="036-BANCO DO ESTADO DO MARANHAO S.">036-BANCO DO ESTADO DO MARANHAO S.</OPTION>
+              <OPTION 
+        value="032-BANCO DO ESTADO DO MATO GROSSO">032-BANCO DO ESTADO DO MATO GROSSO</OPTION>
+              <OPTION 
+        value="037-BANCO DO ESTADO DO PARA S.A.  ">037-BANCO DO ESTADO DO PARA S.A.</OPTION>
+              <OPTION 
+        value="039-BANCO DO ESTADO DO PIAUI S.A.-">039-BANCO DO ESTADO DO PIAUI S.A.-</OPTION>
+              <OPTION 
+        value="041-BANCO DO ESTADO DO RIO GRANDE ">041-BANCO DO ESTADO DO RIO GRANDE</OPTION>
+              <OPTION 
+        value="004-BANCO DO NORDESTE DO BRASIL S.">004-BANCO DO NORDESTE DO BRASIL S.</OPTION>
+              <OPTION 
+        value="302-BANCO DO PROGRESSO S.A.       ">302-BANCO DO PROGRESSO S.A.</OPTION>
+              <OPTION 
+        value="743-BANCO EMBLEMA S.A.            ">743-BANCO EMBLEMA S.A.</OPTION>
+              <OPTION 
+        value="245-BANCO EMPRESARIAL S.A.        ">245-BANCO EMPRESARIAL S.A.</OPTION>
+              <OPTION 
+        value="742-BANCO EQUATORIAL S.A.         ">742-BANCO EQUATORIAL S.A.</OPTION>
+              <OPTION 
+        value="242-BANCO EUROINVEST S.A. EUROBANC">242-BANCO EUROINVEST S.A. EUROBANC</OPTION>
+              <OPTION 
+        value="265-BANCO FATOR S.A.              ">265-BANCO FATOR S.A.</OPTION>
+              <OPTION value="375-BANCO FENICIA S.A.            ">375-BANCO FENICIA S.A.</OPTION>
+              <OPTION 
+        value="224-BANCO FIBRA S.A.              ">224-BANCO FIBRA S.A.</OPTION>
+              <OPTION value="200-BANCO FICRISA AXELRUD S.A.    ">200-BANCO FICRISA AXELRUD S.A.</OPTION>
+              <OPTION 
+        value="626-BANCO FICSA S.A.              ">626-BANCO FICSA S.A.</OPTION>
+              <OPTION value="199-BANCO FINANCIAL PORTUGUES     ">199-BANCO FINANCIAL PORTUGUES</OPTION>
+              <OPTION 
+        value="473-BANCO FINANCIAL PORTUGUES-EM A">473-BANCO FINANCIAL PORTUGUES-EM A</OPTION>
+              <OPTION 
+        value="725-BANCO FINANSINOS S. A.        ">725-BANCO FINANSINOS S. A.</OPTION>
+              <OPTION value="175-BANCO FINASA S.A.             ">175-BANCO FINASA S.A.</OPTION>
+              <OPTION 
+        value="252-BANCO FININVEST S.A.          ">252-BANCO FININVEST S.A.</OPTION>
+              <OPTION 
+        value="728-BANCO FITAL S.A.              ">728-BANCO FITAL S.A.</OPTION>
+              <OPTION value="729-BANCO FONTE CINDAM S.A.       ">729-BANCO FONTE CINDAM S.A.</OPTION>
+              <OPTION 
+        value="652-BANCO FRANCES E BRAS. S.A - EM">652-BANCO FRANCES E BRAS. S.A - EM</OPTION>
+              <OPTION 
+        value="489-BANCO FRANCES INTERNACIONAL-BR">489-BANCO FRANCES INTERNACIONAL-BR</OPTION>
+              <OPTION 
+        value="233-BANCO GE CAPITAL S.A          ">233-BANCO GE CAPITAL S.A</OPTION>
+              <OPTION 
+        value="624-BANCO GENERAL MOTORS S.A      ">624-BANCO GENERAL MOTORS S.A</OPTION>
+              <OPTION 
+        value="734-BANCO GERDAU S.A.             ">734-BANCO GERDAU S.A.</OPTION>
+              <OPTION 
+        value="612-BANCO GUANABARA S.A.          ">612-BANCO GUANABARA S.A.</OPTION>
+              <OPTION 
+        value="256-BANCO GULFINVEST S.A.         ">256-BANCO GULFINVEST S.A.</OPTION>
+              <OPTION 
+        value="303-BANCO HNF S.A.                ">303-BANCO HNF S.A.</OPTION>
+              <OPTION value="063-BANCO IBI S.A - BANCO MULTIPLO">063-BANCO IBI S.A - BANCO MULTIPLO</OPTION>
+              <OPTION 
+        value="228-BANCO ICATU S.A.              ">228-BANCO ICATU S.A.</OPTION>
+              <OPTION value="258-BANCO INDUSCRED S.A.          ">258-BANCO INDUSCRED S.A.</OPTION>
+              <OPTION 
+        value="604-BANCO INDUSTRIAL DO BRASIL S. ">604-BANCO INDUSTRIAL DO BRASIL S.</OPTION>
+              <OPTION 
+        value="320-BANCO INDUSTRIAL E COMERCIAL S">320-BANCO INDUSTRIAL E COMERCIAL S</OPTION>
+              <OPTION 
+        value="653-BANCO INDUSVAL S.A.           ">653-BANCO INDUSVAL S.A.</OPTION>
+              <OPTION 
+        value="204-BANCO INTER AMERICAN EXPRESS S">204-BANCO INTER AMERICAN EXPRESS S</OPTION>
+              <OPTION 
+        value="166-BANCO INTER-ATLANTICO S.A.    ">166-BANCO INTER-ATLANTICO S.A.</OPTION>
+              <OPTION 
+        value="630-BANCO INTERCAP S.A.           ">630-BANCO INTERCAP S.A.</OPTION>
+              <OPTION 
+        value="722-BANCO INTERIOR DE SAO PAULO S.">722-BANCO INTERIOR DE SAO PAULO S.</OPTION>
+              <OPTION 
+        value="232-BANCO INTERPART S.A.          ">232-BANCO INTERPART S.A.</OPTION>
+              <OPTION 
+        value="249-BANCO INVESTCRED UNIBANCO S.A ">249-BANCO INVESTCRED UNIBANCO S.A</OPTION>
+              <OPTION 
+        value="499-BANCO IOCHPE S.A.             ">499-BANCO IOCHPE S.A.</OPTION>
+              <OPTION 
+        value="106-BANCO ITABANCO S.A.           ">106-BANCO ITABANCO S.A.</OPTION>
+              <OPTION 
+        value="372-BANCO ITAMARATI S/A           ">372-BANCO ITAMARATI S/A</OPTION>
+              <OPTION 
+        value="341-BANCO ITAU S.A.               ">341-BANCO ITAU S.A.</OPTION>
+              <OPTION value="042-BANCO J. SAFRA S.A            ">042-BANCO J. SAFRA S.A</OPTION>
+              <OPTION 
+        value="074-BANCO J. SAFRA S.A.           ">074-BANCO J. SAFRA S.A.</OPTION>
+              <OPTION 
+        value="376-BANCO J.P. MORGAN S.A.        ">376-BANCO J.P. MORGAN S.A.</OPTION>
+              <OPTION 
+        value="217-BANCO JOHN DEERE S.A.         ">217-BANCO JOHN DEERE S.A.</OPTION>
+              <OPTION 
+        value="757-BANCO KEB DO BRASIL S.A.      ">757-BANCO KEB DO BRASIL S.A.</OPTION>
+              <OPTION 
+        value="234-BANCO LAVRA S.A.              ">234-BANCO LAVRA S.A.</OPTION>
+              <OPTION value="600-BANCO LUSO BRASILEIRO S.A.    ">600-BANCO LUSO BRASILEIRO S.A.</OPTION>
+              <OPTION 
+        value="647-BANCO MARKA S.A.              ">647-BANCO MARKA S.A.</OPTION>
+              <OPTION value="206-BANCO MARTINELLI S.A.         ">206-BANCO MARTINELLI S.A.</OPTION>
+              <OPTION 
+        value="212-BANCO MATONE S.A.             ">212-BANCO MATONE S.A.</OPTION>
+              <OPTION 
+        value="656-BANCO MATRIX S.A.             ">656-BANCO MATRIX S.A.</OPTION>
+              <OPTION 
+        value="243-BANCO MAXIMA S.A.             ">243-BANCO MAXIMA S.A.</OPTION>
+              <OPTION 
+        value="720-BANCO MAXINVEST S.A.          ">720-BANCO MAXINVEST S.A.</OPTION>
+              <OPTION 
+        value="392-BANCO MERCANTIL DE SAO PAULO S">392-BANCO MERCANTIL DE SAO PAULO S</OPTION>
+              <OPTION 
+        value="389-BANCO MERCANTIL DO BRASIL S.A.">389-BANCO MERCANTIL DO BRASIL S.A.</OPTION>
+              <OPTION 
+        value="755-BANCO MERRILL LYNCH S.A.      ">755-BANCO MERRILL LYNCH S.A.</OPTION>
+              <OPTION 
+        value="732-BANCO MINAS S.A.              ">732-BANCO MINAS S.A.</OPTION>
+              <OPTION value="746-BANCO MODAL S.A.              ">746-BANCO MODAL S.A.</OPTION>
+              <OPTION 
+        value="738-BANCO MORADA S.A.             ">738-BANCO MORADA S.A.</OPTION>
+              <OPTION 
+        value="066-BANCO MORGAN STANLEY DEAN WITT">066-BANCO MORGAN STANLEY DEAN WITT</OPTION>
+              <OPTION 
+        value="504-BANCO MULTIPLIC S.A.          ">504-BANCO MULTIPLIC S.A.</OPTION>
+              <OPTION 
+        value="007-BANCO NACIONAL DO DESENVOLVIME">007-BANCO NACIONAL DO DESENVOLVIME</OPTION>
+              <OPTION 
+        value="415-BANCO NACIONAL S.A.           ">415-BANCO NACIONAL S.A.</OPTION>
+              <OPTION 
+        value="165-BANCO NORCHEM S.A.            ">165-BANCO NORCHEM S.A.</OPTION>
+              <OPTION 
+        value="151-BANCO NOSSA CAIXA S.A         ">151-BANCO NOSSA CAIXA S.A</OPTION>
+              <OPTION 
+        value="718-BANCO OPERADOR S.A.           ">718-BANCO OPERADOR S.A.</OPTION>
+              <OPTION 
+        value="045-BANCO OPPORTUNITY S.A.        ">045-BANCO OPPORTUNITY S.A.</OPTION>
+              <OPTION 
+        value="208-BANCO PACTUAL S.A.            ">208-BANCO PACTUAL S.A.</OPTION>
+              <OPTION 
+        value="623-BANCO PANAMERICANO S.A.       ">623-BANCO PANAMERICANO S.A.</OPTION>
+              <OPTION 
+        value="602-BANCO PATENTE S.A.            ">602-BANCO PATENTE S.A.</OPTION>
+              <OPTION 
+        value="611-BANCO PAULISTA S.A.           ">611-BANCO PAULISTA S.A.</OPTION>
+              <OPTION 
+        value="650-BANCO PEBB S.A.               ">650-BANCO PEBB S.A.</OPTION>
+              <OPTION value="613-BANCO PECUNIA S.A.            ">613-BANCO PECUNIA S.A.</OPTION>
+              <OPTION 
+        value="643-BANCO PINE S.A.               ">643-BANCO PINE S.A.</OPTION>
+              <OPTION value="277-BANCO PLANIBANC S.A.          ">277-BANCO PLANIBANC S.A.</OPTION>
+              <OPTION 
+        value="304-BANCO PONTUAL S.A.            ">304-BANCO PONTUAL S.A.</OPTION>
+              <OPTION 
+        value="658-BANCO PORTO REAL S.A.         ">658-BANCO PORTO REAL S.A.</OPTION>
+              <OPTION 
+        value="735-BANCO POTTENCIAL S.A.         ">735-BANCO POTTENCIAL S.A.</OPTION>
+              <OPTION 
+        value="638-BANCO PROSPER S.A.            ">638-BANCO PROSPER S.A.</OPTION>
+              <OPTION 
+        value="747-BANCO RABOBANK INTERNATIONAL B">747-BANCO RABOBANK INTERNATIONAL B</OPTION>
+              <OPTION 
+        value="216-BANCO REGIONAL MALCON S.A.    ">216-BANCO REGIONAL MALCON S.A.</OPTION>
+              <OPTION 
+        value="633-BANCO RENDIMENTO S.A.         ">633-BANCO RENDIMENTO S.A.</OPTION>
+              <OPTION 
+        value="741-BANCO RIBEIRAO PRETO S.A.     ">741-BANCO RIBEIRAO PRETO S.A.</OPTION>
+              <OPTION 
+        value="072-BANCO RURAL MAIS S.A          ">072-BANCO RURAL MAIS S.A</OPTION>
+              <OPTION 
+        value="453-BANCO RURAL S.A.              ">453-BANCO RURAL S.A.</OPTION>
+              <OPTION value="422-BANCO SAFRA S.A.              ">422-BANCO SAFRA S.A.</OPTION>
+              <OPTION 
+        value="353-BANCO SANTANDER BRASIL S.A.   ">353-BANCO SANTANDER BRASIL S.A.</OPTION>
+              <OPTION 
+        value="502-BANCO SANTANDER DE NEGOCIOS S.">502-BANCO SANTANDER DE NEGOCIOS S.</OPTION>
+              <OPTION 
+        value="008-BANCO SANTANDER MERIDIONAL S.A">008-BANCO SANTANDER MERIDIONAL S.A</OPTION>
+              <OPTION 
+        value="424-BANCO SANTANDER NOROESTE S.A. ">424-BANCO SANTANDER NOROESTE S.A.</OPTION>
+              <OPTION 
+        value="351-BANCO SANTANDER S.A.          ">351-BANCO SANTANDER S.A.</OPTION>
+              <OPTION 
+        value="607-BANCO SANTOS NEVES S.A.       ">607-BANCO SANTOS NEVES S.A.</OPTION>
+              <OPTION 
+        value="702-BANCO SANTOS S. A.            ">702-BANCO SANTOS S. A.</OPTION>
+              <OPTION value="250-BANCO SCHAHIN S.A             ">250-BANCO SCHAHIN S.A</OPTION>
+              <OPTION 
+        value="211-BANCO SISTEMA S.A.            ">211-BANCO SISTEMA S.A.</OPTION>
+              <OPTION 
+        value="366-BANCO SOCIETE GENERALE BRASIL ">366-BANCO SOCIETE GENERALE BRASIL</OPTION>
+              <OPTION 
+        value="637-BANCO SOFISA S.A.             ">637-BANCO SOFISA S.A.</OPTION>
+              <OPTION 
+        value="347-BANCO SUDAMERIS DO BRASIL S.A ">347-BANCO SUDAMERIS DO BRASIL S.A</OPTION>
+              <OPTION 
+        value="205-BANCO SUL AMERICA S.A.        ">205-BANCO SUL AMERICA S.A.</OPTION>
+              <OPTION 
+        value="464-BANCO SUMITOMO MITSUI BRASILEI">464-BANCO SUMITOMO MITSUI BRASILEI</OPTION>
+              <OPTION 
+        value="657-BANCO TECNICORP S.A.          ">657-BANCO TECNICORP S.A.</OPTION>
+              <OPTION 
+        value="618-BANCO TENDENCIA S.A.          ">618-BANCO TENDENCIA S.A.</OPTION>
+              <OPTION 
+        value="737-BANCO THECA S.A.              ">737-BANCO THECA S.A.</OPTION>
+              <OPTION value="634-BANCO TRIANGULO S.A.          ">634-BANCO TRIANGULO S.A.</OPTION>
+              <OPTION 
+        value="247-BANCO UBS S.A                 ">247-BANCO UBS S.A</OPTION>
+              <OPTION value="493-BANCO UNION - BRASIL S.A      ">493-BANCO UNION - BRASIL S.A</OPTION>
+              <OPTION 
+        value="496-BANCO UNO-E BRASIL S.A        ">496-BANCO UNO-E BRASIL S.A</OPTION>
+              <OPTION 
+        value="715-BANCO VEGA S.A.               ">715-BANCO VEGA S.A.</OPTION>
+              <OPTION value="711-BANCO VETOR S.A.              ">711-BANCO VETOR S.A.</OPTION>
+              <OPTION 
+        value="655-BANCO VOTORANTIM S.A.         ">655-BANCO VOTORANTIM S.A.</OPTION>
+              <OPTION 
+        value="610-BANCO VR S.A.                 ">610-BANCO VR S.A.</OPTION>
+              <OPTION value="480-BANCO WACHOVIA S.A.           ">480-BANCO WACHOVIA S.A.</OPTION>
+              <OPTION 
+        value="370-BANCO WESTLB DO BRASIL  S.A.  ">370-BANCO WESTLB DO BRASIL S.A.</OPTION>
+              <OPTION 
+        value="219-BANCO ZOGBI S.A               ">219-BANCO ZOGBI S.A</OPTION>
+              <OPTION value="062-BANCO1.NET S.A                ">062-BANCO1.NET S.A</OPTION>
+              <OPTION 
+        value="028-BANEB-EM ABSORCAO             ">028-BANEB-EM ABSORCAO</OPTION>
+              <OPTION 
+        value="021-BANESTES S.A BANCO DO ESTADO D">021-BANESTES S.A BANCO DO ESTADO D</OPTION>
+              <OPTION 
+        value="434-BANFORT - BANCO FORTALEZA S.A.">434-BANFORT - BANCO FORTALEZA S.A.</OPTION>
+              <OPTION 
+        value="148-BANK OF AMERICA - BRASIL S.A. ">148-BANK OF AMERICA - BRASIL S.A.</OPTION>
+              <OPTION 
+        value="235-BANK OF AMERICA - LIBERAL S.A ">235-BANK OF AMERICA - LIBERAL S.A</OPTION>
+              <OPTION 
+        value="479-BANKBOSTON BANCO MULTIPLO S.A.">479-BANKBOSTON BANCO MULTIPLO S.A.</OPTION>
+              <OPTION 
+        value="744-BANKBOSTON N.A.               ">744-BANKBOSTON N.A.</OPTION>
+              <OPTION value="420-BANORTE - BANCO NACIONAL DO NO">420-BANORTE - BANCO NACIONAL DO NO</OPTION>
+              <OPTION 
+        value="073-BB BANCO POPULAR DO BRASIL    ">073-BB BANCO POPULAR DO BRASIL</OPTION>
+              <OPTION 
+        value="800-BCR BANCO DE CREDITO REAL S.A ">800-BCR BANCO DE CREDITO REAL S.A</OPTION>
+              <OPTION 
+        value="294-BCR/EM ABSORCAO               ">294-BCR/EM ABSORCAO</OPTION>
+              <OPTION value="749-BR BANCO MERCANTIL S.A.       ">749-BR BANCO MERCANTIL S.A.</OPTION>
+              <OPTION 
+        value="070-BRB - BANCO DE BRASILIA S.A.  ">070-BRB - BANCO DE BRASILIA S.A.</OPTION>
+              <OPTION 
+        value="153-CAIXA ECONOMICA ESTADUAL DO RI">153-CAIXA ECONOMICA ESTADUAL DO RI</OPTION>
+              <OPTION 
+        value="104-CAIXA ECONOMICA FEDERAL       ">104-CAIXA ECONOMICA FEDERAL</OPTION>
+              <OPTION 
+        value="498-CENTRO HISPANO BANCO          ">498-CENTRO HISPANO BANCO</OPTION>
+              <OPTION 
+        value="477-CITIBANK N.A.                 ">477-CITIBANK N.A.</OPTION>
+              <OPTION value="109-CREDIBANCO S.A.               ">109-CREDIBANCO S.A.</OPTION>
+              <OPTION 
+        value="022-CREDIREAL -EM ABSORCAO        ">022-CREDIREAL -EM ABSORCAO</OPTION>
+              <OPTION 
+        value="487-DEUTSCHE BANK S. A. - BANCO AL">487-DEUTSCHE BANK S. A. - BANCO AL</OPTION>
+              <OPTION 
+        value="751-DRESDNER BANK BRASIL S.A. BANC">751-DRESDNER BANK BRASIL S.A. BANC</OPTION>
+              <OPTION 
+        value="210-DRESDNER BANK LATEINAMERIKA AK">210-DRESDNER BANK LATEINAMERIKA AK</OPTION>
+              <OPTION 
+        value="064-GOLDMAN SACHS DO BRASIL-BANCO ">064-GOLDMAN SACHS DO BRASIL-BANCO</OPTION>
+              <OPTION 
+        value="399-HSBC BANK BRASIL S.A.-BANCO MU">399-HSBC BANK BRASIL S.A.-BANCO MU</OPTION>
+              <OPTION 
+        value="168-HSBC INVESTMENT BANK BRASIL S.">168-HSBC INVESTMENT BANK BRASIL S.</OPTION>
+              <OPTION 
+        value="750-HSBC REPUBLIC BANK BRASIL S.A-">750-HSBC REPUBLIC BANK BRASIL S.A-</OPTION>
+              <OPTION value="492-ING BANK N.V.                 ">492-ING BANK N.V.</OPTION>
+              <OPTION 
+        value="488-JPMORGAN CHASE BANK           ">488-JPMORGAN CHASE BANK</OPTION>
+              <OPTION 
+        value="065-LEMON BANK BANCO MULTIPLO S.A ">065-LEMON BANK BANCO MULTIPLO S.A</OPTION>
+              <OPTION 
+        value="472-LLOYDS TSB BANK PLC           ">472-LLOYDS TSB BANK PLC</OPTION>
+              <OPTION 
+        value="255-MILBANCO S.A.                 ">255-MILBANCO S.A.</OPTION>
+              <OPTION value="030-PARAIBAN-BANCO DA PARAIBA S.A.">030-PARAIBAN-BANCO DA PARAIBA S.A.</OPTION>
+              <OPTION 
+        value="254-PARANA BANCO S.A.             ">254-PARANA BANCO S.A.</OPTION>
+              <OPTION 
+        value="409-UNIBANCO - UNIAO DE BANCOS BRA">409-UNIBANCO - UNIAO DE BANCOS BRA</OPTION>
+              <OPTION 
+        value="230-UNICARD BANCO MULTIPLO S.A    ">230-UNICARD BANCO MULTIPLO S.A</OPTION>
+          </SELECT>
+        </TD>
+        <TD width=210><B>Ag&ecirc;ncia:</B><BR>
+            <INPUT 
+      name=frmAgencia class="campo3" value="<? echo $frmAgencia; ?>" size=6>
+        </TD>
+        <TD bgColor=#f0f0f0><B>Tipo:</B><BR>
+            <select name='frmBancoContaTipo' class="campo3">
+              <option vselected alue='<? echo $frmBancoContaTipo; ?>' ><? echo $frmBancoContaTipo; ?></option>
+              <option value='POUPANÇA' >POUPANÇA</option>
+              <option value='CORRENTE'>CORRENTE</option>
+          </select></TD>
+      </TR>
+      <TR>
+        <TD width=18 height=39>&nbsp;</TD>
+        <TD width=224><B>Cliente Desde:</B><BR>
+          <select name="frmBancoClienteDesde" class="campo3" id="frmBancoClienteDesde">
+          <option value="<? echo $frmBancoClienteDesde; ?>"><? echo $frmBancoClienteDesde; ?></option>
+          <option value="at&eacute; 3 meses">at&eacute; 3 meses</option>
+          <option value='de 3 a 6 meses' >de 3 a 6 meses</option>
+          <option value='de 6 a 12 meses' >de 6 a 12 meses</option>
+		  <option value='de 1 a 2 anos' >de 1 a 2 anos</option>
+          <option value='de 2 a 3 anos' >de 2 a 3 anos</option>
+          <option value='mais de 3 anos' >mais de 3 anos</option>
+          </select>
+        </TD>
+        <TD width=210><B>Telefone:</B><BR>
+            <INPUT 
+      name=frmBancoDDD class="campo3" value="<? echo $frmBancoDDD; ?>" size=2 maxLength=2>
+          -
+          <INPUT name=frmBancoTelefone class="campo3" value="<? echo $frmBancoTelefone; ?>" size=9 maxLength=8>
+        </TD>
+        <TD><B>Conta:</B><BR>
+          <INPUT 
+      name=frmContaCorrente class="campo3" value="<? echo $frmContaCorrente; ?>" size=12></TD>
+      </TR>
+    </TBODY>
+  </TABLE>
+  <BR>
+  <TABLE cellSpacing=0 cellPadding=0 width=100% align=center border=0>
+    <TBODY>
+      <TR>
+        <TD width=18>&nbsp;</TD>
+        <TD width=224 height=30><IMG height=20 
+      src="<? echo DIR_IMAGES; ?>/cadastro_refpess.gif" width=135></TD>
+        <TD width=210>&nbsp;</TD>
+        <TD>&nbsp;</TD>
+      </TR>
+      <TR>
+        <TD width=18 bgColor=#f0f0f0 height=39>&nbsp;</TD>
+        <TD bgColor=#f0f0f0><B>Nome Completo:</B><BR>
+            <INPUT name=frmRefParentescoNome class="campo3" id="frmRefParentescoNome" value="<? echo $frmRefParentescoNome; ?>" 
+      size=30 maxLength=50>
+        </TD>
+        <TD bgColor=#f0f0f0><b>Telefone:</b><br>
+          <input 
+      name=frmRefParentescoDDD class="campo3" id="frmRefParentescoDDD" value="<? echo $frmRefParentescoDDD; ?>" size=2 maxlength=2>
+-
+<input name=frmRefParentescoTelefone class="campo3" id="frmRefParentescoTelefone" value="<? echo $frmRefParentescoTelefone; ?>" size=9 maxlength="8"></TD>
+        <TD bgColor=#f0f0f0>&nbsp;        </TD>
+      </TR>
+    </TBODY>
+  </TABLE>
+  <br>
+  <TABLE cellSpacing=0 cellPadding=0 width=100% align=center border=0>
+    <TBODY>
+      <TR>
+        <TD width=18>&nbsp;</TD>
+        <TD width=224 height=30><IMG height=20 
+      src="<? echo DIR_IMAGES; ?>/cadastro_refcomercial.gif" width=152></TD>
+        <TD width=210>&nbsp;</TD>
+        <TD>&nbsp;</TD>
+      </TR>
+      <TR bgColor=#f0f0f0>
+        <TD width=18 height=39>&nbsp;</TD>
+        <TD><B> Nome Completo:<br>
+          </B>
+            <INPUT name=frmRefComercialNome class="campo3" id="frmRefComercialNome" value="<? echo $frmRefComercialNome; ?>" 
+      size=30 maxLength=50>
+        </TD>
+        <TD><b>Telefone:</b> <br>
+          <input 
+      name=frmRefComercialDDD class="campo3" id="frmRefComercialDDD" value="<? echo $frmRefComercialDDD; ?>" size=2 maxlength=2>
+-
+<input name=frmRefComercialTelefone class="campo3" id="frmRefComercialTelefone" value="<? echo $frmRefComercialTelefone; ?>" size=9 maxlength="8"></TD>
+        <TD bgColor=#f0f0f0><B> </B></TD>
+      </TR>
+    </TBODY>
+  </TABLE>
+  <BR>
+  <TABLE cellSpacing=0 cellPadding=0 width=100% align=center border=0>
+    <TBODY>
+      <TR>
+        <TD width=18></TD>
+        <TD height=30><IMG height=20 
+      src="<? echo DIR_IMAGES; ?>/cadastro_obs.gif" width=95></TD>
+      </TR>
+      <TR>
+        <TD width=18 bgColor=#f0f0f0></TD>
+        <TD bgColor=#f0f0f0 height=70><TEXTAREA name=frmOBS cols=74 rows=4 class="campo3"><? echo $frmOBS; ?></TEXTAREA>
+        </TD>
+      </TR>
+    </TBODY>
+  </TABLE>
+  <BR>
+  <? if ($block_dono == 1){$vAction = "Continuar";}else{$vAction = "Gravar";} ?>
+  <table width="100%"  border="0" align="center" cellpadding="3" cellspacing="0">
+    <tr>
+      <td width="33%"><a href="<? echo "$PHP_SELF?pg=$pg&pg_ped=2&codpedselect=$codpedselect"; ?>" target="_parent"><img src="<? echo DIR_IMAGES; ?>/btvoltarcarrinhoazul.gif" width="91" height="30" border="0"></a></td>
+      <td></td>
+      <td width="34%" align="right"><table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td><img name="botaolaranjao_seta" src="<? echo DIR_IMAGES; ?>/botaolaranjao_seta.gif" width="29" height="30" border="0" alt=""></td>
+          <td><table width="11" height="30" border="0" align="left" cellpadding="0" cellspacing="0">
+              <tr>
+                <td height="3" background="<? echo DIR_IMAGES; ?>/botaolaranjao_top.gif"><img name="botaolaranjao_top" src="<? echo DIR_IMAGES; ?>/botaolaranjao_top.gif" width="11" height="3" border="0" alt=""></td>
+              </tr>
+              <tr>
+                <td height="25" background="<? echo DIR_IMAGES; ?>/botaolaranjao_meio.gif"><input name="Action" type="button" class="botaolaranjao" value="<? echo $vAction; ?>" onClick="javascript:finalizaCadastro(<? echo"$block_dono" ?>);"></td>
+              </tr>
+              <tr>
+                <td height="2" background="<? echo DIR_IMAGES; ?>/botaolaranjao_down.gif"><img name="botaolaranjao_down" src="<? echo DIR_IMAGES; ?>/botaolaranjao_down.gif" width="11" height="2" border="0" alt=""></td>
+              </tr>
+          </table></td>
+          <td><img name="botaolaranjao_fim" src="<? echo DIR_IMAGES; ?>/botaolaranjao_fim.gif" width="15" height="30" border="0" alt=""></td>
+        </tr>
+      </table>
+      </td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+</FORM>
+	</td>
+  </tr>
+</table>
+</body>
+</html>

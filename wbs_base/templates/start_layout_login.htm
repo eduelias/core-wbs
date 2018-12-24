@@ -1,0 +1,212 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>WEB BUSINESS SYSTEM</title>
+<script language='javascript' src='tratardados.js'></script>
+<script language='javascript' src='tecladovirtual.js'></script>
+<link href="<? echo DIR_CSS; ?>/sistema.css" rel="stylesheet" type="text/css">
+
+<style type="text/css">
+<!--
+.login_erro_janela {
+	border: 1px solid #EA0000;
+}
+.login_erro_txt {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #EA0000;
+}
+-->
+</style>
+</head>
+
+<body>
+<SCRIPT LANGUAGE='JavaScript'>
+
+//Variavel para o teclado
+var blnErro = false
+
+function BrowserCheck() {
+	var b = navigator.appName
+	if (b=='Netscape') this.b = 'ns'
+	else if (b=='Microsoft Internet Explorer') this.b = 'ie'
+	else this.b = b
+	this.version = navigator.appVersion
+	this.v = parseInt(this.version)
+	this.ns = (this.b=='ns' && this.v>=4)
+	this.ns4 = (this.b=='ns' && this.v==4)
+	this.ns5 = (this.b=='ns' && this.v==5)
+	this.ie = (this.b=='ie' && this.v>=4)
+	this.ie4 = (this.version.indexOf('MSIE 4')>0)
+	this.ie5 = (this.version.indexOf('MSIE 5')>0)
+	this.min = (this.ns||this.ie)
+}
+
+var is = new BrowserCheck()
+
+function positionLayer(tabela)
+{
+	var areaWidth = (is.ns4 || is.ns5) ? window.innerWidth : document.body.scrollWidth;
+	areaWidth = (areaWidth - tabela) / 2;
+	if (areaWidth <  0 )areaWidth = 0;
+	return areaWidth;
+}
+
+function MostrarTeclado(intResize,blnOffLine)
+{
+TecladoVirtual(intResize,157,75,0,blnOffLine);
+	//if (blnErro) TecladoVirtual(intResize,157,75,0,blnOffLine)
+	//else TecladoVirtual(intResize,157,75,0,blnOffLine)
+}
+
+function window_onresize()
+{
+// tratamento para IE 4.0
+if (navigator.appName == 'Microsoft Internet Explorer' && navigator.appVersion.indexOf('MSIE 4')>0)
+	MostrarTeclado(positionLayer(520)+18,true);
+else
+	MostrarTeclado(positionLayer(490)+18,true);
+}
+
+function newWindow(fileName) { msgWindow=window.open(fileName);}
+function replaceURL(fileName) {newWindow(fileName); top.close();}
+
+function submeteForm(usuario, senha) {
+	// checa se a senha tem menos que 6 caracteres
+	if (usuario.value.length>0 && senha.value.length < 6)
+	{
+		alert('Sr(a). sua senha deve ter entre 6 e 8 caracteres');
+		return false;
+	}
+
+
+  	return true;
+}
+
+</SCRIPT>
+<br>
+
+<table width="480"  border="0" align="center" cellpadding="0" cellspacing="0" class="corpo">
+  <tr>
+    <td><table width="100%"  border="0" cellpadding="0" cellspacing="0" class="topo">
+        <tr bgcolor="#ECF3FA">
+          <td width="150"><img src="images/logotipowbs2_1.jpg" width="150" height="30"></td>
+          <td align="right">&nbsp;</td>
+        </tr>
+        <tr>
+          <td background="images/fundomenu.jpg"><img src="images/logotipowbs2_2.jpg" width="150" height="80"></td>
+          <td align="right" background="images/fundomenu.jpg"><img src="images/login.jpg" width="150" height="80"></td>
+        </tr>
+        <tr bgcolor="#C0D6EF">
+          <td><img src="images/logotipowbs2_3.jpg" width="150" height="30"></td>
+          <td>&nbsp;</td>
+        </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td>
+        <table width="100%"  border="0" align="center" cellpadding="0" cellspacing="3">
+		<form name='FormName' action='<? echo "$PHP_SELF"?>' method='post' onSubmit='if( submeteForm(login,  password) == false) return false;'>
+          <tr>
+            <td><table width="100%"  border="0" cellspacing="4" cellpadding="0">
+              <tr>
+                <td class="login_aviso">Entre com sua identifica&ccedil;&atilde;o: </td>
+              </tr>
+              <tr>
+                <td class="td_login"><table  border="0" cellspacing="2" cellpadding="2">
+                  <tr>
+                    <td><strong>Identifica&ccedil;&atilde;o</strong></td>
+                    <td><img src="images/spacer.gif" width="10" height="5"></td>
+                    <td>Usu&aacute;rio:</td>
+                    <td><input name="login" type="text" class="campo3" id="login" size="14" maxlength="14" OnFocus="SetarEvento(this,14);AtualizaObj(0);"></td>
+                  </tr>
+                </table></td>
+              </tr>
+              <tr>
+                <td class="td_login"><table width="100%"  border="0" cellpadding="2" cellspacing="2">
+                  <tr valign="top">
+                    <td><table width="100%"  border="0" cellpadding="0" cellspacing="0" class="td_login_senha">
+                      <tr>
+                        <td><table width="100%"  border="0" cellspacing="2" cellpadding="3">
+                          <tr>
+                            <td align="center">Informe sua senha no campo abaixo:</td>
+                          </tr>
+                          <tr>
+                            <td align="center"><strong>Senha:
+                             <!-- <input name="password" type="password" class="campo3" id="password" size="8" maxlength="8" OnFocus="SetarEvento(this,8,'ALERTLOGIN');AtualizaObj(1);">-->
+                             <input name="password" type="password" class="campo3" id="password" size="8" maxlength="8" >
+                              <input name="OK" type="submit" class="botao3" id="OK" value="ok">
+                            </strong></td>
+                          </tr>
+                          <tr>
+                            <td><input type='hidden' name='retlogin' value='1'><input type='hidden' name='inilog' value='1'><input type='hidden' name='inilogin' value='1'><input type='hidden' name='startlog' value='1'><input type='hidden' name='Action' value='list'><input type='hidden' name='desloc' value='0'><input name="agencia" type="hidden" size="0"><input name="conta" type="hidden">&nbsp;</td>
+                          </tr>
+                        </table></td>
+                      </tr>
+                    </table></td>
+                  </tr>
+                </table></td>
+              </tr>
+              <tr>
+                <td>
+	  <?
+	  if ($erro_msg <> ""){
+	  ?>
+				<br>
+				<table width="80%"  border="0" align="center" cellpadding="2" cellspacing="1" class="login_erro_janela">
+                  <tr>
+                    <td width="32" height="32"><img src="images/erro_login.gif" width="32" height="32"></td>
+                    <td class="login_erro_txt"><? echo"$erro_msg" ?></td>
+                  </tr>
+                </table>
+                  	  <?
+	  }
+	  ?>
+                  <table width="100%"  border="0" cellpadding="3" cellspacing="2" class="nomeprod2">
+                  <tr>
+                    <td align="center">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td>Para a utiliza&ccedil;&atilde;o do sistema, recomenda-se o uso dos navegadores:<br>
+                      &#8226; Mozilla FireFox (vers&atilde;o 1.0) (<a href="http://www.mozilla.org/">Download</a>) <br>
+                      &#8226; Microsoft Internet Explorer (vers&atilde;o 5.5 ou superior)</td>
+                  </tr>
+                  <tr>
+                    <td align="center">Tamb&eacute;m &eacute; recomendado que a resolu&ccedil;&atilde;o do monitor esteja ajustada em 1024x768, para a melhor visualiza&ccedil;&atilde;o. </td>
+                  </tr>
+                </table></td>
+              </tr>
+            </table></td>
+          </tr>
+ <script language='javascript'>
+	document.write('<input type=\'hidden\' name=\'BROWSER\' value=\'' + navigator.appName + '\'>');
+	document.write('<input type=\'hidden\' name=\'QN\' value=\'' + QualNavegador() + '\'>');
+	document.write('<input type=\'hidden\' name=\'VERSION\' value=\'' + navigator.appVersion + '\'>');
+</script>
+		  </form>
+        </table>
+</td>
+  </tr>
+  <tr>
+    <td><table width="100%"  border="0" cellpadding="3" cellspacing="3" class="rodape">
+      <tr>
+        <td align="center">Copyright &copy; 2002/<?php echo date(Y); ?> - 
+      Todos os direitos reservados.<br>
+      Processado em <? echo $loadpage; ?> segundos. </td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+
+<br>
+<table  border="0" align="center" cellpadding="2" cellspacing="1">
+  <tr>
+    <td><a href="http://www.php.net" target="_blank"><img src="images/bt_php.gif" width="80" height="15" border="0"></a></td>
+    <td><a href="http://www.mysql.com" target="_blank"><img src="images/bt_mysql.gif" width="80" height="15" border="0"></a></td>
+    <td><a href="http://adodb.sourceforge.net/" target="_blank"><img src="images/bt_adodb.gif" width="80" height="15" border="0"></a></td>
+  </tr>
+</table>
+<br>
+</body>
+</html>

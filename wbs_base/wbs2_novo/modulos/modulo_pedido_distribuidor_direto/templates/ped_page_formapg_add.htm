@@ -1,0 +1,627 @@
+<html>
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/sistema.css" rel="stylesheet" type="text/css">
+<script language="javascript" type="text/javascript" src="<? echo DIR_JS; ?>/consiste.js"></script>
+<script language="javascript" type="text/javascript" src="<? echo DIR_JS; ?>/cmc7.js"></script>
+
+<style type="text/css">
+
+body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	background-color: #FFFFFF;
+}
+.formpg_titulotb1 {
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #666666;
+	background-color: #e1e9ea;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+}
+.formpg_tb1 {
+	color: #000000;
+	background-color: #FFFFFF;
+	font-size: 10px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+.negrito10preto {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	color: #000000;
+}
+.cmp1 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #000000;
+	border: 1px inset #7895AF;
+}
+.divformpg1 {
+	border-bottom-width: 1px;
+	border-bottom-style: ridge;
+	border-bottom-color: #FFFFFF;
+}
+.style1 {color: #FF0000}
+</style>
+<script language='JavaScript'>
+
+var porc_dist_retira = <? echo $porc_dist_retira; ?>;
+var porc_dist_entrega = <? echo $porc_dist_entrega; ?>;
+var vpedido = <? echo $vpp; ?>;
+
+// COPIA VALORES DO CODIGO DE BARRA PARA OS CAMPOS CORRESPONDENTES
+function CopiaCodBarraCheque(form, posicao)
+{
+
+	var cpos;
+	var strValor;
+	var strBanco;
+	var strAgencia;
+	var strConta;
+	var strNum;
+	var valor;
+
+	cpos = (posicao*6) + 6;
+
+    strBanco = cpos - 5;
+    strAgencia = cpos - 4;
+    strConta = cpos - 3;
+    strNum = cpos - 2;
+	strValor = cpos - 1;
+
+	valor = form.elements[strValor].value;
+
+	if (valor != ''){
+
+	if ((valor.indexOf(':') != -1) || (valor.length != 34))
+
+	{
+				alert('O formato do Código de Barra do cheque está incorreto.');
+				eval ('form.elements[strValor].focus ()');
+
+	}else{
+
+	form.elements[strBanco].value = valor.substring (1,4);
+	form.elements[strAgencia].value = valor.substring (4,8);
+	form.elements[strConta].value = valor.substring (23,32);
+	form.elements[strNum].value = valor.substring (13,19);
+
+	form.elements[strValor].disabled=true;
+
+	}
+
+	}
+
+}
+
+function verifyzip(form1, codped)
+	{
+	document.form1.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=16&"; ?>Action=pesq_cep&codpedselect='+codped+'#entrega';
+	document.form1.target = '';
+	document.form1.submit();
+	}
+	
+function ShowCep()
+	{
+	open('http://www.correios.com.br/servicos/cep/cep_default.cfm','ShowCep','location=no,resize=no, width=730,height=400,left=18,top=18,maximized=0,scrollbars=1');
+	}
+	
+function ajustqtde(form ,element) {
+
+	if (element.value > 100){
+		return 100;
+	}else{
+		return element.value;
+	}
+	if (element.value == '' || element.value == 0){
+		return 0;
+	}
+}
+
+var liberaEnt = 0;
+
+function RetiraEnt()
+{
+	liberaEnt = 1;
+	document.getElementById("AlertFrete").innerHTML = ""; 
+}
+
+function RetiraEnt2()
+{
+	liberaEnt = 0;
+	if (vpedido < 1200){
+		document.getElementById("AlertFrete").innerHTML = "<b>ATENÇÃO:</b> Será cobrado R$ <?echo $vfrete; ?> de Frete.";   
+	}else{
+		document.getElementById("AlertFrete").innerHTML = ""; 
+	}
+}
+
+var duplaSubmissao = 0;
+
+
+function Envia(tipo)
+{
+    if (duplaSubmissao > 0)
+    {
+        alert("Por favor, aguarde. Proposta já enviada ao sistema.");
+        return false;
+    }
+
+    if (liberaEnt == 0)
+    {
+		
+		if (document.form1.cep.value == "")
+        {
+            alert("Por favor, preencha corretamente o Cep");
+            document.form1.cep.focus();
+            return false;
+        }
+        if (document.form1.enderecoentr.value == "")
+        {
+            alert("Por favor, preencha corretamente o Endereço");
+            document.form1.enderecoentr.focus();
+            return false;
+        }
+        if (document.form1.numentr.value == "")
+        {
+            alert("Por favor, preencha corretamente o Numero");
+            document.form1.numentr.focus();
+            return false;
+        }
+        if (document.form1.bairroentr.value == "")
+        {
+            alert("Por favor, preencha corretamente o Bairro");
+            document.form1.bairroentr.focus();
+            return false;
+        }
+        if (document.form1.cidadeentr.value == "")
+        {
+            alert("Por favor, preencha corretamente o Cidade");
+            document.form1.cidadeentr.focus();
+            return false;
+        }
+    }// fim retira
+		
+	var dia = document.getElementById("dentr").value; 
+	var mes = document.getElementById("mentr").value;
+	var ano = document.getElementById("aentr").value;
+	var status_prod = document.getElementById("status_prod").value;
+	var status_maxx = document.getElementById("status_maxx").value;
+	var tipo_pis = '<? echo $tipo_pis; ?>';
+		
+	var date2 = new Date(ano, mes-1, dia);
+	var now = new Date();
+	var diff = date2.getTime() - now.getTime()
+	var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+	//alert("valores:"+days+" - "+now+" - "+date2+"");
+	if (days < -1){
+		alert("DATA DE PREVISÃO DE ENTREGA inferior a DATA ATUAL");
+        document.form1.dentr.focus();
+        return false;
+	}
+	if (days < 5 && status_prod == 0){
+		//alert("Existe produtos SEM ESTOQUE no seu carrinho a DATA DE PREVISÃO deve ser maior que 7 DIAS");
+        //document.form1.dentr.focus();
+        //return false;
+	}
+    if (document.form1.dentr.value == "" || document.form1.mentr.value == "" || document.form1.aentr.value == "" )
+    {
+        alert("Por favor, informe dia, mês e ano de Previsao de Entrega");
+        document.form1.dentr.focus();
+        return false;
+    }
+	
+	  if (document.form1.modoentr.value == "RETIRA" )
+    {
+        document.form1.porc_cm.value = porc_dist_retira;   
+    }else{
+		document.form1.porc_cm.value = porc_dist_entrega;   
+	}
+	
+
+ 	
+	if (tipo_pis == "X"  )
+    {
+        alert("O PEDIDO NAO PODERÁ SER CONCLUÍDO. O cliente deste pedido precisa ser CLASSIFICADO. Entre em contato com o setor Financeiro");
+        return false;
+    }
+	
+	if (tipo_pis == "R"  )
+    {
+        alert("O PEDIDO NAO PODERÁ SER CONCLUÍDO. O cliente deste pedido NÃO É CLASSIFICADO como CONSUMIDOR FINAL. Entre em contato com o setor Financeiro");
+        return false;
+    }
+	
+	var numparc = document.getElementById("numparc").value;
+	var cmc7_verif = 1;
+	var maxx_block = 0;
+		for (var j=1; j <= numparc; j++)
+		{
+			
+			var _objfparc ="formapg_"+j+"";
+			var _objdatavenc ="datavenc_"+j+"";
+			var _objcodfin ="codfin_"+j+"";
+			var diaparc = document.getElementById(_objdatavenc).value.substring (0,2);
+			var mesparc = document.getElementById(_objdatavenc).value.substring (3,5);
+			var anoparc = document.getElementById(_objdatavenc).value.substring (6,10);
+			var date3 = new Date(anoparc, mesparc-1, diaparc);
+			var diff_parc = date3.getTime() - now.getTime()
+			var days_parc = Math.floor(diff_parc / (1000 * 60 * 60 * 24));
+				//alert("valores: "+days_parc+" - "+anoparc+" - "+mesparc+" - "+diaparc+" - "+now+" - "+date3+"");
+			
+			if (document.getElementById(_objfparc).value == ""){alert("A FORMA DE PAGAMENTO da PARCELA "+j+" deve ser preenchida corretamente.");return false; }
+			//if (document.getElementById(_objfparc).value == "02.01"){cmc7_verif = cmc7_verif * 0;}else{cmc7_verif = cmc7_verif * 1;}
+			//if (document.getElementById(_objfparc).value == "02.04" && days_parc < 20){alert("DATA DA BOLETA da PARCELA "+j+" inferior A 20 DIAS da DATA DO PEDIDO.");return false;}
+			if ((document.getElementById(_objfparc).value == "02.30" && days_parc < 30) || (document.getElementById(_objfparc).value == "02.32" && days_parc < 30) || (document.getElementById(_objfparc).value == "02.33" && days_parc < 30)){alert("DATA DO CARTÃO da PARCELA "+j+" inferior A 30 DIAS da DATA DO PEDIDO.");return false;}
+			if (document.getElementById(_objfparc).value == "02.49" || document.getElementById(_objfparc).value == "02.50" ){maxx_block = 1;}
+
+<?
+		for($k = 0; $k < count($array56); $k++ ){
+	
+				$prod->mostraProd( $array56, $array_campo56, $k);
+				$opcaixa_emp = $prod->showcampo0();
+				$loja_emp = $prod->showcampo1();
+
+?>
+
+		if (document.getElementById(_objcodfin).value == "" && document.getElementById(_objfparc).value == "<? echo $opcaixa_emp ?>"){alert("O COD DA FINANCEIRA  "+j+" deve ser preenchido corretamente.");return false; }
+		
+		
+		if (document.getElementById(_objcodfin).value != "<? echo $loja_emp ?>" && document.getElementById(_objfparc).value == "<? echo $opcaixa_emp ?>"){alert("O COD DA FINANCEIRA  "+j+" está INCORRETO.");return false; }
+		
+		
+		<?
+		}
+		?>
+		}
+		//if (cmc7_verif == 0){
+		//if(document.getElementById("Y_0").value.length <  30){alert("O Código CMC7 deve ser informado.");return(false)  ;}
+		//if(document.getElementById("Y_0").value=="000000000000000000000000000000"){alert("O Código CMC7 deve ser diferente de zeros.");return(false)  ;}
+		//}
+		
+		if (maxx_block != 1 && status_maxx > 0)
+    {
+        alert("IMPORTANTE! Você possui um COMPUTADOR PARA TODOS no seu carrinho! Esse produto so poderá ser vendido através do FINANCIAMENTO CEF para todos ou FINANCIAMENTO BCO BRASIL para todos. ");
+       
+        return false;
+    }
+				
+        if (tipo == 0)
+    {
+        document.form1.submit();
+    }
+
+    duplaSubmissao++;
+
+    return true;
+}
+
+function EndCliente()
+{
+    // Variáveis
+    var xyzcep;
+    var xyzendereco;
+    var xyznumero;
+    var xyzcompl;
+    var xyzbairro;
+    var xyzcidade;
+    var xyzestado;
+
+    // Armazena
+    xyzcep = "<? echo "$abccep"; ?>"
+    xyzendereco = "<? echo "$abcendereco"; ?>";
+    xyznumero = "<? echo "$abcnumero"; ?>";
+    xyzcompl = "<? echo "$abccomplemento"; ?>";
+    xyzbairro = "<? echo "$abcbairro"; ?>";
+    xyzcidade = "<? echo "$abccidade"; ?>";
+    xyzestado = "<? echo "$abcestado"; ?>";
+
+    if (form1.endcli.checked)
+    {
+        // Copia
+        document.getElementById("cep").value = xyzcep;
+        document.getElementById("enderecoentr").value = xyzendereco;
+        document.getElementById("numentr").value = xyznumero;
+        document.getElementById("complementoentr").value = xyzcompl;
+        document.getElementById("bairroentr").value = xyzbairro;
+        document.getElementById("cidadeentr").value = xyzcidade;
+        document.getElementById("estadoentr").value = xyzestado;
+    } else {
+        document.getElementById("cep").value = "";
+        document.getElementById("enderecoentr").value = "";
+        document.getElementById("numentr").value = "";
+        document.getElementById("complementoentr").value = "";
+        document.getElementById("bairroentr").value = "";
+        document.getElementById("cidadeentr").value = "";
+        document.getElementById("estadoentr").value = "";
+    }
+}
+
+function VerAgenda1()
+{
+	window.open('<? echo "http://" . $_SERVER['HTTP_HOST']. dirname($_SERVER['PHP_SELF']). $bar. "/restrito.php?pg=$pg&pg_ped=24"; ?>','popup_view','width=600, height=620, scrollbars=yes, resizable=no');
+}
+
+
+
+
+</script>
+
+</head>
+
+<body>
+<span id="campo">&nbsp;</span>
+<form method="post" name= "form1" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=16&Action=grava&Action_alter=$Action_alter&codpedselect=$codpedselect"; ?>">
+<table width="750"  border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><table width="100%"  border="0" cellspacing="2" cellpadding="5">
+     
+       <tr>
+        <td ><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td background="<? echo DIR_IMAGES; ?>/formpg_ind_fundo_on.gif"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_1_on.gif" width="112" height="50"></td>
+    <td background="<? echo DIR_IMAGES; ?>/formpg_ind_fundo_on.gif"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_2_on.gif" width="123" height="50"></td>
+    <td background="<? echo DIR_IMAGES; ?>/formpg_ind_fundo_on.gif"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_3_on.gif" width="140" height="50"></td>
+    <td background="<? echo DIR_IMAGES; ?>/formpg_ind_fundo_on.gif"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_4_on.gif"></td>
+    <td background="<? echo DIR_IMAGES; ?>/formpg_ind_fundo_off.gif"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_5_off.gif" width="134" height="50"></td>
+  </tr>
+  <tr>
+    <td colspan="5"><table width="100%"  border="0" cellspacing="2" cellpadding="3">
+        <tr>
+          <td width="165"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_comprar_mais.gif" width="165" height="16"></td>
+          <td width="115"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=2&Action=$Action&Action_alter=$Action_alter&codpedselect=$codpedselect"; ?>"><img src="<? echo DIR_IMAGES; ?>/formpg_ind_alterar_pedido_laranja.gif" width="115" height="16" border = "0"></a></td>
+          <td>&nbsp;</td>
+        </tr>
+    </table></td>
+  </tr>
+</table></td>
+      </tr>
+	   <tr>
+        <td><table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr>
+            <td><img src="<? echo DIR_IMAGES; ?>/formadepagamento.gif"></td>
+          </tr>
+          <tr>
+            <td background="<? echo DIR_IMAGES; ?>/spacer.gif" bgcolor="#CEDBDE"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+          </tr>
+        </table></td>
+      </tr>
+	  <tr>
+        <td>
+
+<table width="100%"  border="0" cellpadding="3" cellspacing="1">
+
+  <tr class="formpg_titulotb1">
+  	<td align="center">&nbsp;</td>
+    <td>Data Vencimento </td>
+    <td>Valor</td>
+    <td colspan="2">Forma de Pagamento </td>
+    <td align="center"></td>
+    <td align="center"></td>
+    <td align="center"></td>
+    <td align="center"></td>
+  </tr>
+<?
+$nump = count($arrayx);
+for($op = 1; $op <= count($arrayx); $op++ ){
+
+
+
+?>
+<input name="<? echo"codparc[$op]"; ?>" type="hidden" value ="<? echo"$codparc[$op]"; ?>" class="campoquant1">
+<input name = "<? echo"datavenc_$op"; ?>" type="hidden" value ="<? echo"$datavencf[$op]"; ?>"  id = "<? echo"datavenc_$op"; ?>"class="campoquant1">
+  <tr class="formpg_tb1">
+    <td rowspan="2"><strong><? echo"$op"; ?></strong></td>
+    <td><? echo"$datavencf[$op]"; ?></td>
+    <td class="titulos_itens">R$ <? echo"$vpf[$op]"; ?></td>
+    <td colspan="2"><select name="<? echo"formapg[$op]"; ?>" class="campoquant1" id = <? echo"formapg_$op"; ?> >
+          
+            <option value="<? echo"$tipoparc[$op]"; ?>"><? echo"$descricao_parc[$op]"; ?></option>
+                    
+	   
+                    </select></td>
+    <td><input name='<? echo"banco[$op]"; ?>' type='hidden' class="cmp1" value="<? echo"$banco[$op]"; ?>" size='3' maxlength='3'></td>
+    <td><input name='<? echo"agencia[$op]"; ?>' type='hidden' class="cmp1" value="<? echo"$agencia[$op]"; ?>" size='4' maxlength='4'></td>
+    <td><input name='<? echo"conta[$op]"; ?>' type='hidden' class="cmp1" value="<? echo"$conta[$op]"; ?>" size='6' maxlength='10'></td>
+    <td><input name='<? echo"numch[$op]"; ?>' type='hidden' class="cmp1" value="<? echo"$numch[$op]"; ?>" size='6' maxlength='6'></td>
+  </tr>
+  <tr class="formpg_tb1">
+    <td>&nbsp;</td>
+    <td align="right"><span class="formpg_titulotb1">COD FINANCEIRA:</span></td>
+    <td align="left" class="negrito10preto"><input name='<? echo"codfin[$op]"; ?>' type='text' class="cmp1"  id = <? echo"codfin_$op"; ?> size='10'><a href="javascript:void(0);" onClick="VerAgenda1();"><img src="<? echo DIR_IMAGES; ?>/help.gif" border = "0"></a></td>
+    <td align="right" class="negrito10preto"></td>
+    <td colspan="4"><input name='T1' type='hidden' class="cmp1" onChange='CopiaCodBarraCheque(this.form, 0);' size='30'></td>
+    </tr>
+  <tr class="formpg_tb1">
+    <td colspan="9" class="divformpg1"><img src="spacer.gif" width="1" height="1"></td>
+  </tr>
+<?
+}//FOR
+?>
+<input name="nump" type="hidden" value ="<? echo "$nump"; ?>" class="campoquant1" id ="numparc">
+<input name="valortotal" type="hidden" value ="<? echo"$valortotal"; ?>" class="campoquant1">
+<input name="valortabela_real" type="hidden" value ="<? echo"$valortabela_real"; ?>" class="campoquant1">
+<input name="status_prod" id = "status_prod" type="hidden" value ="<? echo"$status_prod"; ?>" class="campoquant1">
+<input name="status_maxx" id = "status_maxx" type="hidden" value ="<? echo"$count_prod_todos"; ?>" class="campoquant1">
+</table><br>
+<center>
+</center>
+
+<br>
+<table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><a name="entrega"></a><img src="<? echo DIR_IMAGES; ?>/dadosentrega.gif"></td>
+  </tr>
+  <tr>
+    <td background="<? echo DIR_IMAGES; ?>/spacer.gif" bgcolor="#CEDBDE"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+  </tr>
+</table>
+<table width="100%"  border="0" cellspacing="2" cellpadding="5">
+   <tr>
+     <td><table width="100%"  border="0" cellspacing="2" cellpadding="2">
+       <tr>
+         <td width="40%" align="right"><span class="titulos_itens">VALOR &Agrave; VISTA:</span> </td>
+         <td class="titulos_itens">R$ <? echo"$vpvf"; ?></td>
+       </tr>
+       <tr>
+         <td align="right"><span class="titulos_itens">TOTAL:</span></td>
+         <td class="valortotal">R$ <? echo"$vppf"; ?></td>
+       </tr>
+         <? if ($tipo_supervisor == "S"){?>
+       <tr>
+         <td align="right"><span class="titulos_itens">MLB: </span></td>
+         <td><span class="nomeprod2">R$ <? echo"$mlb_revf"; ?></span></td>
+       </tr>
+       <tr>
+         <td align="right"><span class="titulos_itens">MCV:</span></td>
+         <td><span class="nomeprod2"><? echo"$mcvf"; ?> % </span></td>
+       </tr>
+        <?}?>
+       <tr>
+         <td align="right">&nbsp;</td>
+         <td>&nbsp;</td>
+       </tr>
+       <tr>
+         <td align="right">&nbsp;</td>
+         <td>&nbsp;</td>
+       </tr>
+       <tr>
+         <td width="40%" align="right">&nbsp;</td>
+         <td><? echo"$abccep"; ?>
+             <input name="cep" type="hidden" class="cmp1" id="cep" size="9" maxlength="8" value ="<? echo"$abccep"; ?>" disabled>
+             <br></td>
+       </tr>
+       <tr>
+         <td width="40%" align="right" valign="top"><img src="<? echo DIR_IMAGES; ?>/cadastro_requerido.gif" width="13" height="11">Endere&ccedil;o:</td>
+         <td><?=$abcendereco?>
+             <input name="enderecoentr" type="hidden" class="cmp1" id="enderecoentr" value = "<?=$abcendereco?>" size="30"  >
+             <img src="<? echo DIR_IMAGES; ?>/cadastro_requerido.gif" width="13" height="11">N&uacute;mero:
+           <?=$abcnumero?>
+           <input name="numentr" type="hidden" class="cmp1" id="numentr" value="<?=$abcnumero?>" size="5" maxlength="10" >
+           <strong><br>
+           </strong></td>
+       </tr>
+       <tr>
+         <td width="40%" align="right">Complemento:</td>
+         <td><?=$abccomplemento?>
+           <input name="complementoentr" type="hidden" class="cmp1" id="complementoentr" value="<?=$abccomplemento?>" size="30" ></td>
+       </tr>
+       <tr>
+         <td width="40%" align="right"><img src="<? echo DIR_IMAGES; ?>/cadastro_requerido.gif" width="13" height="11">Bairro:</td>
+         <td><?=$abcbairro?>
+             <input name="bairroentr" id="bairroentr" type="hidden" class="cmp1"  value ="<?=$abcbairro?>" ></td>
+       </tr>
+       <tr>
+         <td width="40%" align="right"><img src="<? echo DIR_IMAGES; ?>/cadastro_requerido.gif" width="13" height="11">Cidade:</td>
+         <td><?=$abccidade?>
+             <input name="cidadeentr" type="hidden" class="cmp1"  value ="<?=$abccidade?>" id="cidadeentr" ></td>
+       </tr>
+       <tr>
+         <td width="40%" align="right"><img src="<? echo DIR_IMAGES; ?>/cadastro_requerido.gif" width="13" height="11">Estado:</td>
+         <td><?=$abcestado?>
+             <input name="estadoentr" type="hidden" class="cmp1"  value ="<?=$abcestado?>" id="estadoentr" >         </td>
+       </tr>
+       <tr>
+         <td width="40%" align="right">Ref. Entrega: </td>
+         <td><input name="refentr" type="text" class="cmp1" id="refentr" value="<? echo "$refentr"; ?>" size="50">
+             <br></td>
+       </tr>
+       <tr>
+         <td width="40%" height="22" align="right"><img src="<? echo DIR_IMAGES; ?>/cadastro_requerido.gif" width="13" height="11">Previs&atilde;o de Entrega: </td>
+         <td><input name="dentr" type="text" class="cmp1" id="dentr" value="<? echo"$dentr"; ?>" size="2" maxlength="2">
+           /
+           <input name="mentr" type="text" class="cmp1" id="mentr" value="<? echo"$mentr"; ?>" size="2" maxlength="2">
+           /
+           <input name="aentr" type="text" class="cmp1" id="aentr" value="<? echo"$aentr"; ?>" size="4" maxlength="4">
+           &nbsp;&nbsp;
+           <input name="hprevm" type="checkbox" id="hprevm" value="MANHA">
+           MANH&Atilde;
+           <input name="hprevt" type="checkbox" id="hprevt" value="TARDE">
+           TARDE</td>
+       </tr>
+       <tr bgcolor="#FFCC99">
+         <td align="right"><img src="<? echo DIR_IMAGES; ?>/cadastro_requerido.gif" width="13" height="11">Modo Entrega </td>
+         <td><input name="modoentr" type="radio" value="RETIRA" checked onClick="RetiraEnt();">
+           RETIRA
+           <input name="modoentr" type="radio" value="ENTREGA"  onClick="RetiraEnt2();">
+           ENTREGA (TRANSPORTADORA)
+           <? if ($tipovend <> "R"){ ?>
+           <input name="modoentr" type="radio" value="MOTOBOY" onClick="RetiraEnt2();">
+           MOTOBOY
+           <? }?></td>
+       </tr>
+       <tr>
+         <td align="right">Obs.: Entrega</td>
+         <td><div id = "AlertFrete" style="color:#FF0000"></div><textarea name="obsentr" cols="50" rows="2" class="cmp1" id="obsentr"><? echo"$obsentr"; ?></textarea></td>
+       </tr>
+       <!--
+	   <? if ($count_soft == 0 and $num_cj > 0){ ?> 
+       <tr>
+         <td align="right"><img src="<? echo DIR_IMAGES; ?>/cadastro_requerido.gif" width="13" height="11"><span class="style1"><strong>Sistema Operacional:</strong></span></td>
+         <td><span class="style1">
+           <input name="modoinstall" type="radio" value="DD" id ="modoinstall">
+           Nenhum sistema operacional instalado. Acompanha m&iacute;dia (CD) contendo o Sistema operacional GNU com kernel LINUX e OpenOffice distribu&iacute;do por OpenOffice.org Organization (softwares livres), programas cuja distribui&ccedil;&atilde;o &eacute; gratuita, para ser instalado pelo pr&oacute;prio Contratante, visando avaliar o funcionamento b&aacute;sico do equipamento; </span></td>
+       </tr>
+       <tr>
+         <td align="right">&nbsp;</td>
+         <td><span class="style1">
+           <input name="modoinstall" type="radio" value="NO" id ="modoinstall" checked>
+           Windows e outros aplicativos, instalados atrav&eacute;s de Backup (c&oacute;pia) de m&iacute;dias (cd&rsquo;s), fornecidas pelo Contratante que se responsabiliza pela oficialidade e pela instala&ccedil;&atilde;o das mesmas. </span></td>
+       </tr>
+	   	   <? }else{ ?>
+		   
+		   <input name="modoinstall" type="hidden" value="DD">
+		   
+		   <? } ?>
+		 -->
+     </table></td>
+   </tr>
+ </table> 
+<br>
+<? if ($tipovend == "R"){ ?>
+
+        	 <input name="codvend_cm_select" type="hidden" class="cmp1" id="codvend_cm_select" value="<? echo $codvend_dist;?>" >
+             <input name="porc_cm" type="hidden" class="cmp1" id="porc_cm" value="0" size="3" maxlength="6">
+             <input name="vfrete" type="hidden" class="cmp1" id="vfrete" value="<? echo $vfrete; ?>" >
+             
+<? }?>
+<p>&nbsp;</p>
+ <table width="100%"  border="0" align="center" cellpadding="3" cellspacing="0">
+  <tr>
+    <td width="33%"><a href="<? echo "$PHP_SELF?pg=$pg&pg_ped=2&codpedselect=$codpedselect"; ?>" target="_parent"><img src="<? echo DIR_IMAGES; ?>/btvoltarcarrinhomeiocinza.gif" width="91" height="30" border="0"></a></td>
+    <td>&nbsp;</td>
+    <td width="34%" align="right"><table border="0" cellpadding="0" cellspacing="0">
+      <!-- fwtable fwsrc="botaolaranjao.png" fwbase="botaolaranjao.gif" fwstyle="Dreamweaver" fwdocid = "1370560583" fwnested="1" -->
+      <tr>
+        <td><img name="botaolaranjao_seta" src="<? echo DIR_IMAGES; ?>/botaolaranjao_seta.gif" width="29" height="30" border="0" alt=""></td>
+        <td><table width="11" height="30" border="0" align="left" cellpadding="0" cellspacing="0">
+            <tr>
+              <td height="3" background="<? echo DIR_IMAGES; ?>/botaolaranjao_top.gif"><img name="botaolaranjao_top" src="<? echo DIR_IMAGES; ?>/botaolaranjao_top.gif" width="11" height="3" border="0" alt=""></td>
+            </tr>
+            <tr>
+              <td height="25" background="<? echo DIR_IMAGES; ?>/botaolaranjao_meio.gif"><input name="Action" type="button" class="botaolaranjao" value="Continuar" onClick="javascript:Envia(0);"></td>
+            </tr>
+            <tr>
+              <td height="2" background="<? echo DIR_IMAGES; ?>/botaolaranjao_down.gif"><img name="botaolaranjao_down" src="<? echo DIR_IMAGES; ?>/botaolaranjao_down.gif" width="11" height="2" border="0" alt=""></td>
+            </tr>
+        </table></td>
+        <td><img name="botaolaranjao_fim" src="<? echo DIR_IMAGES; ?>/botaolaranjao_fim.gif" width="15" height="30" border="0" alt=""></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+   </td>
+  </tr>
+ 
+</table>
+
+
+</form>
+<br>
+<p>&nbsp;</p>
+</body>
+</html>
+

@@ -1,0 +1,88 @@
+ 
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../../../css/saci.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/saci.css" rel="stylesheet" type="text/css">
+
+<title></title>
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+.style5 {font-size: 10px; font-weight: bold; }
+-->
+</style>
+ 
+</head>
+
+<body>
+<table width="100%" border="0">
+  <tr>
+    <td class="limite" >&nbsp;</td>
+    <td class="limite" ><span class="style5">PR&Oacute;PRIO</span></td>
+    <td class="limite" ><span class="style5">AVALISTA</span></td>
+    <td class="limite" ><span class="style5">TOTAL</span></td>
+  </tr>
+  <tr>
+    <td class="limite" >&nbsp;</td>
+    <td class="limite" >&nbsp;</td>
+    <td class="limite" >&nbsp;</td>
+    <td class="limite" >&nbsp;</td>
+  </tr>
+  <tr bgcolor="#66CC66">
+    <td width="60%" class="limite" ><strong>TOTAL COMPRADO: </strong></td>
+    <td class="limite" >R$
+      <?  echo $db->fvalor($valorcar_total); ?>    </td>
+    <td class="limite" >R$
+      <?  echo $db->fvalor($valoracar_total); ?>    </td>
+    <td class="limite" ><strong>R$
+      <?  echo $db->fvalor($valorcar_total + $valoracar_total); ?>
+    </strong></td>
+  </tr>
+  <tr bgcolor="#66CC66">
+    <td width="60%" class="limite" ><strong>TOTAL PAGO: </strong></td>
+    <td class="limite" >R$ <? echo $db->fvalor($valorcar_pg); ?></td>
+    <td class="limite" >R$ <? echo $db->fvalor($valoracar_pg); ?></td>
+    <td class="limite" ><strong>R$ <? echo $db->fvalor($valorcar_pg + $valoracar_pg); ?></strong></td>
+  </tr>
+  <tr>
+    <td width="60%" class="limite_atraso" ><strong>TOTAL EM ATRASO:</strong></td>
+    <td class="limite_atraso" >R$ <? echo $db->fvalor($valorcar_dv); ?></td>
+    <td class="limite_atraso" >R$ <? echo $db->fvalor($valoracar_dv); ?></td>
+    <td class="limite_atraso" ><strong>R$ <? echo $db->fvalor($valorcar_dv + $valoracar_dv); ?></strong></td>
+  </tr>
+  <tr>
+    <td width="60%" class="limite_av" ><strong>TOTAL A VENCER:</strong></td>
+    <td class="limite_av" >R$ <? echo $db->fvalor($valorcar_av); ?></td>
+    <td class="limite_av" >R$ <? echo $db->fvalor($valoracar_av); ?></td>
+    <td class="limite_av" ><strong>R$ <? echo $db->fvalor($valorcar_av + $valoracar_av); ?></strong></td>
+  </tr>
+  <tr>
+    <td class="limite_atraso" ><strong>TOTAL EM ATRASO ACORDO:</strong></td>
+    <td class="limite_atraso" >R$ <? echo $db->fvalor($valorcar_dv_acor); ?></td>
+    <td class="limite_atraso" >&nbsp;</td>
+    <td class="limite_atraso" ><strong>R$ <? echo $db->fvalor($valorcar_dv_acor); ?></strong></td>
+  </tr>
+  <tr>
+    <td class="limite_av" ><strong>TOTAL A VENCER ACORDO:</strong></td>
+    <td class="limite_av" >R$ <? echo $db->fvalor($valorcar_av_acor); ?></td>
+    <td class="limite_av" >&nbsp;</td>
+    <td class="limite_av" ><strong>R$ <? echo $db->fvalor($valorcar_av_acor); ?></strong></td>
+  </tr>
+  <tr bgcolor="#FFCC66">
+    <td class="limite"><strong>TOTAL A RECEBER:</strong></td>
+    <td class="limite">R$ <strong><? echo $db->fvalor($valorcar_dv + $valorcar_av + $valorcar_dv_acor + $valorcar_av_acor); ?></strong></td>
+    <td class="limite">R$ <? echo $db->fvalor($valoracar_dv + $valoracar_av); ?></td>
+    <td class="limite"><strong>R$ <? echo $db->fvalor($valorcar_dv + $valorcar_av + $valorcar_dv_acor + $valorcar_av_acor + $valoracar_dv + $valoracar_av); ?></strong></td>
+  </tr>
+</table>
+<p>
+
+</body>
+</html>

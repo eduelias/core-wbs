@@ -1,0 +1,143 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<script language="javascript" src="<? echo DIR_JS; ?>/funcoes01.js"></script>
+</head>
+
+<body>
+<?
+$db->titulador(MOD_COR, MOD_TITULO, $bg_cor, $bg_cor_light);
+?>
+<br>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Adicionar</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+      <form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&Action=Adicionar"; ?>" name="adicionar" method="post">
+        <tr>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Marca</td>
+          <td class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="70%" align="center" class="generalGreyBorderBottomTableHeaderCell"><input name="pg" type="hidden" id="pg" value="<? echo $pg; ?>">
+              <input name="pg_ped" type="hidden" id="pg_ped" value="<? echo $pg_ped; ?>"></td>
+        </tr>
+        <tr>
+          <td class="noramlTableCell"><input name="marca_insert" type="text" class="campo_linha" id="marca_insert" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"' size="50"></td>
+          <td class="noramlTableCell"><input type="submit" name="Submit" value="OK" class="botao_cor"></td>
+          <td align="center" class="noramlTableCell">&nbsp;</td>
+        </tr>
+      </form>
+    </table></td>
+  </tr>
+</table>
+</fieldset>
+<br>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Pesquisa</legend>
+<table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+  <form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=1&Action=Pesquisar"; ?>" name="pesquisa" method="post">
+    <tr>
+      <td align="center" class="generalGreyBorderBottomTableHeaderCell">Cod</td>
+      <td align="center" class="generalGreyBorderBottomTableHeaderCell">Marca</td>
+      <td align="center" class="generalGreyBorderBottomTableHeaderCell">Hist&oacute;rico</td>
+      <td class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+      <td width="70%" align="center" class="generalGreyBorderBottomTableHeaderCell"><input name="pg" type="hidden" id="pg" value="<? echo $pg; ?>">
+          <input name="pg_ped" type="hidden" id="pg_ped" value="<? echo $pg_ped; ?>"></td>
+    </tr>
+    <tr>
+      <td class="noramlTableCell"><input name="codmarcapesq" type="text" class="campo_linha" id="codmarcapesq" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"' size="10"></td>
+      <td class="noramlTableCell"><input name="marcapesq" type="text" class="campo_linha" id="marcapesq" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"' size="30"></td>
+      <td class="noramlTableCell"><table border="0" cellspacing="1" cellpadding="1">
+        <tr>
+          <td><input name="histpesq" type="radio" value="S"></td>
+          <td><strong>SIM</strong></td>
+          <td><input name="histpesq" type="radio" value="N" checked></td>
+          <td><strong>N&Atilde;O</strong></td>
+        </tr>
+      </table></td>
+      <td class="noramlTableCell"><input type="submit" name="Submit2" value="Pesquisar" class="botao_cor"></td>
+      <td align="center" class="noramlTableCell">&nbsp;</td>
+    </tr>
+  </form>
+</table>
+</fieldset>
+<br>
+<fieldset class="campo_fieldset">
+<legend class="campo_fieldset_legend">Lista</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <form name="lista" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=1"; ?>" method="post">
+    <tr>
+      <td><table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+        <tr>
+          <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell">Cod</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Marca</td>
+          <td width="10%" align="center" class="generalGreyBorderBottomTableHeaderCell">Hist</td>
+          </tr>
+        <?
+if ($rs_lista)
+{
+	$ix = 0;
+	while (!$rs_lista->EOF)
+	{
+?>
+        <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+          <td align="center" class="noramlTableCell"><input name="rows_codmarca[<? echo $ix; ?>]" type="checkbox" id="id_rows_codmarca<? echo $ix; ?>" value="<? echo $rs_lista->fields['codmarca']; ?>"></td>
+          <td align="center" class="noramlTableCell"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=2&Action=Editar&codmarca_select="; ?><? echo $rs_lista->fields['codmarca']; ?>"><img src="<? echo DIR_IMAGES; ?>/botoes/page_edit.png" border="0" title="Editar" alt="Editar"></a></td>
+          <td align="center" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;"><? echo $rs_lista->fields['codmarca']; ?></td>
+          <td class="noramlTableCell"><? echo $db->format_str("UP", $rs_lista->fields['marca']); ?></td>
+          <td align="center" class="noramlTableCell"><strong><? echo $rs_lista->fields['hist']; ?></strong></td>
+          </tr>
+        <?
+	 	$ix++;
+		$rs_lista->MoveNext();
+	}//WHILE
+}
+?>
+      </table>
+      <hr size="1" noshade>
+      <table border="0" cellspacing="2" cellpadding="2" class="generalTable defaultBlackText">
+        <tr>
+          <td><img src="<? echo DIR_IMAGES; ?>/arrow_ltr.png" border="0"></td>
+		  <td>&nbsp;</td>
+          <td class="noramlTableCell" style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'><a href="javascript:void(0);" class="link5" onClick="setCheckboxesRange('lista', true, 'id_rows_codmarca', 0, '10'); return false;">Marcar Todos</a></td>
+          <td class="noramlTableCell" style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'><a href="javascript:void(0);" class="link5" onClick="setCheckboxesRange('lista', false, 'id_rows_codmarca', 0, '10'); return false;">Desmarcar Todos</a></td>
+          <td>&nbsp;</td>
+          <td><table width="100%" border="0" cellspacing="0" cellpadding="1">
+            <tr>
+              <td><strong>Com Marcados:</strong> </td>
+            </tr>
+            <tr>
+              <td><select name="Action" class="campo_select" id="Action" onFocus='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onBlur='this.style.backgroundColor="#FFFFFF"'>
+                <option value="" selected="selected">Selecione...</option>
+                <option value="Hist">Histórico</option>
+                            </select></td>
+            </tr>
+          </table></td>
+          <td><input name="Submit" type="submit" class="botao_cor" id="Submit" value="OK" onClick="return confirm('Confirma esta ação?')"></td>
+          <td><input name="numRows" type="hidden" id="numRows" value="<? echo $numRows; ?>">
+            <input type="hidden" name="pg" value="<? echo $pg; ?>">
+            <input type="hidden" name="pg_ped" value="<? echo $pg_ped; ?>"></td>
+        </tr>
+      </table>
+          <?
+if ($total_reg <> 0)
+{
+	echo "<hr size='1' noshade>";
+	$html_pg = $paginator->Construir_Links("todos", "sim");
+	$qtd_paginas = $paginator->qtd_paginas;
+	for ($i = 0; $i < $qtd_paginas; $i++)
+	{
+		echo $html_pg[$i];
+	}
+}
+?></td>
+    </tr>
+  </form>
+</table>
+</body>
+</html>

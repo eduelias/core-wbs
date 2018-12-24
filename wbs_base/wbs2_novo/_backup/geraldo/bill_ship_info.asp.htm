@@ -1,0 +1,905 @@
+
+
+<!-- Function Error_By_Num(vNum) -->
+
+
+<!-- Function err_output(e_List) -->
+
+
+<html>
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta HTTP-EQUIV="Expires" CONTENT="-1">
+<title>Submarino</title>
+</head>
+
+<body onload="bloqueia();">
+
+<script language="JavaScript">
+<!--
+function verifyzip()
+	{
+	document.frm2.action = "xt_bill_ship_info_upd.asp"
+	document.frm2.hiddenZipCode.value = ""
+	document.frm2.submit();
+	}
+
+function ShowCep()
+	{
+	open('http://www.correios.com.br/servicos/cep/cep_default.cfm','ShowCep','location=no,resize=no, width=730,height=400,left=18,top=18,maximized=0,scrollbars=1');
+	}
+
+function select_drop(sel_name, abbr_name)
+	{
+	if(abbr_name!=''){
+		if(sel_name.length > 0){
+			var maxIndex = sel_name.length;
+				for(var i=0; i<maxIndex; i++){
+					if(abbr_name== sel_name.options[i].value){
+						sel_name.selectedIndex = i;
+						break;
+					}
+				}
+			}
+		}
+	return true;    
+	}
+
+
+function bloqueia()
+	{
+	if (document.frm2.flagPfPj[0].checked==true)
+		{
+		//Dados Pessoa Física
+		document.all.b_Fname.style.background="white";
+		document.frm2.b_Fname.disabled=false;
+
+		document.all.b_Lname.style.background="white";
+		document.frm2.b_Lname.disabled=false;
+
+		document.all.cpf_cnpj[0].style.background="white";
+		document.frm2.cpf_cnpj[0].disabled=false;
+
+		document.all.rg_ie[0].style.background="white";
+		document.frm2.rg_ie[0].disabled=false;
+
+		document.all.dd.style.background="white";
+		document.frm2.dd.disabled=false;
+
+		document.all.mm.style.background="white";
+		document.frm2.mm.disabled=false;
+
+		document.all.yyyy.style.background="white";
+		document.frm2.yyyy.disabled=false;
+
+		document.all.gender.style.background="white";
+		document.frm2.gender.disabled=false;
+
+		//Dados Pessoa Jurídica
+		document.all.b_Razao.style.background="silver";
+		document.frm2.b_Razao.disabled=true;
+
+		document.all.b_contact.style.background="silver";
+		document.frm2.b_contact.disabled=true;
+
+		document.all.cpf_cnpj[1].style.background="silver";
+		document.frm2.cpf_cnpj[1].disabled=true;
+
+		document.all.rg_ie[1].style.background="silver";
+		document.frm2.rg_ie[1].disabled=true;
+
+		document.all.b_ie_isento.style.background="silver";
+		document.frm2.b_ie_isento.disabled=true;
+		}
+	else
+		{
+		//Dados Pessoa Jurídica
+		document.all.b_Fname.style.background="silver";
+		document.frm2.b_Fname.disabled=true;
+
+		document.all.b_Lname.style.background="silver";
+		document.frm2.b_Lname.disabled=true;
+
+		document.all.cpf_cnpj[0].style.background="silver";
+		document.frm2.cpf_cnpj[0].disabled=true;
+
+		document.all.rg_ie[0].style.background="silver";
+		document.frm2.rg_ie[0].disabled=true;
+
+		document.all.dd.style.background="silver";
+		document.frm2.dd.disabled=true;
+
+		document.all.mm.style.background="silver";
+		document.frm2.mm.disabled=true;
+
+		document.all.yyyy.style.background="silver";
+		document.frm2.yyyy.disabled=true;
+
+		document.all.gender.style.background="silver";
+		document.frm2.gender.disabled=true;
+
+		//Dados Pessoa Jurídica
+		document.all.b_Razao.style.background="white";
+		document.frm2.b_Razao.disabled=false;
+
+		document.all.b_contact.style.background="white";
+		document.frm2.b_contact.disabled=false;
+
+		document.all.cpf_cnpj[1].style.background="white";
+		document.frm2.cpf_cnpj[1].disabled=false;
+
+		document.all.rg_ie[1].style.background="white";
+		document.frm2.rg_ie[1].disabled=false;
+
+		document.all.b_ie_isento.style.background="f7f7f7";
+		document.frm2.b_ie_isento.disabled=false;
+
+		isento(); //Verifica se o flag de isento está clicado
+		}
+
+	
+	}
+
+function isento()
+	{
+	if (document.frm2.b_ie_isento.checked==true)
+		{
+		document.all.rg_ie[1].style.background="silver";
+		document.frm2.rg_ie[1].disabled=true;
+		}
+	else
+		{
+		document.all.rg_ie[1].style.background="white";
+		document.frm2.rg_ie[1].disabled=false;
+		}
+	}
+	
+function fone()
+	{
+	if (document.frm2.b_country.value=='BR')
+		{		
+		document.all.b_country_code.style.background="silver";
+		document.frm2.b_country_code.disabled=true;
+		document.all.b_country_code2.style.background="silver";
+		document.frm2.b_country_code2.disabled=true;
+		}
+	else
+		{
+		document.all.b_country_code.style.background="white";
+		document.frm2.b_country_code.disabled=false;
+		document.all.b_country_code2.style.background="white";
+		document.frm2.b_country_code2.disabled=false;
+		}
+	}
+
+//-->
+</script>
+<style type="text/css">
+	A:link { TEXT-DECORATION: none;}
+A:visited { TEXT-DECORATION: none;}
+A:hover { TEXT-DECORATION: underline; color: red}
+.name, .name1, .textdate, .search, .leftnavtext, .nav, .h, .b, .promobig, .bluetitle, .l, .hat, .bullet, .textbluenew {font-family: verdana, Geneva, Arial, Helvetica, sans-serif;}
+.text, .entrega, .entregapq, .textprice, .textwhite, .textb, .textbigger, .siteguide, .headerblue10bold, .blueheaders, .headerred9, .parcela, .whiteheaders, .topheader2, .headerwhite10, .headerwhite12, .headerred10bold, .textsaldao, .b1, .header, .textsearch, .headerred12bold, .prodnome, .titulo {font-family: arial, Helvetica, sans-serif;}
+.text, .entregapq, .entrega {font-size: 11px; color: #000000}
+.siteguide, .textprice {font-size: 12px; color: #000000}
+.textwhite {font-size: 11px; color: #FFFFFF}
+.textb {font-size: 11px; color: #000000; font-weight: bold;}
+.name, .name1 {font-size: 9px; color: #666666;}
+.textdate {font-size: 9px; color: #FFFFFF;}
+.search {font-size: 12px; font-weight: bold; color: #FFFFFF; letter-spacing: -1px;}
+.price {color: #0072C6; text-decoration: none; font-weight:bold}
+.priceblue {color: #0072C6; text-decoration: none;}
+.leftnavtext, .nav, .h, .promobig, .l {color: #000000; font-size: 11px; letter-spacing: -1px}
+.h, .hat {font-size: 10px; color: #0046bb; font-weight: bold; letter-spacing: -1px}
+.b, .bullet {font-size: 10px; color: black; letter-spacing: -1px}
+.bluetitle {font-size: 13px; color: #003399; letter-spacing: -1px; font-weight: bold;}
+.textbigger {COLOR: black; FONT-SIZE: 12px;}
+.headerblue10bold, .blueheaders {font-size: 12px; color: #182c7b; font-weight: bold;}
+.headerred9, .headerred10bold {font-size: 11px; color: red; font-weight: bold;}
+.headerred12bold {font-size: 12px; color: red; font-weight: bold;}
+.parcela {font-size: 10px; color: #0072C6; font-weight: bold;}
+.textbluenew {font-size: 15px; color: #182c7b; font-weight: bold; letter-spacing: -1px}
+.textsearch, .whiteheaders, .headerwhite10, .headerwhite12, .topheader2 {color: white; font-weight: bold;}
+.whiteheaders, .topheader2 {font-size: 12px;}
+.headerwhite10 {font-size: 11px;}
+.headerwhite12 {font-size: 13px;}
+.textsearch, A.textsearch:link {font-size: 12px;}
+.textsaldao {font-size: 11px; color: #182c7b}
+.b1 {font-size: 10px; color: #000000}
+.header {font-size: 12px; color: #003399; font-weight: bold;}
+.v16b {font-size: 16px; color: #666666; font-family: arial, sans-serif; font-weight: bold;}
+.text12 {FONT-SIZE: 12px; COLOR: #666666; FONT-FAMILY: Arial;}
+.prodnome {font-size: 12px; color: #444444; font-weight: bold;}
+.titulo {font-size: 12px; color: #444444;}
+.price1 {font-size: 11px; color: #0072C6; text-decoration: none;}
+.marca {font-size: 10px; color: #666666; text-decoration: none;}
+</style>
+<!-- TOP NAVIGATION -->
+<script language="javascript">
+function openPopUp(URL, NAME, OPTIONS) {
+window.open(URL, NAME, OPTIONS)
+}
+
+function enterLiveChat(origin) {
+window.name = "lp_parent";
+var url = "/directtalk/atendimento.asp?S=I&id_s=E79000043823E0004369&origem=" + origin;
+var hWnd = window.open(url,"live_person","width=350,height=360,resizable=no,toolbar=0,location=0,directories=0,status=no,menubar=0");
+if (hWnd != null) { if (hWnd.opener == null) {
+hWnd.opener = self; window.name = "home"; hWnd.location.href=url; } }
+}
+
+
+function enterLiveChatRedeTV(origin) {
+window.name = "lp_parent";
+var url = "http://www.directtalk.com.br/server/directtalkr.dll/user?S=I&id_s=8D280043458F0885C1BA&origem=" + origin;
+var hWnd = window.open(url,"live_person","width=350,height=360,resizable=no,toolbar=0,location=0,directories=0,status=no,menubar=0");
+if (hWnd != null) { if (hWnd.opener == null) {
+hWnd.opener = self; window.name = "home"; hWnd.location.href=url; } }
+}
+
+function openWin(URL, NAME) {
+window.open(URL, NAME, 'width=466,height=450,status=no,scrollbars=yes,top=50,left=50')
+}
+
+function enterLiveChatNatura(origin) {
+window.name = "lp_parent";
+var url = "http://www.directtalk.com.br/server20/directtalk3532.dll/user?S=I&id_s=383E0043C58C0911958C&origem=" + origin;
+var hWnd = window.open(url,"live_person","width=350,height=360,resizable=no,toolbar=0,location=0,directories=0,status=no,menubar=0");
+if (hWnd != null) { if (hWnd.opener == null) {
+hWnd.opener = self; window.name = "home"; hWnd.location.href=url; } }
+}
+
+
+</Script><map name="Map"><area shape="rect" coords="9,16,81,29" href="https://www.submarino.com.br/myaccount.asp"><area shape="rect" coords="91,17,159,28" href="https://www.submarino.com.br/login.asp?page=ordertracking"><area shape="rect" coords="171,19,229,27" href="http://www.submarino.com.br/wishlist_customer.asp"><area shape="rect" coords="240,18,268,28" href="http://www.submarino.com.br/logout.asp"><area shape="rect" coords="279,16,352,28" href="javascript:enterLiveChat('bill_ship_info.asp')"><area shape="rect" coords="365,12,460,28" href="http://www.submarino.com.br/basket.asp"></map>
+		<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" link="#003399" alink="#003399" vlink="#003399">
+	
+
+	<!-- Barra Parceiros -->
+	<HTML>
+<HEAD>
+	<TITLE>Submarino</TITLE>
+	<META http-equiv=Content-Type content="text/html; charset=windows-1252">
+	<META http-equiv=Pragma content=no-cache>
+	<META http-equiv=Expires content=-1>
+</head>
+<body>
+<table border=0 width=95% align=center>
+	<tr><td height="13" colspan="3"></td></tr>
+	<tr>
+		<td valign=top>
+		
+			<img src="/images/logo_submarino.gif">
+		
+		</td>
+		<td><img src="/images/spacer_trans.gif" width=15></td>
+		<td width=100% valign=top>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				
+					<tr>
+						<td width="30%" background="/images/fundo_linha_on.gif"><IMG src="/images/01_carrinho_on_linha_on.gif" border=0></td>
+						<td width="30%" background="/images/fundo_linha_on.gif"><IMG src="/images/02_login_on_linha_on.gif" border=0></td>
+						
+							<td width="30%" background="/images/fundo_linha_off.gif"><IMG src="/images/03_cadastro_on_linha_off.gif" border=0></td>
+						
+						<td width="10%" align="right" background="/images/fundo_linha_off.gif"><IMG src="/images/04_pagamento_off_linha_off.gif" border=0></td>
+					</tr>
+				
+
+				<tr> 
+					<td colspan=6>
+						<table width="100%" border="0">
+							<tr>
+								
+								<td width="165"><a href="http://www.submarino.com.br/home_basket.asp"><img src="/images/bt_comprar_mais.gif" width="165" height="16" border=0></a></td>
+								
+								
+								<td width="115"><a href="http://www.submarino.com.br/basket.asp?pymt=Y"><img src="/images/bt_alterar_pedido.gif" width="115" height="16" border=0></a></td>
+								<td align="right">
+								<a href="javascript:enterLiveChat('bill_ship_info.asp')"><img src="/images/bt_ajuda_aovivo.gif" width="94" height="18" border=0></a>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+
+<!-- CONTENT -->
+<!--HEADER --><br>
+<table width="95%" border="0" align="center" cellpadding="5" cellspacing="0">
+	<tr>
+		<td class="text">
+			
+				Para ser um cliente (pessoa Física ou Jurídica), é necessário preencher corretamente o formulário abaixo com os respectivos dados cadastrais. Atenção: os campos em <b>NEGRITO</b> são de preenchimento obrigatório e essenciais para processarmos o envio do seu futuro pedido.
+				
+					<br><br><a href="javascript:openPopUp('http://www.submarino.com.br/client_include/br/popup_tour.asp?step=10','tour','width=650,height=450,status=no,scrollbars=no,top=50,left=50')"><img src="/images/tour_cadastro.gif" border="0"></a>
+				
+		</td>
+	</tr>
+	<tr>
+		<td><img src="/images/tit_meu_cadastro.gif" width="144" height="30"></td>
+	</tr>
+<tr>
+<form method="post" action="xt_bill_ship_info.asp" name="frm2">
+
+	<input type="hidden" name="actionBill" value="new">
+
+<input type="Hidden" name="hiddenZipCode" value"">
+<input type="hidden" name="pback" value="login">
+<input type="hidden" name="page" value="wrap">
+<input type="hidden" name="Chave" value="">
+
+    <td align="center"><table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#f7f7f7">
+        <tr> 
+          <td><img src="/images/cad_corner_a.gif" width="10" height="10"></td>
+          <td><img src="/images/spacer_trans.gif" width="1" height="10"></td>
+          <td align="right"><img src="/images/cad_corner_b.gif" width="10" height="10"></td>
+        </tr>
+        <tr> 
+          <td width="10">&nbsp;</td>
+          <td>
+			 <table width="100%" border="0" cellspacing="3">
+				
+                <tr>
+				  <td width="40%" align="right"><input type="radio" name="flagPfPj" value="0" onclick="bloqueia()" checked></td>
+                  <td width="60%" align="left" class="textb">PESSOA FÍSICA</td></td>
+                </tr>
+                <tr>
+                  <td width="40%" align="right" class="textb">Nome:</td>
+                  <td width="60%"> <input Type="Text" size="30" name="b_Fname" value="" maxlength="30" style="FONT-SIZE: 10px; FONT-FAMILY: verdana"> </td>
+                </tr>
+                <tr> 
+                  <td width="40%" align="right" class="textb">Sobrenome:</td>
+                  <td width="60%"> <input type="Text" size="30" name="b_Lname" value="" maxlength="50" style="FONT-SIZE: 10px; FONT-FAMILY: verdana"> </td>
+                </tr>
+                <tr> 
+                  <td width="40%" align="right" valign="top" class="textb">C.P.F.:</td>
+                  <td width="60%" class="text"><input Type="Text" name="cpf_cnpj" value="" size="20" maxlength="40" style="FONT-SIZE: 10px; FONT-FAMILY: verdana"><span class="text"><b>CPF obrigatório para endereços de entrega no Brasil.<b></span><br></td>
+                </tr>
+                <tr> 
+                  <td width="40%" align="right" valign="top" class="text">R.G.:</td>
+                  <td width="60%" class="text"><input Type="Text" name="rg_ie" value="" size="20" maxlength="20" style="FONT-SIZE: 10px; FONT-FAMILY: verdana"><br></td>
+                </tr>
+                <tr> 
+                  <td width="40%" align="right" class="text"><b>Data de Nascimento:</b></td>
+                  <td width="60%" class="text"> 
+					<input name="dd" value="" size="2" maxlength="2" style="font-size: 10; font-family: verdana;">
+					<input name="mm" value="" size="2" maxlength="2" style="font-size: 10; font-family: verdana;">
+					<input name="yyyy" value="" size="4" maxlength="4" style="font-size: 10; font-family: verdana;">
+					&nbsp;(dd/mm/aaaa)
+                  </td>
+                </tr>
+                <tr> 
+                  <td width="40%" align="right" class="text"><b>Sexo:</b></td>
+                  <td width="60%"><select name="gender" style="FONT-SIZE: 10px; FONT-FAMILY: verdana">
+						
+							<option value selected>&nbsp;</option>
+							<option value="F">Feminino</option>				
+							<option value="M">Masculino</option>
+						
+					</td>
+                </tr>
+                <tr>
+				  <td colspan="2">&nbsp;</td>
+                </tr>
+				
+				
+                <tr>
+				  <td width="40%" align="right"><input type="radio" name="flagPfPj" onclick="bloqueia()" value="1" ></td>
+                  <td width="60%" align="left" class="textb">PESSOA JURÍDICA</td></td>
+                </tr>
+                <tr>
+                  <td width="40%" align="right" class="textb">Razão Social:</td>
+                  <td width="60%"><input Type="Text" size="80" name="b_Razao" value="" maxlength="80" style="FONT-SIZE: 10px; FONT-FAMILY: verdana"></td>
+                </tr>
+                <tr>
+                  <td width="40%" align="right" class="textb">Nome de Contato:</td>
+                  <td width="60%"><input Type="Text" size="50" name="b_contact" value="" maxlength="50" style="FONT-SIZE: 10px; FONT-FAMILY: verdana"> </td>
+                </tr>
+                <tr> 
+                  <td width="40%" align="right" valign="top" class="textb">C.N.P.J.:</td>
+                  <td width="60%" class="text"><input name="cpf_cnpj" value="" size="20" maxlength="40" style="FONT-SIZE: 10px; FONT-FAMILY: verdana"><span class="text"><b>CNPJ obrigatório para endereços de entrega no Brasil.<b></span><br></td>
+                </tr>
+                <tr> 
+                  <td width="40%" align="right" valign="top" class="textb">I.E.:</td>
+                  <td width="60%" class="text">
+					<input type="Text" size="20" name="rg_ie" value="" maxlength="20" style="FONT-SIZE: 10px; FONT-FAMILY: verdana">
+                  </td>
+                </tr>
+                <tr>
+                  <td width="40%" align="right" class="textb">&nbsp;</td>
+                  <td width="60%" class="text"><input type="checkbox" name="b_ie_isento" value="1" onclick="isento()" >&nbsp;I.E. Isento</td>
+                </tr>
+                <tr>
+				  <td colspan="2">&nbsp;</td>
+                </tr>
+                
+					<tr> 
+					  <td width="40%" align="right" class="textb">Email:</td>
+					  <td width="60%" class="text"> 			
+						dag@fhgfhg.com.br <input type="hidden" value="dag@fhgfhg.com.br" name="b_e_mail">
+						
+					  </td>
+					</tr>
+					<tr> 
+					  <td width="40%" align="right" class="textb">Senha:</td>
+					  <td width="60%" class="text">
+						<input type="password" size="20" name="senha" value="" maxlength="50" style="FONT-SIZE: 10px; FONT-FAMILY: verdana">
+					    (Mínimo 6 caracteres)</td>
+					</tr>
+					<tr> 
+					  <td width="40%" align="right" class="textb">Repita a Senha:</td>
+					  <td width="60%">
+						<input type="password" size="20" name="rsenha" value="" maxlength="50" style="FONT-SIZE: 10px; FONT-FAMILY: verdana">
+					  </td>
+					</tr>
+				
+                 <tr align="left"> 
+                   <td colspan="2" class="text"><br>
+					 <style="font-size: 10px; FONT-FAMILY: verdana"><b>Submarino Direto: garanta seu acesso aos maiores descontos do site.</b><br>
+					 O Submarino Direto traz em seu e-mail as maiores ofertas e promoções que acontecem em todo o site. Através dele você tem acesso a descontos exclusivos, que não encontraria ao navegar diretamente pelo site. Você ainda recebe o <b>Torpedo Submarino</b>, sempre trazendo um dos produtos mais desejados no momento pelo menor preço do mercado, com validade de apenas um dia.<br><br>
+					 
+					 Selecione a opção abaixo para ter todas estas vantagens. Você só tem a ganhar.
+				   </td>
+				 </tr>
+				
+
+                <tr align="left">
+					<td colspan="2" class="text">
+					
+					<input type="Checkbox" id="send_promo" name="send_promo" value="1"  checked  style="FONT-SIZE: 10px; FONT-FAMILY: verdana"><b>Desejo receber os e-mails do Submarino.</b>
+					</td>
+                </tr>
+             </table>
+          </td>
+          <td width="10">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td><img src="/images/cad_corner_c.gif" width="10" height="10"></td>
+          <td><img src="/images/spacer_trans.gif" width="1" height="10"></td>
+          <td align="right"><img src="/images/cad_corner_d.gif" width="10" height="10"></td>
+        </tr>
+      </table><br></td>  
+  </tr> 
+	<tr>
+		<td>&nbsp;<a name="cep"></a></td>
+	</tr>
+	<tr>
+		<td><img src="/images/tit_meu_endereco.gif" width="147" height="32"></td>
+	</tr>
+	<tr> 
+		<td class="text">
+			
+				Agora preencha o fomulário abaixo com seu endereço de entrega. Atenção: os campos em <b>NEGRITO</b> são de preenchimento obrigatório  e essenciais para processarmos o envio do seu futuro pedido. Após preencher todo o formulário, clique em <b>&quot;Continuar&quot;</b> e siga para o fechamento do seu pedido onde você escolherá a forma de pagamento.<br>
+				Em caso de dúvidas utilize nosso <a href="javascript:enterLiveChat('bill_ship_info.asp')"><b>Ajuda Ao Vivo</b></a>.
+			
+		</td>
+	</tr>
+   <tr> 
+    <td><table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#f7f7f7">
+        <tr> 
+          <td><img src="/images/cad_corner_a.gif" width="10" height="10"></td>
+          <td><img src="/images/spacer_trans.gif" width="1" height="10"></td>
+          <td align="right"><img src="/images/cad_corner_b.gif" width="10" height="10"></td>
+        </tr>
+        <tr> 
+          <td width="10">&nbsp;</td>
+          <td><table width="100%" border="0" cellspacing="3">
+                <tr> 
+                  <td width="40%" align="right" class="textb">
+					<img src="/images/img_preenchaCEP.gif">
+				  </td>
+                  <td width="60%" class="text">
+					<input type="Text" size="10" name="b_zip" value="" maxlength="10" style="FONT-SIZE: 10px; FONT-FAMILY: verdana" onBlur="verifyzip();">(Ex. 99999-999) <a href="javascript:ShowCep();">Não sabe o seu CEP? Consulte aqui</a>
+				  </td>
+                </tr>
+                <tr>
+                  <td width="40%" align="right" class="textb">Endereço:</td>
+                  <td width="60%" class="text"> <input type="Text" size="30" name="b_address1" value="" maxlength="42" style="FONT-SIZE: 10px; FONT-FAMILY: verdana" size="40"> 
+					
+					<b>n.º </b>
+					<input type="Text" size="5" name="b_address1_num" value="" maxlength="5" style="FONT-SIZE: 10px; FONT-FAMILY: verdana">
+                    <b>Distrito Federal, Goiânia ou Palmas, </b><a href="javascript:void(window.open('/client_include/br/help_bsi.asp', '', 'width=450, height=440, resizable=no, scrollbars=yes, disabletop=y'))">saiba aqui como preencher seu endereço.</a></td>
+                </tr>
+                <tr> 
+                  <td width="40%" align="right" class="text">Complemento:</td>
+                  <td width="60%" class="text"> 
+                  <input type="Text" size="30" name="b_address1_comp" value="" maxlength="30" style="FONT-SIZE: 10px; FONT-FAMILY: verdana">
+                    (Ex. ap. 1234)</td>
+                </tr>
+                <tr> 
+                  <td width="40%" align="right" class="textb">Bairro:</td>
+                  <td width="60%"> 
+                  <input type="Text" size="20" id="b_address2" name="b_address2" value="" maxlength="50" style="FONT-SIZE: 10px; FONT-FAMILY: verdana"> 
+                  </td>
+                </tr>
+                <tr> 
+                  <td width="40%" align="right" class="textb">Cidade:</td>
+                  <td width="60%"> 
+                  <input type="Text" size="20" id="b_city" name="b_city" value="" maxlength="50" style="FONT-SIZE: 10px; FONT-FAMILY: verdana"> 
+                  </td>
+                </tr>
+                <tr> 
+                  <td width="40%" align="right" class="textb">Estado:</td>
+                  <td width="60%">
+						<select name="b_state" size="1" style="border-color: #000000; border-width: 1; border-style: solid; background-color:#ffffff; font-size: 10; font-family: verdana;">
+											<option value="">&nbsp;</option>
+				<option value="AC">Acre</option>
+				<option value="AL">Alagoas</option>
+				<option value="AP">Amapá</option>
+				<option value="AM">Amazonas</option>
+				<option value="BA">Bahia</option>
+				<option value="CE">Ceará</option>
+				<option value="DF">Distrito Federal</option>
+				<option value="ES">Espírito Santo</option>
+				<option value="GO">Goias</option>
+				<option value="MA">Maranhão</option>
+				<option value="MT">Mato Grosso</option>
+				<option value="MS">Mato Grosso do Sul</option>
+				<option value="MG">Minas Gerais</option>
+				<option value="PA">Pará</option>
+				<option value="PB">Paraíba</option>
+				<option value="PR">Paraná</option>
+				<option value="PE">Pernambuco</option>
+				<option value="PI">Piauí</option>
+				<option value="RJ">Rio de Janeiro</option>
+				<option value="RN">Rio Grande do Norte</option>
+				<option value="RS">Rio Grande do Sul</option>
+				<option value="RO">Rondônia</option>
+				<option value="RR">Roraima</option>
+				<option value="SC">Santa Catarina</option>
+				<option value="SP">São Paulo</option>
+				<option value="SE">Sergipe</option>
+				<option value="TO">Tocantins</option>
+						</select>
+						<script language="JavaScript">
+							<!--
+							var aa=select_drop(document.frm2.b_state, '')
+							
+							//-->
+						</script>
+					</td>
+                </tr>
+                <tr> 
+					<td width="40%" align="right" class="text">(Pedidos Internacionais)<br>
+					Estado/Província: </td>
+					<td width="60%"> <input type="Text" size="20" name="b_province" value="" maxlength="30" style="FONT-SIZE: 10px; FONT-FAMILY: verdana"> 
+					</td>
+                </tr>
+                <tr> 
+                  <td width="40%" align="right" class="textb">País:</td>
+                  <td width="60%">
+					<select name="b_country"  value="1" style="border-color: #000000; border-width: 1; border-style: solid; background-color:#ffffff; font-size: 10; font-family: verdana;">
+					<option value="AF"> Afghanistan </option>
+<option value="AL"> Albania </option>
+<option value="DZ"> Algeria </option>
+<option value="AS"> American Samoa </option>
+<option value="AD"> Andorra </option>
+<option value="AO"> Angola </option>
+<option value="AI"> Anguilla </option>
+<option value="AQ"> Antarctica </option>
+<option value="AG"> Antigua and Barbuda </option>
+<option value="AR"> Argentina </option>
+<option value="AM"> Armenia </option>
+<option value="AW"> Aruba </option>
+<option value="AU"> Australia </option>
+<option value="AT"> Austria </option>
+<option value="AZ"> Azerbaijan </option>
+<option value="BS"> Bahamas </option>
+<option value="BH"> Bahrain</option>
+<option value="BD"> Bangladesh </option>
+<option value="BB"> Barbados </option>
+<option value="BY"> Belarus </option>
+<option value="BE"> Belgium </option>
+<option value="BZ"> Belize</option>
+<option value="BJ"> Benin</option>
+<option value="BM"> Bermuda</option>
+<option value="BT"> Bhutan</option>
+<option value="BO"> Bolivia </option>
+<option value="BA"> Bosnia and Herzegovina </option>
+<option value="BW"> Botswana </option>
+<option value="BV"> Bouvet Island </option>
+<option value="BR"> Brasil </option>
+<option value="IO"> British Indian Ocean Territory </option>
+<option value="BN"> Brunei Darussalam </option>
+<option value="BG"> Bulgaria </option>
+<option value="BF"> Burkina Faso </option>
+<option value="BI"> Burundi </option>
+<option value="KH"> Cambodia </option>
+<option value="CM"> Cameroon </option>
+<option value="CA"> Canada </option>
+<option value="CV"> Cape Verde </option>
+<option value="KY"> Cayman Islands </option>
+<option value="CF"> Central African Republic </option>
+<option value="TD"> Chad </option>
+<option value="CL"> Chile </option>
+<option value="CN"> China </option>
+<option value="CX"> Christmas Island </option>
+<option value="CC"> Cocos (Keeling) Islands </option>
+<option value="CO"> Colombia </option>
+<option value="KM"> Comoros </option>
+<option value="CG"> Congo </option>
+<option value="CK"> Cook Islands </option>
+<option value="CR"> Costa Rica </option>
+<option value="CI"> Cote d'Ivoire </option>
+<option value="HR"> Croatia </option>
+<option value="CU"> Cuba </option>
+<option value="CY"> Cyprus </option>
+<option value="CZ"> Czech Republic </option>
+<option value="DK"> Denmark </option>
+<option value="DJ"> Djibouti </option>
+<option value="DM"> Dominica </option>
+<option value="DO"> Dominican Republic </option>
+<option value="TP"> East Timor </option>
+<option value="EC"> Ecuador </option>
+<option value="EG"> Egypt </option>
+<option value="SV"> El Salvador </option>
+<option value="GQ"> Equatorial Guinea </option>
+<option value="ER"> Eritrea </option>
+<option value="EE"> Estonia </option>
+<option value="ET"> Ethiopia </option>
+<option value="FK"> Falkland Islands (Malvinas) </option>
+<option value="FO"> Faroe Islands </option>
+<option value="FJ"> Fiji </option>
+<option value="FI"> Finland </option>
+<option value="FR"> France </option>
+<option value="FX"> France, Metropolitan </option>
+<option value="GF"> French Guiana </option>
+<option value="PF"> French Polynesia </option>
+<option value="TF"> French Southern Territories </option>
+<option value="GA"> Gabon </option>
+<option value="GM"> Gambia </option>
+<option value="GE"> Georgia </option>
+<option value="DE"> Germany </option>
+<option value="GH"> Ghana </option>
+<option value="GI"> Gibraltar </option>
+<option value="GR"> Greece </option>
+<option value="GL"> Greenland </option>
+<option value="GD"> Grenada </option>
+<option value="GP"> Guadeloupe </option>
+<option value="GU"> Guam </option>
+<option value="GT"> Guatemala </option>
+<option value="GN"> Guinea </option>
+<option value="GW"> Guinea-Bissau </option>
+<option value="GY"> Guyana </option>
+<option value="HT"> Haiti </option>
+<option value="HM"> Heard Island and McDonald Islands </option>
+<option value="HN"> Honduras </option>
+<option value="HK"> Hong Kong </option>
+<option value="HU"> Hungary </option>
+<option value="IS"> Iceland </option>
+<option value="IN"> India </option>
+<option value="ID"> Indonesia </option>
+<option value="IR"> Iran (Islamic Republic of) </option>
+<option value="IQ"> Iraq </option>
+<option value="IE"> Ireland </option>
+<option value="IL"> Israel </option>
+<option value="IT"> Italy </option>
+<option value="JM"> Jamaica </option>
+<option value="JP"> Japan </option>
+<option value="JO"> Jordan </option>
+<option value="KZ"> Kazakhstan </option>
+<option value="KE"> Kenya </option>
+<option value="KI"> Kiribati </option>
+<option value="KP"> Korea, Democratic People's Republic of </option>
+<option value="KR"> Korea, Republic of </option>
+<option value="KW"> Kuwait </option>
+<option value="KG"> Kyrgyzstan </option>
+<option value="LA"> Lao People's Democratic Republic </option>
+<option value="LT"> Latin America </option>
+<option value="LV"> Latvia </option>
+<option value="LB"> Lebanon </option>
+<option value="LS"> Lesotho </option>
+<option value="LR"> Liberia </option>
+<option value="LY"> Libyan Arab Jamahiriya </option>
+<option value="LI"> Liechtenstein </option>
+<option value="LX"> Lithuania </option>
+<option value="LU"> Luxembourg </option>
+<option value="MO"> Macau </option>
+<option value="MK"> Macedonia </option>
+<option value="MG"> Madagascar </option>
+<option value="MW"> Malawi </option>
+<option value="MY"> Malaysia </option>
+<option value="MV"> Maldives </option>
+<option value="ML"> Mali </option>
+<option value="MT"> Malta </option>
+<option value="MH"> Marshall Islands </option>
+<option value="MQ"> Martinique </option>
+<option value="MR"> Mauritania </option>
+<option value="MU"> Mauritius </option>
+<option value="YT"> Mayotte </option>
+<option value="MX"> Mexico </option>
+<option value="FM"> Micronesia (Federated States of) </option>
+<option value="MD"> Moldova, Republic of </option>
+<option value="MC"> Monaco </option>
+<option value="MN"> Mongolia </option>
+<option value="MS"> Montserrat </option>
+<option value="MA"> Morocco </option>
+<option value="MZ"> Mozambique </option>
+<option value="MM"> Myanmar </option>
+<option value="NA"> Namibia </option>
+<option value="NR"> Nauru </option>
+<option value="NP"> Nepal </option>
+<option value="NL"> Netherlands </option>
+<option value="AN"> Netherlands Antilles </option>
+<option value="NC"> New Caledonia </option>
+<option value="NZ"> New Zealand </option>
+<option value="NI"> Nicaragua </option>
+<option value="NE"> Niger </option>
+<option value="NG"> Nigeria </option>
+<option value="NU"> Niue </option>
+<option value="NF"> Norfolk Island </option>
+<option value="MP"> Northern Mariana Islands </option>
+<option value="NO"> Norway </option>
+<option value="OM"> Oman </option>
+<option value="PK"> Pakistan </option>
+<option value="PW"> Palau </option>
+<option value="PA"> Panama </option>
+<option value="PG"> Papua New Guinea </option>
+<option value="PY"> Paraguay </option>
+<option value="PE"> Peru </option>
+<option value="PH"> Philippines </option>
+<option value="PN"> Pitcairn </option>
+<option value="PL"> Poland </option>
+<option value="PT"> Portugal </option>
+<option value="PR"> Puerto Rico </option>
+<option value="QA"> Qatar </option>
+<option value="RE"> Reunion </option>
+<option value="RO"> Romania </option>
+<option value="RU"> Russian Federation </option>
+<option value="RW"> Rwanda </option>
+<option value="SH"> Saint Helena </option>
+<option value="KN"> Saint Kitts and Nevis </option>
+<option value="LC"> Saint Lucia </option>
+<option value="PM"> Saint Pierre and Miquelon </option>
+<option value="VC"> Saint Vincent and the Grenadines </option>
+<option value="WS"> Samoa </option>
+<option value="SM"> San Marino </option>
+<option value="ST"> Sao Tome and Principe </option>
+<option value="SA"> Saudi Arabia </option>
+<option value="SN"> Senegal </option>
+<option value="SC"> Seychelles </option>
+<option value="SL"> Sierra Leone </option>
+<option value="SG"> Singapore </option>
+<option value="SK"> Slovakia </option>
+<option value="SI"> Slovenia </option>
+<option value="SB"> Solomon Islands </option>
+<option value="SO"> Somalia </option>
+<option value="ZA"> South Africa </option>
+<option value="GS"> South Georgia and the South Sandwich Island </option>
+<option value="ES"> Spain </option>
+<option value="LK"> Sri Lanka </option>
+<option value="SD"> Sudan </option>
+<option value="SR"> Suriname </option>
+<option value="SJ"> Svalbard and Jan Mayen Islands </option>
+<option value="SZ"> Swaziland </option>
+<option value="SE"> Sweden </option>
+<option value="CH"> Switzerland </option>
+<option value="SY"> Syrian Arab Republic </option>
+<option value="TW"> Taiwan, Republic of China </option>
+<option value="TJ"> Tajikistan </option>
+<option value="TZ"> Tanzania, United Republic of </option>
+<option value="TH"> Thailand </option>
+<option value="TG"> Togo </option>
+<option value="TK"> Tokelau </option>
+<option value="TO"> Tonga </option>
+<option value="TT"> Trinidad and Tobago </option>
+<option value="TN"> Tunisia </option>
+<option value="TR"> Turkey </option>
+<option value="TM"> Turkmenistan </option>
+<option value="TC"> Turks and Caicos Islands </option>
+<option value="TV"> Tuvalu </option>
+<option value="UG"> Uganda </option>
+<option value="UA"> Ukraine </option>
+<option value="AE"> United Arab Emirates </option>
+<option value="GB"> United Kingdom </option>
+<option value="US"> United States </option>
+<option value="UM"> United States Minor Outlying Islands </option>
+<option value="UY"> Uruguay </option>
+<option value="UZ"> Uzbekistan </option>
+<option value="VU"> Vanuatu </option>
+<option value="VA"> Vatican City State (Holy See) </option>
+<option value="VE"> Venezuela </option>
+<option value="VN"> Viet Nam </option>
+<option value="VG"> Virgin Islands (British) </option>
+<option value="VI"> Virgin Islands (U.S.) </option>
+<option value="WF"> Wallis and Futuna Islands </option>
+<option value="EH"> Western Sahara </option>
+<option value="YE"> Yemen </option>
+<option value="YU"> Yugoslavia </option>
+<option value="ZR"> Zaire </option>
+<option value="ZM"> Zambia </option>
+<option value="ZW"> Zimbabwe</option>
+
+					</select>
+					
+							<script language="javascript">
+							<!--
+							var bb=select_drop(document.frm2.b_country, 'BR')							
+						
+							//-->
+						</script>
+                  </td>
+                </tr>
+                <tr> 
+                  <td width="40%" align="right" class="textb">Telefone 1:</td>
+                  <td width="60%" class="text">
+                  
+                  <input type="Text" size="5" name="b_ddd_phone" value="" maxlength="10" style="font-size: 10px; font-family: verdana">
+                  <input type="Text" size="15" name="b_phone" value="" maxlength="30" style="FONT-SIZE: 10px; FONT-FAMILY: verdana">
+                   DDD+Telefone Fixo, preenchimento obrigatório.
+                   
+                 
+                  </td>
+                </tr>
+                <tr> 
+                  <td width="40%" align="right" class="text">Telefone 2:</td>
+                  <td width="60%">
+                  
+                  <input type="Text" size="5" name="b_ddd_phone2" value="" maxlength="10" style="font-size: 10px; font-family: verdana">
+                  <input type="Text" size="15" name="b_phone2" value="" maxlength="30" style="FONT-SIZE: 10px; FONT-FAMILY: verdana">
+                  </td>
+                </tr>
+                
+                <tr> 
+                  <td width="40%" align="right" valign="top" class="text">Referência para entrega: </td>
+                  <td width="60%" class="text"><input type="Text" size="50" id="s_reference" name="s_reference" value="" maxlength="60" style="FONT-SIZE: 10px; FONT-FAMILY: verdana"> 
+                    <br>
+                    (Ex: travessa na altura do nº 4600 da Av. Celso Garcia.) 
+                  </td>
+                </tr>
+            </table></td>
+          <td width="10">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td><img src="/images/cad_corner_c.gif" width="10" height="10"></td>
+          <td><img src="/images/spacer_trans.gif" width="1" height="10"></td>
+          <td align="right"><img src="/images/cad_corner_d.gif" width="10" height="10"></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td align="right"><input type="image" src="/images/but_continue.gif" border="0"></td>
+  </tr>
+</form>
+
+		<tr>
+		<td colspan="7" align="center">
+		<br>			
+		<span class="footer">
+		<center>
+		|<a href="http://afiliados.submarino.com.br/affiliates/default.asp" class="nav"> programa de afiliados </a>|
+		<a href="http://www.submarino.com.br/local/atendimento/trocas_devolucoes.asp" class="nav">política de trocas e devoluções </a>|
+		<a href="http://afiliados.submarino.com.br/affiliates/professor_default.asp" class="nav"> professor afiliado </a>|
+		<a href="javascript:openPopUp('/client_include/br/popup_verisign.htm','info','width=450,height=450,status=no,scrollbars=no,top=50,left=50')" class="nav"> site seguro </a>|
+		<a href="http://www.submarino.com.br/local/home_siteguide.asp" class="nav"> mapa do site </a>|
+		<a href="http://www.submarino.com.br/local/home_corporativo.asp" class="nav"> vendas corporativas </a>|
+		<a href="http://www.submarino.com.br/home_whoweare.asp" class="nav"> sobre o Submarino </a>|
+		<a href="http://www.submarino.com.br/default.asp" class="nav"> home </a>|<br>
+		</span>
+		</td>
+		</tr>
+		<tr>
+		<td colspan="7" align="CENTER">
+		<!--INICIO MODIFICACAO-->
+		<table border=0 cellspacing=5>
+		
+			<tr>
+			<td valign=top class=text><font color=666666><b>Compre pelo Telefone</b><span class=b><br>São Paulo: (11) 2199 8888<br>Outras Localidades: 0300 789 4000</span></font></td>
+			<td width=30><spacer size=30></td>
+			<td valign=top class=text><font color=666666><b>Atendimento Submarino</b><br><a href=/r.asp?415 class=b><u>Tire as suas dúvidas aqui.</u></a></font></td>
+			<td width=30><spacer size=30></td>
+			<td class=text valign=top><font color=666666>Powered by<br><b>Intelig Telecom</b></font></td>		
+			</tr>
+		
+		</table>
+		<!--FIM MODIFICACAO-->
+		</td>
+		</tr>
+	
+</table>
+
+</body>
+</html>

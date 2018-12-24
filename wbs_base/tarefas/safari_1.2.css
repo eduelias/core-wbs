@@ -1,0 +1,4 @@
+/* Safari 1.2 has a bug in the font-size rendering */
+input[type="button"], input[type="checkbox"], select {
+	font-size: 11px;
+}

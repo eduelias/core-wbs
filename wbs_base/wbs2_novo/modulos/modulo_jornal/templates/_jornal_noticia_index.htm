@@ -1,0 +1,128 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/azul_padrao.css" rel="stylesheet" type="text/css">
+<link href="../../../css/azul_padrao.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><img src="<? echo DIR_IMAGES; ?>/ind_edicao_jornal.gif">      <div align="right"></div></td>
+  </tr>
+  <tr>
+    <td bgcolor="#3775CA"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+  </tr>
+</table>
+<br>
+<table  border="0" cellspacing="2" cellpadding="2">
+  <tr>
+    <td><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=3"; ?>"><img src="<? echo DIR_IMAGES; ?>/bt_inserir_secao.gif" border="0"></a></td>
+    <td><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=2"; ?>"><img src="<? echo DIR_IMAGES; ?>/bt_inserir_noticia.gif" border="0"></a></td>
+    <td><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=99"; ?>"><img src="<? echo DIR_IMAGES; ?>/bt_listar_secoes.gif" border="0"></a></td>
+  </tr>
+</table>
+<br>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><fieldset class="tabela_conteudo">
+      <legend class="titulo_superior">Pesquisa</legend>
+      <table width="100%"  border="0" cellpadding="0" cellspacing="0" class="generalTable defaultBlackText">
+	  <form action="<? echo "$PHP_SELF?pg=$pg&pg_ped=1&Action=Pesquisar"; ?>" name="pesquisa" method="post">
+        <tr>
+          <td width="35%" class="generalGreyBorderBottomTableHeaderCell">T&iacute;tulo</td>
+          <td width="10%" class="generalGreyBorderBottomTableHeaderCell">Se&ccedil;&atilde;o</td>
+          <td width="10%" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+        </tr>
+        <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="#E8EFF9"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+          <td class="noramlTableCell"><input name="titulopesq" type="text" class="input_linha" id="titulopesq"></td>
+          <td class="noramlTableCell"><select name="secaopesq" class="input_select" id="secaopesq">
+		  <option value="0">Todas</option>
+            <?
+if ($rs_secao)
+{
+	while (!$rs_secao->EOF)
+	{
+?>
+            <option value="<? echo $rs_secao->fields['codsecao'] ; ?>"><? echo $rs_secao->fields['nome'] ; ?></option>
+            <?
+	 	$rs_secao->MoveNext();
+	}//WHILE
+}
+?>
+          </select></td>
+          <td class="noramlTableCell"><input name="Submit" type="submit" class="input_botao" value="Pesquisar"></td>
+          <td class="noramlTableCell">&nbsp;</td>
+        </tr>
+		</form>
+      </table>
+    </fieldset></td>
+  </tr>
+</table>
+<br>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><fieldset class="tabela_conteudo">
+      <legend class="titulo_superior">Not&iacute;cias
+      </legend>
+      <table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+        <tr>
+          <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell">Cod</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">T&iacute;tulo</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Se&ccedil;&atilde;o</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Ano/Edi&ccedil;&atilde;o</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Data Cria&ccedil;&atilde;o</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Data Public.</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Status</td>
+          <td align="center" class="generalGreyBorderBottomTableHeaderCell">Destaque</td>
+          <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+          <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell"><a href="#" onclick="return confirm('Publicar as notícias selecionadas?')"><img src="<? echo DIR_IMAGES; ?>/botaosp_public.png" border="0"></a></td>
+          <td width="1%" align="center" class="generalGreyBorderBottomTableHeaderCell"><a href="#" onclick="return confirm('Colocar em histórico as notícias selecionadas?')"><img src="<? echo DIR_IMAGES; ?>/botaosp_hist.png" border="0"></a></td>
+        </tr>
+<?
+if ($rs_noticia) {
+	while (!$rs_noticia->EOF) {
+?>
+        <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="#E8EFF9"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+          <td align="center" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;"><? echo $rs_noticia->fields['codnoticia']; ?></td>
+          <td class="noramlTableCell"><strong><? echo $rs_noticia->fields['titulo']; ?></strong></td>
+          <td align="center" class="noramlTableCell"><em><? echo $rs_noticia->fields['nome']; ?></em></td>
+          <td align="center" class="noramlTableCell"><? echo $rs_noticia->fields['ano']; ?> / <? echo $rs_noticia->fields['edicao']; ?></td>
+          <td class="noramlTableCell"><? echo $rs_noticia->UserTimeStamp($rs_noticia->fields['datahoraadd'],'d/m/Y H:i:s'); ?></td>
+          <td class="noramlTableCell"><? echo $rs_noticia->UserTimeStamp($rs_noticia->fields['datahorapublic_ini'],'d/m/Y H:i:s'); ?></td>
+          <td align="center" class="noramlTableCell"><strong><? echo $rs_noticia->fields['status']; ?></strong></td>
+          <td align="center" class="noramlTableCell"><? echo $rs_noticia->fields['destaque']; ?></td>
+          <td class="noramlTableCell"><a href="<? echo"$PHP_SELF?pg=$pg&pg_ped=4&codnoticia_select=" . $rs_noticia->fields['codnoticia'] . ""; ?>"><img src="<? echo DIR_IMAGES; ?>/botaosp_edit.png" border="0"></a></td>
+          <td align="center" class="noramlTableCell"><input type="checkbox" name="tudo_public[<? echo $rs_noticia->fields['codnoticia']; ?>]"></td>
+          <td align="center" class="noramlTableCell"><input type="checkbox" name="tudo_hist[<? echo $rs_noticia->fields['codnoticia']; ?>]"></td>
+        </tr>
+<?
+		$rs_noticia->MoveNext();
+	} //WHILE
+}
+if ($total_reg == 0)
+{
+?>
+        <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="#E8EFF9"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+          <td colspan="11" align="center" class="noramlTableCell msg_azul1">Nenhuma not&iacute;cia encontrada.</td>
+        </tr>
+<? } ?>
+      </table>
+<?
+if ($total_reg <> 0)
+{
+	echo "<hr size='1' noshade>";
+	$html_pg = $paginator->Construir_Links("todos", "sim");
+	$qtd_paginas = $paginator->qtd_paginas;
+	for ($i = 0; $i < $qtd_paginas; $i++)
+	{
+		echo $html_pg[$i];
+	}
+}
+?>
+    </fieldset></td>
+  </tr>
+</table>
+</body>
+</html>

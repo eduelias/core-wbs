@@ -1,0 +1,388 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="<? echo DIR_CSS; ?>/pesquisa.css" rel="stylesheet" type="text/css">
+<link href="../../../css/pesquisa.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+.style1 {
+	color: #FF0000;
+	font-weight: bold;
+}
+.style2 {color: #000000}
+-->
+</style>
+<script language="javascript">
+function HidePerg1()
+{
+	var sel = document.getElementById("perg1");
+	sel.style.display = 'none';
+}
+function ShowPerg1()
+{
+	var sel = document.getElementById("perg1");
+	sel.style.display = 'block';
+}
+function HidePerg1a()
+{
+	var se2 = document.getElementById("perg1a");
+	se2.style.display = 'none';
+}
+function ShowPerg1a()
+{
+	var se2 = document.getElementById("perg1a");
+	se2.style.display = 'block';
+}
+function HidePerg1b()
+{
+	var se3 = document.getElementById("perg1b");
+	se3.style.display = 'none';
+}
+function ShowPerg1b()
+{
+	var se3 = document.getElementById("perg1b");
+	se3.style.display = 'block';
+}
+function HidePerg2()
+{
+	var se2 = document.getElementById("perg2");
+	se2.style.display = 'none';
+}
+function ShowPerg2()
+{
+	var se2 = document.getElementById("perg2");
+	se2.style.display = 'block';
+}
+
+
+</script>
+<title></title>
+</head>
+
+<body>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td align="right" class="pesq_script_destaque"><? echo $ncodpedido; ?></td>
+    </tr>
+</table>
+  <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td colspan="2" class="pesq_script"><table width="100%"  border="0" cellspacing="2" cellpadding="2">
+          <tr valign="top">
+            <td width="50%" class="pesq_requerido"><span class="pesq_script_destaque"><? echo $nomecliente_view; ?></span></td>
+            <td width="50%" class="pesq_requerido">(CONTATO: <? echo $contato; ?>)</td>
+          </tr>
+        </table>
+        O servi&ccedil;o de  assitencia tecnica autorizada foi realizado em <span class="pesq_script_destaque"><? echo $dataped_view; ?><br>
+        </span>
+        <hr size="0"></td>
+      </tr>
+      <tr>
+        <td colspan="2"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+      </tr>
+	
+  </table>
+<form method="post" action="<? echo"$PHP_SELF?pg=$pg&pg_ped=4&menu_not=1&Action=Gravar"; ?>" name="formulario">
+	  <!-- OOO -->
+	 
+	  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td class="pesq_perg"><strong>1 - Consta no nosso sistema que  <? echo $tratamento; ?> solicitou a garantia ONSITE (<? echo $tipo_atend; ?>) e gostar&iacute;amos da confirma&ccedil;&atilde;o desse servi&ccedil;o. <? echo $tratamento; ?> confirma esse atendimento?
+              <input type="hidden" name="datainicio" value="<? echo $datainicio; ?>">
+			<input type="hidden" name="codcliente_pesq" value="<? echo $codcliente_view; ?>">
+			<input type="hidden" name="codos_at_pesq" value="<? echo $codos_at_pesq; ?>">
+			<input type="hidden" name="coddetalhe" value="<? echo $coddetalhe; ?>">
+          </strong></td>
+        </tr>
+        <tr>
+          <td><table  border="0" cellpadding="2" cellspacing="2" class="pesq_perg">
+              <tr>
+                <td>&nbsp;</td>
+                <td><? echo $resp[27]; ?></td>
+              </tr>
+          </table></td>
+        </tr>
+  </table>
+		 <div id="perg1" style="display:block">
+		 <? if ($atend_tel_view > 0){ ?>
+          <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><strong>TELEFONE 1a  - O problema foi resolvido? </strong></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><table  border="0" cellpadding="2" cellspacing="2" class="pesq_perg">
+                  <tr>
+                <td>&nbsp;</td>
+                <td><? echo $resp[28]; ?></td>
+                </tr>
+              </table></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+            
+           </table></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+          </table>
+		
+		   <div id="perg1a" style="display:block">
+          <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td class="pesq_requerido2"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido2"><strong>TELEFONE 1b - Relato do Cliente: </strong></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido2"><table width="100%"  border="0" cellpadding="2" cellspacing="2" class="pesq_perg">
+                  <tr>
+                    <td>R: <? echo $resp[29]; ?></td>
+                  </tr>
+              </table></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido2"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+            
+             </table></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+          </table>
+        </div>
+		  <? }else{ ?>
+		 <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><strong>RESID&Ecirc;NCIA 1a  - Com rela&ccedil;&atilde;o ao prazo para o atendimento, esse: </strong></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><table  border="0" cellpadding="2" cellspacing="2" class="pesq_perg">
+                   <tr>
+                    <td>&nbsp;</td>
+                    <td><? echo $resp[30]; ?></td>
+                  </tr>
+              </table></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+            
+           </table></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+			
+          </table>
+		  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><strong>RESID&Ecirc;NCIA 1b  - O problema foi resolvido? </strong></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><table  border="0" cellpadding="2" cellspacing="2" class="pesq_perg">
+                  <tr>
+                <td>&nbsp;</td>
+                <td><? echo $resp[31]; ?></td>
+                </tr>
+              </table></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+            
+           </table></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+			
+          </table>
+		   <div id="perg1b" style="display:block">
+          <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td class="pesq_requerido2"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido2"><strong>RESID&Ecirc;NCIA 1c - Relato do Cliente: </strong></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido2"><table width="100%"  border="0" cellpadding="2" cellspacing="2" class="pesq_perg">
+                  <tr>
+                    <td>R: <? echo $resp[32]; ?></td>
+                  </tr>
+              </table></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido2"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+            
+             </table></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+          </table>
+        </div>
+		<? } ?>
+        </div>
+		  
+		 <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td class="pesq_perg"><strong>2 - Em rela&ccedil;&atilde;o ao atendimento de garantia ONSITE, qual o seu nivel de satisfa&ccedil;&atilde;o?
+            
+          </strong></td>
+        </tr>
+        <tr>
+          <td><table  border="0" cellpadding="2" cellspacing="2" class="pesq_perg">
+               <tr>
+                    <td>&nbsp;</td>
+                    <td><? echo $resp[33]; ?></td>
+            </tr>
+          </table></td>
+        </tr>
+		 </table>
+		 <div id="perg2" style="display:block">
+          <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><strong>2a - Qual o motivo ? </strong></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><table width="100%"  border="0" cellpadding="2" cellspacing="2" class="pesq_perg">
+                  <tr>
+                    <td>R: <? echo $resp[34]; ?></td>
+                  </tr>
+				
+              </table></td>
+            </tr>
+			    
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+            
+           </table></td>
+            </tr>
+            <tr>
+              <td class="pesq_requerido"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+            </tr>
+          </table>
+        </div>
+		
+        <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td class="pesq_perg"><strong>3 - <? echo $tratamento; ?> possui alguma  sugest&atilde;o  a fazer, para que possamos melhorar nossa empresa?</strong></td>
+          </tr>
+          <tr>
+          <td class="pesq_perg"><span class='style1'>R: <? echo $resp[35]; ?></span></td>
+          </tr>
+          <tr>
+            <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+          </tr>
+          <tr>
+            <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+          </tr>
+           <tr>
+            <td class="pesq_script"><table width="100%" border="0">
+              <tr>
+                <td width="3%">&nbsp;</td>
+                <td width="47%"><span class="style2">TIPO DE OCORR&Ecirc;NCIA </span></td>
+                <td width="25%"><span class="style2">INTERNO</span></td>
+                <td width="25%"><span class="style2">EXTERNO</span></td>
+              </tr>
+              <tr>
+                <td><input name="ocorr[1]" type="checkbox" id="ocorr[1]" value="1" <? echo $ck_ocorr[1]; ?> <? echo $block_hist ?>></td>
+                <td>Assit&ecirc;ncia T&eacute;cnica Autorizada </td>
+                <td><input name="setor[1]" type="radio" value="I" <? echo $ck_setor_i[1]; ?> <? echo $block_hist ?>></td>
+                <td><input name="setor[1]" type="radio" value="E" <? echo $ck_setor_e[1]; ?> <? echo $block_hist ?>></td>
+              </tr>
+              <tr>
+                <td><input name="ocorr[2]" type="checkbox" id="ocorr[2]" value="1" <? echo $ck_ocorr[2]; ?> <? echo $block_hist ?>></td>
+                <td>Setor de Vendas </td>
+                <td><input name="setor[2]" type="radio" value="I" <? echo $ck_setor_i[2]; ?> <? echo $block_hist ?>></td>
+                <td><input name="setor[2]" type="radio" value="E" <? echo $ck_setor_e[2]; ?> <? echo $block_hist ?>></td>
+              </tr>
+              <tr>
+                <td><input name="ocorr[3]" type="checkbox" id="ocorr[3]" value="1" <? echo $ck_ocorr[3]; ?> <? echo $block_hist ?>></td>
+                <td>Produ&ccedil;&atilde;o (n&atilde;o conformidade do produto) </td>
+                <td><input name="setor[3]" type="radio" value="I" <? echo $ck_setor_i[3]; ?> <? echo $block_hist ?>></td>
+                <td><input name="setor[3]" type="radio" value="E" <? echo $ck_setor_e[3]; ?> <? echo $block_hist ?>></td>
+              </tr>
+              <tr>
+                <td><input name="ocorr[4]" type="checkbox" id="ocorr[4]" value="1" <? echo $ck_ocorr[4]; ?> <? echo $block_hist ?>></td>
+                <td>Expedi&ccedil;&atilde;o (n&atilde;o conformidade na entrega) </td>
+                <td><input name="setor[4]" type="radio" value="I" <? echo $ck_setor_i[4]; ?> <? echo $block_hist ?>></td>
+                <td><input name="setor[4]" type="radio" value="E" <? echo $ck_setor_e[4]; ?> <? echo $block_hist ?>></td>
+              </tr>
+              <tr>
+                <td><input name="ocorr[5]" type="checkbox" id="ocorr[5]" value="1" <? echo $ck_ocorr[5]; ?> <? echo $block_hist ?>></td>
+                <td>Estoque (falta de estoque) </td>
+                <td><input name="setor[5]" type="radio" value="I" <? echo $ck_setor_i[5]; ?> <? echo $block_hist ?>></td>
+                <td><input name="setor[5]" type="radio" value="E" <? echo $ck_setor_e[5]; ?> <? echo $block_hist ?>></td>
+              </tr>
+              <tr>
+                <td><input name="ocorr[6]" type="checkbox" id="ocorr[6]" value="1" <? echo $ck_ocorr[6]; ?> <? echo $block_hist ?>></td>
+                <td>RMA (atraso no atendimento) </td>
+                <td><input name="setor[6]" type="radio" value="I" <? echo $ck_setor_i[6]; ?> <? echo $block_hist ?>></td>
+                <td><input name="setor[6]" type="radio" value="E" <? echo $ck_setor_e[6]; ?> <? echo $block_hist ?>></td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td colspan="3"><span class="style2">SOLU&Ccedil;&Atilde;O:</span></td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td colspan="3"><textarea name="solucao" rows="5" id="solucao" style="width: 95%;" <? echo $block_hist ?>><? echo $solucao_view; ?></textarea></td>
+              </tr>
+			  			  <? if ($hist_view <> 'S'){?>
+              <tr>
+                <td>&nbsp;</td>
+                <td colspan="3"><span class="style2">ENCERRAR OCORR&Ecirc;NCIA:</span>                  <select name="hist_pesq" id="hist_pesq">
+                  <option value="S">S</option>
+                  <option value="N" selected>N</option>
+                  </select>                </td>
+              </tr>
+			    <? }?>
+            </table></td>
+          </tr>
+          <tr>
+            <td><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="8" height="8"></td>
+          </tr>
+		    <? if ($hist_view <> 'S'){?>
+          <tr>
+            <td align="center"><input name="Submit" type="submit"  value="GRAVAR DADOS"></td>
+          </tr>
+		    <? }?>
+        </table>
+		
+		<!-- 000 -->
+</form>
+</body>
+</html>

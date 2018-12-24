@@ -1,0 +1,90 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/padrao.css" rel="stylesheet" type="text/css">
+<link href="<? echo DIR_CSS; ?>/<? echo MOD_COR; ?>.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+-->
+</style></head>
+<?
+$rs_produtos_op = $db->query_db("SELECT nomeprod FROM produtos WHERE codprod ='".$rs_lista_op->fields['codprod']."'","SQL_NONE","N");
+
+if ($micro_ok <> 1){
+?>
+<body>
+ 
+<table width="100%"  border="0" cellspacing="0" cellpadding="2" class="generalTable defaultBlackText">
+<form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=100&menu_not=1&Action=insert_cb"; ?>" method="post" name="pesquisa" target="iped">
+  <tr>
+    <td align="center" class="generalGreyBorderBottomTableHeaderCell">&nbsp;</td>
+    <td colspan="2" align="center" class="noramlTableCell"><strong><big><big>MODELO: <? echo $db->format_str("UP", $rs_produtos_op->fields['nomeprod']); ?></big></big></strong><br><? echo $_POST['sn_pesq'] ?></td>
+    </tr>
+  <tr>
+    <td width="10%" align="center" class="generalGreyBorderBottomTableHeaderCell">CodProd</td>
+    <td align="center" class="generalGreyBorderBottomTableHeaderCell">Nome Produto </td>
+    <td align="center" class="generalGreyBorderBottomTableHeaderCell">Codbarra</td>
+    </tr>
+  <?
+if ($rs_lista)
+{
+	$ix = 1;
+	while (!$rs_lista->EOF)
+	{
+	$rs_produtos = $db->query_db("SELECT nomeprod FROM produtos WHERE codprod ='".$rs_lista->fields['codprod']."'","SQL_NONE","N");
+	$idop_sn = $rs_lista->fields['idop_sn'];
+	
+	//PESQUISA SE O CODBARRA JA FOI INSERIDO	
+	$rs_codbarra_ok = $db->query_db("SELECT codbarra, codcb  FROM codbarra WHERE idop_sn ='".$idop_sn."' and codemp = '". $rs_lista_op->fields['codemp']."' and codprod = '".$rs_lista->fields['codprod']."' and codbarraped = 1 and idop_prod = '".$rs_lista->fields['idop_prod']."'  ","SQL_NONE","N");
+	/*
+	$rs_codbarra_ok = $db->query_db("SELECT codbarra, count(*) as cont FROM codbarra WHERE idop_sn ='".$idop_sn."' and codemp = '".$codemp."' and codprod = '".$rs_lista->fields['codprod']."' GROUP by idop_sn, codprod  ","SQL_NONE","N");
+	*/
+?>
+
+  <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+    <td align="center" class="noramlTableCell" style="color: #FFFFFF; background-color: #999999;"><? echo $rs_lista->fields['codprod']; ?></td>
+    <td class="noramlTableCell"><strong><? echo $db->format_str("UP", $rs_produtos->fields['nomeprod']); ?></strong></td>
+    <td align="center" class="noramlTableCell">
+	<?
+	if ($rs_codbarra_ok->fields['codcb'] == ''){
+	?>	
+	 <input type="text" name="codbarra[<? echo $rs_lista->fields['idop_prod']; ?>]"><input type="hidden" name="codprod[<? echo $rs_lista->fields['idop_prod']; ?>]" value = "<? echo $rs_lista->fields['codprod']; ?>">
+	 <?
+	 }else{
+	 
+	 echo "<B>". $rs_codbarra_ok->fields['codbarra']."</b>";
+	 
+	 }
+	 ?>	 </td>
+    </tr>
+ 
+
+  <?
+	 	$ix++;
+		$rs_lista->MoveNext();
+	}//WHILE
+}
+?>
+ <tr style="background-color: #FFFFFF; cursor: pointer;" onmouseover='this.style.backgroundColor="<? echo $bg_cor_light; ?>"' onmouseout='this.style.backgroundColor="#FFFFFF"'>
+    <td align="center" class="noramlTableCell" >&nbsp;</td>
+    <td class="noramlTableCell"><input type="hidden" name="hiddenField">
+     
+   	   <input type="hidden" name="cont" value = "<? echo $ix ?>">
+	   <input type="hidden" name="idop_sn" value = "<? echo $idop_sn ?>">
+	   <input type="hidden" name="sn_pesq" value = "<? echo $_POST['sn_pesq'] ?>"></td>
+    <td align="center" class="noramlTableCell"><input type="submit" name="Submit" value="ADICIONAR"></td>
+  </tr>  </form>
+</table>
+
+<?
+}
+?>
+</body>
+</html>

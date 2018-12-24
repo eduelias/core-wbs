@@ -1,0 +1,113 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title></title>
+<link href="<? echo DIR_CSS; ?>/pesquisa.css" rel="stylesheet" type="text/css">
+<link href="../../../css/pesquisa.css" rel="stylesheet" type="text/css">
+</head>
+<script language="javascript" type="text/javascript">
+var NameArray = new Array();
+var ValueArray = new Array();
+
+<? for($i = 0; $i < count($arrayx); $i++ ){ ?>
+NameArray[<? echo"$cat_id[$i]"; ?>] = new Array(<? echo"$x_subcat_titulo[$i]"; ?>);
+ValueArray[<? echo"$cat_id[$i]"; ?>] = new Array(<? echo"$x_subcat_subid[$i]"; ?>);
+<? }//FOR ?>
+
+function changeOptions(){
+// Obtain the first dimension position of the currently selected theaterRegionvar
+cjIX = document.forms["atendimento"].motivocat.value;
+  
+  if (cjIX > 0){
+   // set the length of the new multi-option
+   //
+
+   	 // CALCULA O NUMERO DE LINHAS DO FOR
+    document.forms["atendimento"].elements["motivosubcat"].options.length = NameArray[cjIX].length +1;
+
+    // LINHA INICIAL DO MENU SELECT
+    document.forms["atendimento"].elements["motivosubcat"].options[0].text = "=> Selecione a Subcategoria";
+    document.forms["atendimento"].elements["motivosubcat"].options[0].value = "";
+
+    for (var j=0; j < NameArray[cjIX].length; j++)
+    {
+      document.forms["atendimento"].elements["motivosubcat"].options[j+1].text = NameArray[cjIX][j];
+      document.forms["atendimento"].elements["motivosubcat"].options[j+1].value = ValueArray[cjIX][j];
+    }
+   
+  }
+  else
+  {
+   // User has reselected the blank 'region' option
+   //
+    document.forms["atendimento"].elements["motivosubcat"].options.length = 2;
+    document.forms["atendimento"].elements["motivosubcat"].options[0].text = "Selecione a Subcategoria...";
+    document.forms["atendimento"].elements["motivosubcat"].options[0].value = "";
+    document.forms["atendimento"].elements["motivosubcat"].options[1].text = "Selecione a Categoria primeiro...";
+    document.forms["atendimento"].elements["motivosubcat"].options[1].value = "";
+  }
+}
+</script>
+<? if (dirname($_SERVER['PHP_SELF']) == "/"){$bar = "";}else{$bar = "/";} ?>
+<script language=JavaScript>
+function VerAgenda()
+{
+	window.open('<? echo "http://" . $_SERVER['HTTP_HOST']. dirname($_SERVER['PHP_SELF']). $bar. "restrito.php?pg=$pg&pg_ped=4&menu_not=1"; ?>','popup_view','width=450, height=400, scrollbars=yes, resizable=no');
+}
+function VerificaData()
+{
+	var dia = document.getElementById("diaagenda").value; 
+	var mes = document.getElementById("mesagenda").value;
+	var ano = document.getElementById("anoagenda").value;
+	var date2 = new Date(ano, mes-1, dia);
+	var now = new Date();
+	var diff = date2.getTime() - now.getTime()
+	var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+	if (days < -1){
+		alert("Data Agenda inferior a data atual");
+        document.form1.dentr.focus();
+        return false;
+	}
+}
+</script>
+
+<body>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><img src="<? echo DIR_IMAGES; ?>/ind_pesq_posvenda.gif">      <div align="right"></div></td>
+  </tr>
+  <tr>
+    <td bgcolor="#669900"><img src="<? echo DIR_IMAGES; ?>/spacer.gif" width="1" height="1"></td>
+  </tr>
+</table>
+<br>
+<table width="100%"  border="0" cellpadding="2" cellspacing="2">
+  <form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=2&menu_not=1&Action=Pesquisar"; ?>" method="post" name="pesqcli" target="icliente">
+    <tr>
+      <td width="15%" align="right"><strong>Nome:</strong></td>
+      <td><input name="pesqnomecliente" type="text" class="pesq_input1" id="pesqnomecliente" value="<? echo $pesqnomecliente; ?>" size="15">
+          <input name="Button" type="submit" class="pesq_input" value="Procurar"></td>
+    </tr>
+	</form>
+    <tr>
+      <td colspan="2"><fieldset class="tabela_conteudo_verdemug">
+        <legend class="titulo_superior_verdemug">Clientes</legend>
+        <iframe src="<? echo"$PHP_SELF?pg=$pg&pg_ped=2&menu_not=1"; ?>" name="icliente" width="100%" marginwidth="0" height="100" marginheight="0" scrolling="yes" frameborder="0"></iframe>
+      </fieldset></td>
+    </tr>
+    <tr>
+      <td colspan="2"><fieldset class="tabela_conteudo_verdemug">
+        <legend class="titulo_superior_verdemug">Pedidos</legend>
+        <iframe src="<? echo"$PHP_SELF?pg=$pg&pg_ped=3&menu_not=1"; ?>" name="icodbarra" width="100%" marginwidth="0" height="80" marginheight="0" scrolling="yes" frameborder="0"></iframe>
+      </fieldset></td>
+    </tr>
+    <tr>
+      <td colspan="2"><fieldset class="tabela_conteudo_verdemug">
+        <legend class="titulo_superior_verdemug">Formul&aacute;rio</legend>
+        <iframe src="<? echo"$PHP_SELF?pg=$pg&pg_ped=4&menu_not=1"; ?>" name="iformulario" width="100%" marginwidth="0" height="1180" marginheight="0" scrolling="yes" frameborder="0"></iframe>
+      </fieldset></td>
+    </tr>
+</table>
+</body>
+</html>

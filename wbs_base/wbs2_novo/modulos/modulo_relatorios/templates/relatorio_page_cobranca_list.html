@@ -1,0 +1,168 @@
+<html>
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="<? echo DIR_CSS; ?>/saci.css" rel="stylesheet" type="text/css">
+<title></title>
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+} 
+.style1 {
+	color: #000000;
+	font-weight: bold;
+	font-size: 24px;
+}
+.style2 {
+	font-size: 24px;
+	color: #FF6600;
+	font-weight: bold;
+}
+-->
+</style>
+<script language="JavaScript" type="text/JavaScript">
+
+function doTwo_load(form3, codcliente_pesq)
+{
+document.form3.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=4&menu_not=1&Action=pesquisa&"; ?>codcliente_pesq='+codcliente_pesq+'';
+document.form3.target = 'ipedlimite';
+document.form3.submit();
+
+document.form3.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=3&menu_not=1&Action=pesquisa&"; ?>codcliente_pesq='+codcliente_pesq+'';
+document.form3.target = 'idescr';
+document.form3.submit();
+
+
+}
+
+function doFour_load(form3, codcliente_pesq)
+{
+
+if(confirm("Deseja ENVIAR cobrança para o Jurídico?")){
+
+document.form3.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=1&menu_not=1&Action=ins_jur&"; ?>codcliente_bl='+codcliente_pesq+'';
+document.form3.target = 'ilist';
+document.form3.submit();
+}else{
+return false
+}
+
+}
+
+function doFive_load(form3, codcliente_pesq)
+{
+
+if(confirm("Deseja EXCLUIR cobrança do Jurídico?")){
+document.form3.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=1&menu_not=1&Action=del_jur&"; ?>codcliente_bl='+codcliente_pesq+'';
+document.form3.target = 'ilist';
+document.form3.submit();
+}else{
+return false
+}
+
+}
+
+function doSix_load(form3, codcliente_pesq)
+{
+
+var tipolist= '<? echo $tipolist; ?>';
+
+document.form3.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=5&menu_not=1&Action=&"; ?>codcliente_bl='+codcliente_pesq+'&tipolist='+tipolist+'';
+document.form3.target = 'ilist';
+document.form3.submit();
+
+}
+
+function doEight_load(form3, codcliente_pesq)
+{
+
+if(confirm("Deseja RETIRAR cobrança para PERDIDA?")){
+
+document.form3.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=1&menu_not=1&Action=del_pg_perd&"; ?>codcliente_bl='+codcliente_pesq+'';
+document.form3.target = 'ilist';
+document.form3.submit();
+}else{
+return false
+}
+
+}
+
+function doSeven_load(form3, codcliente_pesq)
+{
+
+if(confirm("Deseja ENVIAR cobrança para PERDIDA?")){
+
+document.form3.action = '<? echo"$PHP_SELF?pg=$pg&pg_ped=1&menu_not=1&Action=ins_pg_perd&"; ?>codcliente_bl='+codcliente_pesq+'';
+document.form3.target = 'ilist';
+document.form3.submit();
+}else{
+return false
+}
+
+}
+
+</script>
+
+</head>
+
+<body>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="center"><? if ($tipolist == 'S'){?><span class="style1">COBRAN&Ccedil;A NO JUR&Iacute;DICO</span><?}else{?><span class="style2">COBRAN&Ccedil;AS PENDENTES</span><?}?></td>
+  </tr>
+</table>
+
+<form action="<? echo"$PHP_SELF?pg=$pg&pg_ped=7"; ?>" method="post" name="form3" >
+<table width="100%"  border="0" cellpadding="1" cellspacing="1">
+ 	
+ 
+    <? if ($rs) {
+    $cor = 1;
+		while (!$rs->EOF) { 
+        
+        $rs1 = $db->conn->Execute("SELECT codcliente, nome, cpf, cnpj, dddtel1, tel1, endereco, numero, complemento, bairro, cep, cidade, estado, rescredito , logincad FROM clientenovo WHERE  codcliente = '".$rs->fields['cliente_ped']."' ORDER BY codcliente, nome");
+            $db->retorno_db($rs1,"N");
+		
+		if ($rs1->fields['rescredito'] <> ''){$bgtr_color = "#FEE0DE";$res=" (RESTRIÇÃO CRÉDITO)";}else{$bgtr_color = "#FFFFFF";$res="";}
+		
+        #if ($cor%2 == 0){$bgtr_color = "#FFFFFF";}else{$bgtr_color = "#F2F9EE"; }
+        
+        if ($rs->fields['data_visita'] != 0){$bgtr_color = "#FFFF99";}
+        if ($rs->fields['pg_perdido'] == 'S'){$bgtr_color = "#FFCC66";}
+        
+		?>
+   <tr bgcolor="<? echo $bgtr_color; ?>">
+    <td rowspan="2" align="center" valign="middle" class="sacitd2"><a href="javascript:void(0);" class="lkverde2" onClick= "doTwo_load(form3, <? echo $rs1->fields['codcliente']; ?>)"><? echo $rs1->fields['codcliente']; ?></a><br>
+      <strong>AGENDA:</strong><BR><? echo $rs->fields['data_visita']; ?></td>
+    <td class="sacitd2"><strong><? echo $rs1->fields['nome']; echo $res; ?></strong></td>
+    <td class="sacitd2"><? echo $rs1->fields['cpf']; ?><? echo $rs1->fields['cnpj']; ?><br><b><? echo $rs->fields['vend']; ?></b></td>
+    <td class="sacitd2">(<? echo $rs1->fields['dddtel1']; ?>) <? echo $rs1->fields['tel1']; ?></td>
+    <td class="sacitd2"><strong>R$ <? echo $db->fvalor($rs->fields['vtotal']); ?></strong></td>
+    <td class="sacitd2"><?  if ( $codgrp_vend ==  43 or $codgrp_vend == 2 or $codgrp_vend ==  52){?><? if ($rs->fields['pg_perdido'] == 'N'){?>
+      <a href="javascript:void(0);" class="lkverde2" onClick= "doSeven_load(form3, <? echo $rs1->fields['codcliente']; ?>)"><img src="<? echo DIR_IMAGES; ?>/estrela_cinza.gif" width="16" height="16" border="0"></a>
+      <?}else{?>
+      <a href="javascript:void(0);" class="lkverde2" onClick= "doEight_load(form3, <? echo $rs1->fields['codcliente']; ?>)"><img src="<? echo DIR_IMAGES; ?>/estrela.gif" width="16" height="16" border="0"></a>
+      <?}}else{?>&nbsp;<?}?></td>
+    <td class="sacitd2"><?  if ( $codgrp_vend ==  43 or $codgrp_vend == 2 or $codgrp_vend ==  52){?><? if ($rs->fields['blacklist'] == 'N'){?><a href="javascript:void(0);" class="lkverde2" onClick= "doFour_load(form3, <? echo $rs1->fields['codcliente']; ?>)"><img src="<? echo DIR_IMAGES; ?>/bt_juridico.gif" width="16" height="16" border="0"></a><?}else{?><a href="javascript:void(0);" class="lkverde2" onClick= "doFive_load(form3, <? echo $rs1->fields['codcliente']; ?>)"><img src="<? echo DIR_IMAGES; ?>/bteliminar.png" width="16" height="16" border="0"></a><?}}else{?>&nbsp;<?}?></td>
+   </tr>
+  <tr bgcolor="<? echo $bgtr_color ?>">
+    <td colspan="4" class="sacitd2"><? echo $rs1->fields['endereco']; ?>, <? echo $rs1->fields['numero']; ?> <? echo $rs1->fields['complemento']; ?> - <? echo $rs1->fields['bairro']; ?> CEP: <? echo $rs1->fields['cep']; ?> - <? echo $rs1->fields['cidade']; ?> - <? echo $rs1->fields['estado']; ?></td>
+    <td class="sacitd2"><strong>BL<br></strong>
+      <? echo $rs->fields['num_bol']; ?></td>
+    <td class="sacitd2"><strong>AG<br></strong>
+      <? echo $rs->fields['num_contato']; ?></td>
+  </tr>
+  <?
+		$rs->MoveNext();
+        $cor++;
+		}//WHILE
+	}
+?>
+</table>
+
+</form>
+</body>
+</html>

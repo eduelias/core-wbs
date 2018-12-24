@@ -1,0 +1,602 @@
+/* PNG transparent no IEs*/
+/*
+Alpha PNG support for IE
+------------------------------
+Aviso, este código abaixo funciona apenas para visualização na tela. Quando este documento for impresso, o bug voltará.
+O Hack Abaixo faz o código rodar apenas no IE. Sendo que os outros browsers como, Firefox, Opera e Safari já tem a transparencia de PNG nativo.
+\*/
+.yui-negativo {
+	background-color:#FF9999;	
+}
+
+.td_bold_center {
+	font-weight:bolder;
+	text-align:center !important;
+}
+.yuimenubar li, .yuimenu li, .yuimenu h6, .yuimenubar h6 {
+	text-align:center;
+	font-size:10px;
+}
+
+.td_bold{
+	font-weight:bolder;
+}
+fieldset
+{
+	display: block;
+	margin: 0 0 0.5em 0;
+	border: 1px solid #BBBBBB;
+	padding: 0 1em 1em 1em;
+}
+.CollapsiblePanel{
+	background-color:#DDDDDD;
+}
+
+.topof{
+height:20px;
+background: url("<?=VIMAGES?>h1fundo.png") repeat-x bottom;
+border:none;
+}
+
+* {
+	margin: 0;
+	border: 0;
+}
+.alerta {
+	background:#FFFFCC;
+	border:solid thin #ffDD66;
+	
+	opacity: 0.75;
+	position:fixed;
+	top:0px;
+	width:100%;
+	font-size:14px;
+	margin-right:32px;
+	text-align:center;
+	vertical-align:middle;
+	display:block;
+	z-index:100;
+	font-weight:bold;
+	text-transform:uppercase;
+}
+
+.info {
+	background:#C9FFC1;
+	border:solid thin #99FF99;
+
+	opacity: 0.75;	
+	position:fixed;
+	_position:absolute;
+	top:0px;
+	width:100%;
+	font-size:14px;
+	margin-right:32px;
+	text-align:center;
+	vertical-align:middle;
+	display:block;
+	z-index:100;
+	font-weight:bold;
+	text-transform:uppercase;
+}
+
+.red{	
+	background:#FF3333;
+	border:solid thin #FF9999;
+	
+	opacity: 0.75;
+	position:fixed;
+	top:0px;
+	width:100%;
+	font-size:14px;
+	margin-right:32px;
+	text-align:center;
+	vertical-align:middle;
+	display:block;
+	z-index:100;
+	font-weight:bold;
+	text-transform:uppercase;
+}
+
+.yui-skin-sam .yuimenubar {
+	background:none;
+	line-height:0;
+	color:#FFFFFF;
+	border:none;
+}
+
+.yuimenubaritem{
+border:thin outset;
+}
+
+.yui-skin-sam .yuimenubaritem-selected{
+border:thin inset;
+}
+
+.yuimenubar li, .yuimenu li, .yuimenu h6, .yuimenubar h6 {
+	background: none;
+	line-height:1;
+	padding:4.5px;
+	margin:0px 3px;
+}
+
+.yui-skin-sam .yuimenubaritemlabel {
+text-align:center;
+border:none;
+width:33px;
+margin:1px;
+display:block;
+}
+
+.yui-skin-sam .yuimenubaritemlabel-selected {
+text-align:center;
+border:none;
+width:33px;
+margin:1px;
+display:block;
+}
+.yui-skin-sam .yui-dt-table th, .yui-skin-sam .yui-dt-table th a {
+	font-weight:bold;
+}
+
+.yui-skin-sam .yui-dt-table th a {
+	font-weight:bold;
+}
+
+.green{
+	background:#CCFFCC;
+	border:#006600;
+	border:medium;
+	text-align:center;
+	color:#003300;
+	vertical-align:middle;
+	display:block;
+}
+
+
+html, body{
+	height: 100%;
+	font-family: Verdana;
+	font-size: 10px;
+}
+
+.yui-skin-sam yui-dt {
+	font-size:12px;
+}
+
+input[type=text], select, textarea {
+	border-top: solid 1px #AAA;
+	border-left: solid 1px #AAA;
+	border-right: solid 1px #000;
+	border-bottom: solid 1px #000;
+	font: normal 11px Tahoma, Arial, sans-serif;
+	padding:2px;
+}
+
+select {
+	padding: 0px;
+}
+select option {
+	padding: 2px;
+}
+input.btn {
+	background: #777E82;
+	border-color: #999 #224 #224 #999;
+	border-style: solid;
+	border-width: 1px;
+	color: white;
+	font: normal 1em Verdana,Helvetica,sans-serif;
+}
+h1 {
+	font: bold 2em Helvetica, Tahoma, Verdana, sans-serif;
+	letter-spacing: -1px;
+	text-transform:uppercase;
+	text-shadow:#666666;
+	margin:15px 0px 15px 15px;
+}
+h2 {
+	font: bold 1.7em Helvetica, Tahoma, Verdana, sans-serif;
+	letter-spacing: -1px;
+	text-transform:uppercase;
+	text-shadow:#666666;
+	margin:15px 0 0 50px;
+}
+.box {
+	border: solid 1px #CCC;
+	background: #EEE;
+	padding: 5px;
+	margin: 5px;
+	font-size: 1em;
+}
+.center {
+	text-align: center;
+}
+.nooverflow {
+	overflow:hidden;
+}
+.autooverflow {
+	overflow:auto;
+}
+#principal {
+	margin: auto;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+#principal #topo {
+	height: 140px;
+	background: url("<?=VIMAGES?>bgtopo.png");
+}
+#principal #topo #logowbs {
+	margin: 20px;
+}
+#principal #topo #sair {
+	float: right;
+	margin: 7px;
+}
+#principal #topo #datatopo {
+	position: absolute;
+	margin-left: 350px;
+	margin-top: 7px;
+}
+#principal #topo #logininfo {
+	position: absolute;
+	margin-left: 200px;
+	margin-top: -20px;
+}
+#principal #topo #mensagem {
+	float: right;
+	margin-top: -23px;
+}
+#principal #rodape {
+	height: 50px;
+	background: #EEE;
+	margin-top: 50px;
+}
+#separa {
+	clear: both;
+}
+
+#principal #corpo {
+	padding: 5px;
+}
+#principal #topo #menu {
+	position: absolute;
+	margin-top: 35px;
+	margin-left: 30%;
+	z-index: 10;
+}
+/*****************/
+/**  FORMULARIO **/
+/*****************/
+form.formulario fieldset
+{
+	display: block;
+	margin: 0 0 0.5em 0;
+	border: 0 solid #FFFFFF;
+	border-top: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+	padding: 0 1em 1em 1em;
+	
+}
+
+form.for fieldset{
+	display:block;
+}
+
+form.formulario fieldset.radio
+{
+	margin: 0 0 0 -1em;
+	border: 0 solid #FFFFFF;
+}
+
+form.formulario fieldset.radio input
+{
+	position: static;
+	clear: both;
+	float: left;
+}
+
+form.formulario fieldset.radio label
+{
+	position: relative;
+	top: -1.25em;
+	display: inline;
+	width: auto;
+	margin: 0 0 0 8em;
+	font-weight: bold;
+	font-weight: normal;
+}
+
+form.formulario fieldset.radio legend
+{
+	float: left;
+	font-weight: bold;
+}
+
+form.formulario input
+{
+	position: relative;
+	top: -1.4em;
+	left: 8em;
+	display: block;
+}
+form.formulario input.hidden
+{
+	display: none;
+}
+
+form.formulario input.submit
+{
+	clear: both;
+	top: 0;
+}
+
+form.formulario label
+{
+	clear: both;
+	float: left;
+	display: block;
+	width: 8em;
+	margin-top: -1em;
+	font-weight: bold;
+}
+
+form.formulario label.first
+{
+	margin-top: 1em;
+}
+
+.first
+{
+	margin-top: 1em;
+}
+
+form.formulario select
+{
+	position: relative;
+	top: -1.4em;
+	left: 8em;
+	display: block;
+}
+/* Loading formulario */
+form.formulario .loadingform {
+	position: absolute;
+	background: url("http://10.10.9.235/wbs_novo/images/loading.gif") no-repeat;
+	font: normal 14px Tahoma, Arial, Helvetica, sans-serif;
+	letter-spacing: 2px;
+	vertical-align:top;
+	text-align:center;
+	padding-left: 55px;
+	padding-top: 20px;
+}
+
+.lform {
+	background: url("../../images/indicator.gif") no-repeat;
+	font: normal 10px Tahoma, Arial, Helvetica, sans-serif;
+	letter-spacing: 1px;
+	float:right;
+	margin-top:10px;
+	margin-right:10px;
+	padding-left:20px;
+	padding-bottom:4px;
+}
+
+.centerForm{
+	position:absolute;
+	float:right;
+	left:50%;
+	TOP:50%;
+	z-index:50;
+	background:#FFFFFF;
+	border:#0033CC;
+	border:outset;
+	border-width:thin;
+
+}
+.headcenterForm{	
+	display:table-cell;
+	background:#0000FF;
+	width:100%;
+	text-align:right;
+}
+.sucesso {
+	background: url("../../images/ok.gif") no-repeat;
+}
+.erro {
+	background: url("../../images/cancel.gif") no-repeat;
+}
+
+form.formulario .sucesso {
+	background: url("../../images/ok.gif") no-repeat;
+}
+form.formulario .erro {
+	background: url("../../images/cancel.gif") no-repeat;
+}
+.fundo {
+	position: absolute;
+	width:100%;
+	height:100%;
+	top: 0px;
+	left: 0px;
+	background:#000;
+	z-index: 99;
+	opacity: 0.15;
+	filter: alpha(opacity=15);
+}
+
+.bgform{
+	position: absolute;
+	width:100%;
+	height:100%;
+	top: 0px;
+	left: 0px;
+	background:#000;
+	z-index: 49;
+	opacity: 0.15;
+	filter: alpha(opacity=15);
+}
+.fundo iframe {
+	display:none;
+	display/**/:block;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+}
+
+/*********************/
+/** DATA TABLE GRID **/
+/*********************/
+
+div.gridtable {margin:1em; font:Verdana, Arial, Helvetica, sans-serif; font-size:1em;}
+div.gridtable table { padding:3pt;	padding-left:4pt; padding-right:4pt;}
+div.gridtable th, #paginated td {border:1px solid #000;width:10em;}
+div.gridtable th {background-color:#696969; text-align:center}/* gray*/
+#corpo.azul div.gridtable th {background-color:#1845AD;}/* gray*/
+#corpo.verde div.gridtable th {background-color:#66A736;}/* gray*/
+#corpo.vermelho div.gridtable th {background-color:#D62408;}/* gray*/
+#corpo.amarelo div.gridtable th {background-color:#EFBA00;}/* gray*/
+div.gridtable th .yui-dt-headtext {margin-right:5px;padding-right:15px;} /*room for arrow*/
+div.gridtable th a {color:#fff;} /* white */
+div.gridtable .yui-dt-sortedbyasc, div.gridtable .yui-dt-sortedbydesc {background-color:#3F3F3F;}/*dark gray*/
+div.gridtable .yui-dt-sortedbyasc .yui-dt-headtext {background-image: url('../../images/arrow_up.gif'); background-repeat:no-repeat; background-position:right;}/*arrow up*/
+div.gridtable .yui-dt-sortedbydesc .yui-dt-headtext {background-image: url('../../images/arrow_dn.gif'); background-repeat:no-repeat; background-position:right;}/*arrow down*/
+
+/*div.gridtable .yui-dt-selected {background-color:#97C0A5;} /*green*/*/
+
+div.gridtable .center {text-align:center;}
+div.gridtable .view, div.gridtable .edit, div.gridtable .delete {text-align: center; cursor: pointer;} 
+
+/*************/
+/**  CORES  **/
+/*************/
+.azul h1 {
+	color: #3A7BCF;
+	background: url("<?=VIMAGES?>indazul.gif") no-repeat;
+	padding-left: 25px;
+}
+.vermelho h1{
+	color: #E42121;
+	background: url("<?=VIMAGES?>indvermelho.gif") no-repeat;
+	padding-left: 25px;
+}
+.verde h1 {
+	color: #66A736;
+	background: url("<?=VIMAGES?>indverde.gif") no-repeat;
+	padding-left: 25px;
+}
+.amarelo h1 {
+	color: #E9C51E;
+	background: url("<?=VIMAGES?>indamarelo.gif") no-repeat;
+	padding-left: 25px;
+}
+#abas {
+	display: none;
+}
+
+<style type="text/css">
+
+#panel1 .bd {
+
+    height: 300px;
+
+}
+
+
+/* Resize Panel CSS */
+
+.yui-panel-container .yui-resizepanel .bd {
+
+    overflow: auto;
+    background-color: #fff;
+
+}
+
+
+/*
+    PLEASE NOTE: It is necessary to toggle the "overflow" property 
+    of the body element between "hidden" and "auto" in order to 
+    prevent the scrollbars from remaining visible after the the 
+    ResizePanel is hidden.  For more information on this issue, 
+    read the comments in the "container-core.css" file.
+*/
+
+.yui-panel-container.hide-scrollbars .yui-resizepanel .bd {
+
+    overflow: hidden;
+
+}
+
+.yui-panel-container.show-scrollbars .yui-resizepanel .bd {
+
+    overflow: auto;
+
+}		
+
+
+/*
+    PLEASE NOTE: It is necessary to set the "overflow" property of
+    the underlay element to "visible" in order for the 
+    scrollbars on the body of a ResizePanel instance to be 
+    visible.  By default the "overflow" property of the underlay 
+    element is set to "auto" when a Panel is made visible on
+    Gecko for Mac OS X to prevent scrollbars from poking through
+    it on that browser + platform combintation.  For more 
+    information on this issue, read the comments in the 
+    "container-core.css" file.
+*/
+
+.yui-panel-container.show-scrollbars .underlay {
+
+    overflow: visible;
+
+}
+
+.yui-resizepanel .resizehandle { 
+
+     position: absolute; 
+     width: 10px; 
+     height: 10px; 
+     right: 0;
+     bottom: 0; 
+     margin: 0; 
+     padding: 0; 
+     z-index: 1; 
+     background: url(assets/img/corner_resize.gif) left bottom no-repeat;
+     cursor: se-resize;
+
+ }
+ 
+ .yui-dt-table th, .yui-dt-table td {
+    overflow:hidden;
+}
+
+th .yui-dt-header {
+    position:relative;
+}
+
+th .yui-dt-label {
+    position:relative;
+}
+
+th .yui-dt-resizer {
+    position:absolute;
+    margin-right:-6px;
+    right:0;
+    bottom:0;
+    width:6px;
+    height:100%;
+    cursor:w-resize;
+    cursor:col-resize;
+}
+
+.yui-skin-sam .yui-pg-container {
+
+}
+.yui-skin-sam .yui-dt-table th, .yui-skin-sam .yui-dt-table td {
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:0.9em;
+	padding: 4px 2px 4px 2px;
+}
+</style>

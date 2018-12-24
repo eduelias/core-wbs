@@ -1,0 +1,315 @@
+/* SUBTITULO ABAS */
+h2 {	
+font:bolder;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	color:#000;
+	border:solid thin #000;
+	border-width:0px 0px 0em 0;
+	text-transform:uppercase;
+	margin-left: 2.5em;
+	font-size:18px;
+
+}
+
+.yui-skin-sam .yui-panel .hd {
+	background:url(<?=VIMAGES?>amarelo_sprite.png) repeat-x 0px -1400px;
+}
+
+.yui-skin-sam .container-close {
+background:url(<?=VIMAGES?>amarelo_sprite.png) no-repeat 0px -300px;
+top:2px;
+}
+
+.pesquisa_tit {
+    background:url(<?=VIMAGES?>amarelo_sprite.png) no-repeat -0px -1224px;
+	height:18px !important;
+	padding-left: 18px;
+	font-size:1.3em !important;
+	vertical-align:middle;
+	color:#CC3300;
+	text-transform:uppercase;
+}
+
+/* basic skin styles */
+.yui-skin-sam .yui-dt table {
+    margin:0;
+	padding:0px;
+    font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:1em;
+    border-collapse:separate;
+	*border-collapse:collapse;
+	border-spacing:0; /* since ie6 and ie7 behave differently */
+    border:1px solid #7F7F7F;
+}
+
+.yui-skin-sam .yui-dt thead {border-spacing:0;} /* for safari bug */
+
+.yui-skin-sam .yui-dt caption img{
+
+}
+.yui-skin-sam .yui-dt caption {
+
+    color:#000000;
+    font-size:85%;
+    font-weight:normal;
+    font-style:italic;
+    line-height:0;
+    padding:0em;
+	margin:0px;
+    text-align:left;
+}
+
+.yui-skin-sam .yui-dt th {
+    background:#D8D8DA url(<?=VIMAGES?>amarelo_sprite.png) repeat-x 0 -1400px; /* header gradient */
+}
+.yui-skin-sam .yui-dt th,
+.yui-skin-sam .yui-dt th a {
+	text-transform:uppercase;
+	font-size:1em;
+    font-weight:bold;text-decoration:none;color:#000; /* header text */
+    vertical-align:bottom;
+	text-align:center;
+}
+.yui-skin-sam .yui-dt th {
+    margin:0;padding:0;
+    border:none;
+    border-right:1px solid #CBCBCB;/*  inner column border */
+}
+.yui-skin-sam .yui-dt tr.yui-dt-first td {
+    border-top:1px solid #7F7F7F;  /* tbody top border  */
+}
+.yui-skin-sam .yui-dt th .yui-dt-liner {
+    white-space:nowrap;
+}
+.yui-skin-sam .yui-dt-liner {
+    margin:0;
+    padding:2px 3px 2px 3px; /* cell padding */ 
+}
+.yui-skin-sam .yui-dt-coltarget {
+    width: 5px;
+    background-color: #FFFF00;
+}
+.yui-skin-sam .yui-dt td {
+    margin:0;padding:0;
+    border:none;
+    border-right:1px solid #CBCBCB; /* inner column border */
+    text-align:left;
+	font-size:1em;
+}
+
+.yui-skin-sam .yui-dt-resizer {
+    width:6px;
+}
+
+/* mask */
+.yui-skin-sam .yui-dt-mask {
+	background-color:#FF9900;
+    /*opacity: .25;*/
+    filter: alpha(opacity=25) !important;  /* Set opacity in IE */
+}
+
+/* messaging */
+.yui-skin-sam .yui-dt-message  {
+    background-color:#FFFF66;
+}
+
+
+.yui-skin-sam th.yui-dt-sortable .yui-dt-label {
+    margin-right:10px;
+}
+.yui-skin-sam th.yui-dt-asc .yui-dt-liner {
+    background:url(<?=VIMAGES?>amarelo_sprite.png) no-repeat right -947px; /* sorted header gradient */
+}
+.yui-skin-sam th.yui-dt-desc .yui-dt-liner {
+    background:url(<?=VIMAGES?>amarelo_sprite.png) no-repeat right -847px; /* sorted header gradient */
+}
+
+.yui-dt-editor .yui-dt-button button {
+    background:url(<?=VIMAGES?>amarelo_sprite.png) repeat-x 0 0;
+    border:1px solid #999;
+    width:4em;height:1.8em;
+    margin-left:6px;
+}
+.yui-dt-editor .yui-dt-button button.yui-dt-default {
+    background:url(<?=VIMAGES?>amarelo_sprite.png) repeat-x 0 0;
+    border:1px solid #999;
+    width:4em;height:1.8em;
+    margin-left:6px;
+	color:000
+}
+.yui-dt-editor .yui-dt-button button:hover {
+    background:url(<?=VIMAGES?>amarelo_sprite.png) repeat-x 0 -1300px;
+    color:#000;
+}
+.yui-dt-editor .yui-dt-button button:active {
+    background:url(<?=VIMAGES?>amarelo_sprite.png) repeat-x 0 -1700px;
+    color:#000;
+}
+
+/* striping */
+.yui-skin-sam tr.yui-dt-even { background-color:#FFe; } /* white */
+.yui-skin-sam tr.yui-dt-odd { background-color:#ffc; } /* light blue */
+.yui-skin-sam tr.yui-dt-even td.yui-dt-asc,
+.yui-skin-sam tr.yui-dt-even td.yui-dt-desc { background-color:#ffffe0; } /* light blue sorted */
+.yui-skin-sam tr.yui-dt-odd td.yui-dt-asc,
+.yui-skin-sam tr.yui-dt-odd td.yui-dt-desc { background-color:#FFffb0; } /* dark blue sorted */
+
+/* highlighting */
+.yui-skin-sam th.yui-dt-highlighted,
+.yui-skin-sam th.yui-dt-highlighted a {
+    background-color:#FFFF66; /* med blue hover */
+}
+.yui-skin-sam tr.yui-dt-highlighted,
+.yui-skin-sam tr.yui-dt-highlighted td.yui-dt-asc,
+.yui-skin-sam tr.yui-dt-highlighted td.yui-dt-desc,
+.yui-skin-sam tr.yui-dt-even td.yui-dt-highlighted,
+.yui-skin-sam tr.yui-dt-odd td.yui-dt-highlighted {
+    cursor:pointer;
+    background-color:#FFFF66; /* med blue hover */
+}
+
+/* selection */
+.yui-skin-sam th.yui-dt-selected,
+.yui-skin-sam th.yui-dt-selected a {
+    background-color:#D7D744; /* bright blue selected cell */
+}
+.yui-skin-sam tr.yui-dt-selected td,
+.yui-skin-sam tr.yui-dt-selected td.yui-dt-asc,
+.yui-skin-sam tr.yui-dt-selected td.yui-dt-desc {
+    background-color:#D0D040; /* bright blue selected row */
+}
+.yui-skin-sam tr.yui-dt-even td.yui-dt-selected,
+.yui-skin-sam tr.yui-dt-odd td.yui-dt-selected {
+    background-color:#DDDD44; /* bright blue selected cell */
+	color:000;
+}
+
+.yui-skin-sam th.yui-dt-asc,
+.yui-skin-sam th.yui-dt-desc {
+    background:url(<?=VIMAGES?>amarelo_sprite.png) repeat-x 0 -1412px; /* sorted header gradient */
+}
+
+
+
+
+/* ===================> COMEÇA CSS TABS <===================================== */
+.yui-navset{
+	margin:15px;
+}
+/* .yui-navset defaults to .yui-navset-top */
+.yui-skin-sam .yui-navset .yui-nav,
+.yui-skin-sam .yui-navset .yui-navset-top .yui-nav { /* protect nested tabviews from other orientations */
+
+    border:solid #FF9; /* color between tab list and content */
+	border-top-color:#CCCCCC;
+    border-width:0em 0 0px 0;
+    Xposition:relative;
+    zoom:1;
+}
+
+.yui-skin-sam .yui-navset .yui-nav li,
+.yui-skin-sam .yui-navset .yui-navset-top .yui-nav li {
+    margin: 0 2px; /* space between tabs */
+    padding:1px 0 0 0; /* gecko: make room for overflow */
+    zoom:1;
+}
+
+.yui-skin-sam .yui-navset .yui-nav .selected,
+.yui-skin-sam .yui-navset .yui-navset-top .yui-nav .selected { 
+    margin:0 1px 0px 0; /* for overlap */
+}
+
+.yui-skin-sam .yui-navset .yui-nav a,
+.yui-skin-sam .yui-navset .yui-navset-top .yui-nav a {
+    background:#d8d8d8 url(<?=VIMAGES?>amarelo_sprite.png) repeat-x; /* tab background */
+    border:solid #a3a3a3;
+    border-width:0 1px;
+    color:#000;
+    text-decoration:none;
+	text-transform:uppercase; /*ed*/
+}
+
+.yui-skin-sam .yui-navset .yui-nav a em,
+.yui-skin-sam .yui-navset .yui-navset-top .yui-nav a em {
+    border:solid #a3a3a3;
+    border-width:1px 0 0;
+	font-size:10px;
+    cursor:hand;
+	font-weight:bolder;
+	padding:0.5em;
+    left:0; right: 0; bottom: 0; /* protect from other orientations */
+    top:-1px; /* for 1px rounded corners */
+    position:relative;
+}
+
+.yui-skin-sam .yui-navset .yui-nav .selected a,
+.yui-skin-sam .yui-navset .yui-nav .selected a:focus, /* no focus effect for selected */
+.yui-skin-sam .yui-navset .yui-nav .selected a:hover { /* no hover effect for selected */
+    background:#2647a0 url(<?=VIMAGES?>amarelo_sprite.png) repeat-x left -1300px; /* selected tab background */
+    color:#000;
+}
+
+.yui-skin-sam .yui-navset .yui-nav a:hover,
+.yui-skin-sam .yui-navset .yui-nav a:focus {
+    background:#bfdaff url(<?=VIMAGES?>amarelo_sprite.png) repeat-x left -1400px; /* selected tab background */
+    outline:0;
+}
+
+.yui-skin-sam .yui-navset .yui-nav .selected a em {
+    padding:0.7em; /* raise selected tab */
+}
+
+.yui-skin-sam .yui-navset .yui-nav .selected a,
+.yui-skin-sam .yui-navset .yui-nav .selected a em {
+    border-color:#d4cd02 /*#243356;  selected tab border color */
+}
+
+.yui-skin-sam .yui-navset .yui-content {
+    background:#FFFFEE; /*#edf5ff; /* content background color */
+}
+
+.yui-skin-sam .yui-navset .yui-content,
+.yui-skin-sam .yui-navset .yui-navset-top .yui-content {
+
+	background:#FFFFEE url(<?=VIMAGES?>head_tab_am.png) repeat-x top;
+    border:1px solid #d4cd02;/* content border */
+    border-top-color:#FF9; /* different border color */
+    padding:0.3em; /* content padding */
+}
+
+/* ============================================= */
+
+.amarelo .pagina_obj {
+	position:relative;
+	width:700px !important;
+	padding:10px;
+	margin-right:auto;
+	margin-left:auto;
+	background:#FFFF99;
+	border:#d4cd02 thin solid;
+}
+
+.pesquisa_tit{
+	position:absolute;
+	margin-top:-5px;
+	_margin-top:-20px;
+}
+input:focus, input.sffocus{
+	border: 2px #FFCC00 solid !important;
+	outline-color:invert;
+	outline-style:none;
+	outline-width:2px;
+}
+.amarelo .pagina_obj input{
+	border: 1px solid #CCCCCC;
+}
+
+.amarelo .pagina_obj{
+	text-align:left;
+	font-size:1em;
+	color:#CC3300;
+	text-transform:uppercase;
+}
+
+.yui-skin-sam .yui-dt table {
+}

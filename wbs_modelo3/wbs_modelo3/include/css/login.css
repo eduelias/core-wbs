@@ -1,0 +1,104 @@
+/* PNG transparent no IEs*/
+/*
+Alpha PNG support for IE
+------------------------------
+Aviso, este código abaixo funciona apenas para visualização na tela. Quando este documento for impresso, o bug voltará.
+O Hack Abaixo faz o código rodar apenas no IE. Sendo que os outros browsers como, Firefox, Opera e Safari já tem a transparencia de PNG nativo.
+\*/
+* html img/**/ {
+ filter:expression(
+   this.alphaxLoaded ? "" :
+   (
+    this.src.substr(this.src.length-4)==".png"
+    ?
+    (
+     (!this.complete)
+     ? "" :
+      this.runtimeStyle.filter=
+      ("progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"+this.src+"')")+
+      (this.onbeforeprint="this.runtimeStyle.filter='';this.src='"+this.src+"'").substr(0,0)+
+      String(this.alphaxLoaded=true).substr(0,0)+
+      (this.src="blank.png").substr(0,0)
+    )
+    :
+    this.runtimeStyle.filter=""
+   )
+  );
+}
+
+* {
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+html, body{
+	height: 100%;
+	font-family: "Trebuchet MS", Arial, Verdana, Tahoma, Sans-serif;
+	font-size: 0.85em;
+}
+input, select, textarea {
+	border-top: solid 1px #AAA;
+	border-left: solid 1px #AAA;
+	border-right: solid 1px #000;
+	border-bottom: solid 1px #000;
+}
+input.btn {
+	background: #777E82;
+	border-color: #999 #224 #224 #999;
+	border-style: solid;
+	border-width: 1px;
+	color: white;
+	font: normal 1em Verdana,Helvetica,sans-serif;
+}
+ul li {
+	margin-left: 30px;
+}
+.box {
+	border: solid 1px #CCC;
+	background: #EEE;
+	padding: 5px;
+	margin: 5px;
+	font-size: 1em;
+}
+.center {
+	text-align: center;
+}
+#telalogin {
+	border: solid 1px #CCC;
+	width: 500px;
+	margin: 0 auto;
+	margin-top: 10px;
+}
+#telalogin #topo {
+	height: 141px;
+	background: url("../../images/login/bgtopo.png");
+}
+#telalogin #topo #logowbs {
+	margin: 20px;
+}
+#telalogin #topo #login {
+	float: right;
+	margin-right: 20px;
+	margin-top: 40px;
+}
+#telalogin h1 {
+	font: bold 1.4em Arial, Verdana, Tahoma, Sans-serif;
+	text-align: center;
+}
+#telalogin p {
+	margin: 10px;
+}
+#telalogin #usuario {
+	margin-left: 30px;
+}
+#telalogin #senha {
+	float: right;
+	width: 150px;
+	background: #FFF;
+	line-height: 13px;
+	padding: 5px;
+	border: solid 1px #CCC;
+}
+#telalogin #teclado {
+	height: 93px;
+}

@@ -1,0 +1,81 @@
+#principal{
+	display:none;
+}
+#rodape{
+	display:none;
+}
+#valor_total{
+	float:right;
+	font-size:60px;
+	margin-right:10px;
+}
+#eproduto{
+	font-size:14px;
+	text-align:center;
+}
+.row{
+	display:inline-block;
+}
+.row .item{
+	display:inline-block;
+}
+input[type="text"], select, textarea {
+	border-color:#AAAAAA #000000 #000000 #AAAAAA;
+	border-style:solid;
+	border-width:1px;
+	font:inherit;
+	font-weight:bolder;
+	padding:2px;
+}
+.form{
+	margin: 10px;
+}
+.secao{
+	font-size: 20px;
+	padding-left:10px;
+		font-family:'Trebuchet MS',Tahoma,Verdana,Arial;
+}
+.container{
+	margin: 0 auto;
+	width:900px;
+
+}
+.cliente .secao{
+	background:url("../../../wbs_base/wbs2_novo/images/fd2coresblue.jpg") repeat scroll 20px 50% #5B9ADF;
+	color:#FFF;
+
+}
+.cliente {
+	text-align:left;
+	font:15px Verdana, Geneva, sans-serif;	
+	border:thin dashed #5B9ADF;
+
+}
+.pagamento .secao{
+	background:url("../../../wbs_base/wbs2_novo/images/fd2coresred.jpg") repeat scroll 20px 50% #FF0000;
+	color:#FFF;
+	
+}
+.pagamento{
+	text-align:left;
+	font:20px Verdana, Geneva, sans-serif;	
+	border:thin dashed #FF0000;
+	
+}
+label {
+	margin-top:3px;
+	display:block;
+	font-size:13px;
+	font-weight:bold;
+}
+.produtos .secao{
+	background: url("../../../wbs_base/wbs2_novo/images/fd2coresgreen.jpg") repeat scroll 20px 50% #009900 ;	
+	color:#FFF;
+}
+.produtos{
+	text-align:left;
+	font:20px Verdana, Geneva, sans-serif;	
+	border:thin dashed #009900;
+}
+
+.produtos 

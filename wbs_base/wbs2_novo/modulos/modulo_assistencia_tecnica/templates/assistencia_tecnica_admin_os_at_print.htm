@@ -1,0 +1,313 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Ordem de Servi&ccedil;o</title>
+<script language="javascript">
+function printPage()
+{
+    document.getElementById('print').style.visibility = 'hidden';
+	// Do print the page
+    if (typeof(window.print) != 'undefined') {
+        window.print();
+    }
+    document.getElementById('print').style.visibility = '';
+ }
+</script>
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	color: #000000;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+}
+.titulo {
+	font-size: 12px;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #000000;
+	background-color: #FFFF99;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+	border-bottom-color: #000000;
+}
+.os_at {
+	font-size: 18px;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+.condicoes {
+	font-size: 8px;
+	text-align: justify;
+}
+.ficha {
+	border: 2px solid #000000;
+}
+.condicoes2 {
+	font-size: 8px;
+	text-align: center;
+	border-left-width: 1px;
+	border-left-style: solid;
+	border-left-color: #333333;
+}
+-->
+</style>
+</head>
+
+<body>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td class="ficha"><table width="100%" border="0" cellspacing="1" cellpadding="1">
+      <tr>
+        <td width="33%"><img src="http://wbs.ipasoft.com.br/wbs2_novo/images/logo_autorizada_nucleolinux.png" width="129" height="56" /></td>
+        <td align="center"><span class="os_at"><? if($rs_dados_os_at->fields['status'] == "ENTREGUE") { ?>RECIBO DE ENTREGA<? } else { ?>ORDEM DE SERVI&Ccedil;O<? }  ?></span></td>
+        <td width="33%" align="right" class="os_at"><? echo $rs_dados_os_at->fields['codbarra_os_at']; ?></td>
+      </tr>
+      <tr>
+        <td><small><strong>Telefone:</strong></small></td>
+        <td>&nbsp;</td>
+        <td align="right"><strong>Data OS:</strong> <? echo $rs_dados_os_at->UserTimeStamp($rs_dados_os_at->fields['dataos_at_ini'],'d/m/Y H:i'); ?></td>
+      </tr>
+    </table>
+        <table width="100%" border="0" cellspacing="1" cellpadding="1">
+          <tr>
+            <td colspan="3" class="titulo">DADOS DO CLIENTE </td>
+          </tr>
+          <tr>
+            <td width="50%"><strong>CLIENTE:</strong><br />
+                <? echo $db->format_str("UP", $rs_cliente_os_at->fields['nome']); ?></td>
+            <td width="25%" align="right"><strong>TELEFONE CLIENTE:</strong><br />
+              (<? echo $rs_cliente_os_at->fields['dddtel1']; ?>) <? echo $db->format_str("UP", $rs_cliente_os_at->fields['tel1']); ?></td>
+            <td width="25%" align="right"><strong>CPF/CNPJ:</strong><br />
+                <? echo $db->format_str("UP", $rs_cliente_os_at->fields['cpf']); ?><? echo $db->format_str("UP", $rs_cliente_os_at->fields['cnpj']); ?></td>
+          </tr>
+          <tr>
+            <td width="50%"><strong>ENDERE&Ccedil;O:</strong><br />
+                <? echo $db->format_str("UP", $rs_cliente_os_at->fields['endereco']); ?>, <? echo $rs_cliente_os_at->fields['numero']; ?> - <? echo $db->format_str("UP", $rs_cliente_os_at->fields['complemento']); ?> - <? echo $db->format_str("UP", $rs_cliente_os_at->fields['bairro']); ?> - <? echo $db->format_str("UP", $rs_cliente_os_at->fields['cidade']); ?>/<? echo $db->format_str("UP", $rs_cliente_os_at->fields['estado']); ?> - CEP <? echo $db->format_str("UP", $rs_cliente_os_at->fields['cep']); ?></td>
+            <td width="25%" align="right"><strong>TELEFONE CONTATO:</strong><br />
+              (<? echo $rs_dados_os_at->fields['dddtel1']; ?>) <? echo $rs_dados_os_at->fields['tel1']; ?></td>
+            <td width="25%" align="right"><strong>CONTATO:</strong><br />
+                <? echo $db->format_str("UP", $rs_dados_os_at->fields['contato']); ?></td>
+          </tr>
+        </table>
+      <table width="100%" border="0" cellspacing="1" cellpadding="1">
+          <tr>
+            <td colspan="3" class="titulo">DADOS DA OS </td>
+          </tr>
+          <tr>
+            <td width="25%"><strong>PEDIDO:</strong>
+                <? $rs_pedido = $db->query_db("SELECT codbarra FROM pedido WHERE codped = '".$rs_dados_os_at->fields['codped']."'","SQL_NONE","N");
+		echo $rs_pedido->fields['codbarra']."<br />"; ?></td>
+            <td width="25%"><strong>DATA NF:</strong> <? echo $rs_dados_os_at->UserTimeStamp($rs_dados_os_at->fields['data_nf'],'d/m/Y'); ?></td>
+            <td width="25%"><strong>NOTA FISCAL:</strong> <? echo $rs_dados_os_at->fields['nf']; ?></td>
+          </tr>
+          <tr>
+            <td colspan="3"><strong>DESCRI&Ccedil;&Atilde;O DO EQUIPAMENTO:</strong><br />
+                <? echo "<small>".$db->format_str("UP", $rs_dados_os_at->fields['os_at_descrisao_equip'])."</small>"; ?></td>
+          </tr>
+          <tr>
+            <td colspan="3"><!--<?
+if (($rs_analises_os_at) AND ($rs_dados_os_at->fields['status'] <> "LIB ENTR" OR $rs_dados_os_at->fields['status'] <> "ENTREGUE"))
+{
+	$killcond = 0;
+	echo "<strong>SINTOMAS RELATADOS PELO CLIENTE:</strong><br />";
+	while (!$rs_analises_os_at->EOF)
+	{
+		echo "<small>".$rs_analises_os_at->fields['codsintoma']." - ";
+		$rs_sintomas = $db->query_db("SELECT * FROM os_at_sintomas WHERE codsintoma = '".$rs_analises_os_at->fields['codsintoma']."'","SQL_NONE","N");
+		echo $rs_sintomas->fields['descricao']."</small><br />";
+		$rs_analises_os_at->MoveNext();
+	}//WHILE
+	$rs_analises_os_at->Move(0);
+}
+if (($rs_analises_os_at) AND ($rs_dados_os_at->fields['status'] == "LIB ENTR" OR $rs_dados_os_at->fields['status'] == "ENTREGUE"))
+{
+	$killcond = 1;
+	echo "<strong>SERVI&Ccedil;OS EXECUTADOS:</strong><br />";
+	while (!$rs_analises_os_at->EOF)
+	{
+		echo "<small>".$rs_analises_os_at->fields['codsrv_exec']." - ";
+		$rs_srv_exec = $db->query_db("SELECT * FROM os_at_srv_exec WHERE codsrv_exec = '".$rs_analises_os_at->fields['codsrv_exec']."'","SQL_NONE","N");
+		echo $rs_srv_exec->fields['descricao']."</small><br />";
+		$rs_analises_os_at->MoveNext();
+	}//WHILE
+	$rs_analises_os_at->Move(0);
+}
+?>
+            --></td>
+          </tr>
+      </table>
+	  <? if($killcond == 0) {?>
+      <table width="100%" border="0" cellspacing="1" cellpadding="1">
+          <tr>
+            <td colspan="2" class="titulo">CONDI&Ccedil;&Otilde;ES ACEITAS PELO CLIENTE </td>
+          </tr>
+          <tr>
+            <td width="50%" valign="top" class="condicoes">1) Ser&aacute; analisado somente o sintoma relatado pelo cliente.<br />
+              2) A autorizada n&atilde;o se responsabiliza pelos dados no equipamento em manuten&ccedil;&atilde;o, o respons&aacute;vel compromete-se neste ato a manter c&oacute;pias adequadas de seus arquivos.<br />
+              3) Para equipamentos em garantia os servi&ccedil;os ser&atilde;o executados conforme contrato ou certificado.<br />
+              4) O cliente &eacute; o &uacute;nico respons&aacute;vel pela falta de documenta&ccedil;&atilde;o e autenticidade do software. <br />
+              5) Na descri&ccedil;&atilde;o do equipamento, o cliente dever&aacute; verificar atentamente o item descrição do equipamento, pois os equipamentos e acess&oacute;rios mencionados ser&atilde;o os &uacute;nicos itens a serem devolvidos na conclus&atilde;o dos servi&ccedil;os.<br />
+              6) &Eacute; de inteira responsabilidade do cliente o funcionamento das pe&ccedil;as avulsas entregues para instala&ccedil;&atilde;o.<br />
+              7) Estou ciente e   de acordo, que no caso do equipamento objeto desta ordem de servi&ccedil;os n&atilde;o ser   retirado na assist&ecirc;ncia t&eacute;cnica no prazo de 28 (vinte e oito) dias ap&oacute;s a sua   data de entrada, me responsabilizo pelo pagamento dos valores dependidos na   comunica&ccedil;&atilde;o feita por escrito atrav&eacute;s de telegrama ou carta registrada, mediante   a apresenta&ccedil;&atilde;o dos comprovantes.<br />
+              <br />
+              <br />
+              <div align="center">                __________________________________________________<br />
+              Assinatura<br />
+              Juiz de Fora, <? echo "$dia de $mes de $ano"; ?></div></td>
+            <td width="50%" valign="middle" class="condicoes2"><strong>Autoriza&ccedil;&atilde;o</strong><br />
+                <br />
+              Autorizo neste ato a venda de produtos objetos desta ordem de servi&ccedil;os, a fim de serem ressarcidas as despesas com pe&ccedil;as, armazenamentos e servi&ccedil;o, caso permana&ccedil;am na empresa por um per&iacute;odo superior a 90 dias, ap&oacute;s liberado.<br />
+              Por estar de pleno acordo.<br />
+              Firmo presente instrumento.<br />
+              <br />
+              __________________________________________________<br />
+              Assinatura<br />
+              Juiz de Fora, <? echo "$dia de $mes de $ano"; ?></td>
+          </tr>
+      </table><? } if($killcond == 1) { ?>
+      <table width="100%" border="0" cellspacing="1" cellpadding="1">
+
+        <tr>
+          <td valign="top"><br />
+            <div align="center">Declaro para todos os fins estar recebendo nesta data o equipamento conforme consta no item descrição do equipamento, e que foram realizados os testes de funcionamento em minha presença. <br />
+              <br />
+              __________________________________________________<br />
+              Assinatura<br />
+              Juiz de Fora, <? echo "$dia de $mes de $ano"; ?></div></td>
+        </tr>
+      </table>
+      <? } ?></td>
+  </tr>
+</table>
+<hr size="1" />
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td class="ficha"><table width="100%" border="0" cellspacing="1" cellpadding="1">
+      <tr>
+        <td width="33%"><img src="http://wbs.ipasoft.com.br/wbs2_novo/images/logo_autorizada_nucleolinux.png" width="129" height="56" /></td>
+        <td align="center"><span class="os_at"><?  if($killcond == 1) { ?>RECIBO DE ENTREGA<? } else { ?>ORDEM DE SERVI&Ccedil;O<? }  ?></span></td>
+        <td width="33%" align="right" class="os_at"><? echo $rs_dados_os_at->fields['codbarra_os_at']; ?></td>
+      </tr>
+      <tr>
+        <td><small><strong>Telefone:</strong></small></td>
+        <td>&nbsp;</td>
+        <td align="right"><strong>Data OS:</strong> <? echo $rs_dados_os_at->UserTimeStamp($rs_dados_os_at->fields['dataos_at_ini'],'d/m/Y H:i'); ?></td>
+      </tr>
+    </table>
+        <table width="100%" border="0" cellspacing="1" cellpadding="1">
+          <tr>
+            <td colspan="3" class="titulo">DADOS DO CLIENTE </td>
+          </tr>
+          <tr>
+            <td width="50%"><strong>CLIENTE:</strong><br />
+                <? echo $db->format_str("UP", $rs_cliente_os_at->fields['nome']); ?></td>
+            <td width="25%" align="right"><strong>TELEFONE CLIENTE:</strong><br />
+              (<? echo $rs_cliente_os_at->fields['dddtel1']; ?>) <? echo $db->format_str("UP", $rs_cliente_os_at->fields['tel1']); ?></td>
+            <td width="25%" align="right"><strong>CPF/CNPJ:</strong><br />
+                <? echo $db->format_str("UP", $rs_cliente_os_at->fields['cpf']); ?><? echo $db->format_str("UP", $rs_cliente_os_at->fields['cnpj']); ?></td>
+          </tr>
+          <tr>
+            <td width="50%"><strong>ENDERE&Ccedil;O:</strong><br />
+                <? echo $db->format_str("UP", $rs_cliente_os_at->fields['endereco']); ?>, <? echo $rs_cliente_os_at->fields['numero']; ?> - <? echo $db->format_str("UP", $rs_cliente_os_at->fields['complemento']); ?> - <? echo $db->format_str("UP", $rs_cliente_os_at->fields['bairro']); ?> - <? echo $db->format_str("UP", $rs_cliente_os_at->fields['cidade']); ?>/<? echo $db->format_str("UP", $rs_cliente_os_at->fields['estado']); ?> - CEP <? echo $db->format_str("UP", $rs_cliente_os_at->fields['cep']); ?></td>
+            <td width="25%" align="right"><strong>TELEFONE CONTATO:</strong><br />
+              (<? echo $rs_dados_os_at->fields['dddtel1']; ?>) <? echo $rs_dados_os_at->fields['tel1']; ?></td>
+            <td width="25%" align="right"><strong>CONTATO:</strong><br />
+                <? echo $db->format_str("UP", $rs_dados_os_at->fields['contato']); ?></td>
+          </tr>
+        </table>
+      <table width="100%" border="0" cellspacing="1" cellpadding="1">
+          <tr>
+            <td colspan="3" class="titulo">DADOS DA OS </td>
+          </tr>
+          <tr>
+            <td width="25%"><strong>PEDIDO:</strong>
+                <? $rs_pedido = $db->query_db("SELECT codbarra FROM pedido WHERE codped = '".$rs_dados_os_at->fields['codped']."'","SQL_NONE","N");
+		echo $rs_pedido->fields['codbarra']."<br />"; ?></td>
+            <td width="25%"><strong>DATA NF:</strong> <? echo $rs_dados_os_at->UserTimeStamp($rs_dados_os_at->fields['data_nf'],'d/m/Y'); ?></td>
+            <td width="25%"><strong>NOTA FISCAL:</strong> <? echo $rs_dados_os_at->fields['nf']; ?></td>
+          </tr>
+          <tr>
+            <td colspan="3"><strong>DESCRI&Ccedil;&Atilde;O DO EQUIPAMENTO:</strong><br />
+                <? echo "<small>".$db->format_str("UP", $rs_dados_os_at->fields['os_at_descrisao_equip'])."</small>"; ?></td>
+          </tr>
+          <tr>
+            <td colspan="3"><!--<?
+if (($rs_analises_os_at) AND ($rs_dados_os_at->fields['status'] <> "LIB ENTR" OR $rs_dados_os_at->fields['status'] <> "ENTREGUE"))
+{
+	$killcond = 0;
+	echo "<strong>SINTOMAS RELATADOS PELO CLIENTE:</strong><br />";
+	while (!$rs_analises_os_at->EOF)
+	{
+		echo "<small>".$rs_analises_os_at->fields['codsintoma']." - ";
+		$rs_sintomas = $db->query_db("SELECT * FROM os_at_sintomas WHERE codsintoma = '".$rs_analises_os_at->fields['codsintoma']."'","SQL_NONE","N");
+		echo $rs_sintomas->fields['descricao']."</small><br />";
+		$rs_analises_os_at->MoveNext();
+	}//WHILE
+	$rs_analises_os_at->Move(0);
+}
+if (($rs_analises_os_at) AND ($rs_dados_os_at->fields['status'] == "LIB ENTR" OR $rs_dados_os_at->fields['status'] == "ENTREGUE"))
+{
+	$killcond = 1;
+	echo "<strong>SERVI&Ccedil;OS EXECUTADOS:</strong><br />";
+	while (!$rs_analises_os_at->EOF)
+	{
+		echo "<small>".$rs_analises_os_at->fields['codsrv_exec']." - ";
+		$rs_srv_exec = $db->query_db("SELECT * FROM os_at_srv_exec WHERE codsrv_exec = '".$rs_analises_os_at->fields['codsrv_exec']."'","SQL_NONE","N");
+		echo $rs_srv_exec->fields['descricao']."</small><br />";
+		$rs_analises_os_at->MoveNext();
+	}//WHILE
+	$rs_analises_os_at->Move(0);
+}
+?>
+           --> </td>
+          </tr>
+        </table>
+      <? if($killcond == 0) {?>
+        <table width="100%" border="0" cellspacing="1" cellpadding="1">
+          <tr>
+            <td colspan="2" class="titulo">CONDI&Ccedil;&Otilde;ES ACEITAS PELO CLIENTE </td>
+          </tr>
+          <tr>
+            <td width="50%" valign="top" class="condicoes">1) Ser&aacute; analisado somente o sintoma relatado pelo cliente.<br />
+              2) A autorizada n&atilde;o se responsabiliza pelos dados no equipamento em manuten&ccedil;&atilde;o, o respons&aacute;vel compromete-se neste ato a manter c&oacute;pias adequadas de seus arquivos.<br />
+              3) Para equipamentos em garantia os servi&ccedil;os ser&atilde;o executados conforme contrato ou certificado.<br />
+              4) O cliente &eacute; o &uacute;nico respons&aacute;vel pela falta de documenta&ccedil;&atilde;o e autenticidade do software. <br />
+              5) Na descri&ccedil;&atilde;o do equipamento, o cliente dever&aacute; verificar atentamente o item descrição do equipamento, pois os equipamentos e acess&oacute;rios mencionados ser&atilde;o os &uacute;nicos itens a serem devolvidos na conclus&atilde;o dos servi&ccedil;os.<br />
+              6) &Eacute; de inteira responsabilidade do cliente o funcionamento das pe&ccedil;as avulsas entregues para instala&ccedil;&atilde;o.<br />
+              <br />
+              <br />
+              <div align="center"> __________________________________________________<br />
+                Assinatura<br />
+                Juiz de Fora, <? echo "$dia de $mes de $ano"; ?></div></td>
+            <td width="50%" valign="middle" class="condicoes2"><strong>Autoriza&ccedil;&atilde;o</strong><br />
+                <br />
+              Autorizo neste ato a venda de produtos objetos desta ordem de servi&ccedil;os, a fim de serem ressarcidas as despesas com pe&ccedil;as, armazenamentos e servi&ccedil;o, caso permana&ccedil;am na empresa por um per&iacute;odo superior a 90 dias, ap&oacute;s liberado.<br />
+              Por estar de pleno acordo.<br />
+              Firmo presente instrumento.<br />
+              <br />
+              __________________________________________________<br />
+              Assinatura<br />
+              Juiz de Fora, <? echo "$dia de $mes de $ano"; ?></td>
+          </tr>
+        </table>
+      <? } if($killcond == 1) { ?>
+        <table width="100%" border="0" cellspacing="1" cellpadding="1">
+          <tr>
+            <td valign="top"><br />
+                <div align="center">Declaro para todos os fins estar recebendo nesta data o equipamento conforme consta no item descrição do equipamento, e que foram realizados os testes de funcionamento em minha presença. <br />
+                    <br />
+                  __________________________________________________<br />
+                  Assinatura<br />
+                  Juiz de Fora, <? echo "$dia de $mes de $ano"; ?></div></td>
+          </tr>
+        </table>
+      <? } ?></td>
+  </tr>
+</table>
+</body>
+</html>

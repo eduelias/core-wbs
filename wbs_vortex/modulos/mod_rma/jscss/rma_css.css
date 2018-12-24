@@ -1,0 +1,273 @@
+.page { 
+border:none;
+margin: 0 auto;
+width:760px;
+}
+
+.central{
+	text-align:center !important;
+};
+.icon-boneco { display:block; height: 19px; padding-left: 18px; background: transparent url(../../../images/msg_icos.png) 0 -144px no-repeat; }
+.icon-alert { display:block; height: 19px; padding-left: 18px;  background: transparent url(../../../images/msg_icos.png) 0 -180px no-repeat;}
+.icon-traco { display:block; height: 18px; padding-left: 18px;  background: transparent url(../../../images/msg_icos.png) 0 -216px no-repeat; }
+.closebut{
+	background:#D8D8DA url(http://img1.wbs.maxxmicro.com.br/amarelo_sprite.png) no-repeat scroll 0 -350px;
+	border:0 solid #000000;
+	display:block;
+	float:right;
+	height:14px;
+	padding:0 14px 0 0;
+}
+.pesqui{
+background:transparent url(http://img1.wbs.maxxmicro.com.br/amarelo_sprite.png) no-repeat scroll 0 -1224px;
+border:0 solid #000000;
+display:inline-block;
+height:16px;
+margin-top:-3px;
+padding:0 16px 0 0;
+}
+.rma_1{
+	display:inline-block; cursor:pointer; height: 18px; padding-left: 14px;  background: transparent url(../../../modulos/mod_rma/images/grid_sprite.png) 0 -18px no-repeat;
+}
+
+.rma_2{
+	display:inline-block; cursor:pointer; height: 18px; padding-left: 14px;  background: transparent url(../../../modulos/mod_rma/images/grid_sprite.png) 0 0px no-repeat;
+}
+.rma_3{
+	display:inline-block; cursor:pointer; height: 18px; padding-left: 14px;  background: transparent url(../../../modulos/mod_rma/images/grid_sprite.png) 0 -36px no-repeat;
+}
+.exclamacao{ display:block; cursor:pointer; height: 14px; padding-left: 14px;  background: transparent url(../../../modulos/mod_rma/images/grid_sprite.png) 0 -157px no-repeat; }
+.db_arrow{ display:block; cursor:pointer; height: 14px; padding-left: 9px;  background: transparent url(../../../modulos/mod_rma/images/grid_sprite.png) -5px -84px no-repeat; }
+.flag_0 { display:inline-block; cursor:pointer; height: 14px; padding-left: 14px;  background: transparent url(../../../modulos/mod_rma/images/grid_sprite.png) 0 -225px no-repeat; }
+.flag_1 { display:inline-block; cursor:pointer; height: 12px; padding-left: 14px;  background: transparent url(../../../modulos/mod_rma/images/grid_sprite.png) 0 -213px no-repeat; }
+.flag_2 { background:none; }
+
+.flag_c_0 { display:block; cursor:pointer; height: 14px; padding-left: 14px;  background: transparent url(../../../modulos/mod_rma/images/grid_sprite.png) 0 -54px no-repeat; }
+.flag_c_1 { display:block; cursor:pointer; height: 14px; padding-left: 14px;  background: transparent url(../../../modulos/mod_rma/images/grid_sprite.png) 0 -68px no-repeat; }
+
+.flag_compras_0 { display:inline-block; cursor:pointer; height: 14px; padding-left: 14px;  background: transparent url(../../../modulos/mod_rma/images/grid_sprite.png) 0 -128px no-repeat; }
+.flag_compras_1 { display:inline-block; cursor:pointer; height: 14px; padding-left: 14px;  background: transparent url(../../../modulos/mod_rma/images/grid_sprite.png) 0 -142px no-repeat; }
+.flag_compras_2 { background:none; }
+
+.comando_envia { display:block; cursor:pointer; height: 14px; padding-left: 14px;  background: transparent url(../../../modulos/mod_rma/images/grid_sprite.png) 0 -171px no-repeat; }
+
+.flag_troca_0 { display:block; cursor:pointer; height: 13px; padding-left: 14px;  background: transparent url(../../../modulos/mod_rma/images/grid_sprite.png) 0 -239px no-repeat; }
+.flag_troca_1 { display:block; cursor:pointer; height: 14px; padding-left: 14px;  background: transparent url(../../../modulos/mod_rma/images/grid_sprite.png) 0 -253px no-repeat; }
+.flag_troca_2 { background:none; }
+
+.flag_ccorrecao_4 {display:block; cursor:pointer; height: 16px; padding-left: 14px;  background: transparent url(../../../modulos/mod_rma/images/grid_sprite.png) 0 -267px no-repeat; }
+.flag_ccorrecao_5 {display:block; cursor:pointer; height: 16px; padding-left: 14px;  background: transparent url(../../../modulos/mod_rma/images/grid_sprite.png) 0 -283px no-repeat; }
+
+
+.mark_5 { display:block; height: 18px; cursor:pointer; padding-left: 18px;  background: transparent url(../../../images/msg_icos.png) 0 -108px no-repeat; }
+.mark_7 { display:block; height: 18px; cursor:pointer; padding-left: 18px;  background: transparent url(../../../images/msg_icos.png) 0 -180px no-repeat; }
+.mark_16 { display:block; height: 18px; cursor:pointer; padding-left: 18px;  background: transparent url(../../../images/msg_icos.png) 0 -72px no-repeat; }
+.mark_4 {}
+
+.view{ display:block; height: 14px; cursor:pointer; padding-left: 18px;  background: transparent url(../../../modulos/mod_rma/images/grid_sprite.png) 0 -199px no-repeat; }
+.gridinfo {display:block; height: 14px; cursor:pointer; padding-left: 14px;  background: transparent url(../../../modulos/mod_rma/images/grid_sprite.png) 0 -253px no-repeat;}
+.print{ display:block; height: 14px; cursor:pointer; padding-left: 14px;  background: transparent url(../../../modulos/mod_rma/images/grid_sprite.png) 0 -185px no-repeat; }
+
+.grid_actions td, .grid_actions tr, grid_actions{
+	border:none !important;
+	vertical-align:bottom;
+	font-size:0.8em;
+	font-weight:bold;
+	text-align:center;
+}
+
+.pesq {
+	border:thin solid #FF9900;
+	background:#FFFF99 url(../../../images/search.png) no-repeat;
+	padding:10px;
+	margin-top:0px;
+	text-align:right;
+	padding-right:4px;
+}
+.pesq input{
+	margin-left:-4px;
+}
+.pesq select{
+	height:19px;
+	margin-left:10px;
+	margin-right:auto;
+	margin-top:-4px;
+}
+.pfirst{
+	margin:0 4px 4px;
+}
+.pother{
+	margin:4px;
+}
+
+.alert_gar {
+	background:url(../../../modulos/mod_rma/images/red_shield.png) no-repeat #FFF scroll 4% 50%;
+	border:3px solid #F00 !important;
+	font-size:18px !important;
+	font-weight:bolder;
+	height:68px;
+	margin-bottom:4%;
+	padding-left:52px;
+	padding-top:5%;
+	text-align:center !important;
+}
+
+.produto {
+	margin-bottom:5px;
+	margin-left:6px;
+	width:453px;
+}
+.laudos{
+font-size:10px;
+margin-bottom:5px;
+margin-left:20px;
+margin-right:4px;
+}
+
+.preco_in{
+margin-bottom:5px;
+margin-left:1px;
+width:90px;
+}
+.preco_icms {
+margin-bottom:10px;
+margin-left:33px;
+}
+
+.preco_ipi {
+margin-bottom:5px;
+margin-left:45px;
+}
+
+.laudo_botao{
+
+}
+
+.mAG.SEPARACAO.yui-dt-even,.m4.yui-dt-even{
+	background-color:#EFE !important;
+}
+
+.mAG.SEPARACAO.yui-dt-odd,.m4.yui-dt-odd{
+	background-color:#E0FFE0 !important;
+}
+
+.mPREP.P.ENVIO.yui-dt-even, .m8.yui-dt-even{
+	background-color:#FEC !important;
+}
+
+.mPREP.P.ENVIO.yui-dt-odd, .m8.yui-dt-odd{
+	background-color:#FEEDCB !important;
+}
+
+.mSEPARADO.yui-dt-even, .m6.yui-dt-even{
+	background-color:#EDC !important;
+}
+
+.mSEPARADO.yui-dt-odd, .m6.yui-dt-odd{
+	background-color:#EDDCCB !important;
+}
+
+.mAG.CONFERENCIA.yui-dt-even, .m16.yui-dt-even{
+	background-color:#F96 !important;
+}
+
+.mAG.CONFERENCIA.yui-dt-odd, .m16.yui-dt-odd{
+	background-color:#F09060 !important;
+}
+
+.mSUBSTITUIDO.yui-dt-even, .m7.yui-dt-even{
+	background-color:#FDC !important;
+}
+
+.mSUBSTITUIDO.yui-dt-odd, .m7.yui-dt-odd{
+	background-color:#FEDCCB !important;
+}
+
+.mENVIADO.yui-dt-even, .m9.yui-dt-even{
+	background-color:#EEB !important;
+}
+
+.mENVIADO.yui-dt-odd,  .m9.yui-dt-odd{
+	background-color:#EDEDBA !important;
+}
+
+.mSOL.NF.DEVOL.yui-dt-even, .m10.yui-dt-even{
+	background-color:#ADA !important;
+}
+
+.mSOL.NF.DEVOL.yui-dt-odd,  .m10.yui-dt-odd{
+	background-color:#A9DCA9 !important;
+}
+
+.mNAO.NOSSO.yui-dt-even, .m13.yui-dt-even{
+	background-color:#EFEFEF !important;
+	color:AAA;
+}
+
+.mNAO.NOSSO.yui-dt-odd,  .m13.yui-dt-odd{
+	background-color:#EAEAEA !important;
+	color:AAA;
+}
+
+.mSEM.GARANTIA.yui-dt-even, .m14.yui-dt-even{
+	background-color:#FFEFEF !important;
+	/*color:FAA;*/
+}
+
+.mSEM.GARANTIA.yui-dt-odd,  .m14.yui-dt-odd{
+	background-color:#FFEAEA !important;
+	/*color:FAA;*/
+}
+
+.mAG.CARTA.CORRECAO.yui-dt-even, .m5.yui-dt-even{
+	background-color:#FF5050 !important;
+	/*color:FAA;*/
+}
+
+.mAG.CARTA.CORRECAO.yui-dt-odd,  .m5.yui-dt-odd{
+	background-color:#F05050 !important;
+	/*color:FAA;*/
+}
+
+.mAG.CONF.RMA.yui-dt-even, .m18.yui-dt-even{
+	background-color:#DFD !important;
+}
+
+.mAG.CONF.RMA.yui-dt-odd, .m18.yui-dt-odd{
+	background-color:#D0F0D0 !important;
+}
+
+.mAG.COMPRAS.yui-dt-even, .m15.yui-dt-even{
+	background-color:#FFD !important;
+	color:#997;
+}
+
+.mAG.COMPRAS.yui-dt-odd, .m15.yui-dt-odd{
+	background-color:#F0F0D0 !important;
+	color:#997;
+}
+.mINDISP.COMPRAS.yui-dt-even, .m23.yui-dt-even{
+	background-color:#980 !important;
+	color:#fff;
+}
+
+.mINDISP.COMPRAS.yui-dt-odd, .m23.yui-dt-odd{
+	background-color:#908000 !important;
+	color:#fff;
+}
+
+.mCOMPRADO.yui-dt-even, .m15.yui-dt-even{
+	background-color:#EFE !important;
+	color:#9B9;
+}
+
+.mCOMPRADO.yui-dt-odd, .m15.yui-dt-odd{
+	background-color:#E0F0E0 !important;
+	color:#9B9;
+}
+
+.yui-dt-desc, .yui-dt-asc {
+	background-color:#CCC !important;
+	opacity:.55;
+	filter: alpha(opacity=55);
+}

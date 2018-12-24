@@ -1,0 +1,157 @@
+.yui-panel .hd { background-color:#009900;}/* gray*/
+div.gridtable .yui-dt-selected { background-color:#55FF55; }
+.yui-dt-odd { background-color:#EEFFEE }
+.yui-dt-highlighted { background-color:#99FF99; }
+h2{
+	color:#003300;
+}
+.yui-skin-sam .yui-dt caption {
+
+    color:#000000;
+    font-size:85%;
+    font-weight:normal;
+    font-style:italic;
+    line-height:0;
+    padding:0em;
+	margin:0px;
+    text-align:left;
+}
+.yui-skin-sam .yui-navset .yui-content {
+    background: #F9FFF9 !important; /*#edf5ff; /* content background color */
+}
+input:focus, input.sffocus{
+	border: 2px #44DD44 solid !important;
+	outline-color:invert;
+	outline-style:none;
+	outline-width:2px;
+	margin-bottom:-2px;
+	margin-left:-2px;
+}
+.pesquisa_tit {
+    background:url(<?=VIMAGES?>botoes/arrow_right.png) no-repeat; /* -0px -1224px*/;
+	height:18px !important;
+	padding-left: 18px;
+	font-size:1.3em !important;
+	vertical-align:middle;
+	color:#CCFFCC;
+	text-transform:uppercase;
+}
+legend{
+	color:#009900 !important;
+	text-transform:capitalize;
+}
+/* basic skin styles */
+.yui-skin-sam .yui-dt table {
+    margin:0;
+	padding:0;
+    font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:1em;
+    border-collapse:separate;
+	*border-collapse:collapse;
+	border-spacing:0; /* since ie6 and ie7 behave differently */
+    border:1px solid #7F7F7F;
+}
+.yui-skin-sam .yui-dt-liner {
+    margin:0;padding:0;
+    padding:2px 5px 2px 5px; /* cell padding */
+}
+.yui-skin-sam th.yui-dt-asc .yui-dt-liner {
+    background:url(<?=VIMAGES?>verde_sprite.png) no-repeat right -947px; /* sorted header gradient */
+}
+.yui-skin-sam th.yui-dt-desc .yui-dt-liner {
+    background:url(<?=VIMAGES?>verde_sprite.png) no-repeat right -847px; /* sorted header gradient */
+}
+
+.yui-dt-editor .yui-dt-button button {
+    background:url(<?=VIMAGES?>verde_sprite.png) repeat-x 0 0;
+    border:1px solid #999;
+    width:4em;height:1.8em;
+    margin-left:6px;
+}
+.yui-dt-editor .yui-dt-button button.yui-dt-default {
+    background:url(<?=VIMAGES?>verde_sprite.png) repeat-x 0 -1400px;
+    background-color: #CCFFCC;
+    border:1px solid #00FF00;
+    color:#FFF
+}
+.yui-dt-editor .yui-dt-button button:hover {
+    background:url(<?=VIMAGES?>verde_sprite.png) repeat-x 0 -1300px;
+    color:#000;
+}
+.yui-dt-editor .yui-dt-button button:active {
+    background:url(<?=VIMAGES?>verde_sprite.png) repeat-x 0 -1700px;
+    color:#000;
+}
+.yui-skin-sam .yui-dt th {
+    background:#D8D8DA url(<?=VIMAGES?>verde_sprite.png) repeat-x 0 -1400px; /* header gradient */
+}
+
+.yui-skin-sam .yui-dt th,
+.yui-skin-sam .yui-dt th a {
+	text-transform:uppercase;
+	font-size:1.1em;
+    font-weight:bold;text-decoration:none;color:#000; /* header text */
+    vertical-align:bottom;
+	text-align:center;
+}
+
+.yui-skin-sam .yui-dt-coltarget {
+    width: 5px;
+    background-color: #00FF00;
+}
+
+/* mask */
+.yui-skin-sam .yui-dt-mask {
+	background-color:#006633;
+    opacity: .25;
+    *filter: alpha(opacity=25);  /* Set opacity in IE */
+}
+
+/* messaging */
+.yui-skin-sam .yui-dt-message  {
+    background-color:#669900;
+	color:#FFFFFF;
+}
+
+.yui-skin-sam tr.yui-dt-even { background-color:#FFF; } /* white */
+.yui-skin-sam tr.yui-dt-odd { background-color:#EEEEEE; } /* light blue */
+.yui-skin-sam tr.yui-dt-even td.yui-dt-asc,
+.yui-skin-sam tr.yui-dt-even td.yui-dt-desc { background-color:#DDDDDD; } /* light blue sorted */
+.yui-skin-sam tr.yui-dt-odd td.yui-dt-asc,
+.yui-skin-sam tr.yui-dt-odd td.yui-dt-desc { background-color:CCCCCC; } /* dark blue sorted */
+
+
+/* highlighting */
+.yui-skin-sam th.yui-dt-highlighted,
+.yui-skin-sam th.yui-dt-highlighted a {
+    background-color:#99FF99; /* med blue hover */
+}
+.yui-skin-sam tr.yui-dt-highlighted,
+.yui-skin-sam tr.yui-dt-highlighted td.yui-dt-asc,
+.yui-skin-sam tr.yui-dt-highlighted td.yui-dt-desc,
+.yui-skin-sam tr.yui-dt-even td.yui-dt-highlighted,
+.yui-skin-sam tr.yui-dt-odd td.yui-dt-highlighted {
+    cursor:pointer;
+    background-color:#CFFFB3; /* med blue hover */
+}
+
+/* selection */
+.yui-skin-sam th.yui-dt-selected,
+.yui-skin-sam th.yui-dt-selected a {
+    background-color:#2A5F00; /* bright blue selected cell */
+}
+.yui-skin-sam tr.yui-dt-selected td,
+.yui-skin-sam tr.yui-dt-selected td.yui-dt-asc,
+.yui-skin-sam tr.yui-dt-selected td.yui-dt-desc {
+    background-color:#2A5F00;/* bright blue selected row */
+}
+.yui-skin-sam tr.yui-dt-even td.yui-dt-selected,
+.yui-skin-sam tr.yui-dt-odd td.yui-dt-selected {
+    background-color:#2A5F00; /* bright blue selected cell */
+	color:000;
+}
+
+.yui-skin-sam th.yui-dt-asc,
+.yui-skin-sam th.yui-dt-desc {
+    background:url(<?=VIMAGES?>verde_sprite.png) repeat-x 0 -1412px; /* sorted header gradient */
+}
